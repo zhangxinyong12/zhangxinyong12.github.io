@@ -1,6 +1,7 @@
 module.exports = {
     title: '学习记录',
     description: '学习记录',
+    // base: 'https://github.com/zhangxinyong12/zhangxinyong12.github.io',
     head: [
         ['script', { async: 'async', src: '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' }],
         ['script', {}, ` (adsbygoogle = window.adsbygoogle || []).push({
@@ -44,5 +45,12 @@ module.exports = {
         //     ]
         // },
         sidebarDepth: 3,
+    },
+    configureWebpack: {
+        resolve: {
+            alias: {
+                '@img': 'img'
+            }
+        }
     }
 }

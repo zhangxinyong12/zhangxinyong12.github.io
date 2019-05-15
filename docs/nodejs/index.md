@@ -233,4 +233,65 @@
     </script>
 
     </html>
- 
+
+## axios请求携带cookie报错
+![报错](img/axios-err-cookie.png)
+翻译一下他的意思就是说携带cookie的时候后台不能设置为 *
+```
+const Koa = require('koa');
+ const route = require('koa-route');
+ const cors = require('koa-cors');
+const app = new Koa();
+
+// app.use(cors());
+app.use(cors({
+    origin: function (ctx) {
+        console.log(ctx);
+        if (ctx.url == '/data') { // 携带cookie
+            return ctx.header.origin;
+        } else {
+            return '*';
+        }
+    },
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}));
+app.use(route.get('/data', (ctx) => {
+    console.log(ctx);
+    ctx.set
+    ctx.body = { data: [1, 2, 3, 4, 45, 5] };
+    // return new Promise((resolve, reject) => {
+    //     setTimeout(() => {
+    //         resolve(ctx.body = { data: [1, 2, 3, 4, 45, 5] })
+    //     }, 1000 * 60 * 2.2);
+    // })
+}));
+
+
+app.listen(3000, () => {
+    console.log('启动成功');
+});
+```
+
+```
+document.cookie = "userId=828";
+document.cookie = "userName=zhangsan";
+console.log(document.cookie);
+
+const URL = 'http://127.0.0.1:3000';
+// axios
+axios.defaults.withCredentials = true; // 携带cookie
+axios(URL + '/data').then((res) => {
+    console.log(res.data);
+});
+// fetch
+fetch(URL + '/data', {
+    method: 'GET',
+    credentials: 'include' // 允许携带cookie
+}).then((res) => {
+    console.log(res.data);
+});
+```
