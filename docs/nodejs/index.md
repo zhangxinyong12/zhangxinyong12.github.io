@@ -235,7 +235,7 @@
     </html>
 
 ## axios请求携带cookie报错
-![报错](img/axios-err-cookie.png)
+![报错](./img/axios-err-cookie.png)<br>
 翻译一下他的意思就是说携带cookie的时候后台不能设置为 *
 ```
 const Koa = require('koa');
