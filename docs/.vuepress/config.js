@@ -25,7 +25,24 @@ module.exports = {
             // { text: '关于', link: '/about/' },
             { text: 'Github', link: 'https://www.github.com/zhangxinyong12' },
         ],
+        // sidebar: {
+        //     '/nodejs/': [
+        //         '',
+        //         'get-post'
+        //     ],
+        //     '/es6+/': [
+        //         '',
+        //         'index'
+        //     ],
+        //     '/ng/': [
+        //         '',
+        //         'index'
+        //     ],
+        //     '/linux/': [
+        //         '',
+        //         'index'
+        //     ]
+        // },
         sidebarDepth: 3,
-        lastUpdated: 'Last Updated',
     }
 }
