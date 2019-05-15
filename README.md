@@ -5,4 +5,5 @@
         npm start
     打包
         npm run build   
+## npm copy 需要能执行linux命令
 
