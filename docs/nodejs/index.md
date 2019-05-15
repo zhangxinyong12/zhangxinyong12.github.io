@@ -1,5 +1,5 @@
-## nodejs-get-post-请求探索
-### koa代码
+# nodejs-get-post-请求探索
+## koa代码
 
     const koa = require('koa');
     const fs = require('fs');
@@ -111,7 +111,7 @@
     console.log('启动成功');
     });
 
-### axios
+## axios
 
     <!DOCTYPE html>
     <html lang="en">
