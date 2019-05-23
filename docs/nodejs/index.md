@@ -295,3 +295,10 @@ fetch(URL + '/data', {
     console.log(res.data);
 });
 ```
+### js 丢失精度
+前端通过ajax请求拿到数据json数据然后在展示到页面。今天发现，后端同学给我说，展示的不对
+![response](./img/response.png)
+![response](./img/preview.png)
+通过上面的图片,可以很清楚的发现，后台返回的和最后转为json的不一样
+原因：js的number类型有个最大值（安全值）。即2的53次方，为9007199254740992。如果超过这个值，那么js会出现不精确的问题。
+解决办法：后台返回string

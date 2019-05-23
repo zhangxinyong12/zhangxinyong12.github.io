@@ -1,6 +1,6 @@
 module.exports = {
-    title: '学习记录',
-    description: '学习记录',
+    title: '日常记录',
+    description: '好的习惯会使人受益终生',
     // base: 'https://github.com/zhangxinyong12/zhangxinyong12.github.io',
     head: [
         ['script', { async: 'async', src: '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' }],
