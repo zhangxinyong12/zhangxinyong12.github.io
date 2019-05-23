@@ -297,9 +297,38 @@ fetch(URL + '/data', {
 ```
 # js部分
 ## js 丢失精度
-前端通过ajax请求拿到数据json数据然后在展示到页面。今天发现，后端同学给我说，展示的不对
+    前端通过ajax请求拿到数据json数据然后在展示到页面。今天发现，后端同学给我说，展示的不对
+
 ![response](./img/response.png)
 ![response](./img/preview.png)
-通过上面的图片,可以很清楚的发现，后台返回的和最后转为json的不一样
-原因：js的number类型有个最大值（安全值）。即2的53次方，为9007199254740992。如果超过这个值，那么js会出现不精确的问题。
-解决办法：后台返回string
+
+    通过上面的图片,可以很清楚的发现，后台返回的和最后转为json的不一样<br>
+    原因：js的number类型有个最大值（安全值）。即2的53次方， 为9007199254740992。如果超过这个值，那么js会出现不精确的问题。<br>
+    解决办法：后台返回string
+# nginx 部分
+## spa页面不缓存index.html
+
+    不缓存 add_header Cache-Control 'no-cache, no-store';  #这个是错误的，这样会造成index.html的js css 都不缓存
+    location = /index.html {
+        add_header Cache-Control "no-cache, no-store";
+    }
+    正确的设置应该是   
+    Cache-Control:max-age=0
+    Cache-Control的优先级高于Expires
+    location = /index.html{
+        expires 0; 
+    }
+    在客户端向服务端发送http请求时，若返回状态码为304 Not Modified 则表明此次请求为条件请求。在请求头中有两个请求参数：If-Modified-Since 和 If-None-Match。
+
+    当客户端缓存了目标资源但不确定该缓存资源是否是最新版本的时候, 就会发送一个条件请求。在进行条件请求时,客户端会提供给服务器一个If-Modified-Since请求头,其值为服务器上次返回响应头中Last-Modified值,还会提供一个If-None-Match请求头,值为服务器上次返回的ETag响应头的值。
+
+    服务器会读取到这两个请求头中的值,判断出客户端缓存的资源是否是最新的,如果是的话,服务器就会返回HTTP/304 Not Modified响应头, 但没有响应体.客户端收到304响应后,就会从本地缓存中读取对应的资源。 所以：当访问资源出现304访问的情况下其实就是先在本地缓存了访问的资源。
+
+    另一种情况是,如果服务器认为客户端缓存的资源已经过期了,那么服务器就会返回HTTP/200 OK响应,响应体就是该资源当前最新的内容.客户端收到200响应后,就会用新的响应体覆盖掉旧的缓存资源.只有在客户端缓存了对应资源且该资源的响应头中包含了Last-Modified或ETag的情况下,才可能发送条件请求.如果这两个头都不存在,则必须无条件(unconditionally)请求该资源,服务器也就必须返回完整的资源数据.另外，有时候我们浏览器调试的时候不希望本地缓存，可以设置取消缓存即可。
+- index.html header头做缓存
+```
+没有做测试
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+```
