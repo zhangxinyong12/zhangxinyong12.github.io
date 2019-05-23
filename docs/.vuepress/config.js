@@ -11,7 +11,7 @@ module.exports = {
     ],
     themeConfig: {
         displayAllHeaders: true,// 默认值：false
-        // sidebar: 'auto', // 自动生成侧栏
+        sidebar: 'auto', // 自动生成侧栏
         nav: [
             { text: '主页', link: '/' },
             {
@@ -44,7 +44,7 @@ module.exports = {
         //         'index'
         //     ]
         // },
-        sidebarDepth: 4,
+        sidebarDepth: 6,
     },
     configureWebpack: {
         resolve: {
