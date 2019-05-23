@@ -295,7 +295,7 @@ fetch(URL + '/data', {
     console.log(res.data);
 });
 ```
-### js 丢失精度
+## js 丢失精度
 前端通过ajax请求拿到数据json数据然后在展示到页面。今天发现，后端同学给我说，展示的不对
 ![response](./img/response.png)
 ![response](./img/preview.png)
