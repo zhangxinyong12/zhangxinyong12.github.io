@@ -1,4 +1,11 @@
 # 日常随笔记录
+## angular 
+### 数据更新视图不刷新
+场景：混合开发app，原生调用h5js的方法。这个方法会改变数据，结果打印出来数据是改变的，就是没有反应到视图上。除非用户操作页面。     
+![angular代码部分-测试](./img/9276502-95f5afc0fe9b4012.png)
+解决办法: 手动调用刷新      
+![解决办法](./img/9276502-ff03ab2c4e63df22.png)
+
 ## nodejs-get-post-请求探索
 ### koa代码
  ```
@@ -236,7 +243,7 @@
     </html>
 ```
 ## axios请求携带cookie报错
-![报错](./img/axios-err-cookie.png)<br>
+![报错](./img/axios-err-cookie.png)
 翻译一下他的意思就是说携带cookie的时候后台不能设置为 *
 ```
 const Koa = require('koa');
