@@ -1,7 +1,7 @@
 module.exports = {
-    title: '日常记录000',
+    title: '日常记录',
     description: '好的习惯会使人受益终生',
-    // base: 'https://github.com/zhangxinyong12/zhangxinyong12.github.io',
+    // base: 'http://47.105.105.165:9999/',
     head: [
         ['script', { async: 'async', src: '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' }],
         ['script', {}, ` (adsbygoogle = window.adsbygoogle || []).push({
@@ -14,6 +14,8 @@ module.exports = {
         sidebar: 'auto', // 自动生成侧栏
         nav: [
             { text: '主页', link: '/' },
+            { text: '简历', link: 'http://47.105.105.165:9999/' },
+
             {
                 text: '博文',
                 items: [
@@ -23,7 +25,6 @@ module.exports = {
                     { text: 'node后端', link: '/nodejs/' },
                 ]
             },
-            // { text: '关于', link: '/about/' },
             { text: 'Github', link: 'https://www.github.com/zhangxinyong12' },
         ],
         // sidebar: {
