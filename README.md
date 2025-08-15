@@ -11,4 +11,4 @@
 
 ## 地址
 
-[博客主页](https://zhangxinyong12.github.io/nodejs/#淋雨一直走)
+[博客主页](https://zhangxinyong12.github.io)
