@@ -14,7 +14,7 @@ module.exports = {
         sidebar: 'auto', // 自动生成侧栏
         nav: [
             { text: '主页', link: '/' },
-            { text: '简历', link: 'http://47.105.105.165:9999/' },
+            // { text: '简历', link: 'http://47.105.105.165:9999/' },
 
             {
                 text: '博文',
@@ -23,28 +23,48 @@ module.exports = {
                     { text: 'linux和nginx', link: '/linux/' },
                     { text: '框架', link: '/ng/' },
                     { text: 'node后端', link: '/nodejs/' },
+                    { text: 'React源码学习', link: '/react/' },
                 ]
             },
             { text: 'Github', link: 'https://www.github.com/zhangxinyong12' },
         ],
-        // sidebar: {
-        //     '/nodejs/': [
-        //         '',
-        //         'get-post'
-        //     ],
-        //     '/es6+/': [
-        //         '',
-        //         'index'
-        //     ],
-        //     '/ng/': [
-        //         '',
-        //         'index'
-        //     ],
-        //     '/linux/': [
-        //         '',
-        //         'index'
-        //     ]
-        // },
+        sidebar: {
+            '/react/': [
+                {
+                    title: 'React 18 源码学习路线图',
+                    collapsable: false,
+                    children: [
+                        '',
+                        'phase1-basic-concepts',
+                        'phase2-fiber-architecture',
+                        'phase3-rendering-process',
+                        'phase4-state-management',
+                        'phase5-concurrent-features',
+                        'phase6-event-system',
+                        'phase7-routing-system',
+                        'phase8-state-libraries',
+                        'phase9-build-tools',
+                        'phase10-testing-debugging'
+                    ]
+                }
+            ],
+            '/nodejs/': [
+                '',
+                'get-post'
+            ],
+            '/es6+/': [
+                '',
+                'index'
+            ],
+            '/ng/': [
+                '',
+                'index'
+            ],
+            '/linux/': [
+                '',
+                'index'
+            ]
+        },
         sidebarDepth: 6,
     },
     configureWebpack: {
