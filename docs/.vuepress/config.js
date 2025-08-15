@@ -11,7 +11,6 @@ module.exports = {
     ],
     themeConfig: {
         displayAllHeaders: true,// 默认值：false
-        sidebar: 'auto', // 自动生成侧栏
         nav: [
             { text: '主页', link: '/' },
             // { text: '简历', link: 'http://47.105.105.165:9999/' },
@@ -42,27 +41,21 @@ module.exports = {
                         'phase5-concurrent-features',
                         'phase6-event-system',
                         'phase7-routing-system',
-                        'phase8-state-libraries',
-                        'phase9-build-tools',
-                        'phase10-testing-debugging'
+                        'phase8-state-libraries'
                     ]
                 }
             ],
             '/nodejs/': [
-                '',
-                'get-post'
+                ''
             ],
             '/es6+/': [
-                '',
-                'index'
+                ''
             ],
             '/ng/': [
-                '',
-                'index'
+                ''
             ],
             '/linux/': [
-                '',
-                'index'
+                ''
             ]
         },
         sidebarDepth: 6,
