@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /img/kenan.jpg
+heroImage: /img/mine.jpg
 heroImageAlt: mine的技术博客
 heroText: mine的技术博客
 tagline: 技术改变世界，代码改变人生
@@ -44,6 +44,18 @@ displayAllHeaders: true
     <p>服务端开发、API设计、性能优化实战指南</p>
     <a href="/nodejs/" class="feature-link">立即学习 →</a>
   </div>
+  
+  <div class="feature-item">
+    <h3>🚀 全栈项目实战</h3>
+    <p>基于 UmiJS + NestJS 的图书管理系统，前后端分离架构</p>
+    <a href="/book-lesson/" class="feature-link">立即学习 →</a>
+  </div>
+  
+  <div class="feature-item">
+    <h3>🔧 NestJS 核心概念</h3>
+    <p>深入理解依赖注入、装饰器、模块化等面试常考知识点</p>
+    <a href="/nestjs-core/" class="feature-link">立即学习 →</a>
+  </div>
 </div>
 
 ## 📈 学习进度
@@ -52,6 +64,8 @@ displayAllHeaders: true
 - [x] **React 源码** - Fiber 架构理解
 - [x] **Node.js 后端** - API 开发实践
 - [x] **Linux 运维** - 服务器管理
+- [x] **全栈项目实战** - UmiJS + NestJS 图书管理系统
+- [x] **NestJS 核心概念** - 依赖注入、装饰器等面试重点
 - [ ] **微前端架构** - 正在学习中...
 - [ ] **云原生技术** - 计划中...
 
@@ -70,5 +84,7 @@ displayAllHeaders: true
     <a href="/react/" class="cta-button primary">React源码学习</a>
     <a href="/es6+/" class="cta-button secondary">JavaScript进阶</a>
     <a href="/nodejs/" class="cta-button secondary">后端开发</a>
+    <a href="/book-lesson/" class="cta-button secondary">全栈实战</a>
+    <a href="/nestjs-core/" class="cta-button secondary">NestJS 核心</a>
   </div>
 </div>

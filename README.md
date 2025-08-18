@@ -17,6 +17,8 @@
 - **[ES6+ JavaScript](./docs/es6+/)** - 现代 JavaScript 核心特性
 - **[React 源码学习](./docs/react/)** - 深入 React 内部机制
 - **[框架学习](./docs/ng/)** - 主流前端框架对比与实践
+- **[全栈项目实战](./docs/book-lesson/)** - UmiJS + NestJS 图书管理系统
+- **[NestJS 核心概念](./docs/nestjs-core/)** - 依赖注入、装饰器等面试重点
 
 ### 🖥️ 后端与运维
 
@@ -38,6 +40,34 @@ npm start
 npm run build
 ```
 
+### 全栈项目实战
+
+```bash
+# 进入全栈项目目录
+cd docs/book-lesson
+
+# 启动前端开发服务器
+cd frontend && pnpm dev
+
+# 启动后端开发服务器
+cd backend && pnpm start:dev
+
+# 使用 Docker 启动完整环境
+docker-compose -f docker-compose.dev.yml up
+```
+
+### NestJS 核心概念学习
+
+```bash
+# 进入 NestJS 核心概念目录
+cd docs/nestjs-core
+
+# 学习依赖注入原理
+# 学习装饰器系统
+# 学习模块化架构
+# 掌握面试重点
+```
+
 ### 在线访问
 
 🌐 **[博客主页](https://zhangxinyong12.github.io)**
@@ -46,7 +76,8 @@ npm run build
 
 > **厚积薄发** - 每天进步一点点，积累的力量是无穷的  
 > **踩坑成长** - 所谓高手，只不过是踩的坑多了而已  
-> **实践出真知** - 理论结合实践，才能真正掌握技术
+> **实践出真知** - 理论结合实践，才能真正掌握技术  
+> **全栈思维** - 前后端通吃，成为真正的全栈工程师
 
 ## 🤝 交流互动
 

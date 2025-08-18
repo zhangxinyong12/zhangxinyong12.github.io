@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全栈图书管理系统 - 学习指南</title>
+    <meta name="description" content="基于 UmiJS + NestJS 的现代化图书管理系统，学习全栈开发的最佳实践">
+    <meta name="keywords" content="UmiJS,NestJS,全栈开发,图书管理,权限控制,TypeScript">
+    
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="../assets/css/0.styles.b59d5d0d.css">
+    
+    <!-- 自定义样式 -->
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button.primary {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .cta-button.primary:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+        
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .features-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .tech-stack-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .tech-category {
+            text-align: center;
+        }
+        
+        .tech-category h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tech-list li {
+            padding: 0.5rem 0;
+            color: #666;
+        }
+        
+        .learning-path-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .path-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .path-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1.5rem;
+        }
+        
+        .step-content h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-content p {
+            color: #666;
+            margin: 0;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .social-links {
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid,
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .path-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                📚 全栈图书管理系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">特性</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tech-stack">技术栈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#learning-path">学习路径</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../docs/book-lesson/">文档</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">全栈图书管理系统</h1>
+            <p class="hero-subtitle">基于 UmiJS + NestJS 的现代化全栈开发学习项目</p>
+            <div class="cta-buttons">
+                <a href="../docs/book-lesson/" class="cta-button primary">开始学习</a>
+                <a href="#features" class="cta-button secondary">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特性介绍 -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="text-center mb-5">🚀 项目特性</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">全栈架构</h3>
+                    <p class="feature-description">
+                        前端使用 UmiJS，后端使用 NestJS，前后端分离的现代化架构设计，
+                        让你掌握完整的全栈开发技能。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3 class="feature-title">权限管理</h3>
+                    <p class="feature-description">
+                        基于角色的访问控制 (RBAC)，支持图书馆管理员、普通用户等不同权限级别，
+                        学习企业级权限管理的最佳实践。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">图书管理</h3>
+                    <p class="feature-description">
+                        完整的图书 CRUD 操作，支持分类、搜索、借阅等核心功能，
+                        通过实际业务场景学习数据库设计和业务逻辑实现。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">技术栈</h3>
+                    <p class="feature-description">
+                        TypeScript + UmiJS + NestJS + MySQL，采用企业级开发标准，
+                        学习现代 Web 开发的最佳实践和工具链。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">响应式设计</h3>
+                    <p class="feature-description">
+                        支持多端访问，PC、平板、手机完美适配，
+                        学习现代前端开发的响应式设计原则和实现技巧。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3 class="feature-title">测试覆盖</h3>
+                    <p class="feature-description">
+                        完整的单元测试和集成测试，确保代码质量，
+                        学习测试驱动开发和自动化测试的最佳实践。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术栈 -->
+    <section id="tech-stack" class="tech-stack-section">
+        <div class="container">
+            <h2 class="text-center mb-5">🛠️ 技术栈</h2>
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h3>🎨 前端技术</h3>
+                    <ul class="tech-list">
+                        <li>UmiJS 4.x</li>
+                        <li>TypeScript</li>
+                        <li>Ant Design 5.x</li>
+                        <li>@umijs/max</li>
+                        <li>Vite</li>
+                        <li>ESLint + Prettier</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h3>🖥️ 后端技术</h3>
+                    <ul class="tech-list">
+                        <li>NestJS 10.x</li>
+                        <li>TypeScript</li>
+                        <li>MySQL 8.0</li>
+                        <li>TypeORM</li>
+                        <li>JWT + Passport</li>
+                        <li>Swagger/OpenAPI</li>
+                    </ul>
+                </div>
+                <div class="tech-category">
+                    <h3>🚀 开发工具</h3>
+                    <ul class="tech-list">
+                        <li>Git</li>
+                        <li>pnpm</li>
+                        <li>Husky + lint-staged</li>
+                        <li>Jest + Supertest</li>
+                        <li>Docker + Docker Compose</li>
+                        <li>CI/CD</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学习路径 -->
+    <section id="learning-path" class="learning-path-section">
+        <div class="container">
+            <h2 class="text-center mb-5">📖 学习路径</h2>
+            <div class="path-container">
+                <div class="path-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>前端开发 (UmiJS)</h4>
+                        <p>学习 UmiJS 框架的使用，掌握组件化开发、状态管理、路由系统等前端核心概念</p>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>后端开发 (NestJS)</h4>
+                        <p>学习 NestJS 框架，掌握模块化架构、依赖注入、数据库操作等后端开发技能</p>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>系统集成</h4>
+                        <p>学习前后端集成，掌握 API 设计、权限控制、数据安全等系统级开发技能</p>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>部署运维</h4>
+                        <p>学习 Docker 容器化、CI/CD 流程、性能优化等生产环境部署和运维技能</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 全栈图书管理系统. 让全栈开发变得简单高效 ✨</p>
+            <div class="social-links">
+                <a href="https://github.com" target="_blank">GitHub</a>
+                <a href="https://gitee.com" target="_blank">Gitee</a>
+                <a href="mailto:contact@example.com">联系我们</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 文件 -->
+    <script src="../assets/js/app.ee54a06e.js"></script>
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-dark');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+
+        // 特性卡片动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

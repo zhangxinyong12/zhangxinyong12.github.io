@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestJS 核心概念深度解析 - 面试重点</title>
+    <meta name="description" content="深入理解 NestJS 架构设计，掌握依赖注入、装饰器、模块化等面试常考知识点">
+    <meta name="keywords" content="NestJS,依赖注入,装饰器,模块化,面试,架构设计">
+    
+    <!-- 样式文件 -->
+    <link rel="stylesheet" href="../assets/css/0.styles.b59d5d0d.css">
+    
+    <!-- 自定义样式 -->
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button.primary {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .cta-button.primary:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+        
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .interview-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .interview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .interview-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+        
+        .interview-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .interview-question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .interview-answer {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .interview-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .interview-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .concepts-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .concept-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .concept-card:hover {
+            background: #e3f2fd;
+            transform: translateY(-3px);
+        }
+        
+        .concept-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .concept-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .concept-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .learning-path-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .path-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .path-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1.5rem;
+        }
+        
+        .step-content h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-content p {
+            color: #666;
+            margin: 0;
+        }
+        
+        .code-example-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .code-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .social-links {
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .interview-grid,
+            .concepts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .path-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                🔧 NestJS 核心概念
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#interview">面试重点</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#concepts">核心概念</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#learning-path">学习路径</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../docs/nestjs-core/">文档</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">NestJS 核心概念深度解析</h1>
+            <p class="hero-subtitle">深入理解 NestJS 架构设计，掌握面试常考知识点</p>
+            <div class="cta-buttons">
+                <a href="../docs/nestjs-core/" class="cta-button primary">开始学习</a>
+                <a href="#interview" class="cta-button secondary">面试重点</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 面试重点 -->
+    <section id="interview" class="interview-section">
+        <div class="container">
+            <h2 class="text-center mb-5">🎯 面试重点</h2>
+            <div class="interview-grid">
+                <div class="interview-card">
+                    <h3 class="interview-question">请解释 NestJS 中的依赖注入是如何工作的？</h3>
+                    <p class="interview-answer">
+                        这是一个面试高频问题，需要从概念、原理、实现三个层面来回答。包括 IoC 容器、元数据收集、依赖解析等核心机制。
+                    </p>
+                    <div class="interview-tags">
+                        <span class="interview-tag">依赖注入</span>
+                        <span class="interview-tag">IoC 容器</span>
+                        <span class="interview-tag">元数据</span>
+                    </div>
+                </div>
+                
+                <div class="interview-card">
+                    <h3 class="interview-question">NestJS 的装饰器是如何实现元数据收集的？</h3>
+                    <p class="interview-answer">
+                        需要深入理解装饰器模式和元数据反射机制。包括装饰器类型、执行顺序、元数据存储结构等核心概念。
+                    </p>
+                    <div class="interview-tags">
+                        <span class="interview-tag">装饰器</span>
+                        <span class="interview-tag">元数据反射</span>
+                        <span class="interview-tag">Reflect API</span>
+                    </div>
+                </div>
+                
+                <div class="interview-card">
+                    <h3 class="interview-question">如何设计一个可扩展的 NestJS 模块架构？</h3>
+                    <p class="interview-answer">
+                        涉及模块设计原则、动态模块、循环依赖解决方案等。需要掌握高内聚低耦合、接口隔离等设计原则。
+                    </p>
+                    <div class="interview-tags">
+                        <span class="interview-tag">模块化</span>
+                        <span class="interview-tag">架构设计</span>
+                        <span class="interview-tag">循环依赖</span>
+                    </div>
+                </div>
+                
+                <div class="interview-card">
+                    <h3 class="interview-question">NestJS 中守卫、拦截器、管道的执行顺序是什么？</h3>
+                    <p class="interview-answer">
+                        需要理解请求生命周期和中间件机制。包括执行顺序、生命周期钩子、实际应用场景等。
+                    </p>
+                    <div class="interview-tags">
+                        <span class="interview-tag">中间件</span>
+                        <span class="interview-tag">生命周期</span>
+                        <span class="interview-tag">执行顺序</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心概念 -->
+    <section id="concepts" class="concepts-section">
+        <div class="container">
+            <h2 class="text-center mb-5">🔧 核心概念</h2>
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <div class="concept-icon">🔧</div>
+                    <h3 class="concept-title">依赖注入 (DI)</h3>
+                    <p class="concept-description">
+                        深入理解 IoC 容器、依赖注入原理和实现机制。掌握单例模式、作用域管理、循环依赖解决等核心概念。
+                    </p>
+                </div>
+                
+                <div class="concept-card">
+                    <div class="concept-icon">🎯</div>
+                    <h3 class="concept-title">装饰器系统</h3>
+                    <p class="concept-description">
+                        掌握装饰器模式、元数据反射和自定义装饰器开发。理解装饰器类型、执行顺序、元数据收集等机制。
+                    </p>
+                </div>
+                
+                <div class="concept-card">
+                    <div class="concept-icon">🏗️</div>
+                    <h3 class="concept-title">模块化架构</h3>
+                    <p class="concept-description">
+                        学习模块设计原则、动态模块和循环依赖解决方案。掌握高内聚低耦合、接口隔离等设计原则。
+                    </p>
+                </div>
+                
+                <div class="concept-card">
+                    <div class="concept-icon">🛡️</div>
+                    <h3 class="concept-title">守卫与拦截器</h3>
+                    <p class="concept-description">
+                        理解请求生命周期、权限控制和数据转换机制。掌握认证授权、日志记录、性能监控等实际应用。
+                    </p>
+                </div>
+                
+                <div class="concept-card">
+                    <div class="concept-icon">🔄</div>
+                    <h3 class="concept-title">管道与验证</h3>
+                    <p class="concept-description">
+                        掌握数据验证、转换和自定义管道开发技巧。理解数据流处理、错误处理、类型转换等核心功能。
+                    </p>
+                </div>
+                
+                <div class="concept-card">
+                    <div class="concept-icon">📚</div>
+                    <h3 class="concept-title">面试重点</h3>
+                    <p class="concept-description">
+                        针对面试常见问题，提供深度解析和实战示例。掌握面试技巧、答题思路、代码示例等关键要素。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学习路径 -->
+    <section id="learning-path" class="learning-path-section">
+        <div class="container">
+            <h2 class="text-center mb-5">📖 学习路径</h2>
+            <div class="path-container">
+                <div class="path-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>依赖注入原理</h4>
+                        <p>深入理解 IoC 容器、依赖注入原理和实现机制，掌握面试常考知识点</p>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>装饰器系统</h4>
+                        <p>掌握装饰器模式、元数据反射和自定义装饰器开发，理解底层实现原理</p>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>提供者管理</h4>
+                        <p>学习服务提供、生命周期管理和作用域控制，掌握高级特性</p>
+                    </div>
+                </div>
+                <div class="path-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>模块化架构</h4>
+                        <p>理解模块设计、动态模块和循环依赖解决方案，掌握架构设计原则</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 代码示例 -->
+    <section class="code-example-section">
+        <div class="container">
+            <h2 class="text-center mb-5">💻 代码示例</h2>
+            <div class="code-container">
+                <div class="code-block">
+                    <div class="code-title">依赖注入示例</div>
+                    <pre><code>@Injectable()
+export class UserService {
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository&lt;User&gt;,
+    private configService: ConfigService,
+  ) {}
+}
+
+@Controller('users')
+export class UserController {
+  constructor(private userService: UserService) {}
+}</code></pre>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">自定义装饰器示例</div>
+                    <pre><code>export const Roles = (...roles: string[]) => 
+  SetMetadata('roles', roles);
+
+@Controller('admin')
+@Roles('admin', 'super-admin')
+export class AdminController {
+  @Get('users')
+  @Roles('user:read')
+  getUsers() {}
+}</code></pre>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-title">动态模块示例</div>
+                    <pre><code>@Module({})
+export class DatabaseModule {
+  static forRoot(config: DatabaseConfig): DynamicModule {
+    return {
+      module: DatabaseModule,
+      providers: [
+        {
+          provide: 'DATABASE_CONFIG',
+          useValue: config,
+        },
+      ],
+    };
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 NestJS 核心概念深度解析. 让 NestJS 核心概念变得清晰易懂 ✨</p>
+            <div class="social-links">
+                <a href="https://github.com" target="_blank">GitHub</a>
+                <a href="https://gitee.com" target="_blank">Gitee</a>
+                <a href="mailto:contact@example.com">联系我们</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 文件 -->
+    <script src="../assets/js/app.ee54a06e.js"></script>
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-dark');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+
+        // 面试卡片动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.interview-card, .concept-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // 代码高亮效果
+        document.querySelectorAll('.code-block').forEach(block => {
+            block.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            block.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
