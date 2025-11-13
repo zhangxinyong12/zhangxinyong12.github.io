@@ -1046,11 +1046,15 @@ p {
   flex: 1;
   overflow-y: auto;
   background: #fefcf9; /* 接近纸张的白色，带一点暖色调 */
-  padding: 50px 80px;
-  max-width: 900px;
-  margin: 0 auto;
-  margin-left: 280px; /* 为固定侧边栏留出空间 */
-  width: calc(100% - 280px); /* 减去侧边栏宽度 */
+  /* 为固定侧边栏留出左侧空间 */
+  margin-left: 280px;
+  /* 内容区域宽度：减去侧边栏宽度 */
+  width: calc(100% - 280px);
+  /* 内容区域内部使用flex布局实现内容居中 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0; /* 上下内边距，左右内边距由内部内容控制 */
   box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.03);
   /* 确保内容区域可以正常滚动 */
   min-height: 100vh;
@@ -1064,6 +1068,15 @@ p {
   padding-bottom: 35px;
   border-bottom: 1px solid #e8e5e0;
   scroll-margin-top: 20px; /* 平滑滚动时的偏移 */
+}
+
+/* 内容区域内部的章节区域，限制最大宽度并保持左右内边距，实现内容居中 */
+.book-content > .chapter-section {
+  max-width: 900px;
+  width: 100%;
+  padding-left: 80px; /* 左右内边距，保持原有的阅读体验 */
+  padding-right: 80px;
+  box-sizing: border-box;
 }
 
 .chapter-section:last-child {
@@ -1186,9 +1199,15 @@ html {
   }
 
   .book-content {
-    padding: 40px 50px;
+    padding: 40px 0; /* 上下内边距，左右内边距由内部内容控制 */
     margin-left: 240px; /* 调整为侧边栏宽度 */
     width: calc(100% - 240px); /* 减去侧边栏宽度 */
+  }
+
+  /* 中等屏幕下，章节内容的内边距适当减小 */
+  .book-content > .chapter-section {
+    padding-left: 50px;
+    padding-right: 50px;
   }
 }
 
@@ -1210,9 +1229,17 @@ html {
   }
 
   .book-content {
-    padding: 30px 25px;
+    padding: 30px 0; /* 上下内边距，左右内边距由内部内容控制 */
     margin-left: 0; /* 移动端不需要左边距 */
     width: 100%; /* 移动端全宽 */
+    align-items: stretch; /* 移动端内容区域全宽，不居中 */
+  }
+
+  /* 移动端章节内容的内边距 */
+  .book-content > .chapter-section {
+    padding-left: 25px;
+    padding-right: 25px;
+    max-width: 100%; /* 移动端不限制最大宽度 */
   }
 
   .book-header {
