@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亚瑟王传奇 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '亚瑟王传奇';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>亚瑟王传奇</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">亚瑟王传奇</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">Copyright</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">King Arthur</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">ACTIVITIES Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="m1"><img src="../../../Images/image06240.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">Copyright</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext">Copyright © Foreign Language Teaching and Research Press 2006</p>
+<p class="normaltext">All rights reserved. No part of this publication may be reproduced or distributed by any means, or stored in a database or retrieval system, without the prior written permission of Foreign Language Teaching and Research Press.</p>
+<p class="normaltext">本书版权由外语教学与研究出版社独家所有。如未获得该社书面同意，书中任何部分之文字及图片，不得用任何方式抄袭、节录、翻印或存储利用于任何数据库及检索系统等。</p>
+<p class="normaltext">Published by Foreign Language Teaching and Research Press</p>
+<p class="normaltext">No. 19 Xisanhuan Beilu</p>
+<p class="normaltext">Beijing, China 100089</p>
+<p class="normaltext">http://www.fltrp.com</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2A">京权图字 01-2006-2796</p>
+<p class="normaltext0">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 2001 This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext0">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="subtitle2B">图书在版编目(CIP)数据</p>
+<p class="normaltext">亚瑟王传奇／（英）哈迪-古尔德（Hardy-Gould, J.）改写．—北京：外语教学与研究出版社，2006.5（2013.12重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：King Arthur</p>
+<p class="normaltext">ISBN 978-7-5600-5418-6</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．亚…　Ⅱ．哈…　Ⅲ．①英语—汉语—对照读物 ②漫画—作品—英国—现代　Ⅳ．H319.4: J</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2006）第019035号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0"><b>出版人：</b>蔡剑峰</p>
+<p class="normaltext0"><b>责任编辑：</b>周　晶</p>
+<p class="normaltext0"><b>封面设计：</b>孙莉明</p>
+<p class="normaltext0"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltext0"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltext0"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltext0"><b>书　　号：</b>ISBN 978-7-5600-5418-6</p>
+<p class="normaltext0">*　　*　　*</p>
+<p class="normaltext0"><b>制售盗版必究　举报查实奖励</b></p>
+<p class="normaltext0"><b>版权保护举报电话：（010）88817519</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <p class="mulu">目　录</p>
+ <p class="mulu1"><a href="part0030.xhtml">King Arthur</a></p>
+ <p class="mulu1"><a href="part0031.xhtml">ACTIVITIES Before Reading</a></p>
+ <p class="mulu1"><a href="part0032.xhtml">ACTIVITIES While Reading</a></p>
+ <p class="mulu1"><a href="part0033.xhtml">ACTIVITIES After Reading</a></p>
+ <p class="mulu1"><a href="part0034.xhtml">参考译文</a></p>
+ <p class="normaltext"><br/></p>
+  <p class="mulu1"><a href="part0001.xhtml">返回总目录</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">King Arthur</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><a href="part0034.xhtml#m0"><img src="../../../Images/image06241.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m1"><img src="../../../Images/image06242.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m2"><img src="../../../Images/image06243.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m3"><img src="../../../Images/image06244.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m4"><img src="../../../Images/image06245.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m5"><img src="../../../Images/image06246.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m6"><img src="../../../Images/image06247.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m7"><img src="../../../Images/image06248.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m8"><img src="../../../Images/image06249.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m9"><img src="../../../Images/image06250.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m10"><img src="../../../Images/image06251.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m11"><img src="../../../Images/image06252.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m12"><img src="../../../Images/image06253.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m13"><img src="../../../Images/image06254.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m14"><img src="../../../Images/image06255.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m15"><img src="../../../Images/image06256.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m16"><img src="../../../Images/image06257.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m17"><img src="../../../Images/image06258.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m18"><img src="../../../Images/image06259.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m19"><img src="../../../Images/image06260.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m20"><img src="../../../Images/image06261.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m21"><img src="../../../Images/image06262.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m22"><img src="../../../Images/image06263.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0034.xhtml#m23"><img src="../../../Images/image06264.jpeg" alt="alt"/></a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>Before Reading</em></p>
+<p class="normaltext3">1. Look at the picture on the cover of the book. Now answer these questions.</p>
+<p class="normaltextA">1) Where do you think the story happens?</p>
+<p class="normaltext2">a　Japan.</p>
+<p class="normaltext2">b　England.</p>
+<p class="normaltext2">c　Spain.</p>
+<p class="normaltext2">d　Australia.</p>
+<p class="normaltextA">2) When do you think the story happens?</p>
+<p class="normaltext2">a　Ten years ago.</p>
+<p class="normaltext2">b　Fifty years ago.</p>
+<p class="normaltext2">c　A hundred years ago.</p>
+<p class="normaltext2">d　Over a thousand years ago.</p>
+<p class="normaltext3">2. Read the back cover of the book. Which of these words do you think are in the story? Put a tick next to them. Perhaps not all of them are in the story. Why not?</p>
+<table cellspacing="0" cellpadding="0" class="table">
+<tr>
+<td>horse</td>
+<td>soldier</td>
+<td>gun</td>
+</tr>
+<tr>
+<td>car</td>
+<td>pop star</td>
+<td>castle</td>
+</tr>
+<tr>
+<td>bicycle</td>
+<td>queen</td>
+<td>supermarket</td>
+</tr>
+<tr>
+<td>ride</td>
+<td>marry</td>
+<td>America</td>
+</tr>
+<tr>
+<td>drive</td>
+<td>sword</td>
+<td>village</td>
+</tr>
+</table>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>While Reading</em></p>
+<p class="normaltext3">1. Answer these questions.</p>
+<p class="normaltext">Who ...</p>
+<p class="normaltext">1) puts the sword in the stone? Why?</p>
+<p class="normaltext">2) pulls the sword out of the stone?</p>
+<p class="normaltext">3) is Arthur's half-sister? What can she do?</p>
+<p class="normaltext">4) wins the battle?</p>
+<p class="normaltext3">2. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) Arthur and Guinevere talk for a long time.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) Merlin wants Arthur to marry Guinevere.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) Merlin builds a new castle.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) Merlin shows Arthur a magic sword.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext3">3. Now answer these questions.</p>
+<p class="normaltext">1) What does Guinevere give Arthur?</p>
+<p class="normaltext">2) Who fights a lot of different men?</p>
+<p class="normaltext">3) Who is the strongest knight in England?</p>
+<p class="normaltext">4) Why are the people in the villages happy?</p>
+<p class="normaltext3">4. Who says these words?</p>
+<p class="normaltext">1) 'You must be king, my son.'</p>
+<p class="normaltext">2) 'Be careful, Arthur. Mordred is a bad man.'</p>
+<p class="normaltext">3) 'Oh Lancelot. You're very strong!'</p>
+<p class="normaltext">4) 'Perhaps Guinevere and Lancelot are in love.'</p>
+<p class="normaltext">5) 'Leave Camelot now, before I kill you.'</p>
+<p class="normaltext3">5. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) Guinevere is happy because Lancelot leaves Camelot.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) Arthur fights a battle against Lancelot.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) Mordred puts Guinevere in prison.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) Arthur wants to fight Mordred on the next day.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext3">6. Can you guess what happens?</p>
+<p class="normaltext">1) Arthur breaks his magic sword.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">2) Arthur kills Mordred.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">3) Mordred kills Arthur.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">4) Lancelot arrives and kills Mordred.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">5) Arthur is king of England again.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">6) Arthur dies and Merlin takes him away.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">7) Guinevere marries Lancelot.</p>
+<p class="normaltextAA">Yes/No</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext3">1. Put these nine sentences in the right order.</p>
+<p class="normaltext">a　Lancelot leaves Camelot.</p>
+<p class="normaltext">b　Lancelot is the first knight of the Round Table.</p>
+<p class="normaltext">c　Arthur pulls the sword out of the stone.</p>
+<p class="normaltext">d　Arthur wants to fight a battle against Lancelot.</p>
+<p class="normaltext">e　Merlin makes a magic stone and puts a sword in it.</p>
+<p class="normaltext">f　Mordred hits Arthur with a sword.</p>
+<p class="normaltext">g　Morgan and Mordred arrive one night at Camelot.</p>
+<p class="normaltext">h　Arthur leaves in a boat with Merlin.</p>
+<p class="normaltext">i　Arthur marries Guinevere.</p>
+<p class="normaltext3">2. Who says this? Who do they say it to?</p>
+<p class="normaltext">1) 'Don't be afraid! With my help you can be king.' _________ says this to _________.</p>
+<p class="normaltext">2) 'Shall I fight in your name?' _________ says this to _________.</p>
+<p class="normaltext">3) 'Guinevere and Lancelot are often together.' _________ says this to _________.</p>
+<p class="normaltext">4) 'No ... no ... not today. Let's fight tomorrow.' _________ says this to _________.</p>
+<p class="normaltext">5) 'Find Guinevere and look after her.' _________ says this to _________.</p>
+<p class="normaltext3">3. Look at each picture, then answer the questions after it.</p>
+<p class="picture"><img src="../../../Images/image06265.jpeg" alt="alt"/></p>
+<p class="normaltext">1) Who is this?</p>
+<p class="normaltext">What is he doing?</p>
+<p class="picture"><img src="../../../Images/image06266.jpeg" alt="alt"/></p>
+<p class="normaltext">2) What is this?</p>
+<p class="normaltext">Who builds it?</p>
+<p class="picture"><img src="../../../Images/image06267.jpeg" alt="alt"/></p>
+<p class="normaltext">3) Who is this?</p>
+<p class="picture"><img src="../../../Images/image06268.jpeg" alt="alt"/></p>
+<p class="normaltext">4) Who is this?</p>
+<p class="picture"><img src="../../../Images/image06269.jpeg" alt="alt"/></p>
+<p class="normaltext">5) Who is this?</p>
+<p class="normaltext">Why is she crying?</p>
+<p class="picture"><img src="../../../Images/image06270.jpeg" alt="alt"/></p>
+<p class="normaltext">6) Who are these people?</p>
+<p class="normaltext">What happens next?</p>
+<p class="picture"><img src="../../../Images/image06271.jpeg" alt="alt"/></p>
+<p class="normaltext">7) Who is this? What happens next?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">参考译文</p>
+<p class="title1">King Arthur<br/>亚瑟王传奇</p>
+<hr/>
+<p class="normaltext4" id="m0">It is the year 650 in England. There is no king and people are fighting.</p>
+<p class="normaltext4">One night Merlin the magician has a dream ...</p>
+<p class="normaltext4">In the morning ...</p>
+<p class="normaltext">I see a wonderful king. His name is Arthur! How can I find him?</p>
+<p class="normaltext4">Merlin makes a magic stone. He puts a sword in it. Only the true king can pull out the sword.</p>
+<p class="normaltext">You are not the true king.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">这是650年的英格兰。当时没有国王，人们一片混战。</p>
+<p class="normaltext4">一天晚上，魔法师墨林做了一个梦……</p>
+<p class="normaltext4">早上……</p>
+<p class="normaltext">我看到了一位伟大的国王。他叫亚瑟！我怎么才能找到他？</p>
+<p class="normaltext4">墨林做了一块魔法石。他往石头中插入一把剑。只有真正的国王才能拔出剑。</p>
+<p class="normaltext">你不是真正的国王。</p>
+<hr/>
+<p class="normaltext" id="m1">Shall I try?</p>
+<p class="normaltext">You're only a boy!</p>
+<p class="normaltext">Try, son! Let's all have a good laugh!</p>
+<p class="normaltext4">Arthur pulls hard.</p>
+<p class="normaltext">Who are you?</p>
+<p class="normaltext">What's your name?</p>
+<p class="normaltext">Arthur.</p>
+<p class="normaltext">Our new king!</p>
+<p class="normaltext">But I don't know how to be king.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我能试试吗？</p>
+<p class="normaltext">你只是个孩子！</p>
+<p class="normaltext">试试吧，孩子！让我们都好好乐一乐！</p>
+<p class="normaltext4">亚瑟用力拔剑。</p>
+<p class="normaltext">你是谁？</p>
+<p class="normaltext">你叫什么名字？</p>
+<p class="normaltext">亚瑟。</p>
+<p class="normaltext">我们的新国王！</p>
+<p class="normaltext">但我不知道怎么当国王。</p>
+<hr/>
+<p class="normaltext4" id="m2">Suddenly ...</p>
+<p class="normaltext">Who are you?</p>
+<p class="normaltext">Don't be afraid, Arthur! My name is Merlin. With my help you can be king.</p>
+<p class="normaltext4">The next day many important people come to see Arthur.</p>
+<p class="normaltext">He's very young.</p>
+<p class="normaltext">Who are those people?</p>
+<p class="normaltext">That's your half-sister, Morgan, and her son, Mordred. She can see into the future.</p>
+<p class="normaltext4">Merlin teaches every day, and after four years he is a strong, good king.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">突然……</p>
+<p class="normaltext">你是谁？</p>
+<p class="normaltext">别害怕，亚瑟！我叫墨林。有了我的帮助，你就能成为国王。</p>
+<p class="normaltext4">第二天，很多重要的人物都来看亚瑟。</p>
+<p class="normaltext">他很年轻。</p>
+<p class="normaltext">那两个人是谁？</p>
+<p class="normaltext">那是你同父异母的姐姐摩根，还有她的儿子莫德雷德。她能看到未来。</p>
+<p class="normaltext4">墨林每天教导亚瑟，四年后，他成为了一名强有力的好国王。</p>
+<hr/>
+<p class="normaltext4" id="m3">One morning, a soldier visits Arthur.</p>
+<p class="normaltext">The lords from the North are coming to fight you.</p>
+<p class="normaltext">Go now and fight, Arthur!</p>
+<p class="normaltext">Go faster, man!</p>
+<p class="normaltext4">When they arrive there is a long battle.</p>
+<p class="normaltext">Oh, no!</p>
+<p class="normaltext">Help!</p>
+<p class="normaltext4">Hours later most of the other soldiers are dead.</p>
+<p class="normaltext">Arthur is King of all England!</p>
+<p class="normaltext">We can win every battle now!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">一天早上，一名士兵来拜见亚瑟。</p>
+<p class="normaltext">北方的诸侯们来攻打您了。</p>
+<p class="normaltext">现在去战斗吧，亚瑟！</p>
+<p class="normaltext">再快点儿，弟兄们！</p>
+<p class="normaltext4">他们到达后，战斗持续了很长的时间。</p>
+<p class="normaltext">哦，不！</p>
+<p class="normaltext">救命！</p>
+<p class="normaltext4">几个小时后，其他军队的大部分士兵都死了。</p>
+<p class="normaltext">亚瑟是整个英格兰的国王！</p>
+<p class="normaltext">现在我们战无不胜！</p>
+<hr/>
+<p class="normaltext" id="m4">Come to my castle. Let's eat and drink all night!</p>
+<p class="normaltext">Have some more food everybody!</p>
+<p class="normaltext">Ha, ha, ha!</p>
+<p class="normaltext">Do you know my daughter Guinevere?</p>
+<p class="normaltext">No ... it's very nice to meet you.</p>
+<p class="normaltext4">Arthur and Guinevere talk all evening.</p>
+<p class="normaltext4">When Arthur comes back ...</p>
+<p class="normaltext">I want to marry Guinevere.</p>
+<p class="normaltext">No ... no ... Arthur!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">来我的城堡吧。让我们整晚尽情欢宴！</p>
+<p class="normaltext">大家都多吃点儿！</p>
+<p class="normaltext">哈哈哈！</p>
+<p class="normaltext">您认识我女儿吉尼维尔吗？</p>
+<p class="normaltext">不……非常高兴见到您。</p>
+<p class="normaltext4">亚瑟和吉尼维尔聊了一个晚上。</p>
+<p class="normaltext4">亚瑟回来的时候……</p>
+<p class="normaltext">我想娶吉尼维尔为妻。</p>
+<p class="normaltext">不……不……亚瑟！</p>
+<hr/>
+<p class="normaltext" id="m5">I see a dark future for you and Guinevere. Don't marry her!</p>
+<p class="normaltext">I am King and I choose my Queen!</p>
+<p class="normaltext4">Arthur builds the castle of Camelot.</p>
+<p class="normaltext">Here's the new castle for my future Queen.</p>
+<p class="normaltext">Arthur, I must speak to you ...</p>
+<p class="normaltext">What's the matter?</p>
+<p class="normaltext">I must leave you now. I am losing my magic. Come with me, Arthur.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我看到了你和吉尼维尔黑暗的未来。不要娶她！</p>
+<p class="normaltext">我是国王，我选择自己的王后！</p>
+<p class="normaltext4">亚瑟修建了卡米洛城堡。</p>
+<p class="normaltext">这是我未来王后的城堡。</p>
+<p class="normaltext">亚瑟，我必须和你谈谈……</p>
+<p class="normaltext">怎么了？</p>
+<p class="normaltext">现在我得离开你了。我正在失去我的魔力。跟我来，亚瑟。</p>
+<hr/>
+<p class="normaltext" id="m6">Looking into the water.</p>
+<p class="normaltext">Take the magic sword. You need this for your battles.</p>
+<p class="normaltext">Thank you!</p>
+<p class="normaltext">Be careful. Don't break it — without your sword you are nothing.</p>
+<p class="normaltext">Goodbye, Arthur.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">看水里。</p>
+<p class="normaltext">拿着这把有魔法的剑。你打仗需要它。</p>
+<p class="normaltext">谢谢！</p>
+<p class="normaltext">小心。别折断它——没有你的剑，你什么都不是。</p>
+<p class="normaltext">再见，亚瑟。</p>
+<hr/>
+<p class="normaltext4" id="m7">Three weeks later Arthur marries Guinevere.</p>
+<p class="normaltext">Good luck!</p>
+<p class="normaltext4">Two people stand alone ... Morgan and her son, Mordred.</p>
+<p class="normaltext">I see an unhappy future for Arthur and Guinevere!</p>
+<p class="normaltext4">Guinevere gives Arthur a large round table.</p>
+<p class="normaltext">The strongest knights in England can sit at this table!</p>
+<p class="normaltext">I want to find the best knights in the country. Let's have a competition today!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">三个星期后，亚瑟和吉尼维尔结婚了。</p>
+<p class="normaltext">祝福你们！</p>
+<p class="normaltext4">有两个人远离人群站在一边……摩根和她的儿子莫德雷德。</p>
+<p class="normaltext">我看到亚瑟和吉尼维尔的未来并不幸福。</p>
+<p class="normaltext4">吉尼维尔送给亚瑟一张大圆桌。</p>
+<p class="normaltext">英格兰最强的骑士才能坐在这张桌前！</p>
+<p class="normaltext">我想找出全国最好的骑士。我们今天来比赛吧！</p>
+<hr/>
+<p class="normaltext" id="m8">Can I fight first?</p>
+<p class="normaltext4">Gawain fights many different men. Nobody can beat him.</p>
+<p class="normaltext">Is Gawain the strongest knight in England?</p>
+<p class="normaltext">No, I am!</p>
+<p class="normaltext">Who are you? I can't see your face.</p>
+<p class="normaltext">Let's watch him fight. We can see his face later.</p>
+<p class="normaltext">Shall I fight in your name, Queen Guinevere?</p>
+<p class="normaltext">Yes. Good luck!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我能先打吗？</p>
+<p class="normaltext4">高文和不同的人打了很多场。没人能打败他。</p>
+<p class="normaltext">高文是英格兰最强的骑士吗？</p>
+<p class="normaltext">不，我才是！</p>
+<p class="normaltext">你是谁？我看不到你的脸。</p>
+<p class="normaltext">我们看他比赛吧。然后我们再看他的脸。</p>
+<p class="normaltext">我能以您的名义战斗吗，吉尼维尔王后？</p>
+<p class="normaltext">可以。祝你好运！</p>
+<hr/>
+<p class="normaltext" id="m9">Come on, Gawain!</p>
+<p class="normaltext">Oh dear!</p>
+<p class="normaltext">Oh no!</p>
+<p class="normaltext">What's your name?</p>
+<p class="normaltext">Lancelot.</p>
+<p class="normaltext">Lancelot is the strongest man in all England. He can be the first knight of the Round Table!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">加油，高文！</p>
+<p class="normaltext">哦，天哪！</p>
+<p class="normaltext">哦，不！</p>
+<p class="normaltext">你叫什么名字？</p>
+<p class="normaltext">兰斯洛特。</p>
+<p class="normaltext">兰斯洛特是全英格兰最强的骑士。</p>
+<p class="normaltext">他可以成为第一名“圆桌”骑士！</p>
+<hr/>
+<p class="normaltext4" id="m10">Soon, knights come from all over the country. They sit at the Round Table.</p>
+<p class="normaltext4">Arthur and Guinevere are very happy together.</p>
+<p class="normaltext">You're our best friend, Lancelot.</p>
+<p class="normaltext4">And in the villages ...</p>
+<p class="normaltext">King Arthur, thank you! We have lots of food to eat.</p>
+<p class="normaltext">We have a strong king at last! There is no more fighting.</p>
+<p class="normaltext4">Guinevere and Lancelot often go riding together.</p>
+<p class="normaltext">Look at these beautiful flowers.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">不久，全国各地的骑士都来了。他们坐在了“圆桌”前。</p>
+<p class="normaltext4">亚瑟和吉尼维尔过得非常幸福。</p>
+<p class="normaltext">你是我们最好的朋友，兰斯洛特。</p>
+<p class="normaltext4">在村庄里……</p>
+<p class="normaltext">亚瑟王，感谢您！我们有很多东西吃。</p>
+<p class="normaltext">我们终于有了一位强大的国王！</p>
+<p class="normaltext">再也没有战争了。</p>
+<p class="normaltext4">吉尼维尔和兰斯洛特经常一起去骑马。</p>
+<p class="normaltext">看这些美丽的花。</p>
+<hr/>
+<p class="normaltext4" id="m11">One night, Morgan and Mordred arrive at Camelot.</p>
+<p class="normaltext">Where is King Arthur?</p>
+<p class="normaltext">Hello Morgan! Come in. Would you like to stay?</p>
+<p class="normaltext">Yes.</p>
+<p class="normaltext4">Morgan and Mordred stay for weeks ... They are very friendly to Guinevere and Arthur.</p>
+<p class="normaltext">What a beautiful castle!</p>
+<p class="normaltext">Thank you.</p>
+<p class="normaltext4">But later ...</p>
+<p class="normaltext">When I look into the future I see King Arthur is dead. You must be king, my son!</p>
+<p class="normaltext">Yes, mother.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">一天晚上，摩根和莫德雷德来到卡米洛。</p>
+<p class="normaltext">亚瑟王在哪儿？</p>
+<p class="normaltext">你好，摩根！请进。你愿意住在这里吗？</p>
+<p class="normaltext">好啊。</p>
+<p class="normaltext4">摩根和莫德雷德住了好几个星期……他们对吉尼维尔和亚瑟很友好。</p>
+<p class="normaltext">多漂亮的城堡！</p>
+<p class="normaltext">谢谢。</p>
+<p class="normaltext4">但后来……</p>
+<p class="normaltext">我看到未来，亚瑟王死了。你一定会成为国王，我的儿子！</p>
+<p class="normaltext">是的，妈妈。</p>
+<hr/>
+<p class="normaltext4" id="m12">One morning Arthur visits Morgan.</p>
+<p class="normaltext">Guinevere and I have no son or daughter. Mordred can be king when I die.</p>
+<p class="normaltext">Thank you, dear brother. But you are very young ...</p>
+<p class="normaltext">Be careful, Arthur. Mordred is a bad man.</p>
+<p class="normaltext4">Arthur tells Guinevere about the dream.</p>
+<p class="normaltext">Don't worry. It's only a dream.</p>
+<p class="normaltext">Morgan and Mordred are nice people.</p>
+<p class="normaltext">I can see into the future. There is no Arthur, no castle, and you are king!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">一天早上，亚瑟去找摩根。</p>
+<p class="normaltext">吉尼维尔和我没有儿女。我死后莫德雷德可以当国王。</p>
+<p class="normaltext">谢谢，亲爱的弟弟。但你还很年轻呢……</p>
+<p class="normaltext">小心，亚瑟。莫德雷德是坏人。</p>
+<p class="normaltext4">亚瑟把这个梦告诉了吉尼维尔。</p>
+<p class="normaltext">别担心。这只是个梦。摩根和莫德雷德是好人。</p>
+<p class="normaltext">我看到了未来。没有亚瑟，没有城堡，而你是国王！</p>
+<hr/>
+<p class="normaltext4" id="m13">Arthur and his knights often ride into the country.</p>
+<p class="normaltext">Let's go!</p>
+<p class="normaltext">Faster!</p>
+<p class="normaltext4">They come back with many stories. Guinevere listens excitedly.</p>
+<p class="normaltext">Oh Lancelot. You're very strong!</p>
+<p class="normaltext4">Every evening the knights eat and drink together.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">亚瑟和他的骑士们经常骑马到乡间去。</p>
+<p class="normaltext">我们走！</p>
+<p class="normaltext">再快点儿！</p>
+<p class="normaltext4">他们回来后会讲很多故事。吉尼维尔听得兴致勃勃。</p>
+<p class="normaltext">哦，兰斯洛特。你真强！</p>
+<p class="normaltext4">每天晚上，骑士们都一起欢宴。</p>
+<hr/>
+<p class="normaltext4" id="m14">One day Mordred comes to Arthur.</p>
+<p class="normaltext">Guinevere and Lancelot are often together.</p>
+<p class="normaltext">Yes, of course... Lancelot is my best friend.</p>
+<p class="normaltext">What are you saying, Mordred?</p>
+<p class="normaltext">Perhaps Guinevere and Lancelot are in love...</p>
+<p class="normaltext">Is it ture? Do you love my wife?</p>
+<p class="normaltext">Yes, but —</p>
+<p class="normaltext">Leave Camelot now, before I kill you.</p>
+<p class="normaltext">You don't understand...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">一天，莫德雷德来找亚瑟。</p>
+<p class="normaltext">吉尼维尔和兰斯洛特经常在一起。</p>
+<p class="normaltext">那当然了……兰斯洛特是我最好的朋友嘛。</p>
+<p class="normaltext">你什么意思，莫德雷德？</p>
+<p class="normaltext">也许吉尼维尔和兰斯洛特相爱了……</p>
+<p class="normaltext">是真的吗？你爱我的妻子？</p>
+<p class="normaltext">是的，但是——</p>
+<p class="normaltext">现在就离开卡米洛，否则我杀了你。</p>
+<p class="normaltext">您不了解……</p>
+<hr/>
+<p class="normaltext4" id="m15">Lancelot rides away quickly with some knights.</p>
+<p class="normaltext4">Guinevere is very unhappy.</p>
+<p class="normaltext4">And now Arthur does not look after his country.</p>
+<p class="normaltext">The magic of the Round Table is dead!</p>
+<p class="normaltext4">In the towns and villages people begin to fight again. Everyone is afraid.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">兰斯洛特很快就和一些骑士骑马离开了。</p>
+<p class="normaltext4">吉尼维尔非常不开心。</p>
+<p class="normaltext4">现在亚瑟不管他的国家了。</p>
+<p class="normaltext">“圆桌”的魔力消失了！</p>
+<p class="normaltext4">在城镇和乡村，人们又打起了仗。每个人都很害怕。</p>
+<hr/>
+<p class="normaltext" id="m16">You must be a strong king.</p>
+<p class="normaltext">Find Lancelot and fight him.</p>
+<p class="normaltext4">The next day, Arthur leaves with many knights.</p>
+<p class="normaltext">Goodbye, King Arthur.</p>
+<p class="normaltext">Ha, ha, ha! Bye!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">你一定要成为一个强大的国王。</p>
+<p class="normaltext">找到兰斯洛特，和他决斗。</p>
+<p class="normaltext4">第二天，亚瑟带着很多骑士离开了。</p>
+<p class="normaltext">再见，亚瑟王。</p>
+<p class="normaltext">哈哈哈！再见！</p>
+<hr/>
+<p class="normaltext4" id="m17">A week later, Arthur and his knights find Lancelot.</p>
+<p class="normaltext">Let's fight now! Are you ready?</p>
+<p class="normaltext">But I don't want to fight my best friend. Let's talk.</p>
+<p class="normaltext">No. There's no more time.</p>
+<p class="normaltext4">Just then, a soldier arrives from Camelot.</p>
+<p class="normaltext">Mordred is now king! Everybody thinks you are dead, and the queen is in prison.</p>
+<p class="normaltext">Let's forget our fight! Help me, Lancelot.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">一个星期后，亚瑟和他的骑士们找到了兰斯洛特。</p>
+<p class="normaltext">我们现在来决斗！你准备好了吗？</p>
+<p class="normaltext">但我不想和我最好的朋友决斗。</p>
+<p class="normaltext">我们谈谈吧。</p>
+<p class="normaltext">不。没有时间了。</p>
+<p class="normaltext4">正在这时，一名士兵从卡米洛赶来。</p>
+<p class="normaltext">莫德雷德现在成了国王！大家都以为您死了，王后被关进了监狱。</p>
+<p class="normaltext">我们忘了决斗吧！帮帮我，兰斯洛特。</p>
+<hr/>
+<p class="normaltext4" id="m18">Arthur and his knights quickly ride back to Camelot.</p>
+<p class="normaltext">Let's find Mordred and kill him!</p>
+<p class="normaltext">Mordred's in the next village.</p>
+<p class="normaltext">We need to sleep. Let's find him tomorrow.</p>
+<p class="normaltext">Do not fight Mordred tomorrow. Lancelot is coming with many soldiers. Wait for him.</p>
+<p class="normaltext">Shall we fight Mordred today?</p>
+<p class="normaltext">No, Gawain. We must wait. Lancelot and his soldiers are coming.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">亚瑟和他的骑士们迅速骑马回到了卡米洛。</p>
+<p class="normaltext">找出莫德雷德，杀掉他！</p>
+<p class="normaltext">莫德雷德在下一个村庄。</p>
+<p class="normaltext">我们需要睡觉。明天再去找他吧。</p>
+<p class="normaltext">不要在明天和莫德雷德开战。兰斯洛特带着大队人马正在往这儿赶。等着他。</p>
+<p class="normaltext">我们要今天和莫德雷德开战吗？</p>
+<p class="normaltext">不，高文。我们必须等待。兰斯洛特和他的人马正在赶来。</p>
+<hr/>
+<p class="normaltext4" id="m19">Arthur and his men meet Mordred.</p>
+<p class="normaltext">Hello, old man! Do you want to give me your crown?</p>
+<p class="normaltext">You traitor! Where is my wife? I must see her.</p>
+<p class="normaltext">You must fight me first!</p>
+<p class="normaltext">No... no... not today. Let's fight tomorrow.</p>
+<p class="normaltext4">Just then, Arthur sees a snake.</p>
+<p class="normaltext">Quick. Kill the snake!</p>
+<p class="normaltext">Look! We must help Mordred.</p>
+<p class="normaltext">Arthur wants to kill him, I think.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">亚瑟和他的人见到了莫德雷德。</p>
+<p class="normaltext">你好，老家伙！你想把你的王冠给我吗？</p>
+<p class="normaltext">你这个叛徒！我妻子在哪儿？我必须见她。</p>
+<p class="normaltext">你必须先和我决斗！</p>
+<p class="normaltext">不……不……今天不行。我们明天再决斗。</p>
+<p class="normaltext4">正在这时，亚瑟看到一条蛇。</p>
+<p class="normaltext">快。杀死那条蛇！</p>
+<p class="normaltext">看！我们得帮助莫德雷德。我觉得亚瑟想杀了他。</p>
+<hr/>
+<p class="normaltext4" id="m20">Suddenly all of the soldiers start fighting.</p>
+<p class="normaltext">What's happening?</p>
+<p class="normaltext">Help!</p>
+<p class="normaltext">Take that!</p>
+<p class="normaltext4">They fight for many hours.</p>
+<p class="normaltext">No!</p>
+<p class="normaltext">Take that!</p>
+<p class="normaltext4">After three hours...</p>
+<p class="normaltext">My knights, my friends, my soldiers... they are all dead!</p>
+<p class="normaltext">Gawain... my true friend.</p>
+<p class="normaltext">Where's Mordred? I want to kill him!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">霎时间所有的士兵开始了战斗。</p>
+<p class="normaltext">怎么回事儿？</p>
+<p class="normaltext">救命！</p>
+<p class="normaltext">接招儿！</p>
+<p class="normaltext4">他们打了很久。</p>
+<p class="normaltext">不！</p>
+<p class="normaltext">接招儿！</p>
+<p class="normaltext4">三个小时后……</p>
+<p class="normaltext">我的骑士们，我的朋友们，我的士兵们……他们都死了！</p>
+<p class="normaltext">高文……我真正的朋友。</p>
+<p class="normaltext">莫德雷德在哪儿？我要杀了他！</p>
+<hr/>
+<p class="normaltext" id="m21">Die, you traitor!</p>
+<p class="normaltext">Ha, ha, ha!</p>
+<p class="normaltext">No! My sword...</p>
+<p class="normaltext">Goodbye, Arthur!</p>
+<p class="normaltext">Help!</p>
+<p class="normaltext4">Just then, Lancelot and his soldiers arrive.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">去死吧，你这个叛徒！</p>
+<p class="normaltext">哈哈哈！</p>
+<p class="normaltext">不！我的剑……</p>
+<p class="normaltext">再见，亚瑟！</p>
+<p class="normaltext">救命！</p>
+<p class="normaltext4">正在这时，兰斯洛特和他的人马赶来了。</p>
+<hr/>
+<p class="normaltext" id="m22">I'm here now. We can win the battle.</p>
+<p class="normaltext">You can't help me now... I'm dying.</p>
+<p class="normaltext4">Lancelot finds Mordred.</p>
+<p class="normaltext">You traitor Mordred!</p>
+<p class="normaltext">No...!</p>
+<p class="normaltext">Take my sword. Throw it into the water over there!</p>
+<p class="normaltext4">Lancelot throws the sword.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我来了。我们能打赢。</p>
+<p class="normaltext">你现在帮不了我了……我要死了。</p>
+<p class="normaltext4">兰斯洛特找到了莫德雷德。</p>
+<p class="normaltext">你这个叛徒，莫德雷德！</p>
+<p class="normaltext">不……！</p>
+<p class="normaltext">拿着我的剑。把它扔到那边的水中！</p>
+<p class="normaltext4">兰斯洛特把剑扔了进去。</p>
+<hr/>
+<p class="normaltext4" id="m23">A hand comes out of the water.</p>
+<p class="normaltext">Come with me, Arthur.</p>
+<p class="normaltext">Goodbye, Lancelot. Find Guinevere and look after her.</p>
+<p class="normaltext">Yes, my lord.</p>
+<p class="normaltext">Never forget King Arthur and the magic of the Round Table!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">一只手从水中伸了出来。</p>
+<p class="normaltext">跟我来，亚瑟。</p>
+<p class="normaltext">再见，兰斯洛特。找到吉尼维尔，照顾她。</p>
+<p class="normaltext">是，陛下。</p>
+<p class="normaltext">永远不要忘记亚瑟王和“圆桌”的魔力！</p>
+<hr/>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06272.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

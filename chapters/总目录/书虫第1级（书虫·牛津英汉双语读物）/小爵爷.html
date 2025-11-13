@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小爵爷 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '小爵爷';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>小爵爷</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫第1级（书虫·牛津英汉双语读物）/index.html">书虫第1级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">小爵爷</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">PEOPLE IN THIS STORY</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">人物介绍</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">1．A big surprise</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">大吃一惊</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">2．Saying goodbye to America</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">告别美国</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">3．A new life in England</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">英格兰的新生活</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-12" class="toc-link">4．The Earl and his grandson</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-13" class="toc-link">伯爵和孙子</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-14" class="toc-link">5．News from Mr Havisham</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-15" class="toc-link">哈维沙姆先生带来的消息</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-16" class="toc-link">6．News from America</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-17" class="toc-link">美国传来的消息</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-18" class="toc-link">7．Changes at the castle</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-19" class="toc-link">城堡中的变化</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-20" class="toc-link">ACTIVITIES: Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-21" class="toc-link">ACTIVITIES: While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-22" class="toc-link">ACTIVITIES: After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-23" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP1"><img src="../../../Images/image07467.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext" id="CHP3"><b>京权图字：01-2013-7790</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltextd">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltextd">© Oxford University Press 2009</p>
+<p class="normaltextd">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitleh2">图书在版编目（CIP）数据</p>
+<p class="normaltext">小爵爷：英汉对照／（英）伯内特（Burnett, F. H.）著；（英）巴西特（Bassett, J.）改编；（英）托梅（Tomei, R.）绘；吴怡娜译．—北京：外语教学与研究出版社，2013.12</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Little Lord Fauntleroy</p>
+<p class="normaltext">ISBN 978-7-5135-3934-0</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①小…　Ⅱ．①伯…　②巴…　③托…　④吴…　Ⅲ．①英语－汉语－对照读物②儿童文学－长篇小说－英国－现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第309220号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltextd">出版人　　蔡剑峰</p>
+<p class="normaltextd">责任编辑　谷　丰</p>
+<p class="normaltextd">执行编辑　张紫薇</p>
+<p class="normaltextd">封面设计　蔡　颖</p>
+<p class="normaltextd">出版发行　外语教学与研究出版社</p>
+<p class="normaltextd">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltextd">网　　址　http://www.fltrp.com</p>
+<p class="normaltextd">版　　次　2014年1月第1版</p>
+<p class="normaltextd">书　　号　ISBN 978-7-5135-3934-0</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextd">制售盗版必究　举报查实奖励</p>
+<p class="normaltextd">版权保护举报电话：(010)88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP4">内容简介</h1>
+<p class="normaltext02">锡德里克·埃罗尔和妈妈一起住在纽约。妈妈是美国人。爸爸来自英国，但是几年前去世了。锡德里克对爸爸的家庭一无所知。一天，一位英国律师来到纽约。他是多林考特伯爵的律师哈维沙姆先生，他给锡德里克和他妈妈带来一个消息。伯爵是锡德里克的祖父，而锡德里克的父亲已经去世，所以锡德里克现在是多林考特财产和家族姓氏的继承人。他必须离开纽约，告别朋友——食品杂货店老板霍布斯先生和擦皮鞋的男孩迪克——前往英格兰。作为伯爵的孙子，他现在的名字是方特勒罗伊爵爷，他必须和富有的老祖父一起住在城堡里。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">但是有钱人不一定是快乐的或好相处的。多林考特伯爵是一个易怒、自私、坏脾气的老头儿，而且他讨厌美国和美国人。每个人都怕他。但是对锡德里克来说，祖父是要去爱的人。同时，伯爵也会从他来自美国的孙子身上学到很多……</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2">LITTLE LORD FAUNTLEROY</p>
+<p class="normaltextd">Cedric Errol lives with his American mother in New York. His father came from England, but he died some years ago, and Cedric knows nothing about his father's family. But one day an English lawyer comes to New York. He is Mr Havisham, lawyer to the Earl of Dorincourt, and he has news for Cedric and his mother. The Earl is Cedric's grandfather, and because Cedric's father is dead, Cedric is now the heir to the Dorincourt riches and family name. He must leave New York, say goodbye to his friends Mr Hobbs the grocery-man and Dick the boot-black, and go to England. As the Earl's grandson, his name is now Lord Fauntleroy, and he must live in a castle with his rich old grandfather.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextd">But rich people are not always happy people, or nice people. The Earl of Dorincourt is an angry, selfish, bad-tempered old man, and he hates America and Americans. Everyone is afraid of him. But to Cedric, a grandfather is someone to love, and the Earl has a lot to learn from his American grandson...</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">PEOPLE IN THIS STORY</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP5">PEOPLE IN THIS STORY</h1>
+<p class="normaltextd4">Cedric (Ceddie) Errol, Lord Fauntleroy, <em>grandson of the Earl of Dorincourt</em></p>
+<p class="normaltextd4">Mrs Errol (Dearest), <em>Cedric's mother, and wife of the youngest son of the Earl of Dorincourt</em></p>
+<p class="normaltextd4">Mr Errol, <em>(now dead) Cedric's father, and the youngest son of the Earl</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltextd4">IN AMERICA</p>
+<p class="normaltextd4">Mr Hobbs,<em> a man with a grocery store in Cedric's street; a friend of Cedric's</em></p>
+<p class="normaltextd4">Dick, <em>a boot-black; a friend of Cedric's</em></p>
+<p class="normaltextd4">Ben, <em>Dick's brother, living in California</em></p>
+<p class="normaltextd4">Minna, <em>Ben's wife, address unknown</em></p>
+<p class="normaltextd4">Bridget, <em>a woman with twelve children; a friend of Cedric's</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltextd4">IN ENGLAND</p>
+<p class="normaltextd4">The Earl of Dorincourt, <em>Cedric's grandfather</em></p>
+<p class="normaltextd4"><img src="../../../Images/image07468.jpeg" class="tpzz2" alt="alt" style="height:3em"/><em>(now dead) the two older sons of the Earl</em></p>
+<p class="normaltextd4">Mr Havisham, <em>lawyer for the Earl of Dorincourt</em></p>
+<p class="normaltextd4">Mr Newick, <em>rent collector for the Earl of Dorincourt</em></p>
+<p class="normaltextd4">Mr Dawson, <em>vicar at Dorincourt</em></p>
+<p class="normaltextd4">Mr Higgins, <em>a farmer at Dorincourt</em></p>
+<p class="normaltextd4">Servants at Dorincourt Castle</p>
+<p class="normaltextd4">Villagers at Dorincourt</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">人物介绍</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP6">人物介绍</h1>
+<p class="normaltextd41">锡德里克（锡迪）·埃罗尔，方特勒罗伊爵爷，多林考特伯爵的孙子</p>
+<p class="normaltextd41">埃罗尔太太（最最亲爱的），锡德里克的母亲，多林考特伯爵小儿子的妻子</p>
+<p class="normaltextd41">埃罗尔先生（已故），锡德里克的父亲，伯爵的小儿子</p>
+<p class="normaltext"><br/></p>
+<p class="subtitlek2">美国</p>
+<p class="normaltextd41">霍布斯先生，和锡德里克同住一条街的食品杂货店老板，锡德里克的朋友</p>
+<p class="normaltextd41">迪克，擦鞋匠，锡德里克的朋友</p>
+<p class="normaltextd41">本，迪克的哥哥，住在加利福尼亚</p>
+<p class="normaltextd41">明娜，本的妻子，住址不详</p>
+<p class="normaltextd41">布里奇特，十二个孩子的母亲，锡德里克的朋友</p>
+<p class="normaltext"><br/></p>
+<p class="subtitlek2">英格兰</p>
+<p class="normaltextd41">多林考特伯爵，锡德里克的祖父</p>
+<p class="normaltextd41">贝维斯和莫里斯（已故），伯爵的长子和次子</p>
+<p class="normaltextd41">哈维沙姆先生，多林考特伯爵的律师</p>
+<p class="normaltextd41">纽威克先生，替多林考特伯爵收租的人</p>
+<p class="normaltextd41">道森先生，多林考特的牧师</p>
+<p class="normaltextd41">希金斯先生，多林考特的一名农夫</p>
+<p class="normaltextd41">多林考特城堡的仆人</p>
+<p class="normaltextd41">多林考特的村民</p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents">CONTENTS</div>
+<div class="contents-title">目　录</div>
+<div class="contents1"><a href="part0876.xhtml#CHP4">内容简介</a></div>
+<div class="contents1"><a href="part0878.xhtml#CHP6">人物介绍</a></div>
+<div class="contents1"><a href="part0880.xhtml#CHP7">1．A big surprise</a></div>
+<div class="contents2"><a href="part0880.xhtml#CHP7-1">大吃一惊</a></div>
+<div class="contents1"><a href="part0881.xhtml#CHP8">2．Saying goodbye to America</a></div>
+<div class="contents2"><a href="part0881.xhtml#CHP8-1">告别美国</a></div>
+<div class="contents1"><a href="part0882.xhtml#CHP9">3．A new life in England</a></div>
+<div class="contents2"><a href="part0882.xhtml#CHP9-1">英格兰的新生活</a></div>
+<div class="contents1"><a href="part0883.xhtml#CHP10">4．The Earl and his grandson</a></div>
+<div class="contents2"><a href="part0883.xhtml#CHP10-1">伯爵和孙子</a></div>
+<div class="contents1"><a href="part0884.xhtml#CHP11">5．News from Mr Havisham</a></div>
+<div class="contents2"><a href="part0884.xhtml#CHP11-1">哈维沙姆先生带来的消息</a></div>
+<div class="contents1"><a href="part0885.xhtml#CHP12">6．News from America</a></div>
+<div class="contents2"><a href="part0885.xhtml#CHP12-1">美国传来的消息</a></div>
+<div class="contents1"><a href="part0886.xhtml#CHP13">7．Changes at the castle</a></div>
+<div class="contents2"><a href="part0886.xhtml#CHP13-1">城堡中的变化</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0887.xhtml#CHP14">ACTIVITIES: Before Reading</a></div>
+<div class="contents1"><a href="part0888.xhtml#CHP15">ACTIVITIES: While Reading</a></div>
+<div class="contents1"><a href="part0889.xhtml#CHP16">ACTIVITIES: After Reading</a></div>
+<p class="normaltext"><br/></p>
+  <div class="contents1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<p class="normaltext">“书虫”<b>免费</b>增值服务上线！</p>
+<p class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</p>
+<p class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">1．A big surprise</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP7"><span class="underline">1</span></p>
+<p class="subtitlehz2">A big surprise</p>
+<p class="normaltext">Cedric Errol and his mamma were very good friends. This was important because there were only two of them. Cedric's father was dead, and it was a sad day in the little house in New York when Mrs Errol told Cedric this news.</p>
+<p class="normaltext">'Dear, dear Ceddie,' she said. 'Your papa was very ill last week and – and he – he's not coming home to us. He's never coming home again because...' And then she began to cry.</p>
+<p class="normaltext">Cedric was only seven years old, but he was a very loving little boy. He went at once to his mamma and put his little arms around her and his face next to her face. They did not need any more words.</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">So Cedric and his mother were alone in the world. Mrs Errol's mother and father were dead, and Mr Errol's family was in England. Mr Errol's father – Cedric's grandfather – was an important man. He was the Earl of Dorincourt, the head of one of the oldest and most famous families in England. He lived at Dorincourt Castle, and was very rich.</p>
+<p class="normaltext">But he was not a nice person. He was an angry, bad-tempered old man – and he hated America and Americans. So when his youngest son, Cedric's father, married an American girl in New York, a girl without money or family, just a nobody, the Earl was very angry. He wrote this letter to his son:</p>
+<p class="normaltextxd"><b>Never come to Dorincourt Castle, and never write to me. I don't want to see you again. Don't ask me for help or money. You can live – or die; I don't want to know. You are no longer my son.</b></p>
+<p class="normaltext">The Earl had two older sons, but they were bad, selfish men. They spent the Earl's money on horses and women, never said a kind word, or did a good thing in their lives. Nobody liked them, and their father hated them. They were a black page in the book of the Dorincourt family.</p>
+<p class="normaltext">Cedric's father was very different from his brothers. He had a beautiful face, was tall and strong, and had the kindest heart in the world. Everybody loved him.</p>
+<p class="normaltext">He was very sad when his father's angry letter arrived. He loved his home in England, and he even loved his bad-tempered old father. But he was young and happy with his sweet young wife.</p>
+<p class="normaltext">Soon Cedric arrived, and there never was a happier child than little Ceddie. He slept well, he ate well, he smiled a lot, and never cried. And he had big brown eyes and beautiful golden-yellow hair.</p>
+<p class="normaltext">When he was older, he still smiled a lot, and he was the happiest, friendliest little boy in the world. Everybody liked him. Everybody liked to talk to him when they met him in the street. He had some good friends. There was Mr Hobbs, the grocery-man in the store at the end of their street. There were the children along the street, and there was Dick, the boot-black boy. And there was Bridget. Bridget had twelve children, and her husband was a builder. But he was often ill and could not work, and then there was no money for the rent. Cedric felt very sorry for them all when life was difficult.</p>
+<p class="picture"><img src="../../../Images/image07470.jpeg" alt="alt"/></p>
+<p class="tz"><em>The Earl of Dorincourt was an angry, bad-tempered old man.</em></p>
+<p class="normaltext">Cedric's best friend was his mamma. Her eyes were sad, and she always wore a black dress, but she was young and pretty, and she loved her little boy very much.</p>
+<p class="normaltext">So life went on for Cedric Errol and his friends. Then one day everything changed. Mrs Errol had a visitor from England. He was a tall old man, in dark clothes. His name was Mr Havisham, and he was the lawyer for the Earl of Dorincourt. He had some very surprising news for Cedric's mother.</p>
+<p class="normaltext">'You know that the Earl had three sons, Mrs Errol,' he said. 'The two older sons, Bevis and Maurice, died two or three months ago – one in an accident, and the other from an illness. They were not married and they had no children. Your husband is dead too, and so his son is now the heir. Cedric Errol is now Lord Fauntleroy and the next Earl of Dorincourt after his grandfather dies.'</p>
+<p class="normaltext">Mrs Errol's face went very white. 'Oh,' she said, 'is the Earl going to take Cedric away from me? We are so happy together. I try to be a good mother to him.'</p>
+<p class="normaltext">Mr Havisham was not a family man. He was a lawyer, a cold man of business, but he saw that Mrs Errol was a loving mother. His next news was difficult to say.</p>
+<p class="normaltext">'I must tell you, Mrs Errol,' he said, 'that the Earl is not very friendly to you. He does not like America or Americans, and he was very angry when his son married you. I am sorry to say this, but he does not want to see you. He wants Lord Fauntleroy to live with him at Dorincourt Castle, but he wants you to live in a different house. He is giving you a house called Court Lodge, and there Lord Fauntleroy can visit you every day.'</p>
+<p class="normaltext">Mr Havisham watched Mrs Errol carefully. 'Is she going to cry?' he thought. He did not know the right words to say to a crying woman.</p>
+<p class="normaltext">But Mrs Errol did not cry. She stood for a moment at the window, then turned and looked at the lawyer.</p>
+<p class="normaltext">'My husband loved Dorincourt,' she said quietly. 'He loved England, and everything English. He was very sad to leave it all. So I think Ceddie must go back, and learn how to be an English earl.'</p>
+<p class="normaltext">She looked at the lawyer with her sweet, sad eyes. 'I hope the Earl can learn to love Ceddie. He is only little, and he is a very loving child.'</p>
+<p class="normaltext">Mr Havisham thought about the old Earl. He was a bad-tempered, selfish old man, and did not love anyone. But the lawyer did not say this.</p>
+<p class="picture"><img src="../../../Images/image07471.jpeg" alt="alt"/></p>
+<p class="tz"><em>Cedric's best friend was his mamma.</em></p>
+<p class="normaltext">'Mrs Errol,' he said, 'the Earl wants the best of everything for his grandson. He wants him to be happy. Your son is going to have a very good life at Dorincourt.'</p>
+<p class="normaltext">A short time later Cedric came home from a visit to his friend Mr Hobbs, the grocery-man. He was very surprised to find a visitor in the sitting room. His mother ran to him and took his hands.</p>
+<p class="normaltext">'Oh Ceddie,' she cried. 'Dear, dear Ceddie!'</p>
+<p class="normaltext">Mr Havisham stood up and looked down at Cedric. 'And so this,' he said slowly, 'is little Lord Fauntleroy.'</p>
+<hr/>
+<p class="normaltextd"><b>surprise</b> <em>n</em>. the feeling you have when something happens that you did not expect 惊奇，惊讶</p>
+<p class="normaltextd"><b>sad</b> <em>adj</em>. not happy 不愉快的，伤心的，难过的</p>
+<p class="normaltextd"><b>dear/dearest</b> <em>n</em>. words for someone that you love （用于称呼）亲爱的，最最亲爱的</p>
+<p class="normaltextd"><b>alone</b> <em>adj</em>. without any other person 单独的；孤独的</p>
+<p class="normaltextd"><b>earl</b> <em>n</em>. a British title for a man from an old, important family （英国的）伯爵</p>
+<p class="normaltextd"><b>bad-tempered</b> <em>adj</em>. often angry and impatient 脾气不好的</p>
+<p class="normaltextd"><b>hate</b> <em>v</em>. to have a very strong feeling of not liking somebody 讨厌，不喜欢</p>
+<p class="normaltextd"><b>marry</b> <em>v</em>. to take somebody as your husband or wife 结婚；娶；嫁</p>
+<p class="normaltextd"><b>selfish</b> <em>adj</em>. thinking too much about what you want, and not about what other people want 自私的</p>
+<p class="normaltextd"><b>kind</b> <em>adj</em>. friendly and good to other people 友善的；亲切的</p>
+<p class="normaltextd"><b>heart</b> <em>n</em>. the place inside you where your feelings are 内心，心灵</p>
+<p class="normaltextd"><b>sweet</b> <em>adj</em>. (of a person) pretty, kind 漂亮的；温柔的；友好的</p>
+<p class="normaltextd"><b>grocery-man</b> <em>n</em>. a man who has a grocery store (a food shop) 食品杂货店老板</p>
+<p class="normaltextd"><b>store</b> <em>n</em>. a shop 商店</p>
+<p class="normaltextd"><b>boot-black</b> <em>n</em>. somebody who cleans people's shoes in the street 以擦皮鞋为业的人</p>
+<p class="normaltextd"><b>rent</b> <em>n</em>. money you pay to live in another person's house （房屋等的）租金</p>
+<p class="normaltextd"><b>pretty</b> <em>adj</em>. nice to look at 漂亮的，好看的</p>
+<p class="normaltextd"><b>lawyer</b> <em>n</em>. a person who knows about the law 律师</p>
+<p class="normaltextd"><b>surprising</b> <em>adj</em>. making you feel surprised 令人惊奇的，出人意料的</p>
+<p class="normaltextd"><b>heir</b> <em>n</em>. somebody who gets money, buildings, land, etc. when another person, usually in the same family, dies （财产等的）继承人</p>
+<p class="normaltextd"><b>lord</b> <em>n</em>. a British title for a man (or a boy) from an important family （英国的贵族头衔）勋爵，爵爷</p>
+<p class="normaltextd"><b>surprised</b> <em>adj</em>. feeling or showing surprise 吃惊的，惊讶的</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP7-1"><span class="underline">1</span></p>
+<p class="subtitlehz2">大吃一惊</p>
+<p class="normaltext">锡德里克·埃罗尔和他的妈妈是非常好的朋友。这很重要，因为只有他们俩相依为命。锡德里克的父亲过世了。那是个令人哀伤的日子，在纽约的小屋里，埃罗尔太太告诉了锡德里克这个消息。</p>
+<p class="normaltext">“我最亲爱的锡迪，”她说，“你爸爸上周病得非常厉害，他——他不会回家，回到我们身边了。他永远都不会再回家了，因为……”然后她哭了起来。</p>
+<p class="normaltext">锡德里克只有七岁，但他是个非常有爱心的小男孩。他立刻走到妈妈身边，用自己小小的胳膊拥抱她，把脸贴到妈妈脸上。他们不需要再多说什么了。</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">就这样，锡德里克和妈妈在这世上无依无靠了。埃罗尔太太的父母已经去世，而埃罗尔先生家又在英格兰。埃罗尔先生的父亲——锡德里克的祖父——是个很有身份的人物。他是多林考特伯爵，多林考特是英格兰历史最悠久最负盛名的家族之一，而他就是这个家族的首领。他住在多林考特城堡里，非常富有。</p>
+<p class="normaltext">但他并不是个和善的人。他是个易怒、坏脾气的老头儿——他讨厌美国和美国人。所以，当他的小儿子，也就是锡德里克的父亲，在纽约娶了一个没钱没家世、默默无闻的美国女孩时，伯爵非常生气。他写了这样一封信给他儿子：</p>
+<p class="normaltextxd2">永远别回多林考特城堡，永远别给我写信。我再也不想见到你。别要我帮忙，也别朝我要钱。你是生是死我都不想知道。你再也不是我儿子。</p>
+<p class="normaltext">伯爵还有两个年纪稍长的儿子，但他们是又坏又自私的人。他们花伯爵的钱赌马、玩女人，一生中没说过一句好话，没做过一件好事。没人喜欢他们，连他们的父亲也厌恶他们。他们就是多林考特家族的污点。</p>
+<p class="normaltext">锡德里克的父亲和他的哥哥们不一样。他相貌英俊，个子高大，身体健壮，还有一颗世上最善良的心。人人都爱他。</p>
+<p class="normaltext">看到父亲怒气冲冲的来信，他非常难过。他爱他在英格兰的家，甚至爱他坏脾气的老父亲。但是他还年轻，对自己年轻可爱的妻子很是满意。</p>
+<p class="normaltext">没多久，锡德里克降生了，世上再没有比小锡迪更快乐的孩子了。他睡得香，吃得香，经常笑，从来不哭。他有一双大大的棕色眼睛和美丽的金黄色头发。</p>
+<p class="normaltext">他长大一些后，还是经常笑。他是这世上最开心、最友善的小男孩。人人都喜欢他。每个人在路上碰见他，都乐意跟他说话。他交了一些好朋友，有街道尽头那家食品杂货店的老板霍布斯先生，有街上的孩子们，有擦皮鞋的男孩迪克，还有布里奇特。布里奇特有十二个孩子。她丈夫是个建筑工人，可他常常生病，没法工作，所以就没钱付房租。他们每个人生活艰难时，锡德里克都感到十分难过。</p>
+<p class="normaltext">锡德里克最好的朋友是他妈妈。她的眼里充满忧伤，永远穿着黑裙子。但是她年轻漂亮，并且深爱着她的孩子。</p>
+<p class="normaltext">锡德里克·埃罗尔和朋友们的日子就这样一天天过去了。突然有一天，一切都改变了。有位从英格兰来的客人来拜访埃罗尔太太，他是个高个子老头儿，穿着深色的衣服。他是多林考特伯爵的律师哈维沙姆先生。他给锡德里克的母亲带来了非常令人吃惊的消息。</p>
+<p class="normaltext">您知道伯爵有三个儿子，埃罗尔太太。”他说，“两个年纪稍长的，贝维斯和莫里斯，两三个月前都去世了——一个是出车祸，一个是生病。他们都没结婚，也没有孩子。您丈夫也去世了，所以他的儿子现在是继承人。锡德里克·埃罗尔现在是方特勒罗伊爵爷了，他祖父过世后，他就是下一任多林考特伯爵。”</p>
+<p class="normaltext">埃罗尔太太脸色惨白。“噢，”她说，“伯爵要把锡德里克从我身边带走吗？我们在一起很快乐。我在努力当一个好妈妈。”</p>
+<p class="normaltext">哈维沙姆先生对家庭没有概念。他是律师，一个办事冷冰冰的人，但他看得出埃罗尔太太是位慈爱的母亲。他很难开口说接下来的消息。</p>
+<p class="normaltext">“我必须告诉您，埃罗尔太太，”他说，“伯爵对您不是很有好感。他不喜欢美国，也不喜欢美国人，而且他儿子娶您时他很生气。我很抱歉说出这话，但他不想见您。他要方特勒罗伊爵爷和他一起住在多林考特城堡，而要您住在别的地方。他会把一栋叫洛奇公寓的房子给您，方特勒罗伊爵爷可以每天去那儿看您。”</p>
+<p class="normaltext">哈维沙姆先生小心翼翼地看着埃罗尔太太。“她会哭吗？”他想。他不知道对一个哭泣的女人说什么才好。</p>
+<p class="normaltext">但埃罗尔太太没有哭。她在窗边站了一会儿，然后转身看着律师。</p>
+<p class="normaltext">“我丈夫很爱多林考特。”她平静地说，“他爱英格兰，爱英国的一切。离开那一切他很难过。所以，我认为锡迪必须回去，去学习如何做一位英国伯爵。”</p>
+<p class="normaltext">她用那双温柔、忧伤的眼睛望着律师。“我希望伯爵能学着去爱锡迪。他还小，而且是个很有爱心的孩子。”</p>
+<p class="normaltext">哈维沙姆先生想了想老伯爵。他是个坏脾气、自私的老头儿，没爱过任何人。但是律师没说出口。</p>
+<p class="normaltext">“埃罗尔太太，”他说，“伯爵希望他孙子得到的一切都是最好的。他希望他能快乐。您的儿子在多林考特会过得很好。”</p>
+<p class="normaltext">过了一会儿，锡德里克从他的朋友，食品杂货店老板霍布斯先生那儿回到家。看到客厅里有客人，他很惊讶。母亲跑过去，握住他的手。</p>
+<p class="normaltext">“哦，锡迪，”她哭着说，“我最亲爱的锡迪！”</p>
+<p class="normaltext">哈维沙姆先生站起身，低头看着锡德里克。“那么这位，”他慢慢地说，“就是方特勒罗伊小爵爷了。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">大吃一惊</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP7"><span class="underline">1</span></p>
+<p class="subtitlehz2">A big surprise</p>
+<p class="normaltext">Cedric Errol and his mamma were very good friends. This was important because there were only two of them. Cedric's father was dead, and it was a sad day in the little house in New York when Mrs Errol told Cedric this news.</p>
+<p class="normaltext">'Dear, dear Ceddie,' she said. 'Your papa was very ill last week and – and he – he's not coming home to us. He's never coming home again because...' And then she began to cry.</p>
+<p class="normaltext">Cedric was only seven years old, but he was a very loving little boy. He went at once to his mamma and put his little arms around her and his face next to her face. They did not need any more words.</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">So Cedric and his mother were alone in the world. Mrs Errol's mother and father were dead, and Mr Errol's family was in England. Mr Errol's father – Cedric's grandfather – was an important man. He was the Earl of Dorincourt, the head of one of the oldest and most famous families in England. He lived at Dorincourt Castle, and was very rich.</p>
+<p class="normaltext">But he was not a nice person. He was an angry, bad-tempered old man – and he hated America and Americans. So when his youngest son, Cedric's father, married an American girl in New York, a girl without money or family, just a nobody, the Earl was very angry. He wrote this letter to his son:</p>
+<p class="normaltextxd"><b>Never come to Dorincourt Castle, and never write to me. I don't want to see you again. Don't ask me for help or money. You can live – or die; I don't want to know. You are no longer my son.</b></p>
+<p class="normaltext">The Earl had two older sons, but they were bad, selfish men. They spent the Earl's money on horses and women, never said a kind word, or did a good thing in their lives. Nobody liked them, and their father hated them. They were a black page in the book of the Dorincourt family.</p>
+<p class="normaltext">Cedric's father was very different from his brothers. He had a beautiful face, was tall and strong, and had the kindest heart in the world. Everybody loved him.</p>
+<p class="normaltext">He was very sad when his father's angry letter arrived. He loved his home in England, and he even loved his bad-tempered old father. But he was young and happy with his sweet young wife.</p>
+<p class="normaltext">Soon Cedric arrived, and there never was a happier child than little Ceddie. He slept well, he ate well, he smiled a lot, and never cried. And he had big brown eyes and beautiful golden-yellow hair.</p>
+<p class="normaltext">When he was older, he still smiled a lot, and he was the happiest, friendliest little boy in the world. Everybody liked him. Everybody liked to talk to him when they met him in the street. He had some good friends. There was Mr Hobbs, the grocery-man in the store at the end of their street. There were the children along the street, and there was Dick, the boot-black boy. And there was Bridget. Bridget had twelve children, and her husband was a builder. But he was often ill and could not work, and then there was no money for the rent. Cedric felt very sorry for them all when life was difficult.</p>
+<p class="picture"><img src="../../../Images/image07470.jpeg" alt="alt"/></p>
+<p class="tz"><em>The Earl of Dorincourt was an angry, bad-tempered old man.</em></p>
+<p class="normaltext">Cedric's best friend was his mamma. Her eyes were sad, and she always wore a black dress, but she was young and pretty, and she loved her little boy very much.</p>
+<p class="normaltext">So life went on for Cedric Errol and his friends. Then one day everything changed. Mrs Errol had a visitor from England. He was a tall old man, in dark clothes. His name was Mr Havisham, and he was the lawyer for the Earl of Dorincourt. He had some very surprising news for Cedric's mother.</p>
+<p class="normaltext">'You know that the Earl had three sons, Mrs Errol,' he said. 'The two older sons, Bevis and Maurice, died two or three months ago – one in an accident, and the other from an illness. They were not married and they had no children. Your husband is dead too, and so his son is now the heir. Cedric Errol is now Lord Fauntleroy and the next Earl of Dorincourt after his grandfather dies.'</p>
+<p class="normaltext">Mrs Errol's face went very white. 'Oh,' she said, 'is the Earl going to take Cedric away from me? We are so happy together. I try to be a good mother to him.'</p>
+<p class="normaltext">Mr Havisham was not a family man. He was a lawyer, a cold man of business, but he saw that Mrs Errol was a loving mother. His next news was difficult to say.</p>
+<p class="normaltext">'I must tell you, Mrs Errol,' he said, 'that the Earl is not very friendly to you. He does not like America or Americans, and he was very angry when his son married you. I am sorry to say this, but he does not want to see you. He wants Lord Fauntleroy to live with him at Dorincourt Castle, but he wants you to live in a different house. He is giving you a house called Court Lodge, and there Lord Fauntleroy can visit you every day.'</p>
+<p class="normaltext">Mr Havisham watched Mrs Errol carefully. 'Is she going to cry?' he thought. He did not know the right words to say to a crying woman.</p>
+<p class="normaltext">But Mrs Errol did not cry. She stood for a moment at the window, then turned and looked at the lawyer.</p>
+<p class="normaltext">'My husband loved Dorincourt,' she said quietly. 'He loved England, and everything English. He was very sad to leave it all. So I think Ceddie must go back, and learn how to be an English earl.'</p>
+<p class="normaltext">She looked at the lawyer with her sweet, sad eyes. 'I hope the Earl can learn to love Ceddie. He is only little, and he is a very loving child.'</p>
+<p class="normaltext">Mr Havisham thought about the old Earl. He was a bad-tempered, selfish old man, and did not love anyone. But the lawyer did not say this.</p>
+<p class="picture"><img src="../../../Images/image07471.jpeg" alt="alt"/></p>
+<p class="tz"><em>Cedric's best friend was his mamma.</em></p>
+<p class="normaltext">'Mrs Errol,' he said, 'the Earl wants the best of everything for his grandson. He wants him to be happy. Your son is going to have a very good life at Dorincourt.'</p>
+<p class="normaltext">A short time later Cedric came home from a visit to his friend Mr Hobbs, the grocery-man. He was very surprised to find a visitor in the sitting room. His mother ran to him and took his hands.</p>
+<p class="normaltext">'Oh Ceddie,' she cried. 'Dear, dear Ceddie!'</p>
+<p class="normaltext">Mr Havisham stood up and looked down at Cedric. 'And so this,' he said slowly, 'is little Lord Fauntleroy.'</p>
+<hr/>
+<p class="normaltextd"><b>surprise</b> <em>n</em>. the feeling you have when something happens that you did not expect 惊奇，惊讶</p>
+<p class="normaltextd"><b>sad</b> <em>adj</em>. not happy 不愉快的，伤心的，难过的</p>
+<p class="normaltextd"><b>dear/dearest</b> <em>n</em>. words for someone that you love （用于称呼）亲爱的，最最亲爱的</p>
+<p class="normaltextd"><b>alone</b> <em>adj</em>. without any other person 单独的；孤独的</p>
+<p class="normaltextd"><b>earl</b> <em>n</em>. a British title for a man from an old, important family （英国的）伯爵</p>
+<p class="normaltextd"><b>bad-tempered</b> <em>adj</em>. often angry and impatient 脾气不好的</p>
+<p class="normaltextd"><b>hate</b> <em>v</em>. to have a very strong feeling of not liking somebody 讨厌，不喜欢</p>
+<p class="normaltextd"><b>marry</b> <em>v</em>. to take somebody as your husband or wife 结婚；娶；嫁</p>
+<p class="normaltextd"><b>selfish</b> <em>adj</em>. thinking too much about what you want, and not about what other people want 自私的</p>
+<p class="normaltextd"><b>kind</b> <em>adj</em>. friendly and good to other people 友善的；亲切的</p>
+<p class="normaltextd"><b>heart</b> <em>n</em>. the place inside you where your feelings are 内心，心灵</p>
+<p class="normaltextd"><b>sweet</b> <em>adj</em>. (of a person) pretty, kind 漂亮的；温柔的；友好的</p>
+<p class="normaltextd"><b>grocery-man</b> <em>n</em>. a man who has a grocery store (a food shop) 食品杂货店老板</p>
+<p class="normaltextd"><b>store</b> <em>n</em>. a shop 商店</p>
+<p class="normaltextd"><b>boot-black</b> <em>n</em>. somebody who cleans people's shoes in the street 以擦皮鞋为业的人</p>
+<p class="normaltextd"><b>rent</b> <em>n</em>. money you pay to live in another person's house （房屋等的）租金</p>
+<p class="normaltextd"><b>pretty</b> <em>adj</em>. nice to look at 漂亮的，好看的</p>
+<p class="normaltextd"><b>lawyer</b> <em>n</em>. a person who knows about the law 律师</p>
+<p class="normaltextd"><b>surprising</b> <em>adj</em>. making you feel surprised 令人惊奇的，出人意料的</p>
+<p class="normaltextd"><b>heir</b> <em>n</em>. somebody who gets money, buildings, land, etc. when another person, usually in the same family, dies （财产等的）继承人</p>
+<p class="normaltextd"><b>lord</b> <em>n</em>. a British title for a man (or a boy) from an important family （英国的贵族头衔）勋爵，爵爷</p>
+<p class="normaltextd"><b>surprised</b> <em>adj</em>. feeling or showing surprise 吃惊的，惊讶的</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP7-1"><span class="underline">1</span></p>
+<p class="subtitlehz2">大吃一惊</p>
+<p class="normaltext">锡德里克·埃罗尔和他的妈妈是非常好的朋友。这很重要，因为只有他们俩相依为命。锡德里克的父亲过世了。那是个令人哀伤的日子，在纽约的小屋里，埃罗尔太太告诉了锡德里克这个消息。</p>
+<p class="normaltext">“我最亲爱的锡迪，”她说，“你爸爸上周病得非常厉害，他——他不会回家，回到我们身边了。他永远都不会再回家了，因为……”然后她哭了起来。</p>
+<p class="normaltext">锡德里克只有七岁，但他是个非常有爱心的小男孩。他立刻走到妈妈身边，用自己小小的胳膊拥抱她，把脸贴到妈妈脸上。他们不需要再多说什么了。</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">就这样，锡德里克和妈妈在这世上无依无靠了。埃罗尔太太的父母已经去世，而埃罗尔先生家又在英格兰。埃罗尔先生的父亲——锡德里克的祖父——是个很有身份的人物。他是多林考特伯爵，多林考特是英格兰历史最悠久最负盛名的家族之一，而他就是这个家族的首领。他住在多林考特城堡里，非常富有。</p>
+<p class="normaltext">但他并不是个和善的人。他是个易怒、坏脾气的老头儿——他讨厌美国和美国人。所以，当他的小儿子，也就是锡德里克的父亲，在纽约娶了一个没钱没家世、默默无闻的美国女孩时，伯爵非常生气。他写了这样一封信给他儿子：</p>
+<p class="normaltextxd2">永远别回多林考特城堡，永远别给我写信。我再也不想见到你。别要我帮忙，也别朝我要钱。你是生是死我都不想知道。你再也不是我儿子。</p>
+<p class="normaltext">伯爵还有两个年纪稍长的儿子，但他们是又坏又自私的人。他们花伯爵的钱赌马、玩女人，一生中没说过一句好话，没做过一件好事。没人喜欢他们，连他们的父亲也厌恶他们。他们就是多林考特家族的污点。</p>
+<p class="normaltext">锡德里克的父亲和他的哥哥们不一样。他相貌英俊，个子高大，身体健壮，还有一颗世上最善良的心。人人都爱他。</p>
+<p class="normaltext">看到父亲怒气冲冲的来信，他非常难过。他爱他在英格兰的家，甚至爱他坏脾气的老父亲。但是他还年轻，对自己年轻可爱的妻子很是满意。</p>
+<p class="normaltext">没多久，锡德里克降生了，世上再没有比小锡迪更快乐的孩子了。他睡得香，吃得香，经常笑，从来不哭。他有一双大大的棕色眼睛和美丽的金黄色头发。</p>
+<p class="normaltext">他长大一些后，还是经常笑。他是这世上最开心、最友善的小男孩。人人都喜欢他。每个人在路上碰见他，都乐意跟他说话。他交了一些好朋友，有街道尽头那家食品杂货店的老板霍布斯先生，有街上的孩子们，有擦皮鞋的男孩迪克，还有布里奇特。布里奇特有十二个孩子。她丈夫是个建筑工人，可他常常生病，没法工作，所以就没钱付房租。他们每个人生活艰难时，锡德里克都感到十分难过。</p>
+<p class="normaltext">锡德里克最好的朋友是他妈妈。她的眼里充满忧伤，永远穿着黑裙子。但是她年轻漂亮，并且深爱着她的孩子。</p>
+<p class="normaltext">锡德里克·埃罗尔和朋友们的日子就这样一天天过去了。突然有一天，一切都改变了。有位从英格兰来的客人来拜访埃罗尔太太，他是个高个子老头儿，穿着深色的衣服。他是多林考特伯爵的律师哈维沙姆先生。他给锡德里克的母亲带来了非常令人吃惊的消息。</p>
+<p class="normaltext">您知道伯爵有三个儿子，埃罗尔太太。”他说，“两个年纪稍长的，贝维斯和莫里斯，两三个月前都去世了——一个是出车祸，一个是生病。他们都没结婚，也没有孩子。您丈夫也去世了，所以他的儿子现在是继承人。锡德里克·埃罗尔现在是方特勒罗伊爵爷了，他祖父过世后，他就是下一任多林考特伯爵。”</p>
+<p class="normaltext">埃罗尔太太脸色惨白。“噢，”她说，“伯爵要把锡德里克从我身边带走吗？我们在一起很快乐。我在努力当一个好妈妈。”</p>
+<p class="normaltext">哈维沙姆先生对家庭没有概念。他是律师，一个办事冷冰冰的人，但他看得出埃罗尔太太是位慈爱的母亲。他很难开口说接下来的消息。</p>
+<p class="normaltext">“我必须告诉您，埃罗尔太太，”他说，“伯爵对您不是很有好感。他不喜欢美国，也不喜欢美国人，而且他儿子娶您时他很生气。我很抱歉说出这话，但他不想见您。他要方特勒罗伊爵爷和他一起住在多林考特城堡，而要您住在别的地方。他会把一栋叫洛奇公寓的房子给您，方特勒罗伊爵爷可以每天去那儿看您。”</p>
+<p class="normaltext">哈维沙姆先生小心翼翼地看着埃罗尔太太。“她会哭吗？”他想。他不知道对一个哭泣的女人说什么才好。</p>
+<p class="normaltext">但埃罗尔太太没有哭。她在窗边站了一会儿，然后转身看着律师。</p>
+<p class="normaltext">“我丈夫很爱多林考特。”她平静地说，“他爱英格兰，爱英国的一切。离开那一切他很难过。所以，我认为锡迪必须回去，去学习如何做一位英国伯爵。”</p>
+<p class="normaltext">她用那双温柔、忧伤的眼睛望着律师。“我希望伯爵能学着去爱锡迪。他还小，而且是个很有爱心的孩子。”</p>
+<p class="normaltext">哈维沙姆先生想了想老伯爵。他是个坏脾气、自私的老头儿，没爱过任何人。但是律师没说出口。</p>
+<p class="normaltext">“埃罗尔太太，”他说，“伯爵希望他孙子得到的一切都是最好的。他希望他能快乐。您的儿子在多林考特会过得很好。”</p>
+<p class="normaltext">过了一会儿，锡德里克从他的朋友，食品杂货店老板霍布斯先生那儿回到家。看到客厅里有客人，他很惊讶。母亲跑过去，握住他的手。</p>
+<p class="normaltext">“哦，锡迪，”她哭着说，“我最亲爱的锡迪！”</p>
+<p class="normaltext">哈维沙姆先生站起身，低头看着锡德里克。“那么这位，”他慢慢地说，“就是方特勒罗伊小爵爷了。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">2．Saying goodbye to America</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP8"><span class="underline">2</span></p>
+<p class="subtitlehz2">Saying goodbye to America</p>
+<p class="normaltext">It was a lot of news for a seven-year-old boy – uncles dying, an English grandfather, a new home in England, a new name... He did not understand it all at first. And when he did, he was not very happy.</p>
+<p class="normaltext">'Oh, dearest,' he said to his mother. (Cedric's father always called her 'dearest', and so the little boy used the name too.) 'I don't think I want to be an Earl. None of the boys in our street are Earls. Please can I <em>not</em> be one?'</p>
+<p class="normaltext">'Your papa loved his home in England, Ceddie,' said his mother. 'I think he would like you to go there, and be an Earl one day.'</p>
+<p class="normaltext">'I'm sorry to leave all my friends. Dick, and Bridget, and everyone,' said Cedric sadly. 'And Mr Hobbs isn't going to like the news. He says kings and lords are all bad people. America has a president, and Mr Hobbs says presidents are much better than kings.'</p>
+<p class="normaltext">The next day Cedric went to see Mr Hobbs at his grocery store. He sat down in his usual place, but at first he could not find the words to tell Mr Hobbs his news. Then he said it all at once, very quickly.</p>
+<p class="normaltext">Mr Hobbs stared at him. 'Well!' he said. 'Can this be true?'</p>
+<p class="normaltext">'Yes, Mr Hobbs,' said Cedric. 'I'm sorry to say it's all true. Mr Havisham says I am Lord Fauntleroy now, and one day I'm going to be the Earl of Dorincourt, after my grandfather dies.'</p>
+<p class="normaltext">'Well!' said Mr Hobbs. 'Well, well, well!'</p>
+<p class="normaltext">They talked about it for a long time, and in the end Mr Hobbs was happier about lords and earls. He liked his young friend very much. He first knew Cedric when he was six weeks old, and he had a grandfatherly interest in the boy. But he did not like Cedric going to England.</p>
+<p class="normaltext">'Can't you stay here and be an earl?' he asked.</p>
+<p class="normaltext">'No, I can't,' said Cedric sadly. 'Dearest says we must go to England.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">The Dorincourt name was an old and famous one, and the family was very rich, with great houses and castles in England. Mr Havisham, the family's lawyer for forty years, knew the Earl very well. He remembered the Earl's words to him before he left England.</p>
+<p class="normaltext"><em>I hate that American woman. She married my son because he was an earl's son, and she wanted to be rich. Her son is going to be just like her.</em></p>
+<p class="normaltext">But after a week in New York Mr Havisham knew differently. 'Mrs Errol married the Earl's son because she loved him with all her heart,' he thought. 'She's not interested in money, she asks nothing for herself. She only wants her little boy to be happy. I think the Earl is wrong about her, and about her little boy.'</p>
+<p class="picture"><img src="../../../Images/image07472.jpeg" alt="alt"/></p>
+<p class="tz"><em>'Well!' said Mr Hobbs. 'Well, well, well!'</em></p>
+<p class="normaltext">Mr Havisham was surprised and pleased by the new Lord Fauntleroy. Cedric was a fine boy, tall and strong, with his mother's brown eyes and his father's golden hair. He spoke well, was not afraid of anything, and was friendly with everyone. He had a kind heart, too. Mr Havisham learnt that very soon.</p>
+<p class="normaltext">One day he was with Cedric when his mother was out. Mr Havisham wanted to talk to him about his new life in England. But Cedric spoke first.</p>
+<p class="normaltext">'Please, what is an earl?' he asked. 'I don't know anything about them. Please can you tell me?'</p>
+<p class="normaltext">'An earl is – is a very important person,' Mr Havisham said. 'He usually comes from a very old family. The first Earl of Dorincourt lived four hundred years ago.'</p>
+<p class="normaltext">'Well, well!' said Cedric. 'That was a long time ago. That's interesting. But what does an earl do?'</p>
+<p class="normaltext">This was not an easy question to answer. 'An earl,' Mr Havisham began, 'um... an earl often helps the king. Perhaps he's a soldier for the king. Some earls were very brave men in the old days.'</p>
+<p class="normaltext">'Oh,' said Cedric. 'My papa was a soldier, and he was a very brave man, you know. I'm pleased Earls are brave. It's a good thing to be brave, don't you think?'</p>
+<p class="normaltext">'Yes,' Mr Havisham said. 'There is another good thing about Earls. Some of them have money – a lot of money.'</p>
+<p class="normaltext">'That's a good thing to have,' said Cedric. 'I'd like a lot of money.'</p>
+<p class="normaltext">'Would you?' said Mr Havisham. 'Why?'</p>
+<p class="normaltext">'Well,' Cedric said, happily, 'a person can do so many things with money, you see. I can buy beautiful things for Dearest, like books and pretty dresses. I can buy a warm winter coat for Bridget – she lives in our street and has twelve children. And a present for Mr Hobbs at the grocery store. And then for Dick—'</p>
+<p class="normaltext">'Who is Dick?' asked Mr Havisham.</p>
+<p class="normaltext">'Dick is a boot-black,' said Lord Fauntleroy. 'He cleans people's boots in the street, you know. He's one of the nicest people in the world. When I was little, he was very kind to me once. And when someone is kind to you, you never forget it, do you?'</p>
+<p class="normaltext">'And what would you like to do for Dick?' asked the lawyer. He smiled a little smile. A boot-black, a grocery-man, a poor woman with twelve children – strange friends for the grandson of an earl.</p>
+<p class="normaltext">'Buy the business for him,' said the young lord happily. 'He works for Jake now, and Jake is no good, you see. Dick does all the work and Jake takes all the money. Dick gets so angry! Dick needs new brushes, and new clothes, and a sign, and then he can get somewhere!'</p>
+<p class="normaltext">At that moment Mrs Errol came home. 'I am so sorry to be late,' she said. 'I was at the house of a friend. Her husband is ill, and she needs help, poor thing.'</p>
+<p class="normaltext">'Oh,' cried the young lord. He jumped up from his chair. 'That's Bridget. I must visit her too.'</p>
+<p class="picture"><img src="../../../Images/image07473.jpeg" alt="alt"/></p>
+<p class="tz"><em>'Dick is a boot-black. He cleans people's boots in the street.'</em></p>
+<p class="normaltext">'One moment,' said the lawyer. He remembered the Earl's words. <em>The boy can have anything. Tell him that. Put money in his pockets, and tell him it came from his grandfather.</em> Mr Havisham told Mrs Errol and Cedric about the Earl's money, but he said it more kindly.</p>
+<p class="normaltext">Then he asked, 'So, would Lord Fauntleroy like to help this poor woman?'</p>
+<p class="normaltext">At first Cedric did not understand.</p>
+<p class="normaltext">His mother put her arms around him. 'Ceddie dear,' she said, 'the Earl is your grandpapa, your papa's father. He's very kind, and he loves you and he wants you to love him. He wants you to be happy and to make other people happy. He's very rich, and he gave Mr Havisham some money for you. You can give some to Bridget now, to pay her rent and to buy food for her husband and her children. Isn't that fine, Ceddie? Isn't he good?'</p>
+<p class="normaltext">Cedric's face was suddenly very excited. He looked from his mother to Mr Havisham.</p>
+<p class="normaltext">'Can I have it now?' he cried. 'Can I run to her house and give it to her this minute?'</p>
+<p class="normaltext">Mr Havisham gave Cedric twenty-five dollars, and Cedric was out of the house in seconds.</p>
+<p class="normaltext">A short time later Cedric was back, with a big smile on his face. 'Bridget cried,' he said. 'She cried because she was so happy. I think I'm going to like being an earl.'</p>
+<p class="normaltext">The old lawyer smiled his little smile again. 'What's the Earl going to think about that?' he thought. 'He gives his grandson money, and the boy gives it to a poor woman to pay her rent.'</p>
+<p class="picture"><img src="../../../Images/image07474.jpeg" alt="alt"/></p>
+<p class="tz"><em>'You can give some money to Bridget now,' said his mother.</em></p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">The day for leaving New York came quickly. In the last days Lord Fauntleroy was very busy. With the Earl's money, Bridget's children all had new clothes, and Mr Hobbs had a very fine gold watch from his little friend.</p>
+<p class="normaltext">'Look,' said Cedric. 'The watch has our names on the back. So you can't forget me!'</p>
+<p class="normaltext">Mr Hobbs held the watch in his hand, and at first he could not speak. 'I'm not going to forget you, my boy,' he said at last. 'You never forget a good friend, do you?'</p>
+<p class="normaltext">Dick, too, could not find words at first to thank his little friend. He now had new brushes, a big new sign, and the best boot-black business in New York. On the last day he came to the house to say goodbye.</p>
+<p class="normaltext">'I'm sorry he's going away, I really am,' he said to Mr Havisham. 'I never had a friend like him.' Dick shook Cedric's hand for a long time. 'Goodbye,' he said. 'Write and tell me all about it, earls and everything.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">That evening Cedric's mamma was very quiet.</p>
+<p class="normaltext">Cedric held her hand. 'It's sad saying goodbye to all our friends and our little house, isn't it, Dearest?' he said.</p>
+<p class="normaltext">'Yes, Ceddie dear, it is,' she said. 'Very, very sad.'</p>
+<hr/>
+<p class="normaltextd"><b>stare</b> <em>v</em>. to look at somebody or something for a long time 盯着看，凝视</p>
+<p class="normaltextd"><b>great</b> <em>adj</em>. very big 非常大的</p>
+<p class="normaltextd"><b>fine</b> <em>adj</em>. good, nice, beautiful, etc. 优秀的；很好的；漂亮的</p>
+<p class="normaltextd"><b>soldier</b> <em>n</em>. a person in an army, who fights for their country 士兵，军人</p>
+<p class="normaltextd"><b>brave</b> <em>adj</em>. ready to do dangerous or difficult things and not be afraid 勇敢的</p>
+<p class="normaltextd"><b>poor</b> <em>adj</em>. (1) with very little money; (2) a word that you use when you feel sad for someone （1）贫穷的（2）可怜的</p>
+<p class="normaltextd"><b>jump</b> <em>v</em>. to move very quickly and suddenly 跳，跃</p>
+<p class="normaltextd"><b>busy</b> <em>adj</em>. with a lot of things to do 忙碌的，无空闲的</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP8-1"><span class="underline">2</span></p>
+<p class="subtitlehz2">告别美国</p>
+<p class="normaltext">对于一个七岁的小男孩来说，这一连串消息太多了——伯父的辞世、英国的祖父、英格兰的新家、全新的名字……起初，他完全不明白是怎么回事。而当他明白以后，他不是很开心。</p>
+<p class="normaltext">“哦，最最亲爱的，”他对母亲说（锡德里克的父亲总是称呼她为“最最亲爱的”，所以小男孩也这么叫），“我不想当一个伯爵。咱们这条街上没有一个男孩是伯爵。求求您，我能<span class="doubleline">不</span>当吗？”</p>
+<p class="normaltext">“你爸爸很爱他在英格兰的家，锡迪。”他的母亲说，“我想他会希望你去的，也希望你有一天能成为伯爵。”</p>
+<p class="normaltext">“离开朋友们我会很难过。迪克、布里奇特，还有大家伙儿。”锡德里克伤心地说，“而且霍布斯先生也不会喜欢这个消息的。他说国王和伯爵都是坏人。美国有总统，霍布斯先生说总统比国王好多了。”</p>
+<p class="normaltext">第二天，锡德里克去食品杂货店找霍布斯先生。他在老地方坐下，一开始不知道怎么告诉霍布斯先生这个消息。过了一会儿，他飞快地一股脑儿全说了出来。</p>
+<p class="normaltext">霍布斯先生盯着他。“噢！”他说，“这是真的？”</p>
+<p class="normaltext">“是的，霍布斯先生。”锡德里克说，“很抱歉，这都是真的。哈维沙姆先生说，我现在是方特勒罗伊爵爷了，哪天爷爷过世后，我还会成为多林考特伯爵。”</p>
+<p class="normaltext">“哎哟！”霍布斯先生说，“哎哟，哎哟，哎哟！”</p>
+<p class="normaltext">他们就此聊了很长时间，最后，霍布斯先生对爵爷、伯爵什么的感觉好多了。他非常喜欢这位年轻的朋友。他第一次见到锡迪的时候，锡迪才六周大，他对这孩子有着祖父一般的关心。可他不想让锡德里克去英格兰。</p>
+<p class="normaltext">“你不能呆在这儿当伯爵吗？”他问道。</p>
+<p class="normaltext">“不，不行，”锡德里克伤心地说，“最最亲爱的说我们必须去英格兰。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">多林考特是个古老而显赫的姓氏，这个家族非常富有，在英格兰拥有高大的房屋和城堡。哈维沙姆先生担任家族律师已经四十年了，对伯爵十分了解。他还记得离开英格兰前伯爵对他说的话。</p>
+<p class="normaltextx">我恨那个美国女人。她嫁给我儿子就是因为他是伯爵的儿子，她想变得富有。她儿子肯定也会跟她一样。</p>
+<p class="normaltext">但是，在纽约呆了一周后，哈维沙姆先生有了不同的看法。“埃罗尔太太嫁给伯爵的儿子是因为她全心全意地爱着他，”他想，“她对钱没有兴趣，也没为自己要求过什么。她只希望自己的孩子能幸福。我觉得伯爵错怪了她和她的孩子。”</p>
+<p class="normaltext">新的方特勒罗伊爵爷让哈维沙姆先生既惊讶又满意。锡德里克是个漂亮的男孩，长得又高又结实，有着和母亲一样的棕色眼睛，还有和父亲一样的金色头发。他说话得体，不惧怕任何事，对每个人都很友好。他还有颗善良的心。哈维沙姆先生很快就发现了这一点。</p>
+<p class="normaltext">一天，他和锡德里克在一起，锡德里克的妈妈出去了。哈维沙姆先生想和他聊聊英格兰的新生活，可锡德里克先开了口。</p>
+<p class="normaltext">“请问，伯爵是什么？”他问道，“我一点儿都不知道。请您告诉我好吗？”</p>
+<p class="normaltext">“伯爵就是——是非常有地位的人，”哈维沙姆先生说，“他们通常来自非常古老的家族。多林考特家族的第一位伯爵生活在四百年前。”</p>
+<p class="normaltext">“哎呀，哎呀！”锡德里克说，“那是很久以前了，真有意思。那么伯爵都做些什么呢？”</p>
+<p class="normaltext">这个问题不好回答。“伯爵，”哈维沙姆先生开口说，“嗯……伯爵经常协助国王，算是国王的士兵吧。在过去，有些伯爵是非常英勇的人。”</p>
+<p class="normaltext">“噢，”锡德里克说，“我爸爸原来也是士兵，而且非常勇敢，您知道的。我很高兴伯爵是勇敢的人。勇敢是件好事，您不觉得吗？”</p>
+<p class="normaltext">“是的，”哈维沙姆先生说，“当伯爵还有一个好处。他们中的一些人有钱——很多的钱。”</p>
+<p class="normaltext">“钱很好啊，”锡德里克说，“我想有好多的钱。”</p>
+<p class="normaltext">“是吗？”哈维沙姆先生问道，“为什么？”</p>
+<p class="normaltext">“嗯，”锡德里克开心地说，“您知道，一个人有钱可以做好多事。我可以给我最最亲爱的买些漂亮的东西，像书啊，好看的衣服啊。我可以给布里奇特买件暖和的冬衣——她住在我们这条街上，有十二个孩子。我还可以给食品杂货店的霍布斯先生买份礼物，还有给迪克——”</p>
+<p class="normaltext">“迪克是谁？”哈维沙姆先生问道。</p>
+<p class="normaltext">“迪克是擦皮鞋的，”方特勒罗伊小爵爷说，“您知道的，就是在街上给人擦鞋。他是这世上最好的人之一。我小的时候，他对我非常好。别人对您好，您永远不会忘记的，对吧？”</p>
+<p class="normaltext">“那么你想为迪克做点什么呢？”律师问道。他露出一丝微笑。一个擦鞋匠，一个食品杂货店老板，一个带着十二个孩子的穷女人——这些就是伯爵孙子奇奇怪怪的朋友们。</p>
+<p class="normaltext">“给他买个自己的鞋摊，”小爵爷开心地说，“他现在替杰克干活，您知道吗，杰克不是什么好人。活儿都是迪克在干，钱却都被杰克拿走了。迪克可生气了！迪克需要新刷子、新衣服和一块招牌，然后他一定会干得很好的！”</p>
+<p class="normaltext">这时，埃罗尔太太回家了。“真抱歉我回来晚了，”她说，“我在一个朋友家，她丈夫病了，她需要帮助，可怜的人呐。”</p>
+<p class="normaltext">“噢！”小爵爷大喊一声，他从椅子上跳起来。“是布里奇特。我也得去看她。”</p>
+<p class="normaltext">“等一等，”律师说，他想起伯爵的话。<span class="normaltext02">告诉那孩子，他想要什么都可以。给他口袋里塞点钱，告诉他是他爷爷给的。</span>哈维沙姆先生跟埃罗尔太太和锡德里克提起了伯爵的钱，不过是用更友善的口气说的。</p>
+<p class="normaltext">然后他问：“那么，方特勒罗伊爵爷想要帮助这位可怜的女士吗？”</p>
+<p class="normaltext">一开始锡德里克没明白他的意思。</p>
+<p class="normaltext">他的母亲伸出双手搂过他。“亲爱的锡迪，”她说，“伯爵是你爷爷，你爸爸的父亲。他很善良。他爱你，也希望你爱他。他希望你快乐，也让别人快乐。他很富有，他给了哈维沙姆先生一些钱，是要给你的。你现在可以拿些给布里奇特去付房租，再给她丈夫和孩子买吃的。这是不是很棒，锡迪？爷爷是不是很好？”</p>
+<p class="normaltext">锡德里克的表情马上变得很兴奋。他看看妈妈，又望望哈维沙姆先生。</p>
+<p class="normaltext">“我能现在就要吗？”他大声问道，“我能马上跑去她家给她吗？”</p>
+<p class="normaltext">哈维沙姆先生给了锡德里克25美元，锡德里克立刻跑了出去。</p>
+<p class="normaltext">过了一会儿，锡德里克回来了，脸上挂着灿烂的笑容。“布里奇特哭了，”他说，“她哭是因为她特别高兴。我觉得我会喜欢当伯爵的。”</p>
+<p class="normaltext">老律师又微微一笑。“伯爵对此会怎么想呢？”他想，“他把钱给了孙子，这孩子又把钱给了一个穷女人付房租。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">离开纽约的日子很快到来了。在最后这些天里，方特勒罗伊爵爷非常忙碌。有了伯爵的钱，布里奇特的孩子们都有了新衣服。霍布斯先生也收到了他这位小朋友送的一块上好的金表。</p>
+<p class="normaltext">“看，”锡德里克说，“这手表背面有我们俩的名字，这样你就不会忘记我了！”</p>
+<p class="normaltext">霍布斯先生手里握着那块表，一时说不出话来。“我不会忘记你的，我的孩子，”最后他说，“你绝不会忘了好朋友的，对不对？”</p>
+<p class="normaltext">迪克也一样，起初不知道说什么话来感谢他的小伙伴。他现在有了新刷子、一块崭新的大招牌和纽约最体面的擦鞋摊。锡迪离开前的一天，他来到锡迪家说再见。</p>
+<p class="normaltext">“他要走了，我很难过，我真的很难过，”他对哈维沙姆先生说，“我从没有过像他这样的朋友。”迪克拉着锡德里克的手握了很长时间。“再见，”他说，“写信给我，跟我说说伯爵，还有那儿的一切。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">那天晚上，锡德里克的妈妈没怎么说话。</p>
+<p class="normaltext">锡德里克拉着她的手。“跟我们所有的朋友，还有我们的小屋说再见真令人伤心，是不是，最最亲爱的？”他说。</p>
+<p class="normaltext">“是的，亲爱的锡迪，是的，”她说，“非常，非常伤心。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">告别美国</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP8"><span class="underline">2</span></p>
+<p class="subtitlehz2">Saying goodbye to America</p>
+<p class="normaltext">It was a lot of news for a seven-year-old boy – uncles dying, an English grandfather, a new home in England, a new name... He did not understand it all at first. And when he did, he was not very happy.</p>
+<p class="normaltext">'Oh, dearest,' he said to his mother. (Cedric's father always called her 'dearest', and so the little boy used the name too.) 'I don't think I want to be an Earl. None of the boys in our street are Earls. Please can I <em>not</em> be one?'</p>
+<p class="normaltext">'Your papa loved his home in England, Ceddie,' said his mother. 'I think he would like you to go there, and be an Earl one day.'</p>
+<p class="normaltext">'I'm sorry to leave all my friends. Dick, and Bridget, and everyone,' said Cedric sadly. 'And Mr Hobbs isn't going to like the news. He says kings and lords are all bad people. America has a president, and Mr Hobbs says presidents are much better than kings.'</p>
+<p class="normaltext">The next day Cedric went to see Mr Hobbs at his grocery store. He sat down in his usual place, but at first he could not find the words to tell Mr Hobbs his news. Then he said it all at once, very quickly.</p>
+<p class="normaltext">Mr Hobbs stared at him. 'Well!' he said. 'Can this be true?'</p>
+<p class="normaltext">'Yes, Mr Hobbs,' said Cedric. 'I'm sorry to say it's all true. Mr Havisham says I am Lord Fauntleroy now, and one day I'm going to be the Earl of Dorincourt, after my grandfather dies.'</p>
+<p class="normaltext">'Well!' said Mr Hobbs. 'Well, well, well!'</p>
+<p class="normaltext">They talked about it for a long time, and in the end Mr Hobbs was happier about lords and earls. He liked his young friend very much. He first knew Cedric when he was six weeks old, and he had a grandfatherly interest in the boy. But he did not like Cedric going to England.</p>
+<p class="normaltext">'Can't you stay here and be an earl?' he asked.</p>
+<p class="normaltext">'No, I can't,' said Cedric sadly. 'Dearest says we must go to England.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">The Dorincourt name was an old and famous one, and the family was very rich, with great houses and castles in England. Mr Havisham, the family's lawyer for forty years, knew the Earl very well. He remembered the Earl's words to him before he left England.</p>
+<p class="normaltext"><em>I hate that American woman. She married my son because he was an earl's son, and she wanted to be rich. Her son is going to be just like her.</em></p>
+<p class="normaltext">But after a week in New York Mr Havisham knew differently. 'Mrs Errol married the Earl's son because she loved him with all her heart,' he thought. 'She's not interested in money, she asks nothing for herself. She only wants her little boy to be happy. I think the Earl is wrong about her, and about her little boy.'</p>
+<p class="picture"><img src="../../../Images/image07472.jpeg" alt="alt"/></p>
+<p class="tz"><em>'Well!' said Mr Hobbs. 'Well, well, well!'</em></p>
+<p class="normaltext">Mr Havisham was surprised and pleased by the new Lord Fauntleroy. Cedric was a fine boy, tall and strong, with his mother's brown eyes and his father's golden hair. He spoke well, was not afraid of anything, and was friendly with everyone. He had a kind heart, too. Mr Havisham learnt that very soon.</p>
+<p class="normaltext">One day he was with Cedric when his mother was out. Mr Havisham wanted to talk to him about his new life in England. But Cedric spoke first.</p>
+<p class="normaltext">'Please, what is an earl?' he asked. 'I don't know anything about them. Please can you tell me?'</p>
+<p class="normaltext">'An earl is – is a very important person,' Mr Havisham said. 'He usually comes from a very old family. The first Earl of Dorincourt lived four hundred years ago.'</p>
+<p class="normaltext">'Well, well!' said Cedric. 'That was a long time ago. That's interesting. But what does an earl do?'</p>
+<p class="normaltext">This was not an easy question to answer. 'An earl,' Mr Havisham began, 'um... an earl often helps the king. Perhaps he's a soldier for the king. Some earls were very brave men in the old days.'</p>
+<p class="normaltext">'Oh,' said Cedric. 'My papa was a soldier, and he was a very brave man, you know. I'm pleased Earls are brave. It's a good thing to be brave, don't you think?'</p>
+<p class="normaltext">'Yes,' Mr Havisham said. 'There is another good thing about Earls. Some of them have money – a lot of money.'</p>
+<p class="normaltext">'That's a good thing to have,' said Cedric. 'I'd like a lot of money.'</p>
+<p class="normaltext">'Would you?' said Mr Havisham. 'Why?'</p>
+<p class="normaltext">'Well,' Cedric said, happily, 'a person can do so many things with money, you see. I can buy beautiful things for Dearest, like books and pretty dresses. I can buy a warm winter coat for Bridget – she lives in our street and has twelve children. And a present for Mr Hobbs at the grocery store. And then for Dick—'</p>
+<p class="normaltext">'Who is Dick?' asked Mr Havisham.</p>
+<p class="normaltext">'Dick is a boot-black,' said Lord Fauntleroy. 'He cleans people's boots in the street, you know. He's one of the nicest people in the world. When I was little, he was very kind to me once. And when someone is kind to you, you never forget it, do you?'</p>
+<p class="normaltext">'And what would you like to do for Dick?' asked the lawyer. He smiled a little smile. A boot-black, a grocery-man, a poor woman with twelve children – strange friends for the grandson of an earl.</p>
+<p class="normaltext">'Buy the business for him,' said the young lord happily. 'He works for Jake now, and Jake is no good, you see. Dick does all the work and Jake takes all the money. Dick gets so angry! Dick needs new brushes, and new clothes, and a sign, and then he can get somewhere!'</p>
+<p class="normaltext">At that moment Mrs Errol came home. 'I am so sorry to be late,' she said. 'I was at the house of a friend. Her husband is ill, and she needs help, poor thing.'</p>
+<p class="normaltext">'Oh,' cried the young lord. He jumped up from his chair. 'That's Bridget. I must visit her too.'</p>
+<p class="picture"><img src="../../../Images/image07473.jpeg" alt="alt"/></p>
+<p class="tz"><em>'Dick is a boot-black. He cleans people's boots in the street.'</em></p>
+<p class="normaltext">'One moment,' said the lawyer. He remembered the Earl's words. <em>The boy can have anything. Tell him that. Put money in his pockets, and tell him it came from his grandfather.</em> Mr Havisham told Mrs Errol and Cedric about the Earl's money, but he said it more kindly.</p>
+<p class="normaltext">Then he asked, 'So, would Lord Fauntleroy like to help this poor woman?'</p>
+<p class="normaltext">At first Cedric did not understand.</p>
+<p class="normaltext">His mother put her arms around him. 'Ceddie dear,' she said, 'the Earl is your grandpapa, your papa's father. He's very kind, and he loves you and he wants you to love him. He wants you to be happy and to make other people happy. He's very rich, and he gave Mr Havisham some money for you. You can give some to Bridget now, to pay her rent and to buy food for her husband and her children. Isn't that fine, Ceddie? Isn't he good?'</p>
+<p class="normaltext">Cedric's face was suddenly very excited. He looked from his mother to Mr Havisham.</p>
+<p class="normaltext">'Can I have it now?' he cried. 'Can I run to her house and give it to her this minute?'</p>
+<p class="normaltext">Mr Havisham gave Cedric twenty-five dollars, and Cedric was out of the house in seconds.</p>
+<p class="normaltext">A short time later Cedric was back, with a big smile on his face. 'Bridget cried,' he said. 'She cried because she was so happy. I think I'm going to like being an earl.'</p>
+<p class="normaltext">The old lawyer smiled his little smile again. 'What's the Earl going to think about that?' he thought. 'He gives his grandson money, and the boy gives it to a poor woman to pay her rent.'</p>
+<p class="picture"><img src="../../../Images/image07474.jpeg" alt="alt"/></p>
+<p class="tz"><em>'You can give some money to Bridget now,' said his mother.</em></p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">The day for leaving New York came quickly. In the last days Lord Fauntleroy was very busy. With the Earl's money, Bridget's children all had new clothes, and Mr Hobbs had a very fine gold watch from his little friend.</p>
+<p class="normaltext">'Look,' said Cedric. 'The watch has our names on the back. So you can't forget me!'</p>
+<p class="normaltext">Mr Hobbs held the watch in his hand, and at first he could not speak. 'I'm not going to forget you, my boy,' he said at last. 'You never forget a good friend, do you?'</p>
+<p class="normaltext">Dick, too, could not find words at first to thank his little friend. He now had new brushes, a big new sign, and the best boot-black business in New York. On the last day he came to the house to say goodbye.</p>
+<p class="normaltext">'I'm sorry he's going away, I really am,' he said to Mr Havisham. 'I never had a friend like him.' Dick shook Cedric's hand for a long time. 'Goodbye,' he said. 'Write and tell me all about it, earls and everything.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">That evening Cedric's mamma was very quiet.</p>
+<p class="normaltext">Cedric held her hand. 'It's sad saying goodbye to all our friends and our little house, isn't it, Dearest?' he said.</p>
+<p class="normaltext">'Yes, Ceddie dear, it is,' she said. 'Very, very sad.'</p>
+<hr/>
+<p class="normaltextd"><b>stare</b> <em>v</em>. to look at somebody or something for a long time 盯着看，凝视</p>
+<p class="normaltextd"><b>great</b> <em>adj</em>. very big 非常大的</p>
+<p class="normaltextd"><b>fine</b> <em>adj</em>. good, nice, beautiful, etc. 优秀的；很好的；漂亮的</p>
+<p class="normaltextd"><b>soldier</b> <em>n</em>. a person in an army, who fights for their country 士兵，军人</p>
+<p class="normaltextd"><b>brave</b> <em>adj</em>. ready to do dangerous or difficult things and not be afraid 勇敢的</p>
+<p class="normaltextd"><b>poor</b> <em>adj</em>. (1) with very little money; (2) a word that you use when you feel sad for someone （1）贫穷的（2）可怜的</p>
+<p class="normaltextd"><b>jump</b> <em>v</em>. to move very quickly and suddenly 跳，跃</p>
+<p class="normaltextd"><b>busy</b> <em>adj</em>. with a lot of things to do 忙碌的，无空闲的</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP8-1"><span class="underline">2</span></p>
+<p class="subtitlehz2">告别美国</p>
+<p class="normaltext">对于一个七岁的小男孩来说，这一连串消息太多了——伯父的辞世、英国的祖父、英格兰的新家、全新的名字……起初，他完全不明白是怎么回事。而当他明白以后，他不是很开心。</p>
+<p class="normaltext">“哦，最最亲爱的，”他对母亲说（锡德里克的父亲总是称呼她为“最最亲爱的”，所以小男孩也这么叫），“我不想当一个伯爵。咱们这条街上没有一个男孩是伯爵。求求您，我能<span class="doubleline">不</span>当吗？”</p>
+<p class="normaltext">“你爸爸很爱他在英格兰的家，锡迪。”他的母亲说，“我想他会希望你去的，也希望你有一天能成为伯爵。”</p>
+<p class="normaltext">“离开朋友们我会很难过。迪克、布里奇特，还有大家伙儿。”锡德里克伤心地说，“而且霍布斯先生也不会喜欢这个消息的。他说国王和伯爵都是坏人。美国有总统，霍布斯先生说总统比国王好多了。”</p>
+<p class="normaltext">第二天，锡德里克去食品杂货店找霍布斯先生。他在老地方坐下，一开始不知道怎么告诉霍布斯先生这个消息。过了一会儿，他飞快地一股脑儿全说了出来。</p>
+<p class="normaltext">霍布斯先生盯着他。“噢！”他说，“这是真的？”</p>
+<p class="normaltext">“是的，霍布斯先生。”锡德里克说，“很抱歉，这都是真的。哈维沙姆先生说，我现在是方特勒罗伊爵爷了，哪天爷爷过世后，我还会成为多林考特伯爵。”</p>
+<p class="normaltext">“哎哟！”霍布斯先生说，“哎哟，哎哟，哎哟！”</p>
+<p class="normaltext">他们就此聊了很长时间，最后，霍布斯先生对爵爷、伯爵什么的感觉好多了。他非常喜欢这位年轻的朋友。他第一次见到锡迪的时候，锡迪才六周大，他对这孩子有着祖父一般的关心。可他不想让锡德里克去英格兰。</p>
+<p class="normaltext">“你不能呆在这儿当伯爵吗？”他问道。</p>
+<p class="normaltext">“不，不行，”锡德里克伤心地说，“最最亲爱的说我们必须去英格兰。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">多林考特是个古老而显赫的姓氏，这个家族非常富有，在英格兰拥有高大的房屋和城堡。哈维沙姆先生担任家族律师已经四十年了，对伯爵十分了解。他还记得离开英格兰前伯爵对他说的话。</p>
+<p class="normaltextx">我恨那个美国女人。她嫁给我儿子就是因为他是伯爵的儿子，她想变得富有。她儿子肯定也会跟她一样。</p>
+<p class="normaltext">但是，在纽约呆了一周后，哈维沙姆先生有了不同的看法。“埃罗尔太太嫁给伯爵的儿子是因为她全心全意地爱着他，”他想，“她对钱没有兴趣，也没为自己要求过什么。她只希望自己的孩子能幸福。我觉得伯爵错怪了她和她的孩子。”</p>
+<p class="normaltext">新的方特勒罗伊爵爷让哈维沙姆先生既惊讶又满意。锡德里克是个漂亮的男孩，长得又高又结实，有着和母亲一样的棕色眼睛，还有和父亲一样的金色头发。他说话得体，不惧怕任何事，对每个人都很友好。他还有颗善良的心。哈维沙姆先生很快就发现了这一点。</p>
+<p class="normaltext">一天，他和锡德里克在一起，锡德里克的妈妈出去了。哈维沙姆先生想和他聊聊英格兰的新生活，可锡德里克先开了口。</p>
+<p class="normaltext">“请问，伯爵是什么？”他问道，“我一点儿都不知道。请您告诉我好吗？”</p>
+<p class="normaltext">“伯爵就是——是非常有地位的人，”哈维沙姆先生说，“他们通常来自非常古老的家族。多林考特家族的第一位伯爵生活在四百年前。”</p>
+<p class="normaltext">“哎呀，哎呀！”锡德里克说，“那是很久以前了，真有意思。那么伯爵都做些什么呢？”</p>
+<p class="normaltext">这个问题不好回答。“伯爵，”哈维沙姆先生开口说，“嗯……伯爵经常协助国王，算是国王的士兵吧。在过去，有些伯爵是非常英勇的人。”</p>
+<p class="normaltext">“噢，”锡德里克说，“我爸爸原来也是士兵，而且非常勇敢，您知道的。我很高兴伯爵是勇敢的人。勇敢是件好事，您不觉得吗？”</p>
+<p class="normaltext">“是的，”哈维沙姆先生说，“当伯爵还有一个好处。他们中的一些人有钱——很多的钱。”</p>
+<p class="normaltext">“钱很好啊，”锡德里克说，“我想有好多的钱。”</p>
+<p class="normaltext">“是吗？”哈维沙姆先生问道，“为什么？”</p>
+<p class="normaltext">“嗯，”锡德里克开心地说，“您知道，一个人有钱可以做好多事。我可以给我最最亲爱的买些漂亮的东西，像书啊，好看的衣服啊。我可以给布里奇特买件暖和的冬衣——她住在我们这条街上，有十二个孩子。我还可以给食品杂货店的霍布斯先生买份礼物，还有给迪克——”</p>
+<p class="normaltext">“迪克是谁？”哈维沙姆先生问道。</p>
+<p class="normaltext">“迪克是擦皮鞋的，”方特勒罗伊小爵爷说，“您知道的，就是在街上给人擦鞋。他是这世上最好的人之一。我小的时候，他对我非常好。别人对您好，您永远不会忘记的，对吧？”</p>
+<p class="normaltext">“那么你想为迪克做点什么呢？”律师问道。他露出一丝微笑。一个擦鞋匠，一个食品杂货店老板，一个带着十二个孩子的穷女人——这些就是伯爵孙子奇奇怪怪的朋友们。</p>
+<p class="normaltext">“给他买个自己的鞋摊，”小爵爷开心地说，“他现在替杰克干活，您知道吗，杰克不是什么好人。活儿都是迪克在干，钱却都被杰克拿走了。迪克可生气了！迪克需要新刷子、新衣服和一块招牌，然后他一定会干得很好的！”</p>
+<p class="normaltext">这时，埃罗尔太太回家了。“真抱歉我回来晚了，”她说，“我在一个朋友家，她丈夫病了，她需要帮助，可怜的人呐。”</p>
+<p class="normaltext">“噢！”小爵爷大喊一声，他从椅子上跳起来。“是布里奇特。我也得去看她。”</p>
+<p class="normaltext">“等一等，”律师说，他想起伯爵的话。<span class="normaltext02">告诉那孩子，他想要什么都可以。给他口袋里塞点钱，告诉他是他爷爷给的。</span>哈维沙姆先生跟埃罗尔太太和锡德里克提起了伯爵的钱，不过是用更友善的口气说的。</p>
+<p class="normaltext">然后他问：“那么，方特勒罗伊爵爷想要帮助这位可怜的女士吗？”</p>
+<p class="normaltext">一开始锡德里克没明白他的意思。</p>
+<p class="normaltext">他的母亲伸出双手搂过他。“亲爱的锡迪，”她说，“伯爵是你爷爷，你爸爸的父亲。他很善良。他爱你，也希望你爱他。他希望你快乐，也让别人快乐。他很富有，他给了哈维沙姆先生一些钱，是要给你的。你现在可以拿些给布里奇特去付房租，再给她丈夫和孩子买吃的。这是不是很棒，锡迪？爷爷是不是很好？”</p>
+<p class="normaltext">锡德里克的表情马上变得很兴奋。他看看妈妈，又望望哈维沙姆先生。</p>
+<p class="normaltext">“我能现在就要吗？”他大声问道，“我能马上跑去她家给她吗？”</p>
+<p class="normaltext">哈维沙姆先生给了锡德里克25美元，锡德里克立刻跑了出去。</p>
+<p class="normaltext">过了一会儿，锡德里克回来了，脸上挂着灿烂的笑容。“布里奇特哭了，”他说，“她哭是因为她特别高兴。我觉得我会喜欢当伯爵的。”</p>
+<p class="normaltext">老律师又微微一笑。“伯爵对此会怎么想呢？”他想，“他把钱给了孙子，这孩子又把钱给了一个穷女人付房租。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">离开纽约的日子很快到来了。在最后这些天里，方特勒罗伊爵爷非常忙碌。有了伯爵的钱，布里奇特的孩子们都有了新衣服。霍布斯先生也收到了他这位小朋友送的一块上好的金表。</p>
+<p class="normaltext">“看，”锡德里克说，“这手表背面有我们俩的名字，这样你就不会忘记我了！”</p>
+<p class="normaltext">霍布斯先生手里握着那块表，一时说不出话来。“我不会忘记你的，我的孩子，”最后他说，“你绝不会忘了好朋友的，对不对？”</p>
+<p class="normaltext">迪克也一样，起初不知道说什么话来感谢他的小伙伴。他现在有了新刷子、一块崭新的大招牌和纽约最体面的擦鞋摊。锡迪离开前的一天，他来到锡迪家说再见。</p>
+<p class="normaltext">“他要走了，我很难过，我真的很难过，”他对哈维沙姆先生说，“我从没有过像他这样的朋友。”迪克拉着锡德里克的手握了很长时间。“再见，”他说，“写信给我，跟我说说伯爵，还有那儿的一切。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">那天晚上，锡德里克的妈妈没怎么说话。</p>
+<p class="normaltext">锡德里克拉着她的手。“跟我们所有的朋友，还有我们的小屋说再见真令人伤心，是不是，最最亲爱的？”他说。</p>
+<p class="normaltext">“是的，亲爱的锡迪，是的，”她说，“非常，非常伤心。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">3．A new life in England</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP9"><span class="underline">3</span></p>
+<p class="subtitlehz2">A new life in England</p>
+<p class="normaltext">The ship from New York to England took eleven days, and the young Lord Fauntleroy made a lot of friends in that time. Everybody liked him, and everybody was interested in the story of his family.</p>
+<p class="normaltext">Cedric learnt a new piece of the story on the ship.</p>
+<p class="normaltext">'We're going to have different homes, Ceddie,' his mother told him. 'You must live in the castle with your grandfather, and I have a little house called Court Lodge not far away. You can run in and see me every day.'</p>
+<p class="normaltext">Cedric could not understand this, and was very unhappy about it. 'But why?' he asked again and again.</p>
+<p class="normaltext">'When you are older,' his mother said sadly, 'I can tell you. But not now.'</p>
+<p class="normaltext">To Mr Havisham she said this. 'The Earl hates me, and does not want to see me. I don't want Cedric to know that, because how could he understand it? He is a loving child, and I want him and his grandfather to be friends. It is better for the Earl that way.'</p>
+<p class="normaltext">'I don't like it,' Cedric said later to Mr Havisham. 'But Dearest tells me I must live with my grandfather, because, you see, all his children are dead. You must be sorry for a man when all his children are dead.'</p>
+<p class="picture"><img src="../../../Images/image07475.jpeg" alt="alt"/></p>
+<p class="tz"><em>'We're going to have different homes, Ceddie,' his mother said.</em></p>
+<p class="normaltext">Mr Havisham smiled. He enjoyed his little talks with Cedric very much.</p>
+<p class="normaltext">'Are you going to like the Earl?' he asked.</p>
+<p class="normaltext">'Yes,' said Lord Fauntleroy. 'Of course a boy must like his grandfather. And he's very kind to me.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">On his first night in England Cedric stayed with his mother in her little house near the castle. But Mr Havisham went up to the castle to see the Earl.</p>
+<p class="normaltext">The Earl was in a big chair by the fire. He had a bad right foot, and it gave him a lot of pain. And when his foot was painful, the Earl was even more bad-tempered than usual.</p>
+<p class="normaltext">'Well, Havisham,' he said. 'What's the news?'</p>
+<p class="normaltext">Mr Havisham began to tell him about the ship, but the Earl did not want to hear about that.</p>
+<p class="normaltext">'Yes, yes, yes,' he said angrily. 'But what about the boy? What kind of a boy is he? Is he stupid? What does he look like? Does he talk all the time, in that stupid noisy American way?'</p>
+<p class="normaltext">Mr Havisham smiled his little lawyer's smile. 'He is different from most English children, I think. But one thing, my lord. The boy knows nothing about your feelings about his mother. She said nothing to him, because she wants you and him to be friends. So, he thinks you are the kindest grandfather in the world.'</p>
+<p class="normaltext">'He does, eh?' said the Earl.</p>
+<p class="normaltext">'So when you speak of his mother, please be careful.'</p>
+<p class="picture"><img src="../../../Images/image07476.jpeg" alt="alt"/></p>
+<p class="tz"><em>'What kind of a boy is he? Is he stupid?' said the Earl.</em></p>
+<p class="normaltext">'Huh!' said the Earl. 'The boy's only seven years old.'</p>
+<p class="normaltext">'Those seven years were all at his mother's side,' said Mr Havisham. 'And she has all his love.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">The next afternoon the Earl's carriage carried Lord Fauntleroy and Mr Havisham up to Dorincourt Castle. At the great front door all the servants of the house waited to see the new Lord Fauntleroy, the little boy from America. When Cedric got out of the carriage, everybody had something to say about him.</p>
+<p class="normaltext">'Oh, look! He's just like his father, with the same hair, the same eyes. The dear little boy!'</p>
+<p class="normaltext">'And he's got his father's happy smile too – look!'</p>
+<p class="normaltext">'I'm sorry for him, living with that bad-tempered old man. Nobody ever gets a kind word out of the Earl!'</p>
+<p class="normaltext">'And his poor young mother, living all alone at Court Lodge, without her little boy! I'm sorry for her, too.'</p>
+<p class="normaltext">Cedric smiled and said hello to everybody, in his usual friendly way, and went into the house with Mr Havisham. One of the servants, a tall young man, took Cedric to the back of the house and opened a door.</p>
+<p class="normaltext">'Lord Fauntleroy, my lord,' he said.</p>
+<p class="normaltext">Cedric walked down a long room to a fire at the end. There was a big chair there, and an old man in it, with white hair and black eyes.</p>
+<p class="normaltext">Cedric came close to the chair. 'Are you the Earl?' he said. 'I'm your grandson. Mr Havisham brought me.' He held out his hand. 'I'm very happy to see you.'</p>
+<p class="picture"><img src="../../../Images/image07477.jpeg" alt="alt"/></p>
+<p class="tz"><em> Cedric smiled and said hello to everybody, in his usual friendly way.</em></p>
+<p class="normaltext">The Earl shook hands with him, very surprised. He stared at the strong, beautiful little boy in front of him, with his golden curly hair and his friendly open face.</p>
+<p class="normaltext">'Happy to see me, are you?' he said.</p>
+<p class="normaltext">'Yes,' said Lord Fauntleroy. 'Of course. Everybody loves their family, don't they? It's exciting to meet a new grandfather. And you are very kind!'</p>
+<p class="normaltext">He sat down on a chair and looked at his grandfather with great interest. The old Earl looked back at him. He did not like anybody in his family. He was bad-tempered with them all, and they all hated him.</p>
+<p class="normaltext">'Kind?' he said. 'How am I kind?'</p>
+<p class="normaltext">'Because of the money,' Cedric said happily. 'For Bridget, and Dick. I wanted to thank you.'</p>
+<p class="normaltext">'Bridget? Dick? Who are they?' said the Earl.</p>
+<p class="normaltext">And so Lord Fauntleroy told his grandfather all about his friends in New York, about Bridget and her husband and her twelve children, about Dick and Jake and the boot-black business.</p>
+<p class="normaltext">The Earl of Dorincourt did not like children, and children were usually afraid of him. But Cedric was not afraid, and he talked in his usual friendly way.</p>
+<p class="normaltext">'He thinks I'm his friend,' thought the Earl. 'And he wants to please me.' This was a new feeling for the Earl. Cedric was only a little boy from America, but perhaps it was nice for the Earl to see a smiling face for once.</p>
+<p class="normaltext">They talked all evening, through dinner, and after dinner. In the end Cedric went to sleep in front of the fire. The Earl called a servant.</p>
+<p class="normaltext">'Carry Lord Fauntleroy up to his bedroom,' he said. 'Be careful with him. The boy's tired.'</p>
+<hr/>
+<p class="normaltextd"><b>unhappy</b> <em>adj</em>. not happy 不快乐的</p>
+<p class="normaltextd"><b>pain</b> <em>n</em>. a feeling in your body when you are hurt or ill 疼痛</p>
+<p class="normaltextd"><b>painful</b> <em>adj</em>. giving pain 疼痛的；引起痛苦的</p>
+<p class="normaltextd"><b>stupid</b> <em>adj</em>. not intelligent, not clever 愚蠢的，傻的</p>
+<p class="normaltextd"><b>my lord</b> <em>words you use when you speak to lords, Earls, etc</em>. （用于称呼）老爷，主人</p>
+<p class="normaltextd"><b>servant</b> <em>n</em>. a person who works in another person's house 仆人，佣人</p>
+<p class="normaltextd"><b>shake hands with sb</b>. to hold someone's hand in your hand and move it up and down 握手</p>
+<p class="normaltextd"><b>curly</b> <em>adj</em>. (of hair) with lots of little round shapes （头发）卷曲的</p>
+<p class="normaltextd"><b>please</b> <em>v</em>. to make someone happy 使高兴</p>
+<p class="normaltextd"><b>feeling</b> <em>n</em>. something that you feel inside yourself, like happiness or sadness （快乐或伤心等的）感觉</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP9-1"><span class="underline">3</span></p>
+<p class="subtitlehz2">英格兰的新生活</p>
+<p class="normaltext">坐船从纽约到英格兰花了十一天，这段时间方特勒罗伊小爵爷交了很多朋友。大家都喜欢他，而且人人都对他家族的故事感兴趣。</p>
+<p class="normaltext">锡德里克在船上得知了一个新消息。</p>
+<p class="normaltext">“我们会住在不同的地方，锡迪。”他的母亲告诉他，“你得和你爷爷一起住在城堡里，我会住在离你们不远的一栋叫洛奇公寓的小房子里。你每天都能跑来看我。”</p>
+<p class="normaltext">锡德里克对此无法理解，而且很不开心。“可这是为什么啊？”他一遍又一遍地问道。</p>
+<p class="normaltext">“等你长大些，”他的母亲忧伤地说，“我会告诉你，但不是现在。”</p>
+<p class="normaltext">对哈维沙姆先生她说了这样一番话：“伯爵讨厌我，不想见我。我不想让锡德里克知道这些，他怎么会懂呢？他是个善良的孩子，我希望他和他的祖父成为朋友。这样对伯爵也更好些。”</p>
+<p class="normaltext">“我不喜欢这样，”之后锡德里克对哈维沙姆先生说，“但是最最亲爱的告诉我，我必须和祖父一起住，因为，您知道的，他所有的孩子都死了。当一个人所有的孩子都没了，你肯定会为他感到难过的。”</p>
+<p class="normaltext">哈维沙姆先生笑了。他非常喜欢和锡德里克聊天。</p>
+<p class="normaltext">“你会喜欢伯爵吗？”他问道。</p>
+<p class="normaltext">“会的，”方特勒罗伊爵爷说，“孙子当然要喜欢爷爷啊，而且他对我这么好。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">在英格兰的第一个晚上，锡德里克和他母亲一起住在城堡附近那所小房子里。哈维沙姆先生则去城堡见伯爵。</p>
+<p class="normaltext">伯爵坐在壁炉旁的大椅子上。他的右脚不好，让他受了不少罪。每当脚痛的时候，伯爵就比平常脾气还差。</p>
+<p class="normaltext">“我说，哈维沙姆，”他说，“有什么消息吗？”</p>
+<p class="normaltext">哈维沙姆先生开始跟他说船上的事，但伯爵不想听那些。</p>
+<p class="normaltext">“是啊，是啊，是啊，”他气呼呼地说，“但是那男孩怎么样？他是个什么样的孩子？他蠢吗？他长什么样？他是不是一直说个不停，就像又蠢又吵的美国人那样？”</p>
+<p class="normaltext">哈维沙姆先生露出一丝律师的职业性微笑。“我认为他和大多数英国孩子不一样。不过有一点，老爷，这孩子对您对他母亲的看法毫不知情。他母亲什么都没跟他说，因为她希望您和他能成为朋友。所以，他觉得您是这世上最好的祖父。”</p>
+<p class="normaltext">“他这么觉得，嗯？”伯爵说。</p>
+<p class="normaltext">“所以您提到她母亲的时候，请注意一点。”</p>
+<p class="normaltext">“哼！”伯爵说，“那孩子才七岁。”</p>
+<p class="normaltext">“那七年可都是在他母亲身边，”哈维沙姆先生说，“她拥有他全部的爱。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">第二天下午，伯爵的马车载着方特勒罗伊爵爷和哈维沙姆先生来到多林考特城堡。在气派的大门前，城堡里所有的仆人都等着见见新的方特勒罗伊爵爷，这位从美国来的小男孩。当锡德里克从车里出来时，每个人都谈论起他来。</p>
+<p class="normaltext">“哦，看啊！他真像他父亲，一样的头发，一样的眼睛。可爱的小男孩！”</p>
+<p class="normaltext">“而且他那开心的笑容也像他父亲——瞧啊！”</p>
+<p class="normaltext">“我真为他难过，他要跟那坏脾气的老头儿住在一起。没人能从伯爵那儿得到一句好话！”</p>
+<p class="normaltext">“还有他可怜的母亲，年纪轻轻，一个人孤零零地住在洛奇公寓，不能和她的孩子一起！我也为她感到难过。”</p>
+<p class="normaltext">锡德里克像往常一样，友好地微笑着和大家打招呼，然后和哈维沙姆先生走进房子。仆人中一个高个子的年轻人把锡德里克引到内堂，推开了一扇门。</p>
+<p class="normaltext">“方特勒罗伊爵爷来了，老爷。”他说。</p>
+<p class="normaltext">锡德里克走过长长的房间，来到尽头的壁炉前。那儿有张大大的椅子，上面坐着一位白头发、黑眼睛的老人。</p>
+<p class="normaltext">锡德里克走近椅子。“您是伯爵吗？”他说，“我是您的孙子。哈维沙姆先生带我来的。”他伸出手，“很高兴见到您。”</p>
+<p class="normaltext">伯爵和他握了握手，感到非常惊讶。他盯着面前这个结实、漂亮的小男孩，他有着金色卷发和友好坦诚的脸庞。</p>
+<p class="normaltext">“见到我很高兴，是吗？”他说。</p>
+<p class="normaltext">“是的，”方特勒罗伊爵爷说，“当然高兴。每个人都爱自己的家人，不是吗？要见一位从未谋面的爷爷，真让人兴奋，而且您又那么好！”</p>
+<p class="normaltext">他在一张椅子上坐下，充满好奇地望着祖父。老伯爵也望着他。家里的每个人他都不喜欢。他对他们都很凶，他们也都讨厌他。</p>
+<p class="normaltext">“好？”他说，“我怎么个好法？”</p>
+<p class="normaltext">“因为那些钱，”锡德里克开心地说，“给了布里奇特，还有迪克的那些钱。我想谢谢您。”</p>
+<p class="normaltext">“布里奇特？迪克？他们是谁？”伯爵问道。</p>
+<p class="normaltext">就这样，方特勒罗伊爵爷跟他祖父讲了纽约那些朋友所有的事，有布里奇特和她的丈夫还有十二个孩子，有迪克和杰克还有擦鞋摊。</p>
+<p class="normaltext">多林考特伯爵不喜欢孩子，孩子通常也都怕他。可锡德里克不怕，他还像平常一样，说话很友好。</p>
+<p class="normaltext">“他觉得我是他的朋友，”伯爵想，“而且他想讨我喜欢。”这是伯爵从未有过的感觉。锡德里克只是个从美国来的小男孩，但是也许对伯爵来说，能见到一次别人的笑脸还真不错。</p>
+<p class="normaltext">他们聊了一整晚，晚饭时聊，吃了晚饭接着聊。最后，锡德里克在壁炉前睡着了。伯爵叫来仆人。</p>
+<p class="normaltext">“抱方特勒罗伊爵爷去他的卧室。”他说，“轻着点儿，这孩子累坏了。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">英格兰的新生活</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP9"><span class="underline">3</span></p>
+<p class="subtitlehz2">A new life in England</p>
+<p class="normaltext">The ship from New York to England took eleven days, and the young Lord Fauntleroy made a lot of friends in that time. Everybody liked him, and everybody was interested in the story of his family.</p>
+<p class="normaltext">Cedric learnt a new piece of the story on the ship.</p>
+<p class="normaltext">'We're going to have different homes, Ceddie,' his mother told him. 'You must live in the castle with your grandfather, and I have a little house called Court Lodge not far away. You can run in and see me every day.'</p>
+<p class="normaltext">Cedric could not understand this, and was very unhappy about it. 'But why?' he asked again and again.</p>
+<p class="normaltext">'When you are older,' his mother said sadly, 'I can tell you. But not now.'</p>
+<p class="normaltext">To Mr Havisham she said this. 'The Earl hates me, and does not want to see me. I don't want Cedric to know that, because how could he understand it? He is a loving child, and I want him and his grandfather to be friends. It is better for the Earl that way.'</p>
+<p class="normaltext">'I don't like it,' Cedric said later to Mr Havisham. 'But Dearest tells me I must live with my grandfather, because, you see, all his children are dead. You must be sorry for a man when all his children are dead.'</p>
+<p class="picture"><img src="../../../Images/image07475.jpeg" alt="alt"/></p>
+<p class="tz"><em>'We're going to have different homes, Ceddie,' his mother said.</em></p>
+<p class="normaltext">Mr Havisham smiled. He enjoyed his little talks with Cedric very much.</p>
+<p class="normaltext">'Are you going to like the Earl?' he asked.</p>
+<p class="normaltext">'Yes,' said Lord Fauntleroy. 'Of course a boy must like his grandfather. And he's very kind to me.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">On his first night in England Cedric stayed with his mother in her little house near the castle. But Mr Havisham went up to the castle to see the Earl.</p>
+<p class="normaltext">The Earl was in a big chair by the fire. He had a bad right foot, and it gave him a lot of pain. And when his foot was painful, the Earl was even more bad-tempered than usual.</p>
+<p class="normaltext">'Well, Havisham,' he said. 'What's the news?'</p>
+<p class="normaltext">Mr Havisham began to tell him about the ship, but the Earl did not want to hear about that.</p>
+<p class="normaltext">'Yes, yes, yes,' he said angrily. 'But what about the boy? What kind of a boy is he? Is he stupid? What does he look like? Does he talk all the time, in that stupid noisy American way?'</p>
+<p class="normaltext">Mr Havisham smiled his little lawyer's smile. 'He is different from most English children, I think. But one thing, my lord. The boy knows nothing about your feelings about his mother. She said nothing to him, because she wants you and him to be friends. So, he thinks you are the kindest grandfather in the world.'</p>
+<p class="normaltext">'He does, eh?' said the Earl.</p>
+<p class="normaltext">'So when you speak of his mother, please be careful.'</p>
+<p class="picture"><img src="../../../Images/image07476.jpeg" alt="alt"/></p>
+<p class="tz"><em>'What kind of a boy is he? Is he stupid?' said the Earl.</em></p>
+<p class="normaltext">'Huh!' said the Earl. 'The boy's only seven years old.'</p>
+<p class="normaltext">'Those seven years were all at his mother's side,' said Mr Havisham. 'And she has all his love.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">The next afternoon the Earl's carriage carried Lord Fauntleroy and Mr Havisham up to Dorincourt Castle. At the great front door all the servants of the house waited to see the new Lord Fauntleroy, the little boy from America. When Cedric got out of the carriage, everybody had something to say about him.</p>
+<p class="normaltext">'Oh, look! He's just like his father, with the same hair, the same eyes. The dear little boy!'</p>
+<p class="normaltext">'And he's got his father's happy smile too – look!'</p>
+<p class="normaltext">'I'm sorry for him, living with that bad-tempered old man. Nobody ever gets a kind word out of the Earl!'</p>
+<p class="normaltext">'And his poor young mother, living all alone at Court Lodge, without her little boy! I'm sorry for her, too.'</p>
+<p class="normaltext">Cedric smiled and said hello to everybody, in his usual friendly way, and went into the house with Mr Havisham. One of the servants, a tall young man, took Cedric to the back of the house and opened a door.</p>
+<p class="normaltext">'Lord Fauntleroy, my lord,' he said.</p>
+<p class="normaltext">Cedric walked down a long room to a fire at the end. There was a big chair there, and an old man in it, with white hair and black eyes.</p>
+<p class="normaltext">Cedric came close to the chair. 'Are you the Earl?' he said. 'I'm your grandson. Mr Havisham brought me.' He held out his hand. 'I'm very happy to see you.'</p>
+<p class="picture"><img src="../../../Images/image07477.jpeg" alt="alt"/></p>
+<p class="tz"><em> Cedric smiled and said hello to everybody, in his usual friendly way.</em></p>
+<p class="normaltext">The Earl shook hands with him, very surprised. He stared at the strong, beautiful little boy in front of him, with his golden curly hair and his friendly open face.</p>
+<p class="normaltext">'Happy to see me, are you?' he said.</p>
+<p class="normaltext">'Yes,' said Lord Fauntleroy. 'Of course. Everybody loves their family, don't they? It's exciting to meet a new grandfather. And you are very kind!'</p>
+<p class="normaltext">He sat down on a chair and looked at his grandfather with great interest. The old Earl looked back at him. He did not like anybody in his family. He was bad-tempered with them all, and they all hated him.</p>
+<p class="normaltext">'Kind?' he said. 'How am I kind?'</p>
+<p class="normaltext">'Because of the money,' Cedric said happily. 'For Bridget, and Dick. I wanted to thank you.'</p>
+<p class="normaltext">'Bridget? Dick? Who are they?' said the Earl.</p>
+<p class="normaltext">And so Lord Fauntleroy told his grandfather all about his friends in New York, about Bridget and her husband and her twelve children, about Dick and Jake and the boot-black business.</p>
+<p class="normaltext">The Earl of Dorincourt did not like children, and children were usually afraid of him. But Cedric was not afraid, and he talked in his usual friendly way.</p>
+<p class="normaltext">'He thinks I'm his friend,' thought the Earl. 'And he wants to please me.' This was a new feeling for the Earl. Cedric was only a little boy from America, but perhaps it was nice for the Earl to see a smiling face for once.</p>
+<p class="normaltext">They talked all evening, through dinner, and after dinner. In the end Cedric went to sleep in front of the fire. The Earl called a servant.</p>
+<p class="normaltext">'Carry Lord Fauntleroy up to his bedroom,' he said. 'Be careful with him. The boy's tired.'</p>
+<hr/>
+<p class="normaltextd"><b>unhappy</b> <em>adj</em>. not happy 不快乐的</p>
+<p class="normaltextd"><b>pain</b> <em>n</em>. a feeling in your body when you are hurt or ill 疼痛</p>
+<p class="normaltextd"><b>painful</b> <em>adj</em>. giving pain 疼痛的；引起痛苦的</p>
+<p class="normaltextd"><b>stupid</b> <em>adj</em>. not intelligent, not clever 愚蠢的，傻的</p>
+<p class="normaltextd"><b>my lord</b> <em>words you use when you speak to lords, Earls, etc</em>. （用于称呼）老爷，主人</p>
+<p class="normaltextd"><b>servant</b> <em>n</em>. a person who works in another person's house 仆人，佣人</p>
+<p class="normaltextd"><b>shake hands with sb</b>. to hold someone's hand in your hand and move it up and down 握手</p>
+<p class="normaltextd"><b>curly</b> <em>adj</em>. (of hair) with lots of little round shapes （头发）卷曲的</p>
+<p class="normaltextd"><b>please</b> <em>v</em>. to make someone happy 使高兴</p>
+<p class="normaltextd"><b>feeling</b> <em>n</em>. something that you feel inside yourself, like happiness or sadness （快乐或伤心等的）感觉</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP9-1"><span class="underline">3</span></p>
+<p class="subtitlehz2">英格兰的新生活</p>
+<p class="normaltext">坐船从纽约到英格兰花了十一天，这段时间方特勒罗伊小爵爷交了很多朋友。大家都喜欢他，而且人人都对他家族的故事感兴趣。</p>
+<p class="normaltext">锡德里克在船上得知了一个新消息。</p>
+<p class="normaltext">“我们会住在不同的地方，锡迪。”他的母亲告诉他，“你得和你爷爷一起住在城堡里，我会住在离你们不远的一栋叫洛奇公寓的小房子里。你每天都能跑来看我。”</p>
+<p class="normaltext">锡德里克对此无法理解，而且很不开心。“可这是为什么啊？”他一遍又一遍地问道。</p>
+<p class="normaltext">“等你长大些，”他的母亲忧伤地说，“我会告诉你，但不是现在。”</p>
+<p class="normaltext">对哈维沙姆先生她说了这样一番话：“伯爵讨厌我，不想见我。我不想让锡德里克知道这些，他怎么会懂呢？他是个善良的孩子，我希望他和他的祖父成为朋友。这样对伯爵也更好些。”</p>
+<p class="normaltext">“我不喜欢这样，”之后锡德里克对哈维沙姆先生说，“但是最最亲爱的告诉我，我必须和祖父一起住，因为，您知道的，他所有的孩子都死了。当一个人所有的孩子都没了，你肯定会为他感到难过的。”</p>
+<p class="normaltext">哈维沙姆先生笑了。他非常喜欢和锡德里克聊天。</p>
+<p class="normaltext">“你会喜欢伯爵吗？”他问道。</p>
+<p class="normaltext">“会的，”方特勒罗伊爵爷说，“孙子当然要喜欢爷爷啊，而且他对我这么好。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">在英格兰的第一个晚上，锡德里克和他母亲一起住在城堡附近那所小房子里。哈维沙姆先生则去城堡见伯爵。</p>
+<p class="normaltext">伯爵坐在壁炉旁的大椅子上。他的右脚不好，让他受了不少罪。每当脚痛的时候，伯爵就比平常脾气还差。</p>
+<p class="normaltext">“我说，哈维沙姆，”他说，“有什么消息吗？”</p>
+<p class="normaltext">哈维沙姆先生开始跟他说船上的事，但伯爵不想听那些。</p>
+<p class="normaltext">“是啊，是啊，是啊，”他气呼呼地说，“但是那男孩怎么样？他是个什么样的孩子？他蠢吗？他长什么样？他是不是一直说个不停，就像又蠢又吵的美国人那样？”</p>
+<p class="normaltext">哈维沙姆先生露出一丝律师的职业性微笑。“我认为他和大多数英国孩子不一样。不过有一点，老爷，这孩子对您对他母亲的看法毫不知情。他母亲什么都没跟他说，因为她希望您和他能成为朋友。所以，他觉得您是这世上最好的祖父。”</p>
+<p class="normaltext">“他这么觉得，嗯？”伯爵说。</p>
+<p class="normaltext">“所以您提到她母亲的时候，请注意一点。”</p>
+<p class="normaltext">“哼！”伯爵说，“那孩子才七岁。”</p>
+<p class="normaltext">“那七年可都是在他母亲身边，”哈维沙姆先生说，“她拥有他全部的爱。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">第二天下午，伯爵的马车载着方特勒罗伊爵爷和哈维沙姆先生来到多林考特城堡。在气派的大门前，城堡里所有的仆人都等着见见新的方特勒罗伊爵爷，这位从美国来的小男孩。当锡德里克从车里出来时，每个人都谈论起他来。</p>
+<p class="normaltext">“哦，看啊！他真像他父亲，一样的头发，一样的眼睛。可爱的小男孩！”</p>
+<p class="normaltext">“而且他那开心的笑容也像他父亲——瞧啊！”</p>
+<p class="normaltext">“我真为他难过，他要跟那坏脾气的老头儿住在一起。没人能从伯爵那儿得到一句好话！”</p>
+<p class="normaltext">“还有他可怜的母亲，年纪轻轻，一个人孤零零地住在洛奇公寓，不能和她的孩子一起！我也为她感到难过。”</p>
+<p class="normaltext">锡德里克像往常一样，友好地微笑着和大家打招呼，然后和哈维沙姆先生走进房子。仆人中一个高个子的年轻人把锡德里克引到内堂，推开了一扇门。</p>
+<p class="normaltext">“方特勒罗伊爵爷来了，老爷。”他说。</p>
+<p class="normaltext">锡德里克走过长长的房间，来到尽头的壁炉前。那儿有张大大的椅子，上面坐着一位白头发、黑眼睛的老人。</p>
+<p class="normaltext">锡德里克走近椅子。“您是伯爵吗？”他说，“我是您的孙子。哈维沙姆先生带我来的。”他伸出手，“很高兴见到您。”</p>
+<p class="normaltext">伯爵和他握了握手，感到非常惊讶。他盯着面前这个结实、漂亮的小男孩，他有着金色卷发和友好坦诚的脸庞。</p>
+<p class="normaltext">“见到我很高兴，是吗？”他说。</p>
+<p class="normaltext">“是的，”方特勒罗伊爵爷说，“当然高兴。每个人都爱自己的家人，不是吗？要见一位从未谋面的爷爷，真让人兴奋，而且您又那么好！”</p>
+<p class="normaltext">他在一张椅子上坐下，充满好奇地望着祖父。老伯爵也望着他。家里的每个人他都不喜欢。他对他们都很凶，他们也都讨厌他。</p>
+<p class="normaltext">“好？”他说，“我怎么个好法？”</p>
+<p class="normaltext">“因为那些钱，”锡德里克开心地说，“给了布里奇特，还有迪克的那些钱。我想谢谢您。”</p>
+<p class="normaltext">“布里奇特？迪克？他们是谁？”伯爵问道。</p>
+<p class="normaltext">就这样，方特勒罗伊爵爷跟他祖父讲了纽约那些朋友所有的事，有布里奇特和她的丈夫还有十二个孩子，有迪克和杰克还有擦鞋摊。</p>
+<p class="normaltext">多林考特伯爵不喜欢孩子，孩子通常也都怕他。可锡德里克不怕，他还像平常一样，说话很友好。</p>
+<p class="normaltext">“他觉得我是他的朋友，”伯爵想，“而且他想讨我喜欢。”这是伯爵从未有过的感觉。锡德里克只是个从美国来的小男孩，但是也许对伯爵来说，能见到一次别人的笑脸还真不错。</p>
+<p class="normaltext">他们聊了一整晚，晚饭时聊，吃了晚饭接着聊。最后，锡德里克在壁炉前睡着了。伯爵叫来仆人。</p>
+<p class="normaltext">“抱方特勒罗伊爵爷去他的卧室。”他说，“轻着点儿，这孩子累坏了。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-12" class="chapter-section">
+                <h2 class="chapter-title">4．The Earl and his grandson</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP10"><span class="underline">4</span></p>
+<p class="subtitlehz2">The Earl and his grandson</p>
+<p class="normaltext">The next morning there were more surprises for Cedric. He had a servant, Mary, and three rooms in the castle – a room to sleep in, a room to have breakfast in, and a room full of books and toys and games. Wonderful games! Later, when he went down to the Earl in the long room, he took one of the games with him.</p>
+<p class="normaltext">'Thank you very much for all the wonderful things. You're so kind!' Cedric said happily. 'This game is really good! Would you like to play it with me?'</p>
+<p class="normaltext">The Earl was in a bad temper and his foot was painful. He did not give money and toys to his grandson because he had a kind heart. He gave these things because he wanted the boy to forget his mother. He opened his mouth to say,<em> No. I don't play children's games.</em> But he did not say it. He said, 'Very well. You can teach me.'</p>
+<p class="normaltext">When the tall young servant came in with a visitor, Mr Dawson the vicar, they heard excited cries and laughing.</p>
+<p class="normaltext">'That's two out! Bad luck, grandfather!'</p>
+<p class="normaltext">Mr Dawson usually hated his visits to the old Earl, but today was different, and surprising.</p>
+<p class="normaltext">'Good morning, Dawson,' the Earl said. 'My grandson is keeping me busy.' He put his hand on Cedric's head and nearly smiled. 'What is it today, Dawson?'</p>
+<p class="picture"><img src="../../../Images/image07478.jpeg" alt="alt"/></p>
+<p class="tz"><em>'Would you like to play this game with me?' said Cedric.</em></p>
+<p class="normaltext">'It's Higgins of Edge Farm, my lord,' said Mr Dawson.'He can't pay his rent. He needs more time.'</p>
+<p class="normaltext">Every house in the village and every farm for miles around Dorincourt all belonged to the Earl. The villagers and the farmers paid their rent to the Earl's man, Mr Newick. And Mr Newick was a hard man. Mr Dawson came to the Earl many times a year, with the same question. 'Can this family or that family have more time to pay their rent?' And the answer was always 'no'.</p>
+<p class="normaltext">'Higgins?' said the Earl. 'He's a bad farmer, and he's always late with his rent, Newick tells me.'</p>
+<p class="normaltext">'His wife is ill, and two of his children,' Mr Dawson said. 'And Newick wants to put them all out of the house into the street. Higgins came to me yesterday, to ask for help. Another month, he says, and he can find the rent.'</p>
+<p class="normaltext">'Huh. They all say that,' said the Earl, looking angry.</p>
+<p class="normaltext">Lord Fauntleroy listened to every word of this. He began to feel a great interest in Higgins and his family.</p>
+<p class="normaltext">'It was the same for Bridget and her family,' he said.</p>
+<p class="normaltext">The Earl jumped a little. 'I forgot <em>you</em>!' he said. 'I forgot we had a philanthropist in the room.' He stared at the boy for a minute. 'Come here,' he said.</p>
+<p class="normaltext">Cedric went and stood next to him.</p>
+<p class="normaltext">'What shall we do about Higgins, then?' said the Earl. 'Tell me.'</p>
+<p class="normaltext">Mr Dawson began to feel worried. How could a seven-year-old child answer a question like that?</p>
+<p class="picture"><img src="../../../Images/image07479.jpeg" alt="alt"/></p>
+<p class="tz"><em>'What shall we do about Higgins, then?' said the Earl.</em></p>
+<p class="normaltext">Lord Fauntleroy put his hand on his grandfather's arm. 'Well, I'm just a little boy, so what can I do? But <em>you</em> can do anything,' he said. 'Who's Newick?'</p>
+<p class="normaltext">'He works for me,' said the Earl. 'And some of my villagers don't like him very much.'</p>
+<p class="normaltext">'Are you going to write to him now?' Cedric asked. 'Shall I bring you a pen and some paper?'</p>
+<p class="normaltext">In Cedric's world, there was only one answer to the question about Higgins. Of course, he must have more time. Of course, Newick must leave the family alone.</p>
+<p class="normaltext">The Earl looked at him. 'Can you write?' he asked.</p>
+<p class="normaltext">'Yes,' said Cedric, 'but not very well.'</p>
+<p class="normaltext">'Bring the pen and paper, and you write the letter.'</p>
+<p class="normaltext">Lord Fauntleroy's face went red. 'But my spelling isn't very good,' he said.</p>
+<p class="normaltext">The Earl smiled a little. 'Higgins isn't interested in your spelling. I'm not the philanthropist; you are.'</p>
+<p class="normaltext">And so Cedric wrote a letter to Mr Newick. It was true, the spelling was not very good.</p>
+<p class="normaltextxd2"><b>Dear mr Newik, pleas leve mr higins alone for now, he can pay wen he is redy. Yors, Fauntleroy</b></p>
+<p class="normaltext">Mr Dawson went away and took the letter for Mr Newick with him. He took a happy heart with him too. There were changes at Dorincourt Castle.</p>
+<p class="normaltext">After Mr Dawson's visit, Cedric looked at the clock.</p>
+<p class="normaltext">'Can I go to Dearest now?' he said to his grandfather. 'She's waiting for me.'</p>
+<p class="normaltext">'There is something for you to see first,' said the Earl.</p>
+<p class="normaltext">'Thank you,' said Fauntleroy, his face red again. 'But I think I must see it tomorrow. Dearest is waiting.'</p>
+<p class="normaltext">'Very well,' said the Earl. Then he said, 'it's a pony.'</p>
+<p class="normaltext">'A pony!' cried Fauntleroy. 'Is it a pony for me? Like the things in my room upstairs?'</p>
+<p class="normaltext">'Yes,' said his grandfather. 'Would you like to see it?'</p>
+<p class="normaltext">'A pony!' Fauntleroy said again. He was very excited. 'How kind you are! You give me everything. I <em>want</em> to see it very much, but... but there isn't time now.'</p>
+<p class="normaltext">'Perhaps you can go to see your mother another time,' said the Earl. 'Tomorrow, or the day after.'</p>
+<p class="normaltext">'Oh no,' said the boy. 'She thinks about me all the time, and I think about her too. I must go now.'</p>
+<p class="normaltext">They went down to Court Lodge in the Earl's carriage. Cedric talked all the time, very happily.</p>
+<p class="normaltext">'You're a very kind man, grandfather. You're always doing good things, and thinking about other people.' He counted on his fingers. 'Do you know, twenty-seven people are happy because of you. Twenty-seven!'</p>
+<p class="normaltext">The Earl said nothing. He thought about his life – a rich, selfish, bad-tempered life, without friends or loving family.<em> When did I say a kind word, or do a good thing? Now this child is calling me kind, and good, and I know that is not true.</em> These were new thoughts for the Earl, and he did not like them.</p>
+<p class="picture"><img src="../../../Images/image07480.jpeg" alt="alt"/></p>
+<p class="tz"><em>'It's a pony.'</em></p>
+<p class="normaltext">When they arrived at Court Lodge, Cedric was out of the carriage in a second, running to the front door. The Earl watched from the carriage. The door opened, and a young, pretty woman in black ran out. Cedric jumped into her arms, smiling and laughing. The Earl closed the window and his carriage drove away.</p>
+<p class="picture"><img src="../../../Images/image07481.jpeg" alt="alt"/></p>
+<p class="tz"><em>The Earl watched from the carriage.</em></p>
+<hr/>
+<p class="normaltextd"><b>toy</b> <em>n</em>. a thing for a child to play with 玩具</p>
+<p class="normaltextd"><b>game</b> <em>n</em>. something you play that has rules 游戏</p>
+<p class="normaltextd"><b>vicar</b> <em>n</em>. a priest in some Christian churches （基督教教会的）教区牧师</p>
+<p class="normaltextd"><b>farm</b> <em>n</em>. land and buildings where people keep animals and grow food 农场</p>
+<p class="normaltextd"><b>belong</b> <em>v</em>. if something is yours, it belongs to you 属于</p>
+<p class="normaltextd"><b>hard</b> <em>adj</em>. showing no friendly or gentle feelings 不友好的，冷酷的</p>
+<p class="normaltextd"><b>philanthropist</b> <em>n</em>. a rich person who helps the poor and those in need, often by giving money 慈善家</p>
+<p class="normaltextd"><b>worried</b> <em>adj</em>. unhappy because you think that something bad is going to happen 担心的，焦虑的</p>
+<p class="normaltextd"><b>count</b> <em>v</em>. to add things up in order to find how many there are 算（总数）</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP10-1"><span class="underline">4</span></p>
+<p class="subtitlehz2">伯爵和孙子</p>
+<p class="normaltext">第二天早上，还有更多惊喜等着锡德里克。他有了仆人玛丽和城堡里的三个房间——一个房间睡觉，一个房间吃早饭，还有一个房间装满了书、玩具和游戏用具。都是些很好玩的游戏！过了一会儿他下楼去那长长的房间找伯爵，带上了其中的一副游戏棋。</p>
+<p class="normaltext">“非常感谢您给了我这么多好东西。您真好！”锡德里克高兴地说，“这游戏棋特别好玩！您愿意跟我一起玩吗？”</p>
+<p class="normaltext">伯爵正在气头上，而且脚很痛。他给孙子钱和玩具不是因为他心地善良。他给他这些东西是因为他希望这孩子忘记他母亲。他张口想说：<span class="normaltext02">不。我不玩小孩子的游戏。</span>可他没有这样说。他说：“好啊，你可以教我。”</p>
+<p class="normaltext">后来，那个高个子的年轻男仆带了位客人进来，是牧师道森先生，他们听见了兴奋的叫声和笑声。</p>
+<p class="normaltext">“两个子儿出局！您真不走运，爷爷！”</p>
+<p class="normaltext">道森先生通常很不愿意来拜访老伯爵，但今天有些不同，让人意外。</p>
+<p class="normaltext">“早上好，道森，”伯爵说，“我孙子正让我手忙脚乱的。”他把手放到锡德里克头上，几乎露出了笑容。“今天有什么事，道森？”</p>
+<p class="normaltext">“是埃奇农场的希金斯一家，老爷，”道森先生说，“他交不了租。他需要更多时间。”</p>
+<p class="normaltext">村里的每处房子和多林考特方圆几英里内的所有农场都属于伯爵。村民和农夫都要向伯爵的手下纽威克先生交租。纽威克先生是个铁石心肠的人。每年道森先生都要来找伯爵很多次，每次都带着同样的问题：“这家人或那家人能不能晚点交租？”答案永远都是“不能”。</p>
+<p class="normaltext">“希金斯？”伯爵说，“纽威克告诉我说，他是个糟糕的农夫，而且总是晚交租。”</p>
+<p class="normaltext">“他妻子病了，有两个孩子也病了。”道森先生说，“纽威克想把他们全都从房子里赶到大街上去。希金斯昨天来找我帮忙。他说只要再宽限一个月，他就能凑到租金了。”</p>
+<p class="normaltext">“哼，他们都那么说。”伯爵说着，一脸怒气。</p>
+<p class="normaltext">方特勒罗伊爵爷仔细听着他们说的每一句话，他开始十分担心希金斯和他的家人。</p>
+<p class="normaltext">“布里奇特和她的家人也一样。”他说。</p>
+<p class="normaltext">伯爵惊了一下。“我把<span class="doubleline">你</span>给忘了！”他说，“我忘了这屋里有个慈善家。”他盯着小男孩看了一会儿。“过来。”他说。</p>
+<p class="normaltext">锡德里克走过去，站在他身旁。</p>
+<p class="normaltext">“那我们该拿希金斯怎么办呢？”伯爵说，“告诉我。”</p>
+<p class="normaltext">道森先生担心起来。一个七岁的小孩会怎么回答这样的问题呢？</p>
+<p class="normaltext">方特勒罗伊爵爷把手搭在祖父的胳膊上。“嗯，我只是个小孩儿，我能怎么办呢？可是<span class="doubleline">您</span>什么都办得到。”他说，“纽威克是谁？”</p>
+<p class="normaltext">“他替我办事，”伯爵说，“我的一些村民很不喜欢他。”</p>
+<p class="normaltext">“您要现在给他写封信吗？”锡德里克问道，“要我给您拿纸和笔吗？”</p>
+<p class="normaltext">在锡德里克的世界里，希金斯的问题就只有一个答案。当然，必须多给他些时间。当然，纽威克必须放过这一家人。</p>
+<p class="normaltext">伯爵看着他。“你会写字吗？”他问道。</p>
+<p class="normaltext">“会的，”锡德里克说，“但写得不是很好。”</p>
+<p class="normaltext">“拿纸和笔来，你来写这封信。”</p>
+<p class="normaltext">方特勒罗伊爵爷脸红了。“可我的拼写不是很好。”他说。</p>
+<p class="normaltext">伯爵微微一笑。“希金斯一家人对你的拼写不感兴趣。我不是慈善家，而你是。”</p>
+<p class="normaltext">就这样，锡德里克给纽威克先生写了封信。的确，他的拼写不是很好。</p>
+<p class="normaltextxd2k">亲爱的纽维可先生，晴暂时方过希全斯先生，等他淮备好他会付钱的。尔的，方特勒罗伊</p>
+<p class="normaltext">道森先生离开了，带着给纽威克先生的信，也带着一份好心情。多林考特城堡发生了变化。</p>
+<p class="normaltext">道森先生走了以后，锡德里克看了看钟。</p>
+<p class="normaltext">我能去最最亲爱的那儿了吗？”他问祖父，“她在等我。”</p>
+<p class="normaltext">“有件东西你要先看看。”伯爵说。</p>
+<p class="normaltext">“谢谢您，”方特勒罗伊说，他的脸又红了。“可我想我得明天再看了。最最亲爱的在等我。”</p>
+<p class="normaltext">“好吧。”伯爵说。接着他又说：“是一匹小马。”</p>
+<p class="normaltext">“一匹小马！”方特勒罗伊喊了出来，“是给我的小马吗？就像楼上我房间里的那些东西一样？”</p>
+<p class="normaltext">“是的，”他的祖父说，“你想看一看吗？”</p>
+<p class="normaltext">“一匹小马！”方特勒罗伊又说了一遍，他非常兴奋。“您真是太好啦！您给了我一切。我很<span class="doubleline">想</span>去看看，但是……但是现在没时间了。”</p>
+<p class="normaltext">“也许你可以找别的时间去看妈妈，”伯爵说，“明天，或者后天。”</p>
+<p class="normaltext">“哦，不行，”这孩子说，“她一直在想我，我也想她。我现在必须去。”</p>
+<p class="normaltext">他们坐着伯爵的马车来到洛奇公寓。锡德里克一路上都在讲话，非常开心。</p>
+<p class="normaltext">“您真是个好人，爷爷。您总是做好事，又为他人着想。”他掰着指头算着，“您知道吗？二十七个人因为您而快乐。二十七个！”</p>
+<p class="normaltext">伯爵一言未发。他在思考他的人生——富有、自私、易怒的人生，没有朋友，没有亲爱的家人。<span class="normaltext02">我何时说过一句好话，或做过一件好事？现在这孩子却说我善良、好心，可我知道那不是真的。</span>这是伯爵从未有过的想法，而他并不愿意这么想。</p>
+<p class="normaltext">他们一到洛奇公寓，锡德里克就迅速下车飞奔到门口。伯爵从马车向外望去。门开了，一位年轻、美丽、穿着黑裙的女子跑了出来。锡德里克蹦到她怀里，嘻嘻哈哈地笑着。伯爵关上窗，坐着马车离开了。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-13" class="chapter-section">
+                <h2 class="chapter-title">伯爵和孙子</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP10"><span class="underline">4</span></p>
+<p class="subtitlehz2">The Earl and his grandson</p>
+<p class="normaltext">The next morning there were more surprises for Cedric. He had a servant, Mary, and three rooms in the castle – a room to sleep in, a room to have breakfast in, and a room full of books and toys and games. Wonderful games! Later, when he went down to the Earl in the long room, he took one of the games with him.</p>
+<p class="normaltext">'Thank you very much for all the wonderful things. You're so kind!' Cedric said happily. 'This game is really good! Would you like to play it with me?'</p>
+<p class="normaltext">The Earl was in a bad temper and his foot was painful. He did not give money and toys to his grandson because he had a kind heart. He gave these things because he wanted the boy to forget his mother. He opened his mouth to say,<em> No. I don't play children's games.</em> But he did not say it. He said, 'Very well. You can teach me.'</p>
+<p class="normaltext">When the tall young servant came in with a visitor, Mr Dawson the vicar, they heard excited cries and laughing.</p>
+<p class="normaltext">'That's two out! Bad luck, grandfather!'</p>
+<p class="normaltext">Mr Dawson usually hated his visits to the old Earl, but today was different, and surprising.</p>
+<p class="normaltext">'Good morning, Dawson,' the Earl said. 'My grandson is keeping me busy.' He put his hand on Cedric's head and nearly smiled. 'What is it today, Dawson?'</p>
+<p class="picture"><img src="../../../Images/image07478.jpeg" alt="alt"/></p>
+<p class="tz"><em>'Would you like to play this game with me?' said Cedric.</em></p>
+<p class="normaltext">'It's Higgins of Edge Farm, my lord,' said Mr Dawson.'He can't pay his rent. He needs more time.'</p>
+<p class="normaltext">Every house in the village and every farm for miles around Dorincourt all belonged to the Earl. The villagers and the farmers paid their rent to the Earl's man, Mr Newick. And Mr Newick was a hard man. Mr Dawson came to the Earl many times a year, with the same question. 'Can this family or that family have more time to pay their rent?' And the answer was always 'no'.</p>
+<p class="normaltext">'Higgins?' said the Earl. 'He's a bad farmer, and he's always late with his rent, Newick tells me.'</p>
+<p class="normaltext">'His wife is ill, and two of his children,' Mr Dawson said. 'And Newick wants to put them all out of the house into the street. Higgins came to me yesterday, to ask for help. Another month, he says, and he can find the rent.'</p>
+<p class="normaltext">'Huh. They all say that,' said the Earl, looking angry.</p>
+<p class="normaltext">Lord Fauntleroy listened to every word of this. He began to feel a great interest in Higgins and his family.</p>
+<p class="normaltext">'It was the same for Bridget and her family,' he said.</p>
+<p class="normaltext">The Earl jumped a little. 'I forgot <em>you</em>!' he said. 'I forgot we had a philanthropist in the room.' He stared at the boy for a minute. 'Come here,' he said.</p>
+<p class="normaltext">Cedric went and stood next to him.</p>
+<p class="normaltext">'What shall we do about Higgins, then?' said the Earl. 'Tell me.'</p>
+<p class="normaltext">Mr Dawson began to feel worried. How could a seven-year-old child answer a question like that?</p>
+<p class="picture"><img src="../../../Images/image07479.jpeg" alt="alt"/></p>
+<p class="tz"><em>'What shall we do about Higgins, then?' said the Earl.</em></p>
+<p class="normaltext">Lord Fauntleroy put his hand on his grandfather's arm. 'Well, I'm just a little boy, so what can I do? But <em>you</em> can do anything,' he said. 'Who's Newick?'</p>
+<p class="normaltext">'He works for me,' said the Earl. 'And some of my villagers don't like him very much.'</p>
+<p class="normaltext">'Are you going to write to him now?' Cedric asked. 'Shall I bring you a pen and some paper?'</p>
+<p class="normaltext">In Cedric's world, there was only one answer to the question about Higgins. Of course, he must have more time. Of course, Newick must leave the family alone.</p>
+<p class="normaltext">The Earl looked at him. 'Can you write?' he asked.</p>
+<p class="normaltext">'Yes,' said Cedric, 'but not very well.'</p>
+<p class="normaltext">'Bring the pen and paper, and you write the letter.'</p>
+<p class="normaltext">Lord Fauntleroy's face went red. 'But my spelling isn't very good,' he said.</p>
+<p class="normaltext">The Earl smiled a little. 'Higgins isn't interested in your spelling. I'm not the philanthropist; you are.'</p>
+<p class="normaltext">And so Cedric wrote a letter to Mr Newick. It was true, the spelling was not very good.</p>
+<p class="normaltextxd2"><b>Dear mr Newik, pleas leve mr higins alone for now, he can pay wen he is redy. Yors, Fauntleroy</b></p>
+<p class="normaltext">Mr Dawson went away and took the letter for Mr Newick with him. He took a happy heart with him too. There were changes at Dorincourt Castle.</p>
+<p class="normaltext">After Mr Dawson's visit, Cedric looked at the clock.</p>
+<p class="normaltext">'Can I go to Dearest now?' he said to his grandfather. 'She's waiting for me.'</p>
+<p class="normaltext">'There is something for you to see first,' said the Earl.</p>
+<p class="normaltext">'Thank you,' said Fauntleroy, his face red again. 'But I think I must see it tomorrow. Dearest is waiting.'</p>
+<p class="normaltext">'Very well,' said the Earl. Then he said, 'it's a pony.'</p>
+<p class="normaltext">'A pony!' cried Fauntleroy. 'Is it a pony for me? Like the things in my room upstairs?'</p>
+<p class="normaltext">'Yes,' said his grandfather. 'Would you like to see it?'</p>
+<p class="normaltext">'A pony!' Fauntleroy said again. He was very excited. 'How kind you are! You give me everything. I <em>want</em> to see it very much, but... but there isn't time now.'</p>
+<p class="normaltext">'Perhaps you can go to see your mother another time,' said the Earl. 'Tomorrow, or the day after.'</p>
+<p class="normaltext">'Oh no,' said the boy. 'She thinks about me all the time, and I think about her too. I must go now.'</p>
+<p class="normaltext">They went down to Court Lodge in the Earl's carriage. Cedric talked all the time, very happily.</p>
+<p class="normaltext">'You're a very kind man, grandfather. You're always doing good things, and thinking about other people.' He counted on his fingers. 'Do you know, twenty-seven people are happy because of you. Twenty-seven!'</p>
+<p class="normaltext">The Earl said nothing. He thought about his life – a rich, selfish, bad-tempered life, without friends or loving family.<em> When did I say a kind word, or do a good thing? Now this child is calling me kind, and good, and I know that is not true.</em> These were new thoughts for the Earl, and he did not like them.</p>
+<p class="picture"><img src="../../../Images/image07480.jpeg" alt="alt"/></p>
+<p class="tz"><em>'It's a pony.'</em></p>
+<p class="normaltext">When they arrived at Court Lodge, Cedric was out of the carriage in a second, running to the front door. The Earl watched from the carriage. The door opened, and a young, pretty woman in black ran out. Cedric jumped into her arms, smiling and laughing. The Earl closed the window and his carriage drove away.</p>
+<p class="picture"><img src="../../../Images/image07481.jpeg" alt="alt"/></p>
+<p class="tz"><em>The Earl watched from the carriage.</em></p>
+<hr/>
+<p class="normaltextd"><b>toy</b> <em>n</em>. a thing for a child to play with 玩具</p>
+<p class="normaltextd"><b>game</b> <em>n</em>. something you play that has rules 游戏</p>
+<p class="normaltextd"><b>vicar</b> <em>n</em>. a priest in some Christian churches （基督教教会的）教区牧师</p>
+<p class="normaltextd"><b>farm</b> <em>n</em>. land and buildings where people keep animals and grow food 农场</p>
+<p class="normaltextd"><b>belong</b> <em>v</em>. if something is yours, it belongs to you 属于</p>
+<p class="normaltextd"><b>hard</b> <em>adj</em>. showing no friendly or gentle feelings 不友好的，冷酷的</p>
+<p class="normaltextd"><b>philanthropist</b> <em>n</em>. a rich person who helps the poor and those in need, often by giving money 慈善家</p>
+<p class="normaltextd"><b>worried</b> <em>adj</em>. unhappy because you think that something bad is going to happen 担心的，焦虑的</p>
+<p class="normaltextd"><b>count</b> <em>v</em>. to add things up in order to find how many there are 算（总数）</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP10-1"><span class="underline">4</span></p>
+<p class="subtitlehz2">伯爵和孙子</p>
+<p class="normaltext">第二天早上，还有更多惊喜等着锡德里克。他有了仆人玛丽和城堡里的三个房间——一个房间睡觉，一个房间吃早饭，还有一个房间装满了书、玩具和游戏用具。都是些很好玩的游戏！过了一会儿他下楼去那长长的房间找伯爵，带上了其中的一副游戏棋。</p>
+<p class="normaltext">“非常感谢您给了我这么多好东西。您真好！”锡德里克高兴地说，“这游戏棋特别好玩！您愿意跟我一起玩吗？”</p>
+<p class="normaltext">伯爵正在气头上，而且脚很痛。他给孙子钱和玩具不是因为他心地善良。他给他这些东西是因为他希望这孩子忘记他母亲。他张口想说：<span class="normaltext02">不。我不玩小孩子的游戏。</span>可他没有这样说。他说：“好啊，你可以教我。”</p>
+<p class="normaltext">后来，那个高个子的年轻男仆带了位客人进来，是牧师道森先生，他们听见了兴奋的叫声和笑声。</p>
+<p class="normaltext">“两个子儿出局！您真不走运，爷爷！”</p>
+<p class="normaltext">道森先生通常很不愿意来拜访老伯爵，但今天有些不同，让人意外。</p>
+<p class="normaltext">“早上好，道森，”伯爵说，“我孙子正让我手忙脚乱的。”他把手放到锡德里克头上，几乎露出了笑容。“今天有什么事，道森？”</p>
+<p class="normaltext">“是埃奇农场的希金斯一家，老爷，”道森先生说，“他交不了租。他需要更多时间。”</p>
+<p class="normaltext">村里的每处房子和多林考特方圆几英里内的所有农场都属于伯爵。村民和农夫都要向伯爵的手下纽威克先生交租。纽威克先生是个铁石心肠的人。每年道森先生都要来找伯爵很多次，每次都带着同样的问题：“这家人或那家人能不能晚点交租？”答案永远都是“不能”。</p>
+<p class="normaltext">“希金斯？”伯爵说，“纽威克告诉我说，他是个糟糕的农夫，而且总是晚交租。”</p>
+<p class="normaltext">“他妻子病了，有两个孩子也病了。”道森先生说，“纽威克想把他们全都从房子里赶到大街上去。希金斯昨天来找我帮忙。他说只要再宽限一个月，他就能凑到租金了。”</p>
+<p class="normaltext">“哼，他们都那么说。”伯爵说着，一脸怒气。</p>
+<p class="normaltext">方特勒罗伊爵爷仔细听着他们说的每一句话，他开始十分担心希金斯和他的家人。</p>
+<p class="normaltext">“布里奇特和她的家人也一样。”他说。</p>
+<p class="normaltext">伯爵惊了一下。“我把<span class="doubleline">你</span>给忘了！”他说，“我忘了这屋里有个慈善家。”他盯着小男孩看了一会儿。“过来。”他说。</p>
+<p class="normaltext">锡德里克走过去，站在他身旁。</p>
+<p class="normaltext">“那我们该拿希金斯怎么办呢？”伯爵说，“告诉我。”</p>
+<p class="normaltext">道森先生担心起来。一个七岁的小孩会怎么回答这样的问题呢？</p>
+<p class="normaltext">方特勒罗伊爵爷把手搭在祖父的胳膊上。“嗯，我只是个小孩儿，我能怎么办呢？可是<span class="doubleline">您</span>什么都办得到。”他说，“纽威克是谁？”</p>
+<p class="normaltext">“他替我办事，”伯爵说，“我的一些村民很不喜欢他。”</p>
+<p class="normaltext">“您要现在给他写封信吗？”锡德里克问道，“要我给您拿纸和笔吗？”</p>
+<p class="normaltext">在锡德里克的世界里，希金斯的问题就只有一个答案。当然，必须多给他些时间。当然，纽威克必须放过这一家人。</p>
+<p class="normaltext">伯爵看着他。“你会写字吗？”他问道。</p>
+<p class="normaltext">“会的，”锡德里克说，“但写得不是很好。”</p>
+<p class="normaltext">“拿纸和笔来，你来写这封信。”</p>
+<p class="normaltext">方特勒罗伊爵爷脸红了。“可我的拼写不是很好。”他说。</p>
+<p class="normaltext">伯爵微微一笑。“希金斯一家人对你的拼写不感兴趣。我不是慈善家，而你是。”</p>
+<p class="normaltext">就这样，锡德里克给纽威克先生写了封信。的确，他的拼写不是很好。</p>
+<p class="normaltextxd2k">亲爱的纽维可先生，晴暂时方过希全斯先生，等他淮备好他会付钱的。尔的，方特勒罗伊</p>
+<p class="normaltext">道森先生离开了，带着给纽威克先生的信，也带着一份好心情。多林考特城堡发生了变化。</p>
+<p class="normaltext">道森先生走了以后，锡德里克看了看钟。</p>
+<p class="normaltext">我能去最最亲爱的那儿了吗？”他问祖父，“她在等我。”</p>
+<p class="normaltext">“有件东西你要先看看。”伯爵说。</p>
+<p class="normaltext">“谢谢您，”方特勒罗伊说，他的脸又红了。“可我想我得明天再看了。最最亲爱的在等我。”</p>
+<p class="normaltext">“好吧。”伯爵说。接着他又说：“是一匹小马。”</p>
+<p class="normaltext">“一匹小马！”方特勒罗伊喊了出来，“是给我的小马吗？就像楼上我房间里的那些东西一样？”</p>
+<p class="normaltext">“是的，”他的祖父说，“你想看一看吗？”</p>
+<p class="normaltext">“一匹小马！”方特勒罗伊又说了一遍，他非常兴奋。“您真是太好啦！您给了我一切。我很<span class="doubleline">想</span>去看看，但是……但是现在没时间了。”</p>
+<p class="normaltext">“也许你可以找别的时间去看妈妈，”伯爵说，“明天，或者后天。”</p>
+<p class="normaltext">“哦，不行，”这孩子说，“她一直在想我，我也想她。我现在必须去。”</p>
+<p class="normaltext">他们坐着伯爵的马车来到洛奇公寓。锡德里克一路上都在讲话，非常开心。</p>
+<p class="normaltext">“您真是个好人，爷爷。您总是做好事，又为他人着想。”他掰着指头算着，“您知道吗？二十七个人因为您而快乐。二十七个！”</p>
+<p class="normaltext">伯爵一言未发。他在思考他的人生——富有、自私、易怒的人生，没有朋友，没有亲爱的家人。<span class="normaltext02">我何时说过一句好话，或做过一件好事？现在这孩子却说我善良、好心，可我知道那不是真的。</span>这是伯爵从未有过的想法，而他并不愿意这么想。</p>
+<p class="normaltext">他们一到洛奇公寓，锡德里克就迅速下车飞奔到门口。伯爵从马车向外望去。门开了，一位年轻、美丽、穿着黑裙的女子跑了出来。锡德里克蹦到她怀里，嘻嘻哈哈地笑着。伯爵关上窗，坐着马车离开了。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-14" class="chapter-section">
+                <h2 class="chapter-title">5．News from Mr Havisham</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP11"><span class="underline">5</span></p>
+<p class="subtitlehz2">News from Mr Havisham</p>
+<p class="normaltext">The news went round the village and the farms faster than a carriage with six horses.</p>
+<p class="normaltext">'Did you hear? The vicar went up to the castle and spoke to the Earl about poor Mr Higgins...'</p>
+<p class="normaltext">'And the boy was there, little Lord Fauntleroy...'</p>
+<p class="normaltext">'Yes, and the Earl said to his grandson, "You write to Mr Newick, you tell him." And the boy did!'</p>
+<p class="normaltext">'And the vicar took the letter to Mr Newick, and now Mr Newick can't put poor Higgins and his family out in the street.'</p>
+<p class="normaltext">'Yes, and they've got another month to find the rent!'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">Days and weeks went past, and by now everybody knew about Lord Fauntleroy and his mother. They loved the boy, with his golden curly hair and his happy smile. They saw him every day on his new pony, and he always had a friendly word for everyone.</p>
+<p class="normaltext">The village people loved Mrs Errol too, because of her kind heart and her sweet face. When somebody was ill in the village, Mrs Errol was always there to help.</p>
+<p class="normaltext">But the Earl never saw her, never spoke to her, never went to her house. Cedric, of course, saw her every day, but his heart was sad because his 'best friend' did not live with him in the same house.</p>
+<p class="normaltext">The Earl liked his little grandson more and more every week. He often forgot about his painful foot, and he began to smile more; sometimes he even laughed. He liked to please his grandson. When Lord Fauntleroy wanted new houses for some very poor villagers, the Earl built new houses. When the boy wanted to talk about his mother, the Earl listened. But he did not like it.</p>
+<p class="normaltext">'Do you <em>never</em> forget about your mother?' he said to his grandson one day.</p>
+<p class="normaltext">'No,' said Cedric. 'Never. And she never forgets about me. I don't forget about <em>you</em>, you know, when I'm away.'</p>
+<p class="normaltext">The young lord did not forget his friends in America either. Letters went to and from New York, and Dick and Mr Hobbs heard all about Cedric's new life.</p>
+<p class="normaltext">One day the Earl gave a great party, and all the important families for miles around came to it – to meet Lord Fauntleroy. Mr Havisham came from London too, but he was very quiet all evening, and looked worried.</p>
+<p class="normaltext">At the end of the party, the Earl spoke to him.</p>
+<p class="normaltext">'Well, Havisham, what's the matter?'</p>
+<p class="normaltext">'I bring some bad news, my lord, about your heir.'</p>
+<p class="normaltext">'My heir? Fauntleroy is my heir. What do you mean?'</p>
+<p class="picture"><img src="../../../Images/image07482.jpeg" alt="alt"/></p>
+<p class="tz"><em> Cedric was sad because his mother did not live with him.</em></p>
+<p class="normaltext">'My lord,' said Mr Havisham. 'Cedric Errol is not your heir. He is not Lord Fauntleroy. The true Lord Fauntleroy is the son of your oldest son Bevis, and at the moment he is in London with his mother.'</p>
+<p class="normaltext">The Earl's face was as white as his hair. 'Bevis?' he said.' This isn't true. Havisham, tell me this isn't true!'</p>
+<p class="normaltext">'A woman came to my office this morning,' said Mr Havisham. 'Bevis married her six years ago in London. She has all the papers. He left her after a year, but she had a son. He's now five years old. The woman is American. She's beautiful, but... well, she can only just write her name. And she's only interested in the money.'</p>
+<p class="normaltext">The Earl's face was now dark red. He jumped up from his chair and began to walk up and down the room.</p>
+<p class="normaltext">'Bevis was always the worst!' he said angrily. 'I hated him, and he hated me. I must stop this! Cedric is very dear to me, Havisham, very dear. He's a fine boy, and he's going to be a better Earl of Dorincourt than me – or any child of Bevis's!'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">Far away in New York, two of Cedric's friends sat round a table in a grocery store. They ate a supper of bread and cold meat, and talked about Lord Fauntleroy.</p>
+<p class="normaltext">Dick usually came round to the grocery store once a week. He and Mr Hobbs were now good friends, and they enjoyed reading the letters from England, and talking about them. When they wrote back to Cedric, Mr Hobbs helped Dick with his writing, because writing was difficult for Dick.</p>
+<p class="picture"><img src="../../../Images/image07483.jpeg" alt="alt"/></p>
+<p class="tz"><em>The Earl began to walk up and down the room.</em></p>
+<p class="normaltext">'I didn't get much time for school, see,' Dick told Mr Hobbs one day. 'Pa and Ma were dead, and there was no money. So me and my brother worked.'</p>
+<p class="normaltext">'That was your brother Ben, was it?' Mr Hobbs said.</p>
+<p class="normaltext">'Yeah, my older brother,' said Dick. 'He was good to me, Ben was. But then he married this girl, and oh dear, she was bad news! She was a good-looking girl – big black eyes, long black hair – but she was always angry about something or somebody, me or Ben or the baby. I remember, she broke a plate on Ben's head once. She hit the baby too. A nice mother she was!'</p>
+<p class="normaltext">'Women!' said Mr Hobbs. 'Best to keep away from them, I say. I never married.'</p>
+<p class="normaltext">'Well, she didn't stay long,' Dick said. 'She was angry with Ben because he didn't make money faster. So one day she left, with the baby. We never saw her again. She left New York, someone told us.'</p>
+<p class="normaltext">'What happened to your brother?' Mr Hobbs asked.</p>
+<p class="normaltext">'Ben's out in California now, working with horses on a big farm somewhere. He was sad about Minna and his baby son for a long time, poor old Ben.'</p>
+<p class="normaltext">After supper, Mr Hobbs took out a letter. 'This came from our friend today,' he said. 'Let's read it together now.' He opened the letter and they began to read.</p>
+<p class="picture"><img src="../../../Images/image07484.jpeg" alt="alt"/></p>
+<p class="tz"><em>Mr Hobbs opened the letter and they began to read.</em></p>
+<p class="normaltextxd"><b>My dear frend Mr Hobbs – i have some surprising news to tel you and Dick. I am not lord fauntleroy becaus my uncle Bevis (he is dead) had a litle boy but nobody knew about him. my uncle Bevis was the oldest son of the earl and so his son is lord fauntleroy and i am just Cedric Errol again. my papa was the youngest son and youngest sons don't have anything so i am not very rich and i am going to learn to work prhaps with horses because i like them a lot. my grandfarther is very angry about it and i never saw him angry before. with love from yor old frend Cedric Errol (not lord fauntleroy).</b></p>
+<p class="normaltext">'Well!' said Mr Hobbs. 'Well, I don't know. Did you ever hear anything like that before?'</p>
+<p class="normaltext">'No, I didn't,' said Dick. 'But I know one thing. Young Cedric needs his friends at a time like this. Let's write back to him, Mr Hobbs, and let's do it now!'</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP11-1"><span class="underline">5</span></p>
+<p class="subtitlehz2">哈维沙姆先生带来的消息</p>
+<p class="normaltext">消息在村子和农场里传开了，传得比六驾马车还快。</p>
+<p class="normaltext">“你听说了吗？牧师去城堡跟伯爵说可怜的希金斯先生的事……”</p>
+<p class="normaltext">“当时那孩子就在那儿，方特勒罗伊小爵爷……”</p>
+<p class="normaltext">“是啊，伯爵跟他孙子说，‘你给纽威克先生写信，你告诉他。’那孩子就那么做了！”</p>
+<p class="normaltext">“然后牧师把信拿给纽威克先生，现在纽威克先生不能把可怜的希金斯和他的家人赶到大街上去了。”</p>
+<p class="normaltext">“是啊，他们还能有一个月的时间去凑租金呢！”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">日子就这么一天天，一周周地过去了。现在人人都知道了方特勒罗伊爵爷和他的母亲。他们喜爱这个有着金色卷发、灿烂笑容的孩子。他们每天都看见他骑着新得的小马，他也总是友好地和每个人说上几句话。</p>
+<p class="normaltext">村里人也都喜爱埃罗尔太太，因为她心地善良，面容甜美。村里要是有人生病了，埃罗尔太太总是去帮忙。</p>
+<p class="normaltext">可是伯爵从不见她，从不跟她讲话，也从不去她住的地方。锡德里克当然每天都去看她，但他心里很难过，因为他“最好的朋友”没有和他住在一起。</p>
+<p class="normaltext">随着时间的推移，伯爵越来越喜欢他的小孙子。他经常忘记脚痛，也开始有更多的笑容，有时候甚至是大笑了。他喜欢逗他孙子开心。方特勒罗伊爵爷希望一些特别穷的村民能有新房子，伯爵就建新房子。这孩子想聊关于他母亲的事，伯爵就听着。但是他并不喜欢听这些事。</p>
+<p class="normaltext">“你<span class="doubleline">从来不会</span>忘记你妈妈吗？”有一天他问孙子。</p>
+<p class="normaltext">“不会，”锡德里克说，“永远不会。她也永远不会忘记我。您知道，我不在您身边的时候，我也不会忘记<span class="doubleline">您</span>。”</p>
+<p class="normaltext">小爵爷也没有忘记他在美国的朋友。书信来往于多林考特和纽约之间，迪克和霍布斯先生知道了有关锡德里克新生活的一切。</p>
+<p class="normaltext">一天，伯爵举办了一场盛大的宴会，方圆几英里内所有有声望的家族都来了——来见一见方特勒罗伊爵爷。哈维沙姆先生也从伦敦过来了，可他整晚一言不发，而且看上去十分焦虑。</p>
+<p class="normaltext">宴会快结束的时候，伯爵对他说：</p>
+<p class="normaltext">“对了，哈维沙姆，出了什么事吗？”</p>
+<p class="normaltext">“我有个坏消息，老爷，是关于您的继承人的。”</p>
+<p class="normaltext">“我的继承人？方特勒罗伊就是我的继承人。你什么意思？”</p>
+<p class="normaltext">“老爷，”哈维沙姆先生说，“锡德里克·埃罗尔不是您的继承人。他不是方特勒罗伊爵爷。真正的方特勒罗伊爵爷是您长子贝维斯的儿子，此刻他正和母亲一起在伦敦。”</p>
+<p class="normaltext">伯爵的脸色像他的头发一样白。“贝维斯？”他说，“这不是真的。哈维沙姆，告诉我这不是真的！”</p>
+<p class="normaltext">“今天早上一位女士来到我办公室，”哈维沙姆先生说，“贝维斯六年前在伦敦娶了她。她有所有的证明文件。他一年后离开了她，但是她有个儿子，现在五岁。这位女士是美国人。她很美，不过……唉，她只会写自己的名字。而且她只对钱感兴趣。”</p>
+<p class="normaltext">伯爵的脸色发紫。他从椅子上跳起来，开始在房间里走来走去。</p>
+<p class="normaltext">“贝维斯一直是最没出息的！”他生气地说，“我讨厌他，他也讨厌我。我必须阻止这件事！锡德里克对我来说很珍贵，哈维沙姆，非常珍贵。他是个优秀的孩子，他将成为比我——或贝维斯的什么孩子——更好的多林考特伯爵！”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">远在纽约，锡德里克的两位朋友正坐在食品杂货店里的一张桌子前。他们晚餐吃了面包和冷肉，然后谈起了方特勒罗伊爵爷。</p>
+<p class="normaltext">迪克通常一周来一次食品杂货店。他和霍布斯先生现在是很好的朋友，他们喜欢一起看从英格兰寄来的信，一起聊一聊信的内容。他们给锡德里克回信时，霍布斯先生会帮助迪克，因为写字对迪克来说有难度。</p>
+<p class="normaltext">“看，我没什么时间上学，”一天，迪克告诉霍布斯先生说，“爸和妈都死了，家里也没有钱。所以我和我兄弟只能工作。”</p>
+<p class="normaltext">“你的兄弟本，是吗？”霍布斯先生问道。</p>
+<p class="normaltext">“对，他是我哥哥，”迪克说，“他对我很好，我是说本。但是后来他娶了这个姑娘，哦，天哪，她就是场噩梦！她是个俏姑娘——大大的黑眼睛，长长的黑头发——可她不是看什么不顺眼，就是冲人发火，冲我、本或宝宝。我记得有一次她拿盘子砸本的脑袋。她还打宝宝呢。她可真是个好妈啊！”</p>
+<p class="normaltext">“女人啊！”霍布斯先生说，“叫我说，最好离得她们远远的。我就没结过婚。”</p>
+<p class="normaltext">“嗯，她也没呆多久，”迪克说，“她总是跟本生气，因为他赚钱不够快。所以有一天她带着孩子走了。我们再没见过她。有人跟我们说，她离开了纽约。”</p>
+<p class="normaltext">“那你哥哥怎么样了？”霍布斯先生问道。</p>
+<p class="normaltext">“本也走了，现在在加利福尼亚，在一个什么地方的大农场干照料马的活儿。他为明娜和他的宝贝儿子难过了好长一段时间，可怜的本。”</p>
+<p class="normaltext">晚饭后，霍布斯先生拿出一封信。“这是我们朋友的来信，今天到的，”他说，“咱们现在一起看吧。”他打开信，一起读了起来。</p>
+<p class="normaltextxd2k">我亲爱的盆友霍布斯先生——我有个令人吃惊的消息要高诉你和迪克。我不是方特勒罗伊爵爷了，因为我伯伯贝维斯（他去世了）有个而子，但没人知道他。我伯伯贝维斯是伯爵的大儿子，所以他儿子才是方特勒罗伊爵爷，而我又是锡德里克·埃罗尔了。我爸爸是最小的儿子，最小的儿子什么也得不到，所以我没那么有钱了。我要开始学着工作了，也许是跟马打交道吧，因为我很喜欢它们。我爷爷对此很生气，我从没见过他生气。爱尔们的老盆友锡德里克·埃罗尔（不是方特勒罗伊爵爷）。</p>
+<p class="normaltext">“哎哟！”霍布斯先生说，“哎哟，我不知道。你听说过这种事吗？”</p>
+<p class="normaltext">“没，没听过。”迪克说，“不过我知道一点，就是这种时候，小锡德里克需要他的朋友。我们给他回信吧，霍布斯先生，现在就写！”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-15" class="chapter-section">
+                <h2 class="chapter-title">哈维沙姆先生带来的消息</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP11"><span class="underline">5</span></p>
+<p class="subtitlehz2">News from Mr Havisham</p>
+<p class="normaltext">The news went round the village and the farms faster than a carriage with six horses.</p>
+<p class="normaltext">'Did you hear? The vicar went up to the castle and spoke to the Earl about poor Mr Higgins...'</p>
+<p class="normaltext">'And the boy was there, little Lord Fauntleroy...'</p>
+<p class="normaltext">'Yes, and the Earl said to his grandson, "You write to Mr Newick, you tell him." And the boy did!'</p>
+<p class="normaltext">'And the vicar took the letter to Mr Newick, and now Mr Newick can't put poor Higgins and his family out in the street.'</p>
+<p class="normaltext">'Yes, and they've got another month to find the rent!'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">Days and weeks went past, and by now everybody knew about Lord Fauntleroy and his mother. They loved the boy, with his golden curly hair and his happy smile. They saw him every day on his new pony, and he always had a friendly word for everyone.</p>
+<p class="normaltext">The village people loved Mrs Errol too, because of her kind heart and her sweet face. When somebody was ill in the village, Mrs Errol was always there to help.</p>
+<p class="normaltext">But the Earl never saw her, never spoke to her, never went to her house. Cedric, of course, saw her every day, but his heart was sad because his 'best friend' did not live with him in the same house.</p>
+<p class="normaltext">The Earl liked his little grandson more and more every week. He often forgot about his painful foot, and he began to smile more; sometimes he even laughed. He liked to please his grandson. When Lord Fauntleroy wanted new houses for some very poor villagers, the Earl built new houses. When the boy wanted to talk about his mother, the Earl listened. But he did not like it.</p>
+<p class="normaltext">'Do you <em>never</em> forget about your mother?' he said to his grandson one day.</p>
+<p class="normaltext">'No,' said Cedric. 'Never. And she never forgets about me. I don't forget about <em>you</em>, you know, when I'm away.'</p>
+<p class="normaltext">The young lord did not forget his friends in America either. Letters went to and from New York, and Dick and Mr Hobbs heard all about Cedric's new life.</p>
+<p class="normaltext">One day the Earl gave a great party, and all the important families for miles around came to it – to meet Lord Fauntleroy. Mr Havisham came from London too, but he was very quiet all evening, and looked worried.</p>
+<p class="normaltext">At the end of the party, the Earl spoke to him.</p>
+<p class="normaltext">'Well, Havisham, what's the matter?'</p>
+<p class="normaltext">'I bring some bad news, my lord, about your heir.'</p>
+<p class="normaltext">'My heir? Fauntleroy is my heir. What do you mean?'</p>
+<p class="picture"><img src="../../../Images/image07482.jpeg" alt="alt"/></p>
+<p class="tz"><em> Cedric was sad because his mother did not live with him.</em></p>
+<p class="normaltext">'My lord,' said Mr Havisham. 'Cedric Errol is not your heir. He is not Lord Fauntleroy. The true Lord Fauntleroy is the son of your oldest son Bevis, and at the moment he is in London with his mother.'</p>
+<p class="normaltext">The Earl's face was as white as his hair. 'Bevis?' he said.' This isn't true. Havisham, tell me this isn't true!'</p>
+<p class="normaltext">'A woman came to my office this morning,' said Mr Havisham. 'Bevis married her six years ago in London. She has all the papers. He left her after a year, but she had a son. He's now five years old. The woman is American. She's beautiful, but... well, she can only just write her name. And she's only interested in the money.'</p>
+<p class="normaltext">The Earl's face was now dark red. He jumped up from his chair and began to walk up and down the room.</p>
+<p class="normaltext">'Bevis was always the worst!' he said angrily. 'I hated him, and he hated me. I must stop this! Cedric is very dear to me, Havisham, very dear. He's a fine boy, and he's going to be a better Earl of Dorincourt than me – or any child of Bevis's!'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">Far away in New York, two of Cedric's friends sat round a table in a grocery store. They ate a supper of bread and cold meat, and talked about Lord Fauntleroy.</p>
+<p class="normaltext">Dick usually came round to the grocery store once a week. He and Mr Hobbs were now good friends, and they enjoyed reading the letters from England, and talking about them. When they wrote back to Cedric, Mr Hobbs helped Dick with his writing, because writing was difficult for Dick.</p>
+<p class="picture"><img src="../../../Images/image07483.jpeg" alt="alt"/></p>
+<p class="tz"><em>The Earl began to walk up and down the room.</em></p>
+<p class="normaltext">'I didn't get much time for school, see,' Dick told Mr Hobbs one day. 'Pa and Ma were dead, and there was no money. So me and my brother worked.'</p>
+<p class="normaltext">'That was your brother Ben, was it?' Mr Hobbs said.</p>
+<p class="normaltext">'Yeah, my older brother,' said Dick. 'He was good to me, Ben was. But then he married this girl, and oh dear, she was bad news! She was a good-looking girl – big black eyes, long black hair – but she was always angry about something or somebody, me or Ben or the baby. I remember, she broke a plate on Ben's head once. She hit the baby too. A nice mother she was!'</p>
+<p class="normaltext">'Women!' said Mr Hobbs. 'Best to keep away from them, I say. I never married.'</p>
+<p class="normaltext">'Well, she didn't stay long,' Dick said. 'She was angry with Ben because he didn't make money faster. So one day she left, with the baby. We never saw her again. She left New York, someone told us.'</p>
+<p class="normaltext">'What happened to your brother?' Mr Hobbs asked.</p>
+<p class="normaltext">'Ben's out in California now, working with horses on a big farm somewhere. He was sad about Minna and his baby son for a long time, poor old Ben.'</p>
+<p class="normaltext">After supper, Mr Hobbs took out a letter. 'This came from our friend today,' he said. 'Let's read it together now.' He opened the letter and they began to read.</p>
+<p class="picture"><img src="../../../Images/image07484.jpeg" alt="alt"/></p>
+<p class="tz"><em>Mr Hobbs opened the letter and they began to read.</em></p>
+<p class="normaltextxd"><b>My dear frend Mr Hobbs – i have some surprising news to tel you and Dick. I am not lord fauntleroy becaus my uncle Bevis (he is dead) had a litle boy but nobody knew about him. my uncle Bevis was the oldest son of the earl and so his son is lord fauntleroy and i am just Cedric Errol again. my papa was the youngest son and youngest sons don't have anything so i am not very rich and i am going to learn to work prhaps with horses because i like them a lot. my grandfarther is very angry about it and i never saw him angry before. with love from yor old frend Cedric Errol (not lord fauntleroy).</b></p>
+<p class="normaltext">'Well!' said Mr Hobbs. 'Well, I don't know. Did you ever hear anything like that before?'</p>
+<p class="normaltext">'No, I didn't,' said Dick. 'But I know one thing. Young Cedric needs his friends at a time like this. Let's write back to him, Mr Hobbs, and let's do it now!'</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP11-1"><span class="underline">5</span></p>
+<p class="subtitlehz2">哈维沙姆先生带来的消息</p>
+<p class="normaltext">消息在村子和农场里传开了，传得比六驾马车还快。</p>
+<p class="normaltext">“你听说了吗？牧师去城堡跟伯爵说可怜的希金斯先生的事……”</p>
+<p class="normaltext">“当时那孩子就在那儿，方特勒罗伊小爵爷……”</p>
+<p class="normaltext">“是啊，伯爵跟他孙子说，‘你给纽威克先生写信，你告诉他。’那孩子就那么做了！”</p>
+<p class="normaltext">“然后牧师把信拿给纽威克先生，现在纽威克先生不能把可怜的希金斯和他的家人赶到大街上去了。”</p>
+<p class="normaltext">“是啊，他们还能有一个月的时间去凑租金呢！”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">日子就这么一天天，一周周地过去了。现在人人都知道了方特勒罗伊爵爷和他的母亲。他们喜爱这个有着金色卷发、灿烂笑容的孩子。他们每天都看见他骑着新得的小马，他也总是友好地和每个人说上几句话。</p>
+<p class="normaltext">村里人也都喜爱埃罗尔太太，因为她心地善良，面容甜美。村里要是有人生病了，埃罗尔太太总是去帮忙。</p>
+<p class="normaltext">可是伯爵从不见她，从不跟她讲话，也从不去她住的地方。锡德里克当然每天都去看她，但他心里很难过，因为他“最好的朋友”没有和他住在一起。</p>
+<p class="normaltext">随着时间的推移，伯爵越来越喜欢他的小孙子。他经常忘记脚痛，也开始有更多的笑容，有时候甚至是大笑了。他喜欢逗他孙子开心。方特勒罗伊爵爷希望一些特别穷的村民能有新房子，伯爵就建新房子。这孩子想聊关于他母亲的事，伯爵就听着。但是他并不喜欢听这些事。</p>
+<p class="normaltext">“你<span class="doubleline">从来不会</span>忘记你妈妈吗？”有一天他问孙子。</p>
+<p class="normaltext">“不会，”锡德里克说，“永远不会。她也永远不会忘记我。您知道，我不在您身边的时候，我也不会忘记<span class="doubleline">您</span>。”</p>
+<p class="normaltext">小爵爷也没有忘记他在美国的朋友。书信来往于多林考特和纽约之间，迪克和霍布斯先生知道了有关锡德里克新生活的一切。</p>
+<p class="normaltext">一天，伯爵举办了一场盛大的宴会，方圆几英里内所有有声望的家族都来了——来见一见方特勒罗伊爵爷。哈维沙姆先生也从伦敦过来了，可他整晚一言不发，而且看上去十分焦虑。</p>
+<p class="normaltext">宴会快结束的时候，伯爵对他说：</p>
+<p class="normaltext">“对了，哈维沙姆，出了什么事吗？”</p>
+<p class="normaltext">“我有个坏消息，老爷，是关于您的继承人的。”</p>
+<p class="normaltext">“我的继承人？方特勒罗伊就是我的继承人。你什么意思？”</p>
+<p class="normaltext">“老爷，”哈维沙姆先生说，“锡德里克·埃罗尔不是您的继承人。他不是方特勒罗伊爵爷。真正的方特勒罗伊爵爷是您长子贝维斯的儿子，此刻他正和母亲一起在伦敦。”</p>
+<p class="normaltext">伯爵的脸色像他的头发一样白。“贝维斯？”他说，“这不是真的。哈维沙姆，告诉我这不是真的！”</p>
+<p class="normaltext">“今天早上一位女士来到我办公室，”哈维沙姆先生说，“贝维斯六年前在伦敦娶了她。她有所有的证明文件。他一年后离开了她，但是她有个儿子，现在五岁。这位女士是美国人。她很美，不过……唉，她只会写自己的名字。而且她只对钱感兴趣。”</p>
+<p class="normaltext">伯爵的脸色发紫。他从椅子上跳起来，开始在房间里走来走去。</p>
+<p class="normaltext">“贝维斯一直是最没出息的！”他生气地说，“我讨厌他，他也讨厌我。我必须阻止这件事！锡德里克对我来说很珍贵，哈维沙姆，非常珍贵。他是个优秀的孩子，他将成为比我——或贝维斯的什么孩子——更好的多林考特伯爵！”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">远在纽约，锡德里克的两位朋友正坐在食品杂货店里的一张桌子前。他们晚餐吃了面包和冷肉，然后谈起了方特勒罗伊爵爷。</p>
+<p class="normaltext">迪克通常一周来一次食品杂货店。他和霍布斯先生现在是很好的朋友，他们喜欢一起看从英格兰寄来的信，一起聊一聊信的内容。他们给锡德里克回信时，霍布斯先生会帮助迪克，因为写字对迪克来说有难度。</p>
+<p class="normaltext">“看，我没什么时间上学，”一天，迪克告诉霍布斯先生说，“爸和妈都死了，家里也没有钱。所以我和我兄弟只能工作。”</p>
+<p class="normaltext">“你的兄弟本，是吗？”霍布斯先生问道。</p>
+<p class="normaltext">“对，他是我哥哥，”迪克说，“他对我很好，我是说本。但是后来他娶了这个姑娘，哦，天哪，她就是场噩梦！她是个俏姑娘——大大的黑眼睛，长长的黑头发——可她不是看什么不顺眼，就是冲人发火，冲我、本或宝宝。我记得有一次她拿盘子砸本的脑袋。她还打宝宝呢。她可真是个好妈啊！”</p>
+<p class="normaltext">“女人啊！”霍布斯先生说，“叫我说，最好离得她们远远的。我就没结过婚。”</p>
+<p class="normaltext">“嗯，她也没呆多久，”迪克说，“她总是跟本生气，因为他赚钱不够快。所以有一天她带着孩子走了。我们再没见过她。有人跟我们说，她离开了纽约。”</p>
+<p class="normaltext">“那你哥哥怎么样了？”霍布斯先生问道。</p>
+<p class="normaltext">“本也走了，现在在加利福尼亚，在一个什么地方的大农场干照料马的活儿。他为明娜和他的宝贝儿子难过了好长一段时间，可怜的本。”</p>
+<p class="normaltext">晚饭后，霍布斯先生拿出一封信。“这是我们朋友的来信，今天到的，”他说，“咱们现在一起看吧。”他打开信，一起读了起来。</p>
+<p class="normaltextxd2k">我亲爱的盆友霍布斯先生——我有个令人吃惊的消息要高诉你和迪克。我不是方特勒罗伊爵爷了，因为我伯伯贝维斯（他去世了）有个而子，但没人知道他。我伯伯贝维斯是伯爵的大儿子，所以他儿子才是方特勒罗伊爵爷，而我又是锡德里克·埃罗尔了。我爸爸是最小的儿子，最小的儿子什么也得不到，所以我没那么有钱了。我要开始学着工作了，也许是跟马打交道吧，因为我很喜欢它们。我爷爷对此很生气，我从没见过他生气。爱尔们的老盆友锡德里克·埃罗尔（不是方特勒罗伊爵爷）。</p>
+<p class="normaltext">“哎哟！”霍布斯先生说，“哎哟，我不知道。你听说过这种事吗？”</p>
+<p class="normaltext">“没，没听过。”迪克说，“不过我知道一点，就是这种时候，小锡德里克需要他的朋友。我们给他回信吧，霍布斯先生，现在就写！”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-16" class="chapter-section">
+                <h2 class="chapter-title">6．News from America</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP12"><span class="underline">6</span></p>
+<p class="subtitlehz2">News from America</p>
+<p class="normaltext">The story about the new Lord Fauntleroy was soon in all the newspapers in England. And in Dorincourt village, of course, nobody could stop talking about it.</p>
+<p class="normaltext">'The Earl is so angry about it! He doesn't like the woman, and he doesn't want the boy!'</p>
+<p class="normaltext">'Yes, and they say he's got twenty lawyers in London, all working on it, looking into things, asking questions.'</p>
+<p class="normaltext">'Did you see the woman, Bevis's wife, when she came to the castle with her boy? She's a tall, black-eyed thing, with a hard face. Not a nice woman, and nothing like our sweet, kind Mrs Errol. And the boy's nothing, when you think about our dear little lord.'</p>
+<p class="normaltext">'How's it all going to end?'</p>
+<p class="normaltext">'Who knows?'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">When the Earl told Lord Fauntleroy the news, the boy listened carefully. Then he asked, with a worried look in his big brown eyes:</p>
+<p class="normaltext">'Can they take Dearest's house away from her?'</p>
+<p class="normaltext">'<em>No</em>!' the Earl said. 'They can take nothing from her.'</p>
+<p class="normaltext">'Ah,' said Cedric. 'I'm so pleased about that.' He thought for a minute, then looked up at his grandfather.</p>
+<p class="picture"><img src="../../../Images/image07485.jpeg" alt="alt"/></p>
+<p class="tz"><em> In Dorincourt village nobody could stop talking about it.</em></p>
+<p class="normaltext">'And... that other boy,' he said, a little shakily, 'he's going to be your boy now, and live with you, isn't he?'</p>
+<p class="normaltext">'<em>NO</em>!' the Earl said again. 'No, he's not!'</p>
+<p class="normaltext">Cedric was very surprised. He jumped up from his chair and began to smile. 'Can I still be your boy, then? I'm not going to be an Earl one day, but that doesn't matter, does it? I just want to be your boy, always.'</p>
+<p class="normaltext">The Earl looked down at his little grandson. 'My boy!' he said, and – this is true – <em>his</em> voice was a little shaky too. And there was something in those old angry black eyes, something new, something different. 'Yes, you're my boy, my only boy, the best boy in my life.'</p>
+<p class="normaltext">Cedric's face went red, and he looked very happy. 'That's all right, then. I was a little worried, but not now.'</p>
+<p class="normaltext">The Earl put his hand on the boy's head. 'You are right for Dorincourt, and... well, who knows? But always remember, you are my boy, first and last.'</p>
+<p class="normaltext">The Earl talked many times with Mr Havisham about Bevis's wife and son, and Mr Havisham talked with other lawyers in London. There were questions about the woman's story. When was her son born? Where was he born? She was Bevis's wife, because she had the marriage papers, but was all her story true?</p>
+<p class="normaltext">Some days later a visitor came to Court Lodge. The servant, her eyes big with surprise, ran to find Mrs Errol.</p>
+<p class="normaltext">'It's the Earl, Mrs Errol!' she said. 'The Earl's here!'</p>
+<p class="normaltext">When Mrs Errol came into her sitting room, she found a tall old man with white hair. He stared at her.</p>
+<p class="normaltext">'The boy is very like you,' he said.</p>
+<p class="normaltext">'People say that, my lord,' Mrs Errol said.</p>
+<p class="normaltext">'You don't want your son to be the Earl of Dorincourt, do you?' the Earl said.</p>
+<p class="normaltext">'It's a fine thing to be an Earl,' said Mrs Errol quietly. 'But it's more important for my son to be a true, kind, brave man, like his father.'</p>
+<p class="normaltext">'Not like his grandfather, you mean,' said the Earl.</p>
+<p class="normaltext">'I don't know his grandfather.' Mrs Errol looked up into his face. 'But I know that Cedric loves you.'</p>
+<p class="normaltext">The Earl began to walk up and down the room. 'Yes, and the boy is very dear to me,' he said. 'I'm an old man, tired of life, but then I found someone to live for. And now this other boy... Havisham told you about him.' He came back and stood in front of Mrs Errol.</p>
+<p class="normaltext">'I am miserable,' he said. 'Miserable!'</p>
+<p class="normaltext">Again, his voice was a little shaky. 'I hated you once. I don't know why. I came to see you because you are like the boy, and the boy loves you, and I love him. Be kind to me, because of the boy.'</p>
+<p class="normaltext">Mrs Errol had a kind, loving heart. She put her hand on the Earl's arm. 'Why don't you sit down for a moment? You are tired, and unhappy.'</p>
+<p class="picture"><img src="../../../Images/image07486.jpeg" alt="alt"/></p>
+<p class="tz"><em>'It's more important for my son to be a true, kind, brave man, like his father,' said Mrs Errol.</em></p>
+<p class="normaltext">The Earl sat down, and they drank tea together, and talked. He watched her sweet face and listened to her quiet voice, and he began to feel a little better. Before he went away, he looked around the room.</p>
+<p class="normaltext">'This is a happy room,' he said. 'Can I come again and talk to you?'</p>
+<p class="normaltext">'Of course, my lord. Come when you like.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">The English newspapers could not stop writing about the Lord Fauntleroy story. And soon American newspapers began to write about it too. Mr Hobbs read everything, and he and Dick talked about it every day.</p>
+<p class="normaltext">Dick was a very good boot-black, and a lot of people came to him. One of them was a young lawyer, and one day he gave Dick his newspaper. 'Here's a paper for you, Dick,' he said. 'This one's got pictures in it – an English castle, and this English Earl, and his son's wife. Well, she says she's his son's wife, but the Earl says not. I don't – hey, Dick, what's the matter?'</p>
+<p class="normaltext">Dick stared at the picture in the newspaper with his mouth open. He saw a good-looking young woman, with black eyes and a lot of long black hair.</p>
+<p class="normaltext">'I know her!' he cried. 'I know her like the back of my hand. It's Minna! It's my brother Ben's wife.' He began to put away his brushes.</p>
+<p class="normaltext">'Where are you going, Dick?' said the young lawyer.</p>
+<p class="normaltext">'I'm off to my friend Mr Hobbs,' cried Dick. 'We've got business to do.'</p>
+<p class="picture"><img src="../../../Images/image07487.jpeg" alt="alt"/></p>
+<p class="tz"><em> Dick stared at the picture in the newspaper with his mouth open.</em></p>
+<p class="normaltext">And away he ran through the streets of New York to Mr Hobbs's grocery store. At first, Mr Hobbs could not understand it. 'But why did Minna do it?' he asked.</p>
+<p class="normaltext">'Money!' said Dick. 'She always wanted money. She married this Bevis, the Earl's son, for money. And now she wants to get our Cedric's money. Well, she's not going to! You and me, Mr Hobbs, are going to stop her!'</p>
+<p class="normaltext">Then Mr Hobbs and Dick began to think carefully.</p>
+<p class="normaltext">'Dick, you write to Ben, and I'm going to write to Cedric,' said Mr Hobbs. 'And that Mr Havisham too.'</p>
+<p class="normaltext">'Right,' said Dick. 'But we need help here, Mr Hobbs. This is lawyers' work. Why don't I ask that young lawyer, him with the newspaper?'</p>
+<p class="normaltext">Dick's friend the young lawyer was very surprised by the story, but very interested. He began to get busy too, and letters went to California, to London, and to Dorincourt.</p>
+<hr/>
+<p class="normaltextd"><b>shaky</b> <em>adj</em>. shaking because you have strong feelings or are afraid 颤抖的</p>
+<p class="normaltextd"><b>miserable</b> <em>adj</em>. feeling very unhappy 痛苦的，十分难过的</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP12-1"><span class="underline">6</span></p>
+<p class="subtitlehz2">美国传来的消息</p>
+<p class="normaltext">新方特勒罗伊爵爷的消息很快出现在英格兰所有的报纸上。在多林考特村，自然无人不在谈论这件事。</p>
+<p class="normaltext">“伯爵因为这事儿非常生气！他不喜欢那个女人，也不想要那个男孩！”</p>
+<p class="normaltext">“是啊，他们说他在伦敦找了二十个律师，都在忙乎这事儿，到处查、到处问。”</p>
+<p class="normaltext">“贝维斯的老婆带孩子来城堡的时候你看见那女人什么样了吗？是个高个子，眼睛是黑色的，板着个脸。不像个好女人，一点儿也比不上我们温柔善良的埃罗尔太太。比起我们亲爱的小爵爷，她那孩子也是一无是处。”</p>
+<p class="normaltext">“这事儿最后会怎么样啊？”</p>
+<p class="normaltext">“天知道！”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">伯爵把这消息告诉方特勒罗伊爵爷的时候，小男孩认真听着，棕色的大眼睛里充满担忧，然后他问：</p>
+<p class="normaltext">“他们会把最最亲爱的房子拿走吗？”</p>
+<p class="normaltext">“<span class="doubleline">不会</span>！”伯爵说，“他们什么都不能从她那儿拿走。”</p>
+<p class="normaltext">“啊，”锡德里克说，“那样的话，我太高兴了。”他想了想，抬头望着他的祖父。</p>
+<p class="normaltext">“那……那个男孩儿，”他声音有点发颤，“他现在要成为您的孙子，和您一起住，对吗？”</p>
+<p class="normaltext">“<span class="doubleline">不会</span>！”伯爵又一次说道，“不，他不会！”</p>
+<p class="normaltext">锡德里克十分惊讶。他从椅子上跳下来，露出笑脸。“那，我还能是您孙子吗？我以后不能当伯爵了，但是没关系，不是吗？我只想当您的孙子，永远。”</p>
+<p class="normaltext">伯爵低头看着他的小孙子。“我的孩子！”他说，并且——千真万确——<span class="doubleline">他的</span>声音也有点颤抖了。那双苍老、易怒的黑色眼睛里有些什么东西，一些从未有过的、不一样的东西。“是的，你是我的孙子，我唯一的孙子，这辈子最好的孙子。”</p>
+<p class="normaltext">锡德里克的脸红了，他看上去非常幸福。“那就好啦，我本来有些担心，但现在不了。”</p>
+<p class="normaltext">伯爵把手放在孩子头上。“你才适合多林考特，而且……哎，谁知道呢？不过永远记住，你是我的孙子，是第一个，也是最后一个。”</p>
+<p class="normaltext">伯爵多次和哈维沙姆先生讨论有关贝维斯的妻子和孩子的事，哈维沙姆先生再和伦敦的其他律师谈。这个女人的故事有不少疑点。她儿子是什么时候出生的？在哪里出生的？她是贝维斯的妻子，是因为她有结婚证明文件，可是她说的都是真的吗？</p>
+<p class="normaltext">几天后，一位客人来到洛奇公寓。女仆惊讶地睁大了眼睛，跑去找埃罗尔太太。</p>
+<p class="normaltext">“是伯爵，埃罗尔太太！”她说，“伯爵来了！”</p>
+<p class="normaltext">埃罗尔太太走进客厅，看到一位高大的老人，满头白发。他盯着她看。</p>
+<p class="normaltext">“那孩子很像你。”他说。</p>
+<p class="normaltext">“大家都那么说，老爷。”埃罗尔太太说。</p>
+<p class="normaltext">“你不希望你的孩子成为多林考特伯爵，是吗？”伯爵说。</p>
+<p class="normaltext">“能成为伯爵是件好事，”埃罗尔太太平静地说，“但是更重要的是，我的儿子能成为一个真诚、善良、勇敢的人，像他爸爸一样。”</p>
+<p class="normaltext">“你的意思是，不是像他爷爷一样。”伯爵说。</p>
+<p class="normaltext">“我不了解他的爷爷。”埃罗尔太太抬头望着他的脸，“但我知道锡德里克爱您。”</p>
+<p class="normaltext">伯爵在屋里来回走了起来。“是的，而且这孩子对我来说很珍贵。”他说，“我是个老头子，厌倦了生活，可后来我找到了一个人，我愿意为了他活着。但现在这另外一个孩子……哈维沙姆跟你说了吧。”他走回到埃罗尔太太面前停住。</p>
+<p class="normaltext">“我很痛苦，”他说，“很痛苦！”</p>
+<p class="normaltext">他的声音再一次颤抖。“我曾经恨过你。我不知道为什么。我来看你是因为你像那孩子，而且那孩子爱你，而我又爱他。看在孩子的份上，对我好一些。”</p>
+<p class="normaltext">埃罗尔太太有一颗善良、慈爱的心。她把手放在伯爵的手臂上。“您坐一会儿吧？您累了，又不太开心。”</p>
+<p class="normaltext">伯爵坐下来，他们一起喝茶聊天。他望着她甜美的脸庞，听着她轻柔的声音，开始感觉好了一些。走之前，他环顾四周。</p>
+<p class="normaltext">“这是个令人愉快的屋子，”他说，“我还能来跟你聊天吗？”</p>
+<p class="normaltext">“当然，老爷。您随时都可以来。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">英国的报纸在不停地报道方特勒罗伊爵爷的消息。很快美国报纸也开始报道了。霍布斯先生看了所有的消息，他和迪克每天都讨论这件事。</p>
+<p class="normaltext">迪克是个擦皮鞋的好手，很多人都来找他。其中有一位是名年轻的律师。这天他递给迪克一份报纸。“这是给你的报纸，迪克，”他说，“这上面有照片——这是英国城堡、那个英国伯爵和他的儿媳。呃，她说她是伯爵的儿媳，但伯爵说不是。我不——嘿，迪克，你怎么了？”</p>
+<p class="normaltext">迪克盯着报纸上的照片，张大了嘴。他看见一个年轻漂亮的女人，黑色眼睛，一头茂密的黑色长发。</p>
+<p class="normaltext">“我认得她！”他喊了起来，“我对她再清楚不过了。这是明娜！是我哥哥本的老婆。”他开始收拾刷子。</p>
+<p class="normaltext">“你要去哪儿，迪克？”那位年轻律师问道。</p>
+<p class="normaltext">“我要去我朋友霍布斯先生那儿，”迪克大声说，“我们有正事儿要做。”</p>
+<p class="normaltext">于是他穿过纽约的街道，一路跑到霍布斯先生的食品杂货店。一开始，霍布斯先生不太理解。“可明娜为什么要这么做？”他问道。</p>
+<p class="normaltext">“为了钱啊！”迪克说，“她一直想要钱。她嫁给这个伯爵的儿子贝维斯是为了他的钱，现在她又想要咱们锡德里克的钱。哼，她是不会得逞的！霍布斯先生，我俩一定要阻止她！”</p>
+<p class="normaltext">随后霍布斯先生和迪克开始仔细考虑这件事。</p>
+<p class="normaltext">“迪克，你给本写信，我来给锡德里克写，”霍布斯先生说，“还有那个哈维沙姆先生。”</p>
+<p class="normaltext">“好，”迪克说，“不过我们需要帮助，霍布斯先生。这是律师的活儿。我要不去问问那个年轻的律师，给我看报纸的那个？”</p>
+<p class="normaltext">迪克年轻的律师朋友听了整个故事，非常惊讶，但也很感兴趣。他也开始忙乎起来，于是信件寄去了加利福尼亚、伦敦和多林考特。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-17" class="chapter-section">
+                <h2 class="chapter-title">美国传来的消息</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP12"><span class="underline">6</span></p>
+<p class="subtitlehz2">News from America</p>
+<p class="normaltext">The story about the new Lord Fauntleroy was soon in all the newspapers in England. And in Dorincourt village, of course, nobody could stop talking about it.</p>
+<p class="normaltext">'The Earl is so angry about it! He doesn't like the woman, and he doesn't want the boy!'</p>
+<p class="normaltext">'Yes, and they say he's got twenty lawyers in London, all working on it, looking into things, asking questions.'</p>
+<p class="normaltext">'Did you see the woman, Bevis's wife, when she came to the castle with her boy? She's a tall, black-eyed thing, with a hard face. Not a nice woman, and nothing like our sweet, kind Mrs Errol. And the boy's nothing, when you think about our dear little lord.'</p>
+<p class="normaltext">'How's it all going to end?'</p>
+<p class="normaltext">'Who knows?'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">When the Earl told Lord Fauntleroy the news, the boy listened carefully. Then he asked, with a worried look in his big brown eyes:</p>
+<p class="normaltext">'Can they take Dearest's house away from her?'</p>
+<p class="normaltext">'<em>No</em>!' the Earl said. 'They can take nothing from her.'</p>
+<p class="normaltext">'Ah,' said Cedric. 'I'm so pleased about that.' He thought for a minute, then looked up at his grandfather.</p>
+<p class="picture"><img src="../../../Images/image07485.jpeg" alt="alt"/></p>
+<p class="tz"><em> In Dorincourt village nobody could stop talking about it.</em></p>
+<p class="normaltext">'And... that other boy,' he said, a little shakily, 'he's going to be your boy now, and live with you, isn't he?'</p>
+<p class="normaltext">'<em>NO</em>!' the Earl said again. 'No, he's not!'</p>
+<p class="normaltext">Cedric was very surprised. He jumped up from his chair and began to smile. 'Can I still be your boy, then? I'm not going to be an Earl one day, but that doesn't matter, does it? I just want to be your boy, always.'</p>
+<p class="normaltext">The Earl looked down at his little grandson. 'My boy!' he said, and – this is true – <em>his</em> voice was a little shaky too. And there was something in those old angry black eyes, something new, something different. 'Yes, you're my boy, my only boy, the best boy in my life.'</p>
+<p class="normaltext">Cedric's face went red, and he looked very happy. 'That's all right, then. I was a little worried, but not now.'</p>
+<p class="normaltext">The Earl put his hand on the boy's head. 'You are right for Dorincourt, and... well, who knows? But always remember, you are my boy, first and last.'</p>
+<p class="normaltext">The Earl talked many times with Mr Havisham about Bevis's wife and son, and Mr Havisham talked with other lawyers in London. There were questions about the woman's story. When was her son born? Where was he born? She was Bevis's wife, because she had the marriage papers, but was all her story true?</p>
+<p class="normaltext">Some days later a visitor came to Court Lodge. The servant, her eyes big with surprise, ran to find Mrs Errol.</p>
+<p class="normaltext">'It's the Earl, Mrs Errol!' she said. 'The Earl's here!'</p>
+<p class="normaltext">When Mrs Errol came into her sitting room, she found a tall old man with white hair. He stared at her.</p>
+<p class="normaltext">'The boy is very like you,' he said.</p>
+<p class="normaltext">'People say that, my lord,' Mrs Errol said.</p>
+<p class="normaltext">'You don't want your son to be the Earl of Dorincourt, do you?' the Earl said.</p>
+<p class="normaltext">'It's a fine thing to be an Earl,' said Mrs Errol quietly. 'But it's more important for my son to be a true, kind, brave man, like his father.'</p>
+<p class="normaltext">'Not like his grandfather, you mean,' said the Earl.</p>
+<p class="normaltext">'I don't know his grandfather.' Mrs Errol looked up into his face. 'But I know that Cedric loves you.'</p>
+<p class="normaltext">The Earl began to walk up and down the room. 'Yes, and the boy is very dear to me,' he said. 'I'm an old man, tired of life, but then I found someone to live for. And now this other boy... Havisham told you about him.' He came back and stood in front of Mrs Errol.</p>
+<p class="normaltext">'I am miserable,' he said. 'Miserable!'</p>
+<p class="normaltext">Again, his voice was a little shaky. 'I hated you once. I don't know why. I came to see you because you are like the boy, and the boy loves you, and I love him. Be kind to me, because of the boy.'</p>
+<p class="normaltext">Mrs Errol had a kind, loving heart. She put her hand on the Earl's arm. 'Why don't you sit down for a moment? You are tired, and unhappy.'</p>
+<p class="picture"><img src="../../../Images/image07486.jpeg" alt="alt"/></p>
+<p class="tz"><em>'It's more important for my son to be a true, kind, brave man, like his father,' said Mrs Errol.</em></p>
+<p class="normaltext">The Earl sat down, and they drank tea together, and talked. He watched her sweet face and listened to her quiet voice, and he began to feel a little better. Before he went away, he looked around the room.</p>
+<p class="normaltext">'This is a happy room,' he said. 'Can I come again and talk to you?'</p>
+<p class="normaltext">'Of course, my lord. Come when you like.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">The English newspapers could not stop writing about the Lord Fauntleroy story. And soon American newspapers began to write about it too. Mr Hobbs read everything, and he and Dick talked about it every day.</p>
+<p class="normaltext">Dick was a very good boot-black, and a lot of people came to him. One of them was a young lawyer, and one day he gave Dick his newspaper. 'Here's a paper for you, Dick,' he said. 'This one's got pictures in it – an English castle, and this English Earl, and his son's wife. Well, she says she's his son's wife, but the Earl says not. I don't – hey, Dick, what's the matter?'</p>
+<p class="normaltext">Dick stared at the picture in the newspaper with his mouth open. He saw a good-looking young woman, with black eyes and a lot of long black hair.</p>
+<p class="normaltext">'I know her!' he cried. 'I know her like the back of my hand. It's Minna! It's my brother Ben's wife.' He began to put away his brushes.</p>
+<p class="normaltext">'Where are you going, Dick?' said the young lawyer.</p>
+<p class="normaltext">'I'm off to my friend Mr Hobbs,' cried Dick. 'We've got business to do.'</p>
+<p class="picture"><img src="../../../Images/image07487.jpeg" alt="alt"/></p>
+<p class="tz"><em> Dick stared at the picture in the newspaper with his mouth open.</em></p>
+<p class="normaltext">And away he ran through the streets of New York to Mr Hobbs's grocery store. At first, Mr Hobbs could not understand it. 'But why did Minna do it?' he asked.</p>
+<p class="normaltext">'Money!' said Dick. 'She always wanted money. She married this Bevis, the Earl's son, for money. And now she wants to get our Cedric's money. Well, she's not going to! You and me, Mr Hobbs, are going to stop her!'</p>
+<p class="normaltext">Then Mr Hobbs and Dick began to think carefully.</p>
+<p class="normaltext">'Dick, you write to Ben, and I'm going to write to Cedric,' said Mr Hobbs. 'And that Mr Havisham too.'</p>
+<p class="normaltext">'Right,' said Dick. 'But we need help here, Mr Hobbs. This is lawyers' work. Why don't I ask that young lawyer, him with the newspaper?'</p>
+<p class="normaltext">Dick's friend the young lawyer was very surprised by the story, but very interested. He began to get busy too, and letters went to California, to London, and to Dorincourt.</p>
+<hr/>
+<p class="normaltextd"><b>shaky</b> <em>adj</em>. shaking because you have strong feelings or are afraid 颤抖的</p>
+<p class="normaltextd"><b>miserable</b> <em>adj</em>. feeling very unhappy 痛苦的，十分难过的</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP12-1"><span class="underline">6</span></p>
+<p class="subtitlehz2">美国传来的消息</p>
+<p class="normaltext">新方特勒罗伊爵爷的消息很快出现在英格兰所有的报纸上。在多林考特村，自然无人不在谈论这件事。</p>
+<p class="normaltext">“伯爵因为这事儿非常生气！他不喜欢那个女人，也不想要那个男孩！”</p>
+<p class="normaltext">“是啊，他们说他在伦敦找了二十个律师，都在忙乎这事儿，到处查、到处问。”</p>
+<p class="normaltext">“贝维斯的老婆带孩子来城堡的时候你看见那女人什么样了吗？是个高个子，眼睛是黑色的，板着个脸。不像个好女人，一点儿也比不上我们温柔善良的埃罗尔太太。比起我们亲爱的小爵爷，她那孩子也是一无是处。”</p>
+<p class="normaltext">“这事儿最后会怎么样啊？”</p>
+<p class="normaltext">“天知道！”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">伯爵把这消息告诉方特勒罗伊爵爷的时候，小男孩认真听着，棕色的大眼睛里充满担忧，然后他问：</p>
+<p class="normaltext">“他们会把最最亲爱的房子拿走吗？”</p>
+<p class="normaltext">“<span class="doubleline">不会</span>！”伯爵说，“他们什么都不能从她那儿拿走。”</p>
+<p class="normaltext">“啊，”锡德里克说，“那样的话，我太高兴了。”他想了想，抬头望着他的祖父。</p>
+<p class="normaltext">“那……那个男孩儿，”他声音有点发颤，“他现在要成为您的孙子，和您一起住，对吗？”</p>
+<p class="normaltext">“<span class="doubleline">不会</span>！”伯爵又一次说道，“不，他不会！”</p>
+<p class="normaltext">锡德里克十分惊讶。他从椅子上跳下来，露出笑脸。“那，我还能是您孙子吗？我以后不能当伯爵了，但是没关系，不是吗？我只想当您的孙子，永远。”</p>
+<p class="normaltext">伯爵低头看着他的小孙子。“我的孩子！”他说，并且——千真万确——<span class="doubleline">他的</span>声音也有点颤抖了。那双苍老、易怒的黑色眼睛里有些什么东西，一些从未有过的、不一样的东西。“是的，你是我的孙子，我唯一的孙子，这辈子最好的孙子。”</p>
+<p class="normaltext">锡德里克的脸红了，他看上去非常幸福。“那就好啦，我本来有些担心，但现在不了。”</p>
+<p class="normaltext">伯爵把手放在孩子头上。“你才适合多林考特，而且……哎，谁知道呢？不过永远记住，你是我的孙子，是第一个，也是最后一个。”</p>
+<p class="normaltext">伯爵多次和哈维沙姆先生讨论有关贝维斯的妻子和孩子的事，哈维沙姆先生再和伦敦的其他律师谈。这个女人的故事有不少疑点。她儿子是什么时候出生的？在哪里出生的？她是贝维斯的妻子，是因为她有结婚证明文件，可是她说的都是真的吗？</p>
+<p class="normaltext">几天后，一位客人来到洛奇公寓。女仆惊讶地睁大了眼睛，跑去找埃罗尔太太。</p>
+<p class="normaltext">“是伯爵，埃罗尔太太！”她说，“伯爵来了！”</p>
+<p class="normaltext">埃罗尔太太走进客厅，看到一位高大的老人，满头白发。他盯着她看。</p>
+<p class="normaltext">“那孩子很像你。”他说。</p>
+<p class="normaltext">“大家都那么说，老爷。”埃罗尔太太说。</p>
+<p class="normaltext">“你不希望你的孩子成为多林考特伯爵，是吗？”伯爵说。</p>
+<p class="normaltext">“能成为伯爵是件好事，”埃罗尔太太平静地说，“但是更重要的是，我的儿子能成为一个真诚、善良、勇敢的人，像他爸爸一样。”</p>
+<p class="normaltext">“你的意思是，不是像他爷爷一样。”伯爵说。</p>
+<p class="normaltext">“我不了解他的爷爷。”埃罗尔太太抬头望着他的脸，“但我知道锡德里克爱您。”</p>
+<p class="normaltext">伯爵在屋里来回走了起来。“是的，而且这孩子对我来说很珍贵。”他说，“我是个老头子，厌倦了生活，可后来我找到了一个人，我愿意为了他活着。但现在这另外一个孩子……哈维沙姆跟你说了吧。”他走回到埃罗尔太太面前停住。</p>
+<p class="normaltext">“我很痛苦，”他说，“很痛苦！”</p>
+<p class="normaltext">他的声音再一次颤抖。“我曾经恨过你。我不知道为什么。我来看你是因为你像那孩子，而且那孩子爱你，而我又爱他。看在孩子的份上，对我好一些。”</p>
+<p class="normaltext">埃罗尔太太有一颗善良、慈爱的心。她把手放在伯爵的手臂上。“您坐一会儿吧？您累了，又不太开心。”</p>
+<p class="normaltext">伯爵坐下来，他们一起喝茶聊天。他望着她甜美的脸庞，听着她轻柔的声音，开始感觉好了一些。走之前，他环顾四周。</p>
+<p class="normaltext">“这是个令人愉快的屋子，”他说，“我还能来跟你聊天吗？”</p>
+<p class="normaltext">“当然，老爷。您随时都可以来。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">英国的报纸在不停地报道方特勒罗伊爵爷的消息。很快美国报纸也开始报道了。霍布斯先生看了所有的消息，他和迪克每天都讨论这件事。</p>
+<p class="normaltext">迪克是个擦皮鞋的好手，很多人都来找他。其中有一位是名年轻的律师。这天他递给迪克一份报纸。“这是给你的报纸，迪克，”他说，“这上面有照片——这是英国城堡、那个英国伯爵和他的儿媳。呃，她说她是伯爵的儿媳，但伯爵说不是。我不——嘿，迪克，你怎么了？”</p>
+<p class="normaltext">迪克盯着报纸上的照片，张大了嘴。他看见一个年轻漂亮的女人，黑色眼睛，一头茂密的黑色长发。</p>
+<p class="normaltext">“我认得她！”他喊了起来，“我对她再清楚不过了。这是明娜！是我哥哥本的老婆。”他开始收拾刷子。</p>
+<p class="normaltext">“你要去哪儿，迪克？”那位年轻律师问道。</p>
+<p class="normaltext">“我要去我朋友霍布斯先生那儿，”迪克大声说，“我们有正事儿要做。”</p>
+<p class="normaltext">于是他穿过纽约的街道，一路跑到霍布斯先生的食品杂货店。一开始，霍布斯先生不太理解。“可明娜为什么要这么做？”他问道。</p>
+<p class="normaltext">“为了钱啊！”迪克说，“她一直想要钱。她嫁给这个伯爵的儿子贝维斯是为了他的钱，现在她又想要咱们锡德里克的钱。哼，她是不会得逞的！霍布斯先生，我俩一定要阻止她！”</p>
+<p class="normaltext">随后霍布斯先生和迪克开始仔细考虑这件事。</p>
+<p class="normaltext">“迪克，你给本写信，我来给锡德里克写，”霍布斯先生说，“还有那个哈维沙姆先生。”</p>
+<p class="normaltext">“好，”迪克说，“不过我们需要帮助，霍布斯先生。这是律师的活儿。我要不去问问那个年轻的律师，给我看报纸的那个？”</p>
+<p class="normaltext">迪克年轻的律师朋友听了整个故事，非常惊讶，但也很感兴趣。他也开始忙乎起来，于是信件寄去了加利福尼亚、伦敦和多林考特。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-18" class="chapter-section">
+                <h2 class="chapter-title">7．Changes at the castle</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP13"><span class="underline">7</span></p>
+<p class="subtitlehz2">Changes at the castle</p>
+<p class="normaltext">Wonderful things always happen quickly. Letters went to and from America and England, and soon Mr Hobbs, Dick, and Dick's brother Ben were on a ship to England.</p>
+<p class="normaltext">Things happened quickly because Minna – and it <em>was</em> Minna – was a bad woman, and a stupid one too. When she married Bevis, the Earl's son, she was still Ben's wife, and you can't have two husbands. Her son Tom was eight years old, not five, so he was Ben's son, not Bevis's son.</p>
+<p class="normaltext">She was in a sitting room in the Dorincourt Hotel when the end came. The door opened, and in came three people – Mr Havisham, a big young man, and the Earl of Dorincourt. Minna jumped to her feet with a cry.</p>
+<p class="normaltext">'Do you know this woman?' Mr Havisham said to the big young man.</p>
+<p class="normaltext">'Yes,' said Ben. 'I know her and she knows me.'</p>
+<p class="normaltext">And that was the end of Minna. She left the hotel and nobody ever saw her again. Ben took his son Tom back to California with him, and with the Earl's help he bought a little farm there.</p>
+<p class="normaltext">When the Earl left the hotel, he went at once to his carriage. 'To Court Lodge,' he said to his servant.</p>
+<p class="normaltext">He came into the sitting room at Court Lodge and found Cedric with his mother. The Earl looked taller and younger, and there was a smile in his black eyes. He looked at his grandson.</p>
+<p class="normaltext">'So here,' he said, 'is Lord Fauntleroy.'</p>
+<p class="normaltext">Mrs Errol stood up. 'Oh, is he truly Lord Fauntleroy?' she asked. The Earl took her hand.</p>
+<p class="normaltext">'Yes,' he answered, 'he is.' Then he put his other hand on Cedric's head.</p>
+<p class="normaltext">'Fauntleroy,' he said, 'ask your mother this. When is she coming to us at the castle?'</p>
+<p class="normaltext">Lord Fauntleroy put his arms round his mother. 'To live with us,' he cried. 'To live with us always!'</p>
+<p class="normaltext">Mrs Errol looked at the Earl with her sweet, sad eyes.</p>
+<p class="normaltext">'We need you,' the Earl said. 'We need you very much.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">Dick and Mr Hobbs did not go back to America at once. The Earl had a talk with Dick, and Dick went back to school, in England this time. His writing got much better, and he began to study to be a lawyer.</p>
+<p class="normaltext">Mr Hobbs liked England very much. In the end he opened a new shop in Dorincourt, and was an important person in the village. People at the castle, of course, always went to his shop, and Cedric was in and out every day, to see his old friend.</p>
+<p class="normaltext">'Are you ever going back to America?' Dick asked Mr Hobbs when he visited one day.</p>
+<p class="normaltext">'I don't think so,' Mr Hobbs said. 'I like to be near the boy, you see. He's a fine little lord, young Cedric.'</p>
+<p class="picture"><img src="../../../Images/image07488.jpeg" alt="alt"/></p>
+<p class="tz"><em>'To live with us,' Cedric cried.'To live with us always!'</em></p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP13-1"><span class="underline">7</span></p>
+<p class="subtitlehz2">城堡中的变化</p>
+<p class="normaltext">好事来得总是那么快。信件来往于美国和英格兰之间，很快霍布斯先生、迪克和迪克的哥哥本就搭上了前往英格兰的轮船。</p>
+<p class="normaltext">事情进展迅速，因为明娜——<span class="doubleline">就是</span>那个明娜——是个坏女人，也是个蠢女人。她嫁给贝维斯，也就是伯爵儿子的时候，她还是本的妻子，可一个人是不能有两位丈夫的。她的儿子汤姆已经八岁大了，而不是五岁，所以他是本的儿子，而不是贝维斯的儿子。</p>
+<p class="normaltext">结局到来的时候，明娜正坐在多林考特旅馆的客厅里。门被推开，进来三个人——哈维沙姆先生、一个大块头的年轻人和多林考特伯爵。明娜尖叫着跳了起来。</p>
+<p class="normaltext">“你认识这个女人吗？”哈维沙姆先生问大块头的年轻人。</p>
+<p class="normaltext">“是的，”本说，“我认得她，她也认得我。”</p>
+<p class="normaltext">这便是明娜的结局。她离开旅馆，没人再见过她。本带儿子汤姆回了加利福尼亚，并且在伯爵的帮助下在那儿买了个小农场。</p>
+<p class="normaltext">伯爵离开旅馆后，立刻走向马车。“去洛奇公寓。”他对仆人说。</p>
+<p class="normaltext">他走进洛奇公寓的客厅，找到锡德里克和他的妈妈。伯爵看上去更高了，而且年轻了，黑色的眼睛里带着笑意。他看着他的孙子。</p>
+<p class="normaltext">“那么这位，”他说，“就是方特勒罗伊爵爷。”</p>
+<p class="normaltext">埃罗尔太太站起身来。“哦，他真的是方特勒罗伊爵爷吗？”她问道。伯爵握住她的手。</p>
+<p class="normaltext">“是的，”他回答，“他是。”然后他把另一只手放到锡德里克头上。</p>
+<p class="normaltext">“方特勒罗伊，”他说，“问问你妈妈，她什么时候到城堡来跟我们一起住？”</p>
+<p class="normaltext">方特勒罗伊爵爷抱住妈妈。“跟我们一起住，”他喊道，“永远跟我们住在一起！”</p>
+<p class="normaltext">埃罗尔太太用她温柔、忧伤的眼睛望着伯爵。</p>
+<p class="normaltext">“我们需要你，”伯爵说，“我们非常需要你。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">迪克和霍布斯先生没有立即回美国。伯爵和迪克谈了谈，于是迪克重返校园了，这次是在英国。他的写作水平好多了，并且开始学习，想成为一名律师。</p>
+<p class="normaltext">霍布斯先生很喜欢英格兰。最后，他在多林考特开了家新店，而且成了村里的一位重要人物。城堡里的人当然总是光顾他的店，锡德里克更是每天进进出出，看望他的老朋友。</p>
+<p class="normaltext">“你还打算回美国吗？”迪克有天来看霍布斯先生的时候问他。</p>
+<p class="normaltext">“我想不会了。”霍布斯先生说，“我喜欢在那孩子身边，你懂的。小锡德里克是位优秀的小爵爷。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-19" class="chapter-section">
+                <h2 class="chapter-title">城堡中的变化</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlehz2" id="CHP13"><span class="underline">7</span></p>
+<p class="subtitlehz2">Changes at the castle</p>
+<p class="normaltext">Wonderful things always happen quickly. Letters went to and from America and England, and soon Mr Hobbs, Dick, and Dick's brother Ben were on a ship to England.</p>
+<p class="normaltext">Things happened quickly because Minna – and it <em>was</em> Minna – was a bad woman, and a stupid one too. When she married Bevis, the Earl's son, she was still Ben's wife, and you can't have two husbands. Her son Tom was eight years old, not five, so he was Ben's son, not Bevis's son.</p>
+<p class="normaltext">She was in a sitting room in the Dorincourt Hotel when the end came. The door opened, and in came three people – Mr Havisham, a big young man, and the Earl of Dorincourt. Minna jumped to her feet with a cry.</p>
+<p class="normaltext">'Do you know this woman?' Mr Havisham said to the big young man.</p>
+<p class="normaltext">'Yes,' said Ben. 'I know her and she knows me.'</p>
+<p class="normaltext">And that was the end of Minna. She left the hotel and nobody ever saw her again. Ben took his son Tom back to California with him, and with the Earl's help he bought a little farm there.</p>
+<p class="normaltext">When the Earl left the hotel, he went at once to his carriage. 'To Court Lodge,' he said to his servant.</p>
+<p class="normaltext">He came into the sitting room at Court Lodge and found Cedric with his mother. The Earl looked taller and younger, and there was a smile in his black eyes. He looked at his grandson.</p>
+<p class="normaltext">'So here,' he said, 'is Lord Fauntleroy.'</p>
+<p class="normaltext">Mrs Errol stood up. 'Oh, is he truly Lord Fauntleroy?' she asked. The Earl took her hand.</p>
+<p class="normaltext">'Yes,' he answered, 'he is.' Then he put his other hand on Cedric's head.</p>
+<p class="normaltext">'Fauntleroy,' he said, 'ask your mother this. When is she coming to us at the castle?'</p>
+<p class="normaltext">Lord Fauntleroy put his arms round his mother. 'To live with us,' he cried. 'To live with us always!'</p>
+<p class="normaltext">Mrs Errol looked at the Earl with her sweet, sad eyes.</p>
+<p class="normaltext">'We need you,' the Earl said. 'We need you very much.'</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltextd">Dick and Mr Hobbs did not go back to America at once. The Earl had a talk with Dick, and Dick went back to school, in England this time. His writing got much better, and he began to study to be a lawyer.</p>
+<p class="normaltext">Mr Hobbs liked England very much. In the end he opened a new shop in Dorincourt, and was an important person in the village. People at the castle, of course, always went to his shop, and Cedric was in and out every day, to see his old friend.</p>
+<p class="normaltext">'Are you ever going back to America?' Dick asked Mr Hobbs when he visited one day.</p>
+<p class="normaltext">'I don't think so,' Mr Hobbs said. 'I like to be near the boy, you see. He's a fine little lord, young Cedric.'</p>
+<p class="picture"><img src="../../../Images/image07488.jpeg" alt="alt"/></p>
+<p class="tz"><em>'To live with us,' Cedric cried.'To live with us always!'</em></p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitlehz2" id="CHP13-1"><span class="underline">7</span></p>
+<p class="subtitlehz2">城堡中的变化</p>
+<p class="normaltext">好事来得总是那么快。信件来往于美国和英格兰之间，很快霍布斯先生、迪克和迪克的哥哥本就搭上了前往英格兰的轮船。</p>
+<p class="normaltext">事情进展迅速，因为明娜——<span class="doubleline">就是</span>那个明娜——是个坏女人，也是个蠢女人。她嫁给贝维斯，也就是伯爵儿子的时候，她还是本的妻子，可一个人是不能有两位丈夫的。她的儿子汤姆已经八岁大了，而不是五岁，所以他是本的儿子，而不是贝维斯的儿子。</p>
+<p class="normaltext">结局到来的时候，明娜正坐在多林考特旅馆的客厅里。门被推开，进来三个人——哈维沙姆先生、一个大块头的年轻人和多林考特伯爵。明娜尖叫着跳了起来。</p>
+<p class="normaltext">“你认识这个女人吗？”哈维沙姆先生问大块头的年轻人。</p>
+<p class="normaltext">“是的，”本说，“我认得她，她也认得我。”</p>
+<p class="normaltext">这便是明娜的结局。她离开旅馆，没人再见过她。本带儿子汤姆回了加利福尼亚，并且在伯爵的帮助下在那儿买了个小农场。</p>
+<p class="normaltext">伯爵离开旅馆后，立刻走向马车。“去洛奇公寓。”他对仆人说。</p>
+<p class="normaltext">他走进洛奇公寓的客厅，找到锡德里克和他的妈妈。伯爵看上去更高了，而且年轻了，黑色的眼睛里带着笑意。他看着他的孙子。</p>
+<p class="normaltext">“那么这位，”他说，“就是方特勒罗伊爵爷。”</p>
+<p class="normaltext">埃罗尔太太站起身来。“哦，他真的是方特勒罗伊爵爷吗？”她问道。伯爵握住她的手。</p>
+<p class="normaltext">“是的，”他回答，“他是。”然后他把另一只手放到锡德里克头上。</p>
+<p class="normaltext">“方特勒罗伊，”他说，“问问你妈妈，她什么时候到城堡来跟我们一起住？”</p>
+<p class="normaltext">方特勒罗伊爵爷抱住妈妈。“跟我们一起住，”他喊道，“永远跟我们住在一起！”</p>
+<p class="normaltext">埃罗尔太太用她温柔、忧伤的眼睛望着伯爵。</p>
+<p class="normaltext">“我们需要你，”伯爵说，“我们非常需要你。”</p>
+<p class="normaltextz"><img src="../../../Images/image07469.jpeg" alt="alt"/></p>
+<p class="normaltext">迪克和霍布斯先生没有立即回美国。伯爵和迪克谈了谈，于是迪克重返校园了，这次是在英国。他的写作水平好多了，并且开始学习，想成为一名律师。</p>
+<p class="normaltext">霍布斯先生很喜欢英格兰。最后，他在多林考特开了家新店，而且成了村里的一位重要人物。城堡里的人当然总是光顾他的店，锡德里克更是每天进进出出，看望他的老朋友。</p>
+<p class="normaltext">“你还打算回美国吗？”迪克有天来看霍布斯先生的时候问他。</p>
+<p class="normaltext">“我想不会了。”霍布斯先生说，“我喜欢在那孩子身边，你懂的。小锡德里克是位优秀的小爵爷。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-20" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES: Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlez2" id="CHP14">ACTIVITIES</p>
+<hr/>
+<p class="subtitlez6"><em>Before Reading</em></p>
+<p class="normaltextd2">1 Read the <a href="part0891.xhtml#CHP17">back cover</a> and the story introduction of the book. How much do you know now about the story? Tick one box for each sentence.</p>
+<p class="normaltext">1) Cedric and his mother are very rich.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">2) Cedric's father is dead.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">3) Everybody likes the Earl of Dorincourt.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">4) Cedric's father was the Earl's son.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">5) Cedric must go to live in England.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">6) Dick and Mr Hobbs go with Cedric to England.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">7) Cedric's new name is Lord Fauntleroy.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextd2">2 What is going to happen in this story? Can you guess? Tick one box for each sentence.</p>
+<p class="normaltext">1) The Earl is very unkind to Cedric.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">2) Cedric and his grandfather are soon good friends.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">3) Cedric's mother lives alone in a different house.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">4) The Earl loses all his money.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">5) Cedric dies and everybody is unhappy.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">6) Cedric and his mother go back to America.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">7) The story has a happy ending.</p>
+<p class="normaltext1">YES □／NO □</p>
+        
+                </div>
+            </section>
+            <section id="chapter-21" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES: While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlez2" id="CHP15">ACTIVITIES</p>
+<hr/>
+<p class="subtitlez6"><em>While Reading</em></p>
+<p class="normaltextd2">1 Read chapters 1 to 3, and then complete these sentences with the right words.</p>
+<p class="normaltextd3"><em>afraid, bad-tempered, dead, friendly, sad, selfish, surprising</em></p>
+<p class="normaltextd5">1) Mr Havisham brought some _____ news to New York.</p>
+<p class="normaltextd5">2) Everybody liked Cedric because he was a _____ boy.</p>
+<p class="normaltextd5">3) Mrs Errol was _____ because her husband was _____.</p>
+<p class="normaltextd5">4) The Earl was a _____, _____ man and nobody liked him.</p>
+<p class="normaltextd5">5) Cedric liked his grandfather and was not _____ of him.</p>
+<p class="normaltextd2">2 Read Chapters 4 to 6. Who said this, and to whom?</p>
+<p class="normaltextd5">1) 'What shall we do about Higgins, then? Tell me.'</p>
+<p class="normaltextd5">2) 'You're always doing good things.'</p>
+<p class="normaltextd5">3) 'I bring some bad news... about your heir.'</p>
+<p class="normaltextd5">4) 'I hated you once. I don't know why.'</p>
+<p class="normaltextd5">5) 'Money! She always wanted money.'</p>
+<p class="normaltextd2">3 Before you read Chapter 7, think about the ending. What's going to happen? Can you guess? Choose some answers.</p>
+<p class="normaltextd5">1) The real Lord Fauntleroy is...</p>
+<p class="normaltext">a) Minna's son. </p>
+<p class="normaltext">b) Cedric.</p>
+<p class="normaltextd5">2) Mrs Errol leaves her house and goes to live with...</p>
+<p class="normaltext">a) the Earl and Cedric. </p>
+<p class="normaltext">b) a new husband.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-22" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES: After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitlez2" id="CHP16">ACTIVITIES</p>
+<hr/>
+<p class="subtitlez6"><em>After Reading</em></p>
+<p class="normaltextd2">1 Match the people with the sentences. Then use the sentences to write a description of each person. Use pronouns (<em>he, she</em>) and linking words (<em>and, but, because, so</em>) where possible.</p>
+<p class="normaltextd3"><em> Mrs Errol / Cedric / the Earl / Mr Hobbs / Dick</em></p>
+<p class="normaltextd3"><em>Example: <span class="underline">Cedric</span> is a kind, friendly boy. <span class="underline">He</span> always wants to help his friends, <span class="underline">so he</span>...</em></p>
+<p class="normaltextd5">1) _____ has a grocery store in New York.</p>
+<p class="normaltextd5">2)<em> Cedric </em>is a kind, friendly boy.</p>
+<p class="normaltextd5">3) _____ works as a boot-black in New York.</p>
+<p class="normaltextd5">4) _____ does not want to live alone without her son.</p>
+<p class="normaltextd5">5) _____ gives money to his grandson.</p>
+<p class="normaltextd5">6) _____ sees a woman's picture in an American newspaper.</p>
+<p class="normaltextd5">7) _____ wants Cedric to forget about his mother.</p>
+<p class="normaltextd5">8) _____ wants Cedric to love his grandfather.</p>
+<p class="normaltextd5">9) _____ and Dick are very sorry when Cedric goes away to England.</p>
+<p class="normaltextd5">10)<em> Cedric</em> always wants to help his friends.</p>
+<p class="normaltextd5">11) _____ does not tell him about the Earl's feelings of hate for her.</p>
+<p class="normaltextd5">12) _____ is a much nicer person at the end of the story.</p>
+<p class="normaltextd5">13) _____ gives the Earl's money to Bridget and her family.</p>
+<p class="normaltextd5">14) _____ knows that the woman is his brother Ben's wife.</p>
+<p class="normaltextd5">15) _____ likes Cedric's visits to his store.</p>
+<p class="normaltextd2">2 Here is a new illustration for the story. Find the best place in the story to put the picture, and answer these questions.</p>
+<p class="normaltextd3">The picture goes in Chapter _____.</p>
+<p class="normaltextd5">1) Who are these three people?</p>
+<p class="normaltextd5">2) Where are they going?</p>
+<p class="normaltextd5">3) Why are they going there?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextd3">Now write a caption for the illustration.</p>
+<p class="picture"><img src="../../../Images/image07489.jpeg" alt="alt"/></p>
+<p class="normaltextd3"><em>Caption:</em> ___________________</p>
+<p class="normaltextd2">3 Look at Cedric's letter at the end of Chapter 5. His spelling is not very good. How many words are not spelt correctly? Count them, and then write the correct spellings.</p>
+<p class="normaltextd5">1) There are _____ words spelt incorrectly.</p>
+<p class="normaltextd5">2) The correct spellings are: ___________________</p>
+<p class="normaltextd2">4 At the end of Chapter 6 Mr Hobbs and Dick wrote letters to Cedric and Ben. Use these words to complete their letters (one word for each gap).</p>
+<p class="normaltextd3"><em>ago, called, first, friend, hands, help, knows, letter, married, marry, news, two, who, woman, write, writing</em></p>
+<p class="normaltextd5">1) Dear Cedric – we have important _____. Who did your uncle Bevis _____? The picture in our newspaper here is of a _____ called Minna. Dick _____ her well, because she's the wife of his brother Ben and the mother of Ben's son. Minna left Ben many years _____. So _____ is the father of this new Lord Fauntleroy? Bevis or Ben? Dick is _____ to Ben now. Wait for our next _____!</p>
+<p class="normaltext">Your good friend, Mr Hobbs</p>
+<p class="normaltextd5">2) Dear Ben – Minna is in England. She _____ an Earl's son and had a son by him – she says. But she married you _____, and she can't have _____ husbands, can she? I think she wants to get her fat _____ on the Earl of Dorincourt's money. The Earl is the grandfather of a boy _____ Cedric, you see, and young Cedric is a good_____ of me and Mr Hobbs. He went to England and... Oh, it's a long story, Ben, I can't _____ it all down. Come to New York, quick! We need your _____! Your brother, Dick</p>
+<p class="normaltextd2">5 Here is a puzzle. Look again at Activity 4, find the eight 'family' words in the letters, and fit them into this grid (all words go across). Now find the hidden word in the grid. Why is this word important in the story?</p>
+<p class="picture"><img src="../../../Images/image07490.jpeg" alt="alt"/></p>
+<p class="normaltextd2">6 What did you think about the people in this story? Choose some names, and finish these sentences in your own words.</p>
+<p class="normaltextd3"><em>Cedric / Mrs Errol / the Earl of Dorincourt / Mr Havisham / Mr Hobbs / Dick / Ben / Minna</em></p>
+<p class="normaltextd5">1) I felt sorry for _____ because __________.</p>
+<p class="normaltextd5">2) I liked _____ because __________.</p>
+<p class="normaltextd5">3) I didn't like _____ because __________.</p>
+<p class="normaltextd5">4) _____ was right to __________.</p>
+<p class="normaltextd5">5) _____ was wrong to __________.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-23" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP17"><img src="../../../Images/image07492.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

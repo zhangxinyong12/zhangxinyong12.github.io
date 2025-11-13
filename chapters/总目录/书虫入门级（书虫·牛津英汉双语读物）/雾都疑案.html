@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雾都疑案 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '雾都疑案';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>雾都疑案</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">雾都疑案</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">Copyright</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">Mystery in London</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">ACTIVITIES Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP1"></p>
+<p class="picture"><img src="../../../Images/image06274.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">Copyright</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP2"></p>
+<p class="normaltext">Copyright © Foreign Language Teaching and Research Press 2007</p>
+<p class="normaltext">All rights reserved. No part of this publication may be reproduced or distributed by any means, or stored in a database or retrieval system, without the prior written permission of Foreign Language Teaching and Research Press.</p>
+<p class="normaltext">本书版权由外语教学与研究出版社独家所有。如未获得该社书面同意，书中任何部分之文字及图片，不得用任何方式抄袭、节录、翻印或存储利用于任何数据库及检索系统等。</p>
+<p class="normaltext">Published by Foreign Language Teaching and Research Press</p>
+<p class="normaltext">No. 19 Xisanhuan Beilu</p>
+<p class="normaltext">Beijing, China 100089</p>
+<p class="normaltext">http://www.fltrp.com</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP3"></p>
+<p class="subtitle2B">京权图字：01-2006-2797</p>
+<p class="normaltext00">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 2000 This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext00">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="subtitle2B">图书在版编目（CIP）数据</p>
+<p class="normaltext">雾都疑案：英汉对照／（英）布鲁克（Brooke, H. ）著．—北京：外语教学与研究出版社，2006. 5（2013. 12重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Mystery in London</p>
+<p class="normaltext">ISBN 978-7-5600-5419-3</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．雾…　Ⅱ．布…　Ⅲ．①英语—汉语—对照读物　②漫画—作品—英国—现代　Ⅳ．H319.4: J</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2007）第018924号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext00"><b>出版人：</b>蔡剑峰</p>
+<p class="normaltext00"><b>责任编辑：</b>周　晶</p>
+<p class="normaltext00"><b>封面设计：</b>孙莉明</p>
+<p class="normaltext00"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltext00"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltext00"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltext00"><b>书　　号：</b>ISBN 978-7-5600-5419-3</p>
+<p class="normaltext00">*　　*　　*</p>
+<p class="normaltext00"><b>制售盗版必究　举报查实奖励</b></p>
+<p class="normaltext00"><b>版权保护举报电话：(010)88817519</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <p class="mulu">目　录</p>
+<p class="mulu1"><a href="part0041.xhtml#CHP4">Mystery in London</a></p>
+<p class="mulu1"><a href="part0042.xhtml#CHP5">ACTIVITIES Before Reading</a></p>
+<p class="mulu1"><a href="part0043.xhtml#CHP6">ACTIVITIES While Reading</a></p>
+<p class="mulu1"><a href="part0044.xhtml#CHP7">ACTIVITIES After Reading</a></p>
+<p class="mulu1"><a href="part0045.xhtml#CHP8">参考译文</a></p>
+<p class="normaltext"><br/></p>
+<p class="mulu1"><a href="part0001.xhtml">返回总目录</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">Mystery in London</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP4">Mystery in London</p>
+<p class="normaltext"><a id="b1" href="part0045.xhtml#a1">1</a>　It is the year 1898, and you are Mycroft Pound, the famous detective. You are sitting in your house in London, one cold November evening. There is a knock at the door. It is Inspector Freewell of the London police.</p>
+<p class="normaltext">'Can you come to Whitechapel, Mr Pound? We need your help. There's a woman in the street. She isn't dead, but there's blood everywhere. We think it's the Whitechapel Killer again.'</p>
+<p class="normaltext3">■<em>You put on your coat. Go to</em> <em><a href="part0041.xhtml#b18">18</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06275.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b2" href="part0045.xhtml#a2">2</a>　You are in Annie's house. A woman comes in.</p>
+<p class="normaltext">'Who are you? What are you doing here?' she asks.</p>
+<p class="normaltext">You tell her about Annie.</p>
+<p class="normaltext">'That's terrible,' she says.</p>
+<p class="normaltext">'Do you know any of her friends?' you ask.</p>
+<p class="normaltext">The woman thinks. 'Her best friend is a woman called Rosy. She lives in Limehouse Street. But she has a boyfriend. That's him, there, in that picture. I don't like him.'</p>
+<p class="normaltext3">■<em>You go back to the Rose and Crown to talk to the other people. Go to <a href="part0041.xhtml#b10">10</a>.</em></p>
+<p class="normaltext3">■<em>You go to Limehouse Street to look for Rosy. Go to <a href="part0041.xhtml#b35">35</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06276.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b3" href="part0045.xhtml#a3">3</a>　You want to get on to the<em> Californian</em> and talk to Jack.</p>
+<p class="normaltext3">■<em>You jump in the water and swim after the ship. Go to</em> <em><a href="part0041.xhtml#b8">8</a>.</em></p>
+<p class="normaltext3">■<em>You cannot swim. You think about how you can get on the ship. Go to <a href="part0041.xhtml#b13">13</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b4" href="part0045.xhtml#a4">4</a>　'Do you know the name of the woman in the street?' you ask the old man.</p>
+<p class="normaltext">He cannot hear you and he does not answer.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b10">10</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06277.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b5" href="part0045.xhtml#a5">5</a>　You go across the bridge, but you cannot see the<em> Californian. </em>There is a sailor in one of the small boats, and there is an old man fishing.</p>
+<p class="normaltext3">■<em>You ask the sailor for help. Go to</em> <em><a href="part0041.xhtml#b24">24</a>.</em></p>
+<p class="normaltext3">■<em>You ask the old man for help. Go to <a href="part0041.xhtml#b34">34</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06278.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b6" href="part0045.xhtml#a6">6</a>　You talk to the young man. He comes into the street and looks at the woman.</p>
+<p class="normaltext">'Her name's Annie, I think,' he says.</p>
+<p class="normaltext">'Do you know where she lives?'</p>
+<p class="normaltext">'Yes. She lives in Cable Street, I think.'</p>
+<p class="normaltext3">■<em>You go back into the Rose and Crown and talk to the</em><em> other people. Go to</em> <em><a href="part0041.xhtml#b10">10</a>.</em></p>
+<p class="normaltext3">■<em>You go to Cable Street. Go to <a href="part0041.xhtml#b30">30</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06279.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b7" href="part0045.xhtml#a7">7</a>　The captain of the<em> Californian</em> calls the three Jacks. Which Jack do you want to speak to?</p>
+<p class="normaltext3">■<em>The Jack on the left. Go to</em> <em><a href="part0041.xhtml#b17">17</a>.</em></p>
+<p class="normaltext3">■<em>The Jack in the middle. Go to</em> <em><a href="part0041.xhtml#b23">23</a>.</em></p>
+<p class="normaltext3">■<em>The Jack on the right. Go to <a href="part0041.xhtml#b31">31</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b8" href="part0045.xhtml#a8">8</a>　You jump into the water and swim after the ship. But the ship is going very fast. After five minutes, the<em> Californian</em> is out of the London docks and going to India. And you are now very cold.</p>
+<p class="normaltext3">■<em>Go to <a href="part0041.xhtml#b22">22</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06280.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b9" href="part0045.xhtml#a9">9</a>　You tell Rosy about Annie.</p>
+<p class="normaltext">'I'm Annie's best friend,' she says. She is crying.'But she has a boyfriend.'</p>
+<p class="normaltext">'Who's he?' you ask.</p>
+<p class="normaltext">'A sailor. His name's Jack. He's often at her house in Cable Street. His ship's in the London docks now, I think.'</p>
+<p class="normaltext3">■<em>You want to find Jack, so you go to the docks. Go to</em> <em><a href="part0041.xhtml#b14">14</a>.</em></p>
+<p class="normaltext3">■<em>You want to find out more about Annie so you go to</em><em> her house in Cable Street. Go to <a href="part0041.xhtml#b19">19</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06281.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b10" href="part0045.xhtml#a10">10</a>　There are four people in the Rose and Crown. You want to ask some questions about the woman in the street. Who do you talk to first?</p>
+<p class="normaltext3">■<em>You talk to the old man.</em> <em>Go to <a href="part0041.xhtml#b4">4</a>.</em></p>
+<p class="normaltext3">■<em>You talk to the young man. Go to <a href="part0041.xhtml#b6">6</a>.</em></p>
+<p class="normaltext3">■<em>You talk to the old woman. Go to</em> <em><a href="part0041.xhtml#b15">15</a>.</em></p>
+<p class="normaltext3">■<em>You talk to the young woman. Go to</em> <em><a href="part0041.xhtml#b28">28</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06282.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b11" href="part0045.xhtml#a11">11</a>　The sailor looks at you.</p>
+<p class="normaltext">'Jack?' he says. 'There are hundreds of sailors called Jack. There's a Jack on every ship.'</p>
+<p class="normaltext">You must find the name of Jack's ship. You go to Annie's room to look for more information.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b19">19</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b12" href="part0045.xhtml#a12">12</a>　You are in the London docks. There are hundreds of ships. You want to find the<em> Californian</em> and you want to catch Jack.</p>
+<p class="normaltext3">■<em>You go across the bridge.</em> Go to <em><a href="part0041.xhtml#b5">5</a>.</em></p>
+<p class="normaltext3">■<em>You go to the right. Go to <a href="part0041.xhtml#b20">20</a>.</em></p>
+<p class="normaltext3">■<em>You go to the left. Go to</em> <em><a href="part0041.xhtml#b29">29</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06283.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b13" href="part0045.xhtml#a13">13</a>　There is a bridge across the water. You go on the bridge and jump onto the<em> Californian.</em> You go to the captain.</p>
+<p class="normaltext">'There's a man on your ship I must talk to,' you say.'His name is Jack.'</p>
+<p class="normaltext">'Why do you want to talk to him?' he asks.</p>
+<p class="normaltext">'He's the Whitechapel Killer, I think.'</p>
+<p class="normaltext">'There are three Jacks on my ship,' says the captain.</p>
+<p class="normaltext">'Can I see them all?' you ask.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b7">7</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06284.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b14" href="part0045.xhtml#a14">14</a>　You go to the London docks to look for Jack, Annie's friend. There are hundreds of ships, and thousands of sailors. You talk to a sailor.</p>
+<p class="normaltext">'Do you know a sailor called Jack?' you ask.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b11">11</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06285.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b15" href="part0045.xhtml#a15">15</a>　You talk to the old woman. She comes into the street and looks at the woman.</p>
+<p class="normaltext">'Her name's Annie,' she says.</p>
+<p class="normaltext">'Do you know where she lives?' you ask.</p>
+<p class="normaltext">'Yes. She lives in Cable Street. I don't know what number,' she answers.</p>
+<p class="normaltext3">■<em>You go back to the Rose and Crown and talk to the</em><em> other people. Go to</em> <em><a href="part0041.xhtml#b10">10</a>.</em></p>
+<p class="normaltext3">■<em>You go to Cable Street. Go to <a href="part0041.xhtml#b30">30</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06286.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b16" href="part0045.xhtml#a16">16</a>　You knock at the white door. A young woman opens the door.</p>
+<p class="normaltext">'Are you Rosy?' you ask.</p>
+<p class="normaltext">'Yes.'</p>
+<p class="normaltext">'Are you a friend of Annie?'</p>
+<p class="normaltext">'Yes,' she says.</p>
+<p class="normaltext">'I've got bad news for you,' you say. 'I'm afraid she's very ill.'</p>
+<p class="normaltext">'No.' Rosy starts to cry.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b9">9</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06287.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b17" href="part0045.xhtml#a17">17</a>　You talk to the Jack on the left. He is not the Whitechapel Killer.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b7">7</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b18" href="part0045.xhtml#a18">18</a>　The Whitechapel Killer attacks people with a long knife. Six women are dead because of him.</p>
+<p class="normaltext">You arrive in Whitechapel and the police are waiting for you there. The woman is lying in the street, near the Rose and Crown. She is very ill, so she cannot talk to you. You see some bicycle tracks on the road.</p>
+<p class="normaltext3">■<em>You follow the bicycle tracks. Go to</em> <em><a href="part0041.xhtml#b25">25</a>.</em></p>
+<p class="normaltext3">■<em>You go into the Rose and Crown. You want to talk to</em><em> the people there. Go to</em> <em><a href="part0041.xhtml#b10">10</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06288.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b19" href="part0045.xhtml#a19">19</a>　You look in Annie's house and find a letter.</p>
+<p class="normaltext"><em>The Californian, Saturday</em></p>
+<p class="normaltext"><em>Annie,</em></p>
+<p class="normaltext"><em>Tomorrow my ship is going to India. Please</em><em> meet me at the Rose and Crown tonight. I have</em><em> something very important for you.</em></p>
+<p class="normaltext"><em> Jack</em></p>
+<p class="normaltext">So the name of Jack's ship is the<em> Californian</em>. Is Jack the man you want? Is Jack the Whitechapel Killer? You go to the London docks to look for Jack on the<em> Californian</em>.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b12">12</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06289.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b20" href="part0045.xhtml#a20">20</a>　There are a lot of ships, but you cannot see the<em> Californian</em> here.</p>
+<p class="normaltext3">■<em>Go back to</em> <em><a href="part0041.xhtml#b12">12</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b21" href="part0045.xhtml#a21">21</a>　You knock on the blue door. An old man opens it.</p>
+<p class="normaltext">'I'm looking for Rosy,' you say.</p>
+<p class="normaltext">'She doesn't live here,' he says. 'She lives in the white house, I think.'</p>
+<p class="normaltext3">■<em>Go to <a href="part0041.xhtml#b16">16</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06290.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b22" href="part0045.xhtml#a22">22</a>　The Whitechapel Killer is free. Can you be a better detective next time? Try again.</p>
+<p class="normaltext3">■<em>Go back to</em> <em><a href="part0041.xhtml#b1">1</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06291.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b23" href="part0045.xhtml#a23">23</a>　You talk to the Jack in the middle. He is not the Whitechapel Killer.</p>
+<p class="normaltext3">■<em>Go to <a href="part0041.xhtml#b7">7</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b24" href="part0045.xhtml#a24">24</a>　You talk to the sailor.</p>
+<p class="normaltext">'Do you know a ship called the<em> Californian</em>?' you ask him.</p>
+<p class="normaltext">The sailor looks at you. 'I am from Russia,' he says. 'I do not speak English.'</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b5">5</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b25" href="part0045.xhtml#a25">25</a>　You follow the bicycle tracks to a bigger road, so you cannot see the tracks any more.</p>
+<p class="normaltext3">■<em>Go to <a href="part0041.xhtml#b18">18</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06292.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b26" href="part0045.xhtml#a26">26</a>　You knock on the red door. There is no one at home.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b35">35</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b27" href="part0045.xhtml#a27">27</a>　There is a knife in his pocket. And there is blood on it. This Jack is the Whitechapel Killer.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b33">33</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06293.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b28" href="part0045.xhtml#a28">28</a>　'Do you know the name of the woman in the street?' you ask the young woman in the Rose and Crown. She comes out into the street and looks at her.'I don't know her name but she has a friend called Rosy. Ask her!'</p>
+<p class="normaltext">'Where does Rosy live?' you ask.</p>
+<p class="normaltext">'She lives in Limehouse Street.'</p>
+<p class="normaltext3">■<em>You go back to the Rose and Crown and talk to the</em><em> other people. Go to</em> <em><a href="part0041.xhtml#b10">10</a>.</em></p>
+<p class="normaltext3">■<em>You go to Limehouse Street to find Rosy. Go to</em> <em><a href="part0041.xhtml#b35">35</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b29" href="part0045.xhtml#a29">29</a>　You go to the East India Dock. You can see the<em> Californian</em>, but it is sailing out of the dock.</p>
+<p class="normaltext3">■<em>You can see Jack so you try to get on the ship. Go to</em> <em><a href="part0041.xhtml#b3">3</a>.</em></p>
+<p class="normaltext3">■<em>You cannot see Jack on the ship. You can go to the hospital and talk to Annie, and you can write to the Indian police about Jack. Go to <a href="part0041.xhtml#b22">22</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06294.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b30" href="part0045.xhtml#a30">30</a>　You go to Cable Street, and talk to the people there. After a few minutes you find Annie's house. You look at everything very carefully.</p>
+<p class="normaltext3">■<em>Go to</em> <em><a href="part0041.xhtml#b2">2</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06295.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b31" href="part0045.xhtml#a31">31</a>　You talk to the Jack on the right.</p>
+<p class="normaltext">'Do you know a woman called Annie?' you ask.</p>
+<p class="normaltext">'No,' he says.</p>
+<p class="normaltext">But this Jack has an earring. And there is something in his pocket. Is it a knife? Perhaps this Jack is the Whitechapel Killer.</p>
+<p class="normaltext3">■<em>Go to <a href="part0041.xhtml#b27">27</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06296.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b32" href="part0045.xhtml#a32">32</a>　Another good day's work for Mycroft Pound, the great detective, finishes. You go back to your house. No criminal is safe in London when Mycroft, the great detective, is at work.</p>
+<p class="picture"><img src="../../../Images/image06297.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b33" href="part0045.xhtml#a33">33</a>　The captain helps you, and you arrest the Whitechapel Killer. You take him off the ship and give him to the police.</p>
+<p class="normaltext3">■<em>Go to <a href="part0041.xhtml#b32">32</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b34" href="part0045.xhtml#a34">34</a>　You talk to the old man.</p>
+<p class="normaltext">'Do you know a ship called the<em> Californian</em>?' you ask him.</p>
+<p class="normaltext">'Yes,' he says. 'It's going to India today, so it's in the East India Dock.'</p>
+<p class="normaltext">You must find the East India Dock.</p>
+<p class="normaltext3">■<em>Go to <a href="part0041.xhtml#b12">12</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06298.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b35" href="part0045.xhtml#a35">35</a>　You go to Limehouse Street. You are looking for Rosy, Annie's friend. Which house do you want to try first?</p>
+<p class="normaltext3">■<em>The house with the white door. Go to <a href="part0041.xhtml#b16">16</a>.</em></p>
+<p class="normaltext3">■<em>The house with the blue door. Go to <a href="part0041.xhtml#b21">21</a>.</em></p>
+<p class="normaltext3">■<em>The house with the red door. Go to</em> <em><a href="part0041.xhtml#b26">26</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06299.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP5"><span class="underline">ACTIVITIES</span><br/><em>Before Reading</em></p>
+<p class="normaltext0">1. Look at the front and back cover of the book and choose the correct ending for these sentences.</p>
+<p class="normaltext">1) The story happens . . .</p>
+<p class="normaltext">　a　about twenty years ago.</p>
+<p class="normaltext">　b　about fifty years ago.</p>
+<p class="normaltext">　c　about a hundred years ago.</p>
+<p class="normaltext">2) Mycroft Pound is . . .</p>
+<p class="normaltext">　a　a doctor.</p>
+<p class="normaltext">　b　a teacher.</p>
+<p class="normaltext">　c　a detective.</p>
+<p class="normaltext0">2. Guess what happens. For each sentence choose one answer.</p>
+<p class="normaltext">1) Somebody kills a rich man.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">2) The police put Mycroft Pound in prison.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">3) The police put the Whitechapel Killer in prison.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">4) Mycroft Pound catches the Whitechapel Killer.</p>
+<p class="normaltextAA">Yes/No</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP6"><span class="underline">ACTIVITIES</span><br/><em>While Reading</em></p>
+<p class="normaltext0">1. Read the first two parts of the story (1 and 18). Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) The story is in the summer.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) At the beginning of the story, Mycroft Pound is at home.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) The police come to Mycroft Pound's home.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) A woman is dead in the street.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">5) The woman is in the Rose and Crown.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">6) The Whitechapel Killer uses a knife.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">7) There is a bicycle near the woman.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">8) There are bicycle tracks near the woman.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext0">2. What next? Where next? Complete the following sentences.</p>
+<p class="normaltext">1) The bicycle tracks go . . .</p>
+<p class="normaltext">　a　nowhere.</p>
+<p class="normaltext">　b　to the killer's house.</p>
+<p class="normaltext">　c　to the woman's house.</p>
+<p class="normaltext">2) In the Rose and Crown Mycroft finds . . .</p>
+<p class="normaltext">　a　nobody.</p>
+<p class="normaltext">　b　a lot of people.</p>
+<p class="normaltext">　c　a few people.</p>
+<p class="normaltext">3) In the Rose and Crown people are . . .</p>
+<p class="normaltext">　a　singing.</p>
+<p class="normaltext">　b　drinking beer.</p>
+<p class="normaltext">　c　reading.</p>
+<p class="normaltext">4) The woman . . .</p>
+<p class="normaltext">　a　dies.</p>
+<p class="normaltext">　b　does not die.</p>
+<p class="normaltext">5) The Whitechapel Killer is . . .</p>
+<p class="normaltext">　a　a dog.</p>
+<p class="normaltext">　b　a woman.</p>
+<p class="normaltext">　c　a man.</p>
+<p class="normaltext">6) The woman cannot talk . . .</p>
+<p class="normaltext">　a　because she is dying.</p>
+<p class="normaltext">　b　because she is ill.</p>
+<p class="normaltext">　c　because she is afraid.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP7"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext0">1. Answer these questions.</p>
+<p class="normaltext">Who</p>
+<p class="normaltext">1) . . . asks Mycroft for help at the beginning of the story?</p>
+<p class="normaltext">2) . . . talks to the people in the Rose and Crown?</p>
+<p class="normaltext">3) . . . lives in Cable Street?</p>
+<p class="normaltext">4) . . . lives in a house with a white door?</p>
+<p class="normaltext">5) . . . is going to India on a ship?</p>
+<p class="normaltext">6) . . . jumps onto the <em>Californian</em>?</p>
+<p class="normaltext0">2. Who says this? Who do they say it to?</p>
+<p class="normaltext">1) 'I'm Annie's best friend.'______says this to______.</p>
+<p class="normaltext">2) 'There's a man on your ship I must talk to.'______says this to______.</p>
+<p class="normaltext">3) 'Can you come to Whitechapel?'______says this to______.</p>
+<p class="normaltext0">3. Complete this summary of the story. Use these words:</p>
+<p class="normaltext"><em>boyfriend　　detective　　jumps　　London　　name　　police</em>　　<em>sailor　　ship　　street　　talks　　tell　　woman</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Mycroft Pound is a famous______, who lives in______. One day the______ask him to help them; a______is lying in the______in Whitechapel in front of the Rose and Crown. Mycroft goes to Whitechapel and______to the people in the Rose and Crown. They______Mycroft that the woman's______is Annie. Annie lives in Cable Street, so Mycroft goes to her house. A woman tells him that Annie has a______; his name is Jack and he is a______. Mycroft goes to the London Docks to find Jack. Jack's______, the<em> Californian</em>, is leaving, but Mycroft______on to the ship. He finds Jack, and gives him to the police.</p>
+<p class="normaltext0">4. There are three Jacks on the <em>Californian</em>. Write a description of Jack, the Whitechapel Killer.</p>
+<p class="normaltext">____________________________________</p>
+<p class="normaltext">____________________________________</p>
+<p class="normaltext">____________________________________</p>
+<p class="normaltext">____________________________________</p>
+<p class="normaltext">____________________________________</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1" id="CHP8">参考译文</p>
+<p class="title1">Mystery in London<br/>雾都疑案</p>
+<p class="normaltext" id="a1">1　故事发生在1898年，你是著名的侦探米克罗夫特·庞德。11月一个寒冷的夜晚，你正坐在伦敦的家里。有人敲门。来者是伦敦警察局的弗利威尔巡官。</p>
+<p class="normaltext">“您能来一趟白教堂吗，庞德先生？我们需要您的帮助。有个女人倒在街上。她没死，但浑身是血。我们认为这次又是‘白教堂杀手’干的。”</p>
+<p class="normaltext4">■你穿上外套。看第<a href="part0045.xhtml#a18">18</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a2">2　你在安妮家中。一个女人走了进来。</p>
+<p class="normaltext">“你是谁？你在这儿干什么？”她问道。</p>
+<p class="normaltext">你给她说了安妮的事。</p>
+<p class="normaltext">“太可怕了。”她说。</p>
+<p class="normaltext">“您认识她的朋友吗？”你问。</p>
+<p class="normaltext">女人想了想。“她最好的朋友是个叫罗茜的女人，住在莱姆豪斯街。不过她有个男朋友。就是那张照片里的那个。我不喜欢他。”</p>
+<p class="normaltext4">■你回到“玫瑰与王冠”酒吧，询问其他人。看第<a href="part0045.xhtml#a10">10</a>节。</p>
+<p class="normaltext4">■你去莱姆豪斯街找罗茜。看第<a href="part0045.xhtml#a35">35</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a3">3　你想上“加利福尼亚人”号找杰克谈谈。</p>
+<p class="normaltext4">■你跳进水中，游着去追船。看第<a href="part0045.xhtml#a8">8</a>节。</p>
+<p class="normaltext4">■你不会游泳。你考虑着怎么上船。看第<a href="part0045.xhtml#a13">13</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a4">4　“您知道街上那个女人叫什么吗？”你问老人。</p>
+<p class="normaltext">他听不见你的话，没有回答。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a10">10</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a5">5　你过了桥，但看不到“加利福尼亚人”号。一条小船上有个水手。有位老人在钓鱼。</p>
+<p class="normaltext4">■你请水手帮忙。看第<a href="part0045.xhtml#a24">24</a>节。</p>
+<p class="normaltext4">■你请老人帮忙。看第<a href="part0045.xhtml#a34">34</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a6">6　你询问小伙子。他走到街上，看了看那个女人。</p>
+<p class="normaltext">“我想她叫安妮。”他说。</p>
+<p class="normaltext">“你知道她住哪儿吗？”</p>
+<p class="normaltext">“知道。我想她住在缆绳街。”</p>
+<p class="normaltext4">■你回到“玫瑰与王冠”酒吧，询问其他人。看第<a href="part0045.xhtml#a10">10</a>节。</p>
+<p class="normaltext4">■你去缆绳街。看第<a href="part0045.xhtml#a30">30</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a7">7　“加利福尼亚人”号的船长叫来了三个叫杰克的人。你想询问哪个杰克？</p>
+<p class="normaltext4">■左边的杰克。看第<a href="part0045.xhtml#a17">17</a>节。</p>
+<p class="normaltext4">■中间的杰克。看第<a href="part0045.xhtml#a23">23</a>节。</p>
+<p class="normaltext4">■右边的杰克。看第<a href="part0045.xhtml#a31">31</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a8">8　你跳进水中，游着去追船。但船开得很快。五分钟后，“加利福尼亚人”号驶出了伦敦码头，驶向印度。这时你觉得非常冷。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a22">22</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a9">9　你告诉罗茜安妮的事。</p>
+<p class="normaltext">“我是安妮最好的朋友。”她说着哭了起来。“不过她有个男朋友。”</p>
+<p class="normaltext">“他是谁？”你问。</p>
+<p class="normaltext">“一个水手。他叫杰克。他经常去她缆绳街的家里。我想他的船现在就在伦敦码头。”</p>
+<p class="normaltext4">■你想找到杰克，于是去了码头。看第<a href="part0045.xhtml#a14">14</a>节。</p>
+<p class="normaltext4">■你想多了解一些安妮的情况，于是去了她在缆绳街的家。看第<a href="part0045.xhtml#a19">19</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a10">10　“玫瑰与王冠”酒吧里有四个人。你想问问有关街上那个女人的事。你要先问谁？</p>
+<p class="normaltext4">■你询问老人。看第<a href="part0045.xhtml#a4">4</a>节。</p>
+<p class="normaltext4">■你询问小伙子。看第<a href="part0045.xhtml#a6">6</a>节。</p>
+<p class="normaltext4">■你询问老妇人。看第<a href="part0045.xhtml#a15">15</a>节。</p>
+<p class="normaltext4">■你询问年轻姑娘。看第<a href="part0045.xhtml#a28">28</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a11">11　水手看着你。</p>
+<p class="normaltext">“杰克？”他说，“叫杰克的水手有几百个。每条船上都有个杰克。”</p>
+<p class="normaltext">你必须找出杰克所在的船的名字。你去安妮的房间寻找更多信息。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a19">19</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a12">12　你到了伦敦码头。那里有几百条船。你想找到“加利福尼亚人”号，抓住杰克。</p>
+<p class="normaltext4">■你走过桥。看第<a href="part0045.xhtml#a5">5</a>节。</p>
+<p class="normaltext4">■你去右边。看第<a href="part0045.xhtml#a20">20</a>节。</p>
+<p class="normaltext4">■你去左边。看第<a href="part0045.xhtml#a29">29</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a13">13　水面上有座桥。你上了桥，跳上“加利福尼亚人”号。你去找船长。</p>
+<p class="normaltext">“我必须和您船上的一个人谈谈，”你说，“他叫杰克。”</p>
+<p class="normaltext">“您为什么要和他谈？”他问道。</p>
+<p class="normaltext">“我认为他是‘白教堂杀手’。”</p>
+<p class="normaltext">“我这条船上有三个杰克。”船长说。</p>
+<p class="normaltext">“我能都见见吗？”你问。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a7">7</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a14">14　你去伦敦码头找安妮的朋友杰克。那儿有几百条船，几千名水手。你和一名水手搭上了话。</p>
+<p class="normaltext">“你认识一名叫杰克的水手吗？”你问道。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a11">11</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a15">15　你询问老妇人。她走到街上，看了看那个女人。</p>
+<p class="normaltext">“她叫安妮。”她说。</p>
+<p class="normaltext">“您知道她住哪儿吗？”你问。</p>
+<p class="normaltext">“知道。她住在缆绳街。我不知道门牌号。”她答道。</p>
+<p class="normaltext4">■你回到“玫瑰与王冠”酒吧，询问其他人。看第<a href="part0045.xhtml#a10">10</a>节。</p>
+<p class="normaltext4">■你去缆绳街。看第<a href="part0045.xhtml#a30">30</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a16">16　你敲了敲白色的门。一个年轻女人开了门。</p>
+<p class="normaltext">“你是罗茜吗？”你问。</p>
+<p class="normaltext">“是的。”</p>
+<p class="normaltext">“你是安妮的朋友吗？”</p>
+<p class="normaltext">“是的。”她说道。</p>
+<p class="normaltext">“我有个坏消息告诉你，”你说，“恐怕她快不行了。”</p>
+<p class="normaltext">“不。”罗茜哭了起来。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a9">9</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a17">17　你询问右边的杰克。他不是“白教堂杀手”。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a7">7</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a18">18　“白教堂杀手”用一把长刀伤人。他杀了6个女人。</p>
+<p class="normaltext">你来到白教堂，警察在那里等你。那个女人倒在“玫瑰与王冠”酒吧附近的街上。她伤得很重，所以无法开口和你说话。你看到路上有一些自行车轮印。</p>
+<p class="normaltext4">■你沿着自行车轮印追踪。看第<a href="part0045.xhtml#a25">25</a>节。</p>
+<p class="normaltext4">■你走进“玫瑰与王冠”酒吧。你想与里面的人谈谈。看第<a href="part0045.xhtml#a10">10</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a19">19　你在安妮的家中查看，找到一封信。</p>
+<p class="normaltext2">加利福尼亚人号，星期六</p>
+<p class="normaltext2">安妮，</p>
+<p class="normaltext2">明天我们的船要去印度了。请今晚来“玫瑰与王冠”酒吧见个面吧。我有非常重要的东西给你。</p>
+<p class="lk">杰克</p>
+<p class="normaltext">这样看来，杰克的船叫“加利福尼亚人”号。杰克是你要找的人吗？杰克是“白教堂杀手”吗？你去伦敦码头找“加利福尼亚人”号上的杰克。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a12">12</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a20">20　那儿有很多船，但你看不到“加利福尼亚人”号。</p>
+<p class="normaltext4">■回到第<a href="part0045.xhtml#a12">12</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a21">21　你敲了敲蓝色的门。一位老人开了门。</p>
+<p class="normaltext">“我找罗茜。”你说。</p>
+<p class="normaltext">“她不住这儿，”他说，“我想她住在那个白房子里。”</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a16">16</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a22">22　“白教堂杀手”逍遥法外了。你下次能成为高明一点的侦探吗？再试一次吧。</p>
+<p class="normaltext4">■回到第<a href="part0045.xhtml#a1">1</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a23">23　你和中间的杰克交谈。他不是“白教堂杀手”。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a7">7</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a24">24　你和水手交谈。</p>
+<p class="normaltext">“你知道叫‘加利福尼亚人’号的船吗？”你问他。</p>
+<p class="normaltext">水手看着你。“我是俄国人，”他说，“我不会讲英语。”</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a5">5</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a25">25　你跟着自行车轮印来到了一条大路，轮印不见了。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a18">18</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a26">26　你敲了敲红色的门。家里没人。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a35">35</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a27">27　他口袋里有把刀。刀上有血。这个杰克正是“白教堂杀手”。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a33">33</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a28">28　“您知道街上那个女人叫什么吗？”你问“玫瑰与王冠”酒吧里那名年轻姑娘。她走到街上，看了看她。“我不知道她的名字，不过她有个朋友叫罗茜。问问她吧！”</p>
+<p class="normaltext">“罗茜住在哪儿？”你问。</p>
+<p class="normaltext">“她住在莱姆豪斯街。”</p>
+<p class="normaltext4">■你回到“玫瑰与王冠”酒吧，询问其他人。看第<a href="part0045.xhtml#a10">10</a>节。</p>
+<p class="normaltext4">■你去莱姆豪斯街找罗茜。看第<a href="part0045.xhtml#a35">35</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a29">29　你去东印度码头。你看到了“加利福尼亚人”号，但它正在驶出码头。</p>
+<p class="normaltext4">■你看到了杰克，于是你想办法上船。看第<a href="part0045.xhtml#a3">3</a>节。</p>
+<p class="normaltext4">■船上看不到杰克的踪影。你可以去医院和安妮谈谈，你也可以给印度警察写信，告诉他们杰克的事。看第<a href="part0045.xhtml#a22">22</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a30">30　你去缆绳街，走访了那里的人。几分钟后，你找到了安妮的家。你仔细查看每样东西。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a2">2</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a31">31　你询问右边的杰克。</p>
+<p class="normaltext">“你认识一个叫安妮的女人吗？”你问。</p>
+<p class="normaltext">“不认识。”他说。</p>
+<p class="normaltext">但这个杰克戴了一只耳环。他口袋里藏着什么东西。是一把刀吗？也许这个杰克就是“白教堂杀手”。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a27">27</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a32">32　大侦探米克罗夫特·庞德又漂亮地完成了一天的工作。你回到家里。大侦探米克罗夫特一出手，伦敦的罪犯就危险了。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a33">33　船长协助你逮捕了“白教堂杀手”。你把他带下船，交给了警察。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a32">32</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a34">34　你上前和老人搭话。</p>
+<p class="normaltext">“您知道一艘叫‘加利福尼亚人’号的船吗？”你问他。</p>
+<p class="normaltext">“知道，”他说，“它今天去印度，所以现在正在东印度码头。”</p>
+<p class="normaltext">你必须找到东印度码头。</p>
+<p class="normaltext4">■看第<a href="part0045.xhtml#a12">12</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a35">35　你前往莱姆豪斯街。你要找安妮的朋友罗茜。你想先拜访哪所房子？</p>
+<p class="normaltext4">■有白色门的房子。看第<a href="part0045.xhtml#a16">16</a>节</p>
+<p class="normaltext4">■有蓝色门的房子。看第<a href="part0045.xhtml#a21">21</a>节。</p>
+<p class="normaltext4">■有红色门的房子。看第<a href="part0045.xhtml#a26">26</a>节。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP9"><img src="../../../Images/image06300.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

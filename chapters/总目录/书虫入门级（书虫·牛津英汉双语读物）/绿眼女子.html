@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绿眼女子 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '绿眼女子';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>绿眼女子</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">绿眼女子</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">THE GIRL WITH GREEN EYES</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">The Girl with Green Eyes</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="a0"><img src="../../../Images/image06583.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字：01-2013-7801</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2012</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">绿眼女子：英汉对照／（英）埃斯科特（Escott, J.）著；（英）吉布森（Gibson, D.）绘；文雪琴译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：The girl with green eyes</p>
+<p class="normaltext">ISBN 978-7-5135-3776-6</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①绿…　Ⅱ．①埃…②吉…③文…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272356号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">出版人　　蔡剑峰</p>
+<p class="normaltext3">责任编辑　杨镇明</p>
+<p class="normaltext3">封面设计　蔡　颖</p>
+<p class="normaltext3">出版发行　外语教学与研究出版社</p>
+<p class="normaltext3">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext3">网　　址　http://www.fltrp.com</p>
+<p class="normaltext3">版　　次　2013年12月第1版</p>
+<p class="normaltext3">书　　号　ISBN 978-7-5135-3776-6</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">制售盗版必究　举报查实奖励</p>
+<p class="normaltext3">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">内容简介</p>
+<p class="normaltext2">格雷格在纽约的谢普顿酒店工作。酒店对面有一家咖啡馆，每天下班后，格雷格都要去那里喝上一杯咖啡。他每天都会在那里看见一个女子，她有一双漂亮的绿色眼睛。有一天，格雷格坐到那女子的旁边。她说自己叫凯茜，并且请求他的帮助。</p>
+<p class="normaltext2">凯茜告诉格雷格自己是一名画家。她说她的继父拿走了她的写生簿，她想把它们拿回来。她还说她的继父现在就住在谢普顿酒店里。格雷格答应帮忙。</p>
+<p class="normaltext2">格雷格拿到了写生簿并把它们交给了凯茜。他很高兴，凯茜也很开心。</p>
+<p class="normaltext2">但是，紧接着格雷格的朋友迈克找到了他，说他有麻烦了。警察要找他谈话，并且就在格雷格的公寓里等候着。</p>
+<p class="normaltext2">到底出了什么岔子？为什么警察要找格雷格谈话？</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">THE GIRL WITH GREEN EYES</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">THE GIRL WITH GREEN EYES</p>
+<p class="normaltext3">Greg works at the Shepton Hotel in New York. Opposite the hotel there is a coffee shop, and Greg goes there for a coffee every day after work. Every day he sees a girl there with beautiful green eyes. One day, Greg sits next to the girl. She tells him her name is Cassie, and she asks him for help.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Cassie tells Greg that she is an artist. She says her stepfather has her sketch books, and Cassie wants them back. She also says her stepfather is staying at the Shepton Hotel, so Greg agrees to help.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Greg is very happy when he gets the sketch books and gives them to Cassie. Cassie is very happy, too.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">But then Greg meets his friend Mike. Mike tells Greg that he's in trouble. The police want to talk to him and are waiting at his apartment.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">What is wrong? Why do the police want to talk to Greg?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="mulu">CONTENTS<br/>目　录</div>
+  <div class="mulu1"><a href="part0157.xhtml">内容简介</a></div>
+  <div class="mulu1"><a href="part0160.xhtml">The Girl with Green Eyes</a></div>
+<p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0161.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="mulu1"><a href="part0162.xhtml#a1">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="mulu1"><a href="part0163.xhtml">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">The Girl with Green Eyes</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">The Girl with Green Eyes</p>
+<p class="normaltext3">Greg is a porter at the Shepton Hotel in New York. After work, he always goes for a coffee across the street. A girl is sitting in the coffee shop, near the window.</p>
+<p class="normaltexty">'It's her again!' thinks Greg. 'She's here every afternoon. I'm going to say hello.'</p>
+<p class="normaltexty">Greg goes into the coffee shop and gets a coffee. Then he goes across to the girl's table.</p>
+<p class="normaltexty">'Hi!' he says. 'I'm Greg. Can I sit with you?'</p>
+<p class="picture"><img src="../../../Images/image06584.jpeg" alt="alt"/></p>
+<p class="normaltext3">'OK,' she says. 'I'm Cassie.'</p>
+<p class="normaltexty">'I come here for a coffee every day after work,' says Greg. 'I'm a porter at the Shepton Hotel.' He smiles. 'You have beautiful green eyes.'</p>
+<p class="normaltexty">'Have I?' she says. She doesn't smile.</p>
+<p class="normaltexty">'Is something wrong, Cassie?' he asks. 'You don't look very happy.'</p>
+<p class="normaltexty">'It – it's nothing,' she says.</p>
+<p class="normaltexty">'Tell me,' says Greg. 'Maybe I can help?'</p>
+<p class="picture"><img src="../../../Images/image06585.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Well...' she begins.</p>
+<p class="normaltexty">'Go on,' says Greg.</p>
+<p class="normaltexty">'My stepfather is staying at the Shepton Hotel,' she says. 'He has my sketch books. I'm an artist. When I ask him to give them to me he says, "No. I want you to come back home to Boston." But I don't want to go back to Boston. He's not nice.'</p>
+<p class="picture"><img src="../../../Images/image06586.jpeg" alt="alt"/></p>
+<p class="normaltext3">'How long is he going to be at the hotel?' asks Greg.</p>
+<p class="normaltexty">'Two more days,' says Cassie. 'He's in room 724.'</p>
+<p class="normaltexty">'Maybe I can get the sketch books for you,' says Greg. 'Maybe I can get into his room.'</p>
+<p class="normaltexty">'Can you?' she says.</p>
+<p class="normaltexty">'Meet me here tomorrow afternoon at 4.30,' says Greg.</p>
+<p class="normaltexty">'OK, thank you!' says Cassie. 'Thank you very much.' She looks at her watch. 'I've got to go now. See you tomorrow.'</p>
+<p class="picture"><img src="../../../Images/image06587.jpeg" alt="alt"/></p>
+<p class="normaltext3">When Cassie gets back to her hotel room, she makes a telephone call.</p>
+<p class="normaltexty">'Hello,' she says. 'It's me. It's OK, the boy's going to do it... Yes, I'm going to get them from him tomorrow afternoon... OK, I can meet you there the morning after, at 10 am. Don't forget to bring the money – two thousand dollars.'</p>
+<p class="picture"><img src="../../../Images/image06588.jpeg" alt="alt"/></p>
+<p class="normaltext3">Next morning, Greg arrives at work early. He goes to find room 724.</p>
+<p class="normaltexty">'I have to wait for Cassie's stepfather to go out,' he thinks. 'I don't know his name, but it doesn't matter.'</p>
+<p class="normaltexty">Greg watches the door of room 724. He sees the girl come to clean the rooms.</p>
+<p class="normaltexty">Some minutes later, a man comes out of room 724.</p>
+<p class="normaltexty">'That must be Cassie's stepfather!' thinks Greg.</p>
+<p class="picture"><img src="../../../Images/image06589.jpeg" alt="alt"/></p>
+<p class="normaltext3">He waits for the man to leave, and for the cleaning girl to go into room 724.</p>
+<p class="normaltexty">'I need to look in the room,' he thinks.</p>
+<p class="normaltexty">Greg waits for the girl to leave the bedroom, then he goes into the room and begins to look for the sketch books.</p>
+<p class="normaltexty">'I must be quick,' he thinks. 'Where are they?'</p>
+<p class="picture"><img src="../../../Images/image06590.jpeg" alt="alt"/></p>
+<p class="normaltext3">Suddenly, Greg sees the sketch books by the bed.</p>
+<p class="normaltexty">'Got them!' he thinks. He begins to look at the pictures. 'Wow! Cassie is a great artist! These are good!'</p>
+<p class="picture"><img src="../../../Images/image06591.jpeg" alt="alt"/></p>
+<p class="normaltexty">Greg is leaving the room when he hears the cleaning girl call out to him.</p>
+<p class="normaltexty">'Hey!' she says. 'What are you doing? Come back!'</p>
+<p class="normaltexty">Greg does not stop.</p>
+<p class="picture"><img src="../../../Images/image06592.jpeg" alt="alt"/></p>
+<p class="normaltext3">Greg finishes work that afternoon and leaves the hotel through a door in the next street. When he gets near the front of the hotel, he sees the man from room 724.</p>
+<p class="normaltexty">'That's him again!' thinks Greg. 'That's Cassie's stepfather.'</p>
+<p class="normaltexty">Greg waits for the man to go into the hotel, then he goes to the coffee shop.</p>
+<p class="picture"><img src="../../../Images/image06593.jpeg" alt="alt"/></p>
+<p class="normaltext3">Cassie is at the same table in the coffee shop.</p>
+<p class="normaltexty">Greg gets a coffee and goes to sit with her.</p>
+<p class="normaltexty">'I have them,' he says, and he puts the sketch books on the table.</p>
+<p class="normaltexty">'That's great!' says Cassie. 'How can I thank you, Greg?'</p>
+<p class="normaltexty">'You can meet me later,' he says. 'After I go home and change out of my porter's uniform.'</p>
+<p class="normaltexty">'I'm sorry, Greg,' says Cassie. 'I can't tonight. Maybe tomorrow night.'</p>
+<p class="picture"><img src="../../../Images/image06594.jpeg" alt="alt"/></p>
+<p class="normaltext3">'OK,' says Greg. 'Tomorrow night. We can get something to eat, first.'</p>
+<p class="normaltexty">'Yes, OK,' says Cassie. 'I have to go now, but meet me here tomorrow evening at six o'clock.'</p>
+<p class="normaltexty">Cassie gets up, ready to leave.</p>
+<p class="normaltexty">'Don't forget your key,' says Greg.</p>
+<p class="normaltexty">'Oh – er – thanks,' says Cassie. She takes it from him quickly. 'See you tomorrow.'</p>
+<p class="picture"><img src="../../../Images/image06595.jpeg" alt="alt"/></p>
+<p class="normaltext3">Greg is finishing his coffee when he sees his friend, Mike.</p>
+<p class="normaltexty">'You're in trouble, Greg,' says Mike. 'Jake Russo's sketch books are not in his room – room 724. And there are CCTV pictures of you coming from that room.'</p>
+<p class="normaltexty">'Wh – who is Jake Russo?' asks Greg. Suddenly he's not feeling very well.</p>
+<p class="normaltexty">'An artist,' says Mike. 'His pictures sell for thousands of dollars. And his sketch books sell for thousands, too.'</p>
+<p class="picture"><img src="../../../Images/image06596.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Do you have them?' asks Mike.</p>
+<p class="normaltexty">'No – er – a girl has them,' says Greg.</p>
+<p class="normaltexty">'What girl?' asks Mike.</p>
+<p class="normaltexty">'A girl with green eyes,' says Greg. And he tells Mike about Cassie and her stepfather.</p>
+<p class="normaltexty">'But it's not true!' says Mike, when Greg finishes speaking. 'Jake Russo doesn't have a wife or a stepdaughter. You have to find that girl and get the sketch books, Greg. And you have to do it before the police find you!'</p>
+<p class="picture"><img src="../../../Images/image06597.jpeg" alt="alt"/></p>
+<p class="normaltext3">Greg walks home to his one-room apartment.</p>
+<p class="normaltexty">'How am I going to find her?' he thinks. 'She has Jake Russo's sketch books now, so she's not going to meet me again. Is she going to sell them for a lot of money?'</p>
+<p class="normaltexty">There is a police car in the street, next to Greg's apartment.</p>
+<p class="normaltexty">'Oh, no!' he thinks. 'They're waiting for me. I can't get into my apartment now.'</p>
+<p class="picture"><img src="../../../Images/image06598.jpeg" alt="alt"/></p>
+<p class="normaltext3">That night, Greg sleeps on a train in the subway. But early the next morning...</p>
+<p class="normaltexty">'Hey, you!' says a man. He's the subway cleaner. 'Get up! You can't sleep here all day!'</p>
+<p class="normaltexty">'Sorry,' says Greg.</p>
+<p class="picture"><img src="../../../Images/image06599.jpeg" alt="alt"/></p>
+<p class="normaltext3">People are arriving to get their trains now. One of them stops and looks at a photograph in his newspaper – and then at Greg.</p>
+<p class="normaltexty">'It's him,' thinks the man. 'It's the young man in the newspaper photograph. The police are looking for him.'</p>
+<p class="normaltexty">Suddenly, Greg sees the man looking at him. And he sees his picture on the front of the man's newspaper.</p>
+<p class="normaltexty">'I have to get out of here quickly!' he thinks.</p>
+<p class="picture"><img src="../../../Images/image06600.jpeg" alt="alt"/></p>
+<p class="normaltext3">The man with the newspaper finds a policeman.</p>
+<p class="normaltexty">'It's him!' he tells the policeman. 'The hotel porter!'</p>
+<p class="normaltexty">'Hey, you!' the policeman calls to Greg.</p>
+<p class="picture"><img src="../../../Images/image06601.jpeg" alt="alt"/></p>
+<p class="normaltexty">Greg runs.</p>
+<p class="normaltexty">'Stop!' calls the policeman.</p>
+<p class="normaltexty">Greg doesn't stop.</p>
+<p class="picture"><img src="../../../Images/image06602.jpeg" alt="alt"/></p>
+<p class="normaltext3">'I have to get out of this uniform,' thinks Greg. 'People know I'm the porter. Maybe Mike can give me something different to wear.'</p>
+<p class="normaltexty">When he gets to Mike's apartment, Mike opens the door. 'I need something to wear,' Greg tells him. 'I can't go back to my apartment. My picture's in the newspaper, and —'</p>
+<p class="normaltexty">'Yes, I know,' says Mike. 'It's OK. Come in.'</p>
+<p class="picture"><img src="../../../Images/image06603.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Where's the girl?' asks Mike. 'Do you know?'</p>
+<p class="normaltexty">'No,' says Greg.</p>
+<p class="normaltexty">'What can you remember about her?' says Mike. 'There must be something to help you find her.'</p>
+<p class="normaltexty">'Yes!' Greg says, suddenly. 'Her key! A key to a room in the Dolphin Hotel! It's a small, cheap hotel near 42nd Street. She must be staying there. What's the time?'</p>
+<p class="normaltexty">'Nearly nine o'clock,' says Mike.</p>
+<p class="normaltexty">'Maybe she's there now,' says Greg. 'I have to go! Thanks, Mike.'</p>
+<p class="picture"><img src="../../../Images/image06604.jpeg" alt="alt"/></p>
+<p class="normaltext3">Twenty minutes later, Greg is near the Dolphin Hotel.</p>
+<p class="normaltexty">'Am I too late?' he thinks.</p>
+<p class="normaltexty">Suddenly, Greg sees Cassie come out of the hotel.</p>
+<p class="normaltexty">'Cassie!' he calls. 'Wait! I have to talk to you!'</p>
+<p class="normaltexty">Cassie sees him, but she doesn't stop. There is a car waiting for her. She says something to the driver and gets into it quickly.</p>
+<p class="picture"><img src="../../../Images/image06605.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Oh, no!' says Greg.</p>
+<p class="normaltexty">'Pier 83,' says an old man in the street.</p>
+<p class="normaltexty">Greg looks at him. 'What?'</p>
+<p class="normaltexty">'The girl is going to Pier 83, West 42nd Street, for the Circle Line boat,' says the old man.</p>
+<p class="normaltexty">Greg smiles. 'Thanks!' he says. And he begins to run.</p>
+<p class="picture"><img src="../../../Images/image06606.jpeg" alt="alt"/></p>
+<p class="normaltext3">Greg runs all the way to Pier 83. People are getting on to the boat, and he gets a ticket.</p>
+<p class="picture"><img src="../../../Images/image06607.jpeg" alt="alt"/></p>
+<p class="normaltexty">On the boat, Greg looks for Cassie. But a woman with a newspaper is looking at him.</p>
+<p class="normaltexty">'It's the young man in the picture!' she tells the man with her. 'Call the police, Eddie.'</p>
+<p class="normaltexty">The man gets his phone and calls the police.</p>
+<p class="picture"><img src="../../../Images/image06608.jpeg" alt="alt"/></p>
+<p class="normaltext3">Some time later, Greg sees Cassie. She is talking to a man. But Greg does not see two policemen get on the boat.</p>
+<p class="normaltexty">They quickly find Greg. 'Where are Jake Russo's sketch books?' the first policeman asks him.</p>
+<p class="normaltexty">'I don't have them!' says Greg. 'You don't want me! You want her! She has the sketch books.'</p>
+<p class="normaltexty">'Hey, look! He's right,' says the second policeman.</p>
+<p class="picture"><img src="../../../Images/image06609.jpeg" alt="alt"/></p>
+<p class="normaltext3">The two policemen move quickly to Cassie and the man.</p>
+<p class="normaltexty">'I don't understand,' says Cassie. 'How...?'</p>
+<p class="normaltexty">'The two of you are coming with us,' says one of the policemen. 'You're in trouble.'</p>
+<p class="picture"><img src="../../../Images/image06610.jpeg" alt="alt"/></p>
+<p class="normaltexty">Later, Greg and a policeman take the sketch books back to the hotel. Jake Russo is very happy to see them again.</p>
+<p class="normaltexty">'I'm sorry, Mr Russo,' says Greg, and tells him everything.</p>
+<p class="normaltexty">'It's OK,' says the artist, smiling. 'But stay away from girls with beautiful green eyes!'</p>
+<p class="picture"><img src="../../../Images/image06611.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">GLOSSARY<br/>词汇表</p>
+<p class="normaltexta"><b>apartment</b> <em>n.</em> a room or group of rooms where you can live　<span class="Kai">公寓房间；公寓套间</span></p>
+<p class="normaltexta"><b>artist</b> <em>n.</em> someone who paints, draws, or makes pictures　<span class="Kai">画家，美术家</span></p>
+<p class="normaltexta"><b>boat</b> <em>n.</em> a small ship　<span class="Kai">小船；（小的）轮船</span></p>
+<p class="normaltexta"><b>clean</b> <em>v.</em> make something free from dirt　<span class="Kai">使清洁，把……弄干净</span></p>
+<p class="normaltexta"><b>coffee</b> <em>n.</em> a hot drink　<span class="Kai">咖啡</span></p>
+<p class="normaltexta"><b>dollar</b> <em>n.</em> money used in America ($)　<span class="Kai">美元</span></p>
+<p class="normaltexta"><b>hotel</b> <em>n.</em> a building where you can pay to stay in a room　<span class="Kai">酒店，宾馆，旅馆</span></p>
+<p class="normaltexta"><b>key</b> <em>n.</em> you use this to lock and unlock a door　<span class="Kai">钥匙</span></p>
+<p class="normaltexta"><b>newspaper</b> <em>n.</em> where you can read about the things happening every day　<span class="Kai">报纸</span></p>
+<p class="normaltexta"><b>pier</b> <em>n.</em> a wall from the land into the sea where people get on and off boats　<span class="Kai">（伸向海中的）突堤码头</span></p>
+<p class="normaltexta"><b>police</b> <em>n.</em> (<em>pl.</em>) the men and women who catch criminals　<span class="Kai">警察，警方</span></p>
+<p class="normaltexta"><b>porter</b> <em>n.</em> a man who carries your bags at a hotel　<span class="Kai">（酒店的）行李员，行李搬运工</span></p>
+<p class="normaltexta"><b>sell</b> <em>v.</em> give someone something and get money for it　<span class="Kai">售卖，出售</span></p>
+<p class="normaltexta"><b>sketch</b> <em>n.</em> a quick drawing of something　<span class="Kai">素描，速写</span></p>
+<p class="normaltexta"><b>stepfather</b> <em>n.</em> a man who is not your father but who marries your mother　<span class="Kai">继父</span></p>
+<p class="normaltexta"><b>subway</b> <em>n.</em> American word for underground railway　<span class="Kai">〈美〉地铁</span></p>
+<p class="normaltexta"><b>trouble</b> <em>n.</em> something which causes a problem　<span class="Kai">麻烦，问题</span></p>
+<p class="normaltexta"><b>uniform</b> <em>n.</em> special clothes for a job　<span class="Kai">制服</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01">The Girl with Green Eyes</p>
+<p class="sx1"></p>
+<p class="title1" id="a1">ACTIVITIES<br/>阅读练习</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>Before Reading</em></h2>
+<p class="normaltextb1">1 Look at the front cover of the book and answer these questions.</p>
+<p class="normaltextb2">1) Where do you think the story happens?</p>
+<p class="normaltextb3">a □ Japan</p>
+<p class="normaltextb3">b □ America</p>
+<p class="normaltextb3">c □ Spain</p>
+<p class="normaltextb3">d □ Brazil</p>
+<p class="normaltextb2">2) What do you think the story is about?</p>
+<p class="normaltextb3">a □ children</p>
+<p class="normaltextb3">b □ old people</p>
+<p class="normaltextb3">c □ young people</p>
+<p class="normaltextb3">d □ animals</p>
+<p class="normaltextb1">2 Read the <a href="part0165.xhtml">back cover</a> of the book and answer these questions.</p>
+<p class="normaltextb2">1) Where does Greg work?</p>
+<p class="normaltextb2">2) What does Cassie tell Greg?</p>
+<p class="normaltextb2">3) Do you think Greg is good or bad? Why?</p>
+<p class="normaltextb2">4) Do you think Cassie is good or bad? Why?</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>While Reading</em></h2>
+<p class="normaltextb1">1 Answer these questions.</p>
+<p class="normaltextb2">1) What does Greg always do after work?</p>
+<p class="normaltextb2">2) Who is sitting at a table near the window?</p>
+<p class="normaltextb2">3) What does she want?</p>
+<p class="normaltextb2">4) Who has got them?</p>
+<p class="normaltextb2">5) Greg tells Cassie to meet him again. When?</p>
+<p class="normaltextb1">2 Answer these questions.</p>
+<p class="normaltextb2">1) Cassie goes back to her hotel room. What does she do next?</p>
+<p class="normaltextb2">2) How much money does she want?</p>
+<p class="normaltextb2">3) Which room does Greg watch?</p>
+<p class="normaltextb2">4) Who goes into the room before Greg?</p>
+<p class="normaltextb2">5) What does Greg find in the room?</p>
+<p class="normaltextb1">3 Who says or thinks these words?</p>
+<p class="normaltextb2">1) 'That's him again!'</p>
+<p class="normaltextb2">2) 'Meet me here tomorrow evening at six o'clock.'</p>
+<p class="normaltextb2">3) 'Don't forget your key.'</p>
+<p class="normaltextb2">4) 'You're in trouble, Greg.'</p>
+<p class="normaltextb2">5) 'Who is Jake Russo?'</p>
+<p class="normaltextb1">4 Are these sentences true (T) or false (F)?</p>
+<p class="normaltextb2">1) Greg gets a train home to his apartment.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb2">2) There is a police car in the street, next to Greg's apartment.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb2">3) Greg sleeps on a train.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb2">4) A man sees Greg's picture on TV.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb2">5) Greg sees the man looking at him.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb1">5 Answer these questions.</p>
+<p class="normaltextb2">1) What does the man with the newspaper do?</p>
+<p class="normaltextb2">2) Why does Greg go to Mike's apartment?</p>
+<p class="normaltextb2">3) What does Greg remember about his meeting with Cassie?</p>
+<p class="normaltextb2">4) Where is the Dolphin Hotel?</p>
+<p class="normaltextb2">5) What is waiting for Cassie near the hotel?</p>
+<p class="normaltextb1">6 What happens in the end of the story? Tick <em>Yes</em> or <em>No</em>.</p>
+<p class="normaltextb2">1) Greg follows Cassie's car in a different car.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">2) Somebody tells Greg where Cassie is going.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">3) The police find Cassie before Greg finds her.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">4) Cassie sells the sketch books before Greg finds her.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">5) Greg gives the sketch books back to Jake Russo.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>After Reading</em></h2>
+<p class="normaltextb1">1 Put these sentences in the right order.</p>
+<p class="normaltextb002">a □ Cassie tells Greg about the sketch books.</p>
+<p class="normaltextb002">b □ Mike tells Greg, 'You're in trouble.'</p>
+<p class="normaltextb002">c □ Greg sleeps on a train in the subway.</p>
+<p class="normaltextb002">d □ Greg sees the girl in the coffee shop.</p>
+<p class="normaltextb002">e □ A woman on the boat sees Greg's picture in the newspaper.</p>
+<p class="normaltextb002">f □ Greg tells Jake Russo everything.</p>
+<p class="normaltextb002">g □ Greg watches the door of room 724.</p>
+<p class="normaltextb002">h □ Greg goes to Mike's apartment.</p>
+<p class="normaltextb002">i □ The man with the newspaper in the subway finds a policeman.</p>
+<p class="normaltextb002">j □ Greg runs all the way to Pier 83.</p>
+<p class="normaltextb002">k □ Greg waits for the cleaning girl to leave the bedroom.</p>
+<p class="normaltextb002">l □ Cassie gets back to her hotel room and makes a phone call.</p>
+<p class="normaltextb002">m □ Greg gives Cassie the sketch books.</p>
+<p class="normaltextb1">2 Use these words to join the sentences together.</p>
+<p class="normaltext">　<em>or　through　then　to　at</em></p>
+<p class="normaltextb2">1) Greg is a porter. The Shepton Hotel in New York.</p>
+<p class="normaltextb2">2) Greg leaves the hotel. A door in the next street.</p>
+<p class="normaltextb2">3) Greg gets a cup of coffee. He goes to sit with Cassie.</p>
+<p class="normaltextb2">4) Jake Russo doesn't have a wife. A stepdaughter.</p>
+<p class="normaltextb2">5) Greg walks home. His one-room apartment.</p>
+<p class="normaltextb1">3 Look at each picture and answer the questions.</p>
+<p class="normaltext3"><img src="../../../Images/image06612.jpeg" alt="alt"/></p>
+<p class="normaltext3">Where are Greg and Cassie?<br/>Why is Cassie unhappy?</p>
+<p class="normaltext3"><img src="../../../Images/image06613.jpeg" alt="alt"/></p>
+<p class="normaltext3">What is Greg looking for?<br/>Why? Does he find them?</p>
+<p class="normaltext3"><img src="../../../Images/image06614.jpeg" alt="alt"/></p>
+<p class="normaltext3">Why can't Greg go back to his apartment? What does he do?</p>
+<p class="normaltext3"><img src="../../../Images/image06615.jpeg" alt="alt"/></p>
+<p class="normaltext3">What is Cassie doing? Why?<br/>What happens next?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle">TRANSLATION　参考译文</p>
+<p class="title2">The Girl with Green Eyes<br/><span class="Kai">绿眼女子</span></p>
+<p class="normaltext2">格雷格是纽约谢普顿酒店的行李员。下班后，他总会去酒店对面的咖啡馆喝上一杯咖啡。咖啡馆里靠窗的座位上，坐着一个女孩。</p>
+<p class="normaltext2">“又是她！”格雷格想，“她每天下午都来。我要去跟她打个招呼。”</p>
+<p class="normaltext2">格雷格走进咖啡馆，要了一杯咖啡，然后走向女孩坐的桌子。</p>
+<p class="normaltext2">“嗨！”他说，“我叫格雷格。我能跟你坐一起吗？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“可以。”她说，“我叫凯茜。”</p>
+<p class="normaltext2">“我每天下班后都要来这里喝一杯咖啡。”格雷格说，“我是谢普顿酒店的行李员。”他微笑着又说：“你有一双漂亮的绿色眼睛。”</p>
+<p class="normaltext2">“是吗？”她说，脸上并无笑容。</p>
+<p class="normaltext2">“有什么事吗，凯茜？”他问，“你看起来不太高兴。”</p>
+<p class="normaltext2">“是——也没什么。”她说。</p>
+<p class="normaltext2">“告诉我吧。”格雷格说，“也许我能帮上忙？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“嗯……”她开口了。</p>
+<p class="normaltext2">“说说吧。”格雷格说。</p>
+<p class="normaltext2">“我的继父正住在谢普顿酒店里。”她说，“他拿走了我的写生簿。我是个画家。我让他还给我，但他说，‘不行，我要你回波士顿，回家来。’可我不想回波士顿。他对我不好。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“他会在酒店住多久？”格雷格问。</p>
+<p class="normaltext2">“还会再住两天。”凯茜说，“他住在724房间。”</p>
+<p class="normaltext2">“也许我能帮你把那些写生簿拿回来，”格雷格说，“也许我能进入他的房间。”</p>
+<p class="normaltext2">“你能吗？”她问。</p>
+<p class="normaltext2">“明天下午4:30在这里等我。”格雷格说。</p>
+<p class="normaltext2">“好的，谢谢你！”凯茜说，“非常感谢。”她看了看自己的手表，“现在我得走了，明天见。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">凯茜回到自己住的旅馆房间，打了个电话。</p>
+<p class="normaltext2">“喂，”她说，“是我。搞定了，那个男孩会去做的……对，我明天下午就能从他手里拿到东西……好的，我后天上午10点在那里跟你会面。别忘了把钱带上——两千美元。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">第二天上午，格雷格一早便来上班。他去找724房间。</p>
+<p class="normaltext2">“我得等凯茜的继父先出去。”他想，“我不知道他叫什么名字，不过这无所谓。”</p>
+<p class="normaltext2">格雷格盯着724房间的门。他看见清洁女工开始打扫房间了。</p>
+<p class="normaltext2">几分钟后，一个男人从724房间走了出来。</p>
+<p class="normaltext2">“这准是凯茜的继父！”格雷格想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">他等着那男人离开，又等着清洁女工进了724房间。</p>
+<p class="normaltext2">“我得去房间里找。”他想。</p>
+<p class="normaltext2">格雷格等清洁女工离开卧室后，便闪身进入房间，开始翻找写生簿。</p>
+<p class="normaltext2">“我必须快点儿。”他想，“它们在哪里呢？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">突然，格雷格在床边看见了那些写生簿。</p>
+<p class="normaltext2">“找到了！”他想。他开始看那些画：“哇！凯茜是个了不起的画家！画得真棒！”</p>
+<p class="normaltext2">格雷格离开房间时，听见清洁女工朝他大声叫喊起来。</p>
+<p class="normaltext2">“嘿！”她嚷道，“你在干什么？回来！”</p>
+<p class="normaltext2">格雷格没有停步。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">那天下午，格雷格下班后，从位于另一条街的侧门离开了酒店。走到酒店正门附近时，他看见了住在724房间的那个男人。</p>
+<p class="normaltext2">“又是他！”格雷格想，“那是凯茜的继父。”</p>
+<p class="normaltext2">待那男人进了酒店，格雷格才向咖啡馆走去。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">咖啡馆里，凯茜坐在昨天那张桌子旁。</p>
+<p class="normaltext2">格雷格要了一杯咖啡后，走过去坐在她对面。</p>
+<p class="normaltext2">“我拿到了。”他说，然后把写生簿都放在桌子上。</p>
+<p class="normaltext2">“太好了！”凯茜说，“我该怎么感谢你呢，格雷格？”</p>
+<p class="normaltext2">“一会儿你可以跟我约会。”他说，“先等我回家换掉这身行李员制服。”</p>
+<p class="normaltext2">“对不起，格雷格，”凯茜说，“今晚不行。要不明天晚上吧？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“好吧，”格雷格说，“那就明天晚上。我们可以先吃点东西。”</p>
+<p class="normaltext2">“是啊，好的。”凯茜说，“我现在得走了，不过明天晚上6点钟要在这儿等我。”</p>
+<p class="normaltext2">凯茜站起来，准备离开。</p>
+<p class="normaltext2">“别忘了你的钥匙。”格雷格说。</p>
+<p class="normaltext2">“噢——嗯——谢谢。”凯茜说。她很快地接过钥匙：“明天见。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">格雷格快喝完咖啡时，看到了自己的朋友迈克。</p>
+<p class="normaltext2">“你惹上麻烦了，格雷格。”迈克说，“杰克·拉索放在房间里的写生簿不见了——是724房间。闭路电视监控里有你从那个房间里出来的画面。”</p>
+<p class="normaltext2">“什么——谁是杰克·拉索？”格雷格问道，他突然有种不祥的感觉。</p>
+<p class="normaltext2">“一位画家。”迈克说，“他的画要卖几千美金一幅。他的写生簿的价格也得好几千。”</p>
+<p class="normaltext2"><br/></p>
+<p class="normaltext2">“在你手里吗？”迈克问。</p>
+<p class="normaltext2">“不在——嗯——在一个女孩手里。”格雷格说。</p>
+<p class="normaltext2">“什么样的女孩？”迈克问。</p>
+<p class="normaltext2">“一个长着绿色眼睛的女孩。”格雷格说。他把凯茜跟她继父的事情告诉了迈克。</p>
+<p class="normaltext2">“这些全是胡扯！”听完格雷格的话，迈克说，“杰克·拉索没有妻子，也没有继女。格雷格，你得找到那个女孩，把写生簿拿回来，而且你必须在警察找到你之前搞定这件事！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">格雷格向他所住的单间公寓走去。</p>
+<p class="normaltext2">“我怎么才能找到她呢？”他思考着，“现在她拿到了杰克·拉索的写生簿，不会再来见我了。她会把它们拿去卖一大笔钱吗？”</p>
+<p class="normaltext2">在格雷格的公寓附近，一辆警车停在街上。</p>
+<p class="normaltext2">“呀，不好！”他想，“他们在等我。我现在不能回家。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">那天晚上，格雷格在地铁车厢里睡了一夜。但第二天一大早……</p>
+<p class="normaltext2">“嘿，说你呢！”一个男人——他是地铁清洁工——说，“快起来！你不能在这里睡一整天！”</p>
+<p class="normaltext2">“对不起。”格雷格说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">此时来乘坐地铁的人们陆续上车了。其中有个人停下来看了看手中报纸上的照片，然后又看了看格雷格。</p>
+<p class="normaltext2">“就是他。”那个男人想，“他就是报纸照片上的那个年轻人。警察正在通缉他。”</p>
+<p class="normaltext2">突然，格雷格发现那个男人正在打量自己。他还看到那个男人拿的报纸头版上有自己的照片。</p>
+<p class="normaltext2">“我得赶紧离开这儿！”他想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">那个拿着报纸的男人找到了一名警察。</p>
+<p class="normaltext2">“就是他！”他告诉警察，“那个酒店行李员！”</p>
+<p class="normaltext2">“嘿，你！”警察朝格雷格喊道。</p>
+<p class="normaltext2">格雷格拔腿就跑。</p>
+<p class="normaltext2">“站住！”警察喊道。</p>
+<p class="normaltext2">格雷格没有停下来。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“我得换掉这身制服。”格雷格想，“别人知道我就是那个行李员。也许迈克能给我找些别的衣服。”</p>
+<p class="normaltext2">他来到迈克的公寓，迈克开了门。“我需要一些衣服。”格雷格告诉他，“我不能回自己的公寓。我的照片上了报纸，还有——”</p>
+<p class="normaltext2">“是的，我知道。”迈克说，“没问题，进来吧。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“那个女孩在哪里？”迈克问，“你知道吗？”</p>
+<p class="normaltext2">“不知道。”格雷格说。</p>
+<p class="normaltext2">“关于她的事你还记得什么？”迈克说，“肯定有些线索能帮你找到她。”</p>
+<p class="normaltext2">“对了！”格雷格突然说道，“她的钥匙！一把海豚旅馆的房间钥匙！那是家廉价的小旅馆，在第42街附近。她肯定住在那儿。现在几点了？”</p>
+<p class="normaltext2">“快9点了。”迈克说。</p>
+<p class="normaltext2">“她可能现在就在那儿。”格雷格说，“我得走了！谢谢你，迈克。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">20分钟后，格雷格赶到了海豚旅馆附近。</p>
+<p class="normaltext2">“我来得太晚了吗？”他想。</p>
+<p class="normaltext2">突然，格雷格看到凯茜正从旅馆里出来。</p>
+<p class="normaltext2">“凯茜！”他喊道，“等等！我得跟你谈谈！”</p>
+<p class="normaltext2">凯茜看到了他，但她并没有停下脚步。有辆车正等着她。她跟司机说了几句什么，然后飞快地上了车。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“呀，糟了！”格雷格说。</p>
+<p class="normaltext2">“83号码头。”街边的一位老人说。</p>
+<p class="normaltext2">格雷格看了看他：“什么？”</p>
+<p class="normaltext2">“那个女孩要去83号码头，在第42街西，她要上环线船。”老人说。</p>
+<p class="normaltext2">格雷格笑了。“谢谢！”他说。然后他开始奔跑起来。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">格雷格一路跑到了83号码头。乘客们正在登船，他买了张票。</p>
+<p class="normaltext2">上船后，格雷格便寻找凯茜。这时一个拿着报纸的女人正打量着他。</p>
+<p class="normaltext2">“这就是照片上的那个年轻人！”她告诉跟她在一起的男子，“快报警，埃迪。”</p>
+<p class="normaltext2">男子拿起手机，给警察拨打了电话。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">过了一会儿，格雷格看到了凯茜，她在同一个男子说话。但此时有两名警察也上了船，格雷格没看到。</p>
+<p class="normaltext2">警察很快就找到了格雷格。“杰克·拉索的写生簿在哪里？”一个警察问他。</p>
+<p class="normaltext2">“不在我这里！”格雷格说，“你们要抓的不是我！是她！她拿了写生簿。”</p>
+<p class="normaltext2">“嘿，瞧啊！他说得对。”另一个警察说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">两名警察迅速冲到凯茜和那个男子身边。</p>
+<p class="normaltext2">“我不明白。”凯茜说，“怎么啦……？”</p>
+<p class="normaltext2">“你们两个跟我们走一趟。”一个警察说，“你们有麻烦了。”</p>
+<p class="normaltext2">之后，格雷格和一名警察把写生簿送回了酒店。杰克·拉索见到自己的写生簿失而复得，非常高兴。</p>
+<p class="normaltext2">“对不起，拉索先生。”格雷格说，并把事情的来龙去脉都告诉了他。</p>
+<p class="normaltext2">“没关系，”画家笑着说，“不过对长着漂亮的绿色眼睛的女孩，要离得远一点！”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="a0"><img src="../../../Images/image06617.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

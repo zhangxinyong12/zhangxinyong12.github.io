@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红酋长的赎金 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '红酋长的赎金';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>红酋长的赎金</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">红酋长的赎金</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">Copyright</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">King Arthur</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">ACTIVITIES Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="m1"><img src="../../../Images/image06396.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">Copyright</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext">Copyright © Foreign Language Teaching and Research Press 2006</p>
+<p class="normaltext">All rights reserved. No part of this publication may be reproduced or distributed by any means, or stored in a database or retrieval system, without the prior written permission of Foreign Language Teaching and Research Press.</p>
+<p class="normaltext">本书版权由外语教学与研究出版社独家所有。如未获得该社书面同意，书中任何部分之文字及图片，不得用任何方式抄袭、节录、翻印或存储利用于任何数据库及检索系统等。</p>
+<p class="normaltext">Published by Foreign Language Teaching and Research Press</p>
+<p class="normaltext">No. 19 Xisanhuan Beilu</p>
+<p class="normaltext">Beijing, China 100089</p>
+<p class="normaltext">http://www.fltrp.com</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2A">京权图字01-2006-2799</p>
+<p class="normaltext0">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 2000 This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext0">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="subtitle2B">图书在版编目（CIP）数据</p>
+<p class="normaltext">红酋长的赎金：英汉对照／（美）亨利（Henry, O.）著；（英）希普顿（Shipton, P.）改写．—北京：外语教学与研究出版社，2006.5（2013.6重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：The Ransom of Red Chief</p>
+<p class="normaltext">ISBN 978-7-5600-5530-5</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．红…　Ⅱ． ①亨…　②希…　Ⅲ．①英语—语言读物　②短篇小说—美国—近代　Ⅳ．H319.4: I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2006）第037883号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0"><b>出版人：</b>蔡剑峰</p>
+<p class="normaltext0"><b>责任编辑：</b>田　娜　张志纯</p>
+<p class="normaltext0"><b>封面设计：</b>孙莉明</p>
+<p class="normaltext0"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltext0"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltext0"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltext0"><b>书　　号：</b>ISBN 978-7-5600-5530-5</p>
+<p class="normaltext0">*　　*　　*</p>
+<p class="normaltext0"><b>制售盗版必究　举报查实奖励</b></p>
+<p class="normaltext0"><b>版权保护举报电话：（010）88817519</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <p class="mulu">目　录</p>
+ <p class="mulu1"><a href="part0085.xhtml">The Ransom of Red Chief</a></p>
+ <p class="mulu1"><a href="part0086.xhtml">ACTIVITIES Before Reading</a></p>
+ <p class="mulu1"><a href="part0087.xhtml">ACTIVITIES While Reading</a></p>
+ <p class="mulu1"><a href="part0088.xhtml">ACTIVITIES After Reading</a></p>
+ <p class="mulu1"><a href="part0089.xhtml">参考译文</a></p>
+ <p class="normaltext"><br/></p>
+ <p class="mulu1"><a href="part0001.xhtml">返回总目录</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">King Arthur</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><a href="part0089.xhtml#m1"><img src="../../../Images/image06397.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m2"><img src="../../../Images/image06398.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m3"><img src="../../../Images/image06399.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m4"><img src="../../../Images/image06400.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m5"><img src="../../../Images/image06401.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m6"><img src="../../../Images/image06402.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m7"><img src="../../../Images/image06403.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m8"><img src="../../../Images/image06404.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m9"><img src="../../../Images/image06405.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m10"><img src="../../../Images/image06406.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m11"><img src="../../../Images/image06407.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m12"><img src="../../../Images/image06408.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m13"><img src="../../../Images/image06409.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m14"><img src="../../../Images/image06410.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m15"><img src="../../../Images/image06411.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m16"><img src="../../../Images/image06412.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m17"><img src="../../../Images/image06413.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m18"><img src="../../../Images/image06414.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m19"><img src="../../../Images/image06415.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m20"><img src="../../../Images/image06416.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m21"><img src="../../../Images/image06417.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m22"><img src="../../../Images/image06418.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m23"><img src="../../../Images/image06419.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0089.xhtml#m24"><img src="../../../Images/image06420.jpeg" alt="alt"/></a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>Before Reading</em></p>
+<p class="normaltext3">1. Look at the front cover of the book and guess the answer to these questions.</p>
+<p class="normaltext">1) Who is Red Chief?</p>
+<p class="normaltext2">a　Sam, the man on the left.</p>
+<p class="normaltext2">b　Bill, the man on the right.</p>
+<p class="normaltext2">c　A famous man in the west.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">2) When does the story happen?</p>
+<p class="normaltext2">a　100 years ago.</p>
+<p class="normaltext2">b　In the year 2000.</p>
+<p class="normaltext2">c　500 years ago.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">3) Imagine you are Bill or Sam. How do you feel?</p>
+<p class="normaltext2">a　Happy.</p>
+<p class="normaltext2">b　Angry.</p>
+<p class="normaltext2">c　Afraid.</p>
+<p class="normaltext3">2. Read the back cover of the book. How do Sam and Bill try to make a lot of money? Guess the answer.</p>
+<p class="normaltext">1)  They take money from a shop.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">2)  They kidnap a boy.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">3)  They take horses and sell them.</p>
+<p class="normaltextAA">Yes/No</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>While Reading</em></p>
+<p class="normaltext3">1. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) Sam and Bill have no money.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) They look for jobs in Summit.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) Ebenezer Dorset is the richest man in town.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) They decide to kidnap Ebenezer Dorset.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">5) Johnny is afraid.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">6) Bill stays with Johnny.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">7) Johnny says he is called Red Chief now.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext3">2. Complete the sentences.</p>
+<p class="picture"><img src="../../../Images/image06421.jpeg" alt="alt"/></p>
+<p class="normaltext">I'm _________. Let's sleep.</p>
+<p class="picture"><img src="../../../Images/image06422.jpeg" alt="alt"/></p>
+<p class="normaltext">It's a little _________, Bill.</p>
+<p class="normaltext">Do you want to hold it?</p>
+<p class="picture"><img src="../../../Images/image06423.jpeg" alt="alt"/></p>
+<p class="normaltext">We must _________ a letter now.</p>
+<p class="picture"><img src="../../../Images/image06424.jpeg" alt="alt"/></p>
+<p class="normaltext">Wait a _________!</p>
+<p class="normaltext">Where's the boy?</p>
+<p class="normaltext3">3. Match the following sentence halves to make five complete sentences.</p>
+<p class="normaltext">1) Bill is afraid ...</p>
+<p class="normaltext">2) Johnny laughs ...</p>
+<p class="normaltext">3) Johnny runs away ...</p>
+<p class="normaltext">4) The old man takes the letter ...</p>
+<p class="normaltext">5) Johnny comes back ...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">a　when Bill tries to catch him.</p>
+<p class="normaltext">b　when he can play games with Bill.</p>
+<p class="normaltext">c　when Sam goes to the shop in town.</p>
+<p class="normaltext">d　when Sam leaves.</p>
+<p class="normaltext">e　when Sam is back.</p>
+<p class="normaltext3">4. Answer these questions.</p>
+<p class="normaltext">1) Who brings Dorset's answer to the tree?</p>
+<p class="normaltext">2) What does Dorset ask for in his letter?</p>
+<p class="normaltext">3) What do Sam and Bill want to do?</p>
+<p class="normaltext">4) How does Johnny feel when he sees his house?</p>
+<p class="normaltext">5) How long can Mr Dorset hold his son?</p>
+<p class="normaltext">6) What do Sam and Bill do when Dorset is holding Johnny?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext3">1. Put these sentences in the correct order.</p>
+<p class="normaltext">a　Sam and Bill write a ransom letter.</p>
+<p class="normaltext">b　Mr Dorset does not pay the ransom.</p>
+<p class="normaltext">c　They run out of town.</p>
+<p class="normaltext">d　Sam and Bill take Johnny home.</p>
+<p class="normaltext">e　Johnny says that he is called Red Chief.</p>
+<p class="normaltext">f　Sam takes the letter to town.</p>
+<p class="normaltext">g　They kidnap Johnny Dorset.</p>
+<p class="normaltext">i　Sam and Bill arrive in Summit.</p>
+<p class="normaltext">h　They pay money to Mr Dorset.</p>
+<p class="normaltext3">2. Match the names and pictures with the words.</p>
+<p class="normaltext"><span class="xt">Sam　　Bill　　Johnny　　Mr Dorset</span></p>
+<p class="picture"><img src="../../../Images/image06425.jpeg" alt="alt"/></p>
+<p class="normaltext3">3. Complete this summary of the story. Use these words:</p>
+<table cellspacing="0" cellpadding="0" class="table">
+<tr>
+<td>afraid</td>
+<td>arrive</td>
+<td>boy</td>
+<td>escape</td>
+</tr>
+<tr>
+<td>fight</td>
+<td>give</td>
+<td>hits</td>
+<td>money</td>
+</tr>
+<tr>
+<td>name</td>
+<td>spider</td>
+<td>stays</td>
+<td>ransom</td>
+</tr>
+</table>
+<p class="normaltext">Sam and Bill only have $200 when they ______ in the small town of Summit. They want to kidnap the son of the richest man in town. Johnny Dorset is a small ______ but he gives Sam and Bill a good ______. They take him into the woods. Bill ______ with Johnny, while Sam takes the horses back to town. Johnny says that his ______ is Red Chief now. He plays and plays with Bill! He puts a ______ in his bed; he ______ him on the head. Soon Bill is very ______ of the little boy!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Bill and Sam write a letter to Johnny's father. They ask for a big ______. But when Mr Dorset answers, he says no. He tells Sam and Bill to give <span class="xt">him</span> ______. Then they can ______ from Johnny! Sam and Bill say yes. They ______ the money and then run out of Summit.</p>
+<p class="normaltext3">4. Write or draw a new ending for the story. Johnny escapes from his father and runs after Sam and Bill. What happens when he catches them?</p>
+<p class="normaltext">_________________________</p>
+<p class="normaltext">_________________________</p>
+<p class="normaltext">_________________________</p>
+<p class="normaltext">_________________________</p>
+<p class="normaltext">_________________________</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">参考译文</p>
+<p class="title1">The Ransom of Red Chief<br/>红酋长的赎金</p>
+<hr/>
+<p class="normaltext" id="m1">Come on, Bill. We're here.</p>
+<p class="normaltext">But ... the train isn't stopping!</p>
+<p class="normaltext4">(Aaaagh!)</p>
+<p class="normaltext4">(Town of Summit</p>
+<p class="normaltext4">Have a Nice Day.)</p>
+<p class="normaltext">I'm not having a nice day.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">快点儿，比尔。咱们到了。</p>
+<p class="normaltext">可是……火车没有停啊！</p>
+<p class="normaltext4">（啊……！）</p>
+<p class="normaltext4">（萨米特镇</p>
+<p class="normaltext4">祝您愉快！）</p>
+<p class="normaltext">我今天可并不愉快！</p>
+<hr/>
+<p class="normaltext" id="m2">How much money have we got?</p>
+<p class="normaltext">Only two hundred dollars.</p>
+<p class="normaltext">But I've got an idea ... Kidnap! We can kidnap someone here.</p>
+<p class="normaltext">Who? There's nobody rich in this town.</p>
+<p class="normaltext">You're wrong, Bill. Look around.</p>
+<p class="normaltext4">(The Dorset Bank</p>
+<p class="normaltext4">Ebenezer Dorset Street</p>
+<p class="normaltext4">The Dorset Store)</p>
+<p class="normaltext">Excuse me, Miss. Who is Ebenezer Dorset?</p>
+<p class="normaltext">The richest man in town, of course.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我们有多少钱？</p>
+<p class="normaltext">只有两百美元。</p>
+<p class="normaltext">不过我有一个办法……绑架！我们可以在这儿绑架个人。</p>
+<p class="normaltext">绑架谁呢？这个镇上没有富人啊。</p>
+<p class="normaltext">你错了，比尔。看看这四周吧。</p>
+<p class="normaltext4">（多塞特银行</p>
+<p class="normaltext4">埃比尼泽·多塞特大街</p>
+<p class="normaltext4">多塞特商店）</p>
+<p class="normaltext">小姐，打扰一下。请问埃比尼泽·多塞特是谁啊？</p>
+<p class="normaltext">当然是镇上最有钱的人。</p>
+<hr/>
+<p class="normaltext" id="m3">And do Mr and Mrs Dorset have any children?</p>
+<p class="normaltext">One boy. His name's Johnny. He's a lot of trouble.</p>
+<p class="normaltext">Well ... ?</p>
+<p class="normaltext">OK.</p>
+<p class="normaltext4">The next day ...</p>
+<p class="normaltext">Look at that house!</p>
+<p class="normaltext">Good! They've got lots of money.</p>
+<p class="normaltext">There he is! He's a nice little boy.</p>
+<p class="normaltext">What's he doing?</p>
+<p class="normaltext">Ha, ha, ha!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">那么多塞特夫妇有孩子吗？</p>
+<p class="normaltext">有一个男孩儿，名叫约翰尼。他总是惹麻烦。</p>
+<p class="normaltext">怎么样？</p>
+<p class="normaltext">好吧。</p>
+<p class="normaltext4">第二天……</p>
+<p class="normaltext">瞧瞧那房子！</p>
+<p class="normaltext">很好！他们很有钱。</p>
+<p class="normaltext">他在那儿！是个不错的小男孩儿。</p>
+<p class="normaltext">他在干什么呢？</p>
+<p class="normaltext">哈哈哈！</p>
+<hr/>
+<p class="normaltext" id="m4">Let's get him!</p>
+<p class="normaltext">Oh, good! Someone wants a fight!</p>
+<p class="normaltext4">(Smack! Bang! Ouch!)</p>
+<p class="normaltext">Come on, Bill.</p>
+<p class="normaltext">But he's STRONG.</p>
+<p class="normaltext">Ouch! My head!</p>
+<p class="normaltext">Think about all that money, Bill.</p>
+<p class="normaltext">I feel better.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">咱们去抓住他！</p>
+<p class="normaltext">哼，好啊！有人想打架啊！</p>
+<p class="normaltext4">（啪！砰！哎哟！）</p>
+<p class="normaltext">快点儿，比尔。</p>
+<p class="normaltext">可是他太有劲儿了。</p>
+<p class="normaltext">哎哟！我的头！</p>
+<p class="normaltext">想想就要到手的钱吧，比尔。</p>
+<p class="normaltext">我感觉好点儿了。</p>
+<hr/>
+<p class="normaltext" id="m5">We're here.</p>
+<p class="normaltext">Don't be afraid, Johnny. You can go home soon.</p>
+<p class="normaltext">Who's afraid? I'm not afraid! I don't want to go home.</p>
+<p class="normaltext">You make a fire and give the boy dinner, Bill. I'm taking the horse back to town.</p>
+<p class="normaltext">OK, Sam. Johnny and I can be friends.</p>
+<p class="normaltext">Yes! Ha, ha, ha!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我们到了。</p>
+<p class="normaltext">不用害怕，约翰尼。你很快就可以回家了。</p>
+<p class="normaltext">谁害怕呀？我才不怕呢！我不想回家。</p>
+<p class="normaltext">你生火给这孩子做点儿晚饭，比尔。我去把马车赶回镇上。</p>
+<p class="normaltext">好的，萨姆。约翰尼和我会成为朋友的。</p>
+<p class="normaltext">没错！哈哈哈！</p>
+<hr/>
+<p class="normaltext" id="m6">Look! There are some feathers.</p>
+<p class="normaltext">What are you doing, Johnny?</p>
+<p class="normaltext">My name isn't Johnny.</p>
+<p class="normaltext">My name is Red Chief.</p>
+<p class="normaltext">Money, money, money ...</p>
+<p class="normaltext">Stop!</p>
+<p class="normaltext">Oh no! Help!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">看！这儿有些羽毛。</p>
+<p class="normaltext">你在干什么呢，约翰尼？</p>
+<p class="normaltext">我不叫约翰尼。</p>
+<p class="normaltext">我叫红酋长。</p>
+<p class="normaltext">钱，钱，钱……</p>
+<p class="normaltext">站住！</p>
+<p class="normaltext">哦不！救命！</p>
+<hr/>
+<p class="normaltext" id="m7">Ha, ha, ha!</p>
+<p class="normaltext">Very funny.</p>
+<p class="normaltext">Oh, good! It's you, Sam.</p>
+<p class="normaltext">Of course it's me! What's wrong with you, Bill?</p>
+<p class="normaltext">I'm tired. Let's sleep.</p>
+<p class="normaltext">I like this forest.</p>
+<p class="normaltext">I like camping too.</p>
+<p class="normaltext">Why is your nose red, Bill?</p>
+<p class="normaltext">My best friend can walk on his hands.</p>
+<p class="normaltext">How hot is the sun?</p>
+<p class="normaltext">I don't like girls.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">哈哈哈！</p>
+<p class="normaltext">很有趣。</p>
+<p class="normaltext">哦，太好了！萨姆，你回来了。</p>
+<p class="normaltext">当然是我！你怎么了，比尔？</p>
+<p class="normaltext">我累了。咱们睡觉吧。</p>
+<p class="normaltext">我喜欢这片森林。</p>
+<p class="normaltext">我也喜欢野营。</p>
+<p class="normaltext">你的鼻子怎么红红的，比尔？</p>
+<p class="normaltext">我的好朋友能倒立着走。</p>
+<p class="normaltext">太阳有多热？</p>
+<p class="normaltext">我不喜欢女孩子。</p>
+<hr/>
+<p class="normaltext4" id="m8">Sam sleeps.</p>
+<p class="normaltext">Help!</p>
+<p class="normaltext">It's only a dream.</p>
+<p class="normaltext">Help!</p>
+<p class="normaltext">What? What's happening?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">萨姆睡着了。</p>
+<p class="normaltext">救命啊！</p>
+<p class="normaltext">幸好只是个梦。</p>
+<p class="normaltext">救命啊！</p>
+<p class="normaltext">怎么了？发生了什么事？</p>
+<hr/>
+<p class="normaltext" id="m9">Oh no! Help! Get it out!</p>
+<p class="normaltext">What is it, Bill?</p>
+<p class="normaltext">It's a little spider, Bill. He's my new friend.</p>
+<p class="normaltext">Do you want to hold him?</p>
+<p class="normaltext">Come here, you little monster ...</p>
+<p class="normaltext">Ha, ha, ha!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">哦不！快来帮我！把它拿出来！</p>
+<p class="normaltext">是什么东西，比尔？</p>
+<p class="normaltext">比尔，只不过是一只小蜘蛛。他是我的新朋友。</p>
+<p class="normaltext">你想拿着它吗？</p>
+<p class="normaltext">过来，你这个小魔头……</p>
+<p class="normaltext">哈哈哈！</p>
+<hr/>
+<p class="normaltext" id="m10">Now, Bill, it's OK.</p>
+<p class="normaltext">But ... but ...</p>
+<p class="normaltext">Now listen, Johnny. You go and play over there.</p>
+<p class="normaltext">We must write a letter now. OK, Bill?</p>
+<p class="normaltext">OK, Sam.</p>
+<p class="normaltext">Here's a good one!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">行了，比尔，别闹了。</p>
+<p class="normaltext">可是……可是……</p>
+<p class="normaltext">嗨，听着，约翰尼。你到那边玩儿去。</p>
+<p class="normaltext">现在我们得写封信。好吗，比尔？</p>
+<p class="normaltext">好吧，萨姆。</p>
+<p class="normaltext">这儿有个好东西！</p>
+<hr/>
+<p class="normaltext4" id="m11"> Mr Ebenezer Dorset:</p>
+<p class="normaltext4">We have your son. Do you want to see him again?</p>
+<p class="normaltext4">Then you must give us a ransom of $ 1,500.</p>
+<p class="normaltext4">Give us the money tonight. There are three big trees near the Summit River. Put your answer in the tallest tree.</p>
+<p class="normaltext4">Do not tell the police about this. </p>
+<p class="normaltext4">From</p>
+<p class="normaltext">What names can we put?</p>
+<p class="normaltext">I know ...</p>
+<p class="normaltext4">Two desperate men</p>
+<p class="normaltext">Look at this letter, Bill! It's money in the bank.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">埃比尼泽·多塞特先生：</p>
+<p class="normaltext4">你的儿子在我们手上。你还想再见到他吗？</p>
+<p class="normaltext4">那么你就必须给我们1,500美元的赎金。</p>
+<p class="normaltext4">今晚把钱交给我们。萨米特河边有三棵大树。把你的回信放到最高的那棵树上。</p>
+<p class="normaltext4">不要报警。</p>
+<p class="normaltext">咱们应该署什么名字呢？</p>
+<p class="normaltext">我知道了……</p>
+<p class="normaltext4">两个亡命之徒</p>
+<p class="normaltext">瞧瞧这封信，比尔！钱就要到手了。</p>
+<hr/>
+<p class="normaltext" id="m12">Wait a minute! Where's the boy?</p>
+<p class="normaltext">Johnny!</p>
+<p class="normaltext">Where are you?</p>
+<p class="normaltext">Look! There's something over there!</p>
+<p class="normaltext">Where?</p>
+<p class="normaltext">Ha, ha, ha!</p>
+<p class="normaltext4">(Crack!)</p>
+<p class="normaltext">Bill!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">等一下！那个男孩儿哪儿去了？</p>
+<p class="normaltext">约翰尼！</p>
+<p class="normaltext">你在哪儿？</p>
+<p class="normaltext">看！那边好像有个东西！</p>
+<p class="normaltext">哪儿？</p>
+<p class="normaltext">哈哈哈！</p>
+<p class="normaltext4">（啪！）</p>
+<p class="normaltext">比尔！</p>
+<hr/>
+<p class="normaltext" id="m13">Come on, Bill. Get up!</p>
+<p class="normaltext">Ouch, my head!</p>
+<p class="normaltext">Johnny. You must be nice to Bill.</p>
+<p class="normaltext">OK, Sam.</p>
+<p class="normaltext">Good. I'm going to town.</p>
+<p class="normaltext">No!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">行了，比尔。起来吧！</p>
+<p class="normaltext">哎哟，我的头！</p>
+<p class="normaltext">约翰尼，你要对比尔友好些。</p>
+<p class="normaltext">好吧，萨姆。</p>
+<p class="normaltext">好了。我要去镇上了。</p>
+<p class="normaltext">不要！</p>
+<hr/>
+<p class="normaltext" id="m14">I must get this letter to Mr Dorset.</p>
+<p class="normaltext">But ... but ...</p>
+<p class="normaltext">He's only a little boy, Bill. Play with him.</p>
+<p class="normaltext">But ... but ...</p>
+<p class="normaltext">See you later.</p>
+<p class="normaltext">Good! Let's play.</p>
+<p class="normaltext">Oh dear!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我得把这封信给多塞特先生送去。</p>
+<p class="normaltext">可是……可是……</p>
+<p class="normaltext">他不过是个小男孩儿，比尔。陪他玩儿会儿。</p>
+<p class="normaltext">可是……可是……</p>
+<p class="normaltext">回头见。</p>
+<p class="normaltext">好了！咱们玩吧。</p>
+<p class="normaltext">哦天哪！</p>
+<hr/>
+<p class="normaltext" id="m15">Go faster! Go faster!</p>
+<p class="normaltext">Oh no! Not the snake, PLEASE.</p>
+<p class="normaltext">Come on, Bill.</p>
+<p class="normaltext">I can't wait any more! Sam can't stop me now!</p>
+<p class="normaltext">Come here, you little monster!</p>
+<p class="normaltext">Ha, ha, ha! You can't catch Red Chief!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">再快点儿！再快点儿！</p>
+<p class="normaltext">哦，不！不要玩蛇，求你了。</p>
+<p class="normaltext">来呀，比尔。</p>
+<p class="normaltext">我再也等不下去了！现在萨姆也拦不住我了！</p>
+<p class="normaltext">过来，你这个小魔头！</p>
+<p class="normaltext">哈哈哈！你抓不住红酋长！</p>
+<hr/>
+<p class="normaltext4" id="m16">(General Store)</p>
+<p class="normaltext">Excuse me. Is there a post office near here?</p>
+<p class="normaltext">Yes.</p>
+<p class="normaltext">And where is it?</p>
+<p class="normaltext">Here.</p>
+<p class="normaltext">I have a letter for someone in Summit. When can it arrive?</p>
+<p class="normaltext">Today.</p>
+<p class="normaltext">Well ... thank you.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">（杂货店）</p>
+<p class="normaltext">请问，这附近有邮局吗？</p>
+<p class="normaltext">有。</p>
+<p class="normaltext">在哪儿呢？</p>
+<p class="normaltext">在我这儿。</p>
+<p class="normaltext">我有封信要寄到萨米特镇上去。什么时候能寄到呢？</p>
+<p class="normaltext">今天。</p>
+<p class="normaltext">哦……谢谢。</p>
+<hr/>
+<p class="normaltext4" id="m17">Sam walks back to the camp. He is thinking about the ransom money.</p>
+<p class="normaltext">I want a big house and a car and the best clothes and ...</p>
+<p class="normaltext">Hello, Sam.</p>
+<p class="normaltext">Where's the boy?</p>
+<p class="normaltext">He isn't a boy, Sam. He's a monster. Where is he? I don't want to know.</p>
+<p class="normaltext">Bill, is your heart strong?</p>
+<p class="normaltext">Yes. Why?</p>
+<p class="normaltext">Look behind you.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">萨姆在回营地的路上，边走边想着赎金。</p>
+<p class="normaltext">我想要一座大房子、一辆车、最好的衣服，还有……</p>
+<p class="normaltext">你好，萨姆。</p>
+<p class="normaltext">那男孩儿在哪儿？</p>
+<p class="normaltext">他不是男孩儿，萨姆。他是个魔鬼。他在哪儿？我可不想知道。</p>
+<p class="normaltext">比尔，你是不是足够坚强？</p>
+<p class="normaltext">是啊，怎么了？</p>
+<p class="normaltext">看看你身后。</p>
+<hr/>
+<p class="normaltext" id="m18">Hello.</p>
+<p class="normaltext">Help me, Sam! Help me!</p>
+<p class="normaltext">It's OK, Bill.</p>
+<p class="normaltext">Sam watches the time.</p>
+<p class="normaltext">Bill watches the boy.</p>
+<p class="normaltext">Where are you going, Sam?</p>
+<p class="normaltext">To get our money.</p>
+<p class="normaltext">No! Not again! You can't leave me with HIM again!</p>
+<p class="normaltext">This is the last time, Bill. And then we can take the money and the boy can go home.</p>
+<p class="normaltext">The boy can go home, the boy can go home, the boy ...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">嗨。</p>
+<p class="normaltext">救救我，萨姆！救救我！</p>
+<p class="normaltext">没事儿的，比尔。</p>
+<p class="normaltext">萨姆看着时间。</p>
+<p class="normaltext">比尔看着男孩儿。</p>
+<p class="normaltext">你要去哪儿，萨姆？</p>
+<p class="normaltext">去拿回我们的钱。</p>
+<p class="normaltext">不！不要再这样了！你不能再让我跟他呆在一起！</p>
+<p class="normaltext">这是最后一次，比尔。然后我们就能拿到钱，男孩儿就能回家了。</p>
+<p class="normaltext">男孩儿就能回家了，男孩儿就能回家了，男孩儿……</p>
+<hr/>
+<p class="normaltext4" id="m19">Later ...</p>
+<p class="normaltext">I can watch from this tree.</p>
+<p class="normaltext">Now I can see everything.</p>
+<p class="normaltext">That isn't Dorset. Perhaps this boy works for him.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">过了一会儿……</p>
+<p class="normaltext">我可以爬上这棵树监视情况。</p>
+<p class="normaltext">现在我一览无余。</p>
+<p class="normaltext">那不是多塞特。也许这个男孩儿是他雇的。</p>
+<hr/>
+<p class="normaltext" id="m20">I've got it!</p>
+<p class="normaltext4">Sam runs back to the camp.</p>
+<p class="normaltext">I'm coming, Bill!</p>
+<p class="normaltext">... the boy can go home, the boy can ...</p>
+<p class="normaltext">Bill! I'm back and I've got it!</p>
+<p class="normaltext">Wait a minute! There's no money in here. There's only a letter.</p>
+<p class="normaltext">Oh no!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我拿到了！</p>
+<p class="normaltext4">萨姆跑回了营地。</p>
+<p class="normaltext">我回来了，比尔！</p>
+<p class="normaltext">……男孩儿就能回家了，男孩儿就能……</p>
+<p class="normaltext">比尔！我回来了，我拿到了！</p>
+<p class="normaltext">等一等！这里面没有钱。只有一封信。</p>
+<p class="normaltext">哦不！</p>
+<hr/>
+<p class="normaltext4" id="m21">To Two Desperate Men:</p>
+<p class="normaltext4">Thank you for your letter.</p>
+<p class="normaltext4">My answer is no.</p>
+<p class="normaltext4">The ransom is very high.</p>
+<p class="normaltext">Very high!</p>
+<p class="normaltext4">I have another idea for you.</p>
+<p class="normaltext4">You bring Johnny home and you give me $ 200.</p>
+<p class="normaltext4">When Johnny is with me at home, you can escape.</p>
+<p class="normaltext4">Ebenezer Dorset</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">致两个亡命徒：</p>
+<p class="normaltext4">谢谢你们的来信。</p>
+<p class="normaltext4">我的回答是“不”。</p>
+<p class="normaltext4">赎金太高了。</p>
+<p class="normaltext">太高了？！</p>
+<p class="normaltext4">我给你们出个主意。</p>
+<p class="normaltext4">你们把约翰尼带回家，再给我两百美元。</p>
+<p class="normaltext4">约翰尼回到家里跟我在一起后，你们就可以解脱了。</p>
+<p class="normaltext4">埃比尼泽·多塞特</p>
+<hr/>
+<p class="normaltext" id="m22">WHAT? We give money to HIM?</p>
+<p class="normaltext">Yes!</p>
+<p class="normaltext">That's stupid! We're the kidnappers!</p>
+<p class="normaltext">Yes!</p>
+<p class="normaltext">Look at this! Let's play.</p>
+<p class="normaltext">OK, Bill. Let's give him the money.</p>
+<p class="normaltext">How much have we got?</p>
+<p class="normaltext">Two hundred dollars.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">什么？我们给他钱？</p>
+<p class="normaltext">是啊！</p>
+<p class="normaltext">这太傻了！我们才是绑匪！</p>
+<p class="normaltext">是啊！</p>
+<p class="normaltext">瞧瞧这个！咱们玩儿吧。</p>
+<p class="normaltext">好吧，比尔。咱们把钱给他吧。</p>
+<p class="normaltext">我们有多少钱？</p>
+<p class="normaltext">两百美元。</p>
+<hr/>
+<p class="normaltext4" id="m23">One hour later ...</p>
+<p class="normaltext">Come on, Johnny.</p>
+<p class="normaltext">Where are we going?</p>
+<p class="normaltext">It's a surprise.</p>
+<p class="normaltext">A nice one.</p>
+<p class="normaltext">Wait a minute! This is MY house. I don't want to go home!</p>
+<p class="normaltext">Now you're in BIG trouble.</p>
+<p class="normaltext">Quick, Sam! Knock on the door!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">一小时以后……</p>
+<p class="normaltext">快点儿，约翰尼。</p>
+<p class="normaltext">我们要去哪儿呀？</p>
+<p class="normaltext">一个你想不到的地方。</p>
+<p class="normaltext">一个好地方。</p>
+<p class="normaltext">等等！这是我家！我不想回家！</p>
+<p class="normaltext">现在你们惹上大麻烦了。</p>
+<p class="normaltext">快点儿，萨姆！快敲门！</p>
+<hr/>
+<p class="normaltext" id="m24">Good evening.</p>
+<p class="normaltext">Mr and Mrs Dorset? Here's your money!</p>
+<p class="normaltext">And here's your son.</p>
+<p class="normaltext">I can hold him for about ten minutes.</p>
+<p class="normaltext">Let's go, Sam!</p>
+<p class="normaltext4">(You Are Now Leaving the Town of Summit</p>
+<p class="normaltext4">Have a Nice Day!)</p>
+<p class="normaltext">We are not having a nice day!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">晚上好。</p>
+<p class="normaltext">是多塞特先生和太太吗？这是你们要的钱！</p>
+<p class="normaltext">还有你们的儿子。</p>
+<p class="normaltext">我大概可以拽住他十分钟。</p>
+<p class="normaltext">咱们走吧，萨姆！</p>
+<p class="normaltext4">（您即将离开萨米特镇</p>
+<p class="normaltext4">祝您愉快！）</p>
+<p class="normaltext">我们过得可并不愉快！</p>
+<hr/>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06426.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

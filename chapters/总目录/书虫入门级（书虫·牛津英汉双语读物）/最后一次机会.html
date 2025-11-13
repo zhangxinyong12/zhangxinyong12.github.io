@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最后一次机会 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '最后一次机会';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>最后一次机会</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">最后一次机会</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">LAST CHANCE</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">Last Chance</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="mllj1"><img src="../../../Images/image06864.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字：01-2013-7803</p>
+<p class="normaltext0">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext0">© Oxford University Press 2008</p>
+<p class="normaltext0">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">最后一次机会：英汉对照／（英）伯罗斯（Burrows, P.），（英）福斯特（Foster, M.）著；赵路路译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Last chance</p>
+<p class="normaltext">ISBN 978-7-5135-3760-5</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①最…　Ⅱ．①伯…　②福…　③赵…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272355号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">出版人　　蔡剑峰</p>
+<p class="normaltext0">责任编辑　杨镇明</p>
+<p class="normaltext0">封面设计　蔡　颖</p>
+<p class="normaltext0">出版发行　外语教学与研究出版社</p>
+<p class="normaltext0">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext0">网　　址　http://www.fltrp.com</p>
+<p class="normaltext0">版　　次　2013年12月第1版</p>
+<p class="normaltext0">书　　号　ISBN 978-7-5135-3760-5</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">制售盗版必究　举报查实奖励</p>
+<p class="normaltext0">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">内容简介</p>
+<p class="normaltextx">“出去找点儿新闻，”弗兰克先生对迈克说，“这是你最后一次机会。”</p>
+<p class="normaltextx">迈克是一名优秀的摄影师，可是他在SFX新闻部的老板弗兰克先生却不这么认为。迈克生活得很不错，他需要这份工作。他能做些什么呢？</p>
+<p class="normaltextx">夏威夷有一座火山正在喷发——这是发掘好新闻的良机。迈克去那里拍摄，然而火山非常危险，于是他明白了有些事情比他的工作或者他的摄像机更为重要。</p>
+<p class="normaltextx">这的确是他的最后一次机会……</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">LAST CHANCE</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">LAST CHANCE</p>
+<p class="normaltext0">'Go away and find some news,' says Mr Frank to Mike. 'This is your last chance.'</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Mike is a good cameraman but his boss at SFX News, Mr Frank, doesn't think so. Mike has a nice life and he needs his job. What can he do?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">In Hawaii a volcano is erupting – a good chance for a good story. Mike goes there to film the story, but it is dangerous on the volcano and he learns that some things are more important than his job, or his camera.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">This really is his last chance...</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="mulu">CONTENTS<br/>目　录</div>
+  <div class="mulu1"><a href="part0290.xhtml">内容简介</a></div>
+  <div class="mulu1"><a href="part0293.xhtml">Last Chance</a></div>
+  <div class="normaltext"><br/></div>
+  <div class="mulu1"><a href="part0294.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="mulu1"><a href="part0295.xhtml#mllj1">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="mulu1"><a href="part0296.xhtml">TRANSLATION<br/>参考译文</a></div>
+   <div class="normaltext"><br/></div>
+   <div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">Last Chance</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">LAST CHANCE</p>
+<p class="normaltext0">'Come in here!' says Mike's boss. He is angry – again.</p>
+<p class="normaltexty">Mike is a cameraman and he works for SFX News. His boss, Mr Frank, is angry with him. It is the second time this week.</p>
+<p class="normaltexty">Mike walks slowly into the office. He is in big trouble.</p>
+<p class="normaltexty">'Close the door,' says Mr Frank. There is a video in his hand.</p>
+<p class="normaltexty">'This is bad,' thinks Mike. 'He doesn't like my work.'</p>
+<p class="picture"><img src="../../../Images/image06865.jpeg" alt="alt"/></p>
+<p class="normaltext0">Mr Frank looks at Mike. 'Are you a news cameraman?' he asks.</p>
+<p class="normaltexty">'Yes, of course,' says Mike.</p>
+<p class="normaltexty">'Well, this isn't news.' He throws the video at the door. 'It's... it's... I have a three-year-old son. He can do better. Go away and find some news. I want a film that hits me here.' Mr Frank puts his hand on his heart.</p>
+<p class="normaltexty">'And Mike...'</p>
+<p class="normaltexty">'Yes, Boss?'</p>
+<p class="normaltexty">'This is your last chance.'</p>
+<p class="picture"><img src="../../../Images/image06866.jpeg" alt="alt"/></p>
+<p class="normaltext0">Mike walks slowly out of Mr Frank's office. His face is red.</p>
+<p class="normaltexty">'He can't talk to me like that,' he thinks. 'I'm a good cameraman. I'm unlucky, that's all. But I can't be angry with him because I need my job.'</p>
+<p class="normaltexty">Mike sits on his chair and looks out of the window. He sees an old man sitting in his garden. He feels tired. 'Am I too old for this job?' thinks Mike. 'Am I too tired?'</p>
+<p class="picture"><img src="../../../Images/image06867.jpeg" alt="alt"/></p>
+<p class="normaltext0">There is a newspaper on Mike's desk. He picks it up and reads it. There is a volcano in Hawaii. The volcano is erupting and people are leaving. Mike sees a photograph of the volcano. It looks dangerous. 'Hmm. Maybe...' he thinks.</p>
+<p class="normaltexty">Mr Frank walks past. 'Reading the newspaper?' he says. 'Remember – this is your last chance.'</p>
+<p class="normaltexty">Mike feels very angry but he says nothing. 'This is bad,' he thinks. 'I must go to Hawaii and make an exciting film.'</p>
+<p class="picture"><img src="../../../Images/image06868.jpeg" alt="alt"/></p>
+<p class="normaltext0">Mike gets in his car and quickly drives home. He has a nice car. It is fast and he loves it. It is also expensive. He needs to work.</p>
+<p class="normaltexty">Mike stops the car next to his house. He goes in the house. 'What do I need?' he thinks. He puts some clothes in a bag and picks it up.</p>
+<p class="normaltexty">'One more thing,' he thinks. 'My video camera.' He picks up his camera and gives it a kiss. 'We can do it, old friend,' he says.</p>
+<p class="picture"><img src="../../../Images/image06869.jpeg" alt="alt"/></p>
+<p class="normaltext0">Later that day, Mike takes a plane to Hawaii. There are only seven people on the plane. He looks out of the window. 'Hawaii is beautiful!' he thinks. There are big waves on the sea. 'I would like to go surfing,' thinks Mike. 'Perhaps another time.'</p>
+<p class="normaltexty">But as the plane gets closer, the sky is very dark.</p>
+<p class="normaltexty">At the airport lots of people are running. Some people are crying. 'The volcano is erupting,' they say to Mike. 'Why are you here?'</p>
+<p class="normaltexty">'I'm here because I'm a news cameraman. A <span class="xt">good</span> news cameraman,' he tells them. He can see the volcano. It is a long way away. There is black smoke and red fire. 'Is this a good idea?' thinks Mike.</p>
+<p class="picture"><img src="../../../Images/image06870.jpeg" alt="alt"/></p>
+<p class="normaltext0">Some news people are leaving Hawaii. They are getting on a plane. Mike talks to them. A girl tells him that the volcano is very dangerous.</p>
+<p class="normaltexty">'I think my friend Jenny is there. She wants to make a film, too. Is she alive or dead? I don't know,' says the girl. 'You must come with us,' she says, 'You can't go to the volcano.'</p>
+<p class="normaltexty">'I want to leave the island,' thinks Mike. 'I don't want to die, but...'</p>
+<p class="normaltexty">'I can't go with you. I have work to do,' he says.</p>
+<p class="picture"><img src="../../../Images/image06871.jpeg" alt="alt"/></p>
+<p class="normaltext0">'OK,' says the girl. 'Look out for my friend Jenny. She has big blue eyes. Please tell her to leave the island.'</p>
+<p class="normaltexty">'OK,' says Mike. He says goodbye to the girl. He watches the plane leave. 'This really is my last chance,' he thinks.</p>
+<p class="picture"><img src="../../../Images/image06872.jpeg" alt="alt"/></p>
+<p class="normaltext0">Just then the volcano makes a big noise. A dog runs quickly past. An old woman starts to cry. Mike looks at her. He wants to say something but he can't. The sun is hot but suddenly he is cold. He is afraid.</p>
+<p class="normaltexty">'I can't be afraid,' he says. He looks at his camera and says, 'Let's go, old friend.'</p>
+<p class="normaltexty">Mike walks through the town. The sky is getting darker. The red fire over the volcano is getting bigger and bigger. Mike is feeling more afraid.</p>
+<p class="picture"><img src="../../../Images/image06873.jpeg" alt="alt"/></p>
+<p class="normaltext0">In the town Mike meets a man. The man is leaving with his family. 'How can I get to the volcano?' Mike asks.</p>
+<p class="normaltexty">'Cars don't go to the volcano,' says the man. 'The drivers are afraid. You must walk.'</p>
+<p class="normaltexty">'Is it far?' asks Mike.</p>
+<p class="normaltexty">'No,' says the man. 'But the fire is hot. Take lots of water with you.'</p>
+<p class="normaltexty">There is a television in a shop window. It is not showing pictures of the volcano. 'I am the only news person here,' Mike thinks. 'I have a chance to make the only film about the volcano. I must go.'</p>
+<p class="normaltexty">The road in front of him is very long. His legs feel tired but he begins to walk.</p>
+<p class="picture"><img src="../../../Images/image06874.jpeg" alt="alt"/></p>
+<p class="normaltext0">After two long hours, Mike is on the volcano. There is a lot of smoke and a lot of fire. Mike can't see any people.</p>
+<p class="normaltexty">'I must be quick,' he thinks. Mike films the smoke and the fire. A big rock nearly hits him but he films it. 'This film is good,' he thinks.</p>
+<p class="normaltexty">He is afraid but happy. 'How can Mr Frank be angry now?' Mike thinks. He is taking lots of film.</p>
+<p class="picture"><img src="../../../Images/image06875.jpeg" alt="alt"/></p>
+<p class="normaltext0">Another rock almost hits him. Mike feels hot and tired. 'It's time to go,' says Mike. 'Good job!' he says to his camera.</p>
+<p class="normaltexty">A bigger rock goes over his head. 'I don't like this. I must go now,' he says. Mike can smell the smoke. He can feel the fire.</p>
+<p class="picture"><img src="../../../Images/image06876.jpeg" alt="alt"/></p>
+<p class="normaltext0">Mike puts his camera under his arm. He starts to run. Just then the volcano makes a noise. Mike runs faster. Suddenly, he hears a different noise.</p>
+<p class="normaltexty">'Is that a woman?' thinks Mike. 'It can't be. There is nobody here.'</p>
+<p class="normaltexty">He starts to run again, but then...</p>
+<p class="normaltexty">'Help!'</p>
+<p class="normaltexty">'It <span class="xt">is</span> somebody. They need me,' he thinks. 'Hello,' he says. 'Where are you?' Mike looks everywhere, but he can't see anybody.</p>
+<p class="picture"><img src="../../../Images/image06877.jpeg" alt="alt"/></p>
+<p class="normaltext0">'I'm here. Please help me!'</p>
+<p class="normaltexty">Mike sees something behind a rock. It moves. He goes to the rock and sees a young woman there. She can't move her leg because it is under the rock.</p>
+<p class="normaltexty">'Oh, thank you. Thank you,' she says to Mike. She begins to cry. 'My leg. I think it's broken.'</p>
+<p class="picture"><img src="../../../Images/image06878.jpeg" alt="alt"/></p>
+<p class="normaltext0">'Wait a minute,' says Mike. 'I can help.'</p>
+<p class="normaltexty">He pushes the rock. It is too big. There are small rocks in front. He pushes them away then pushes the big rock again. It moves a little. He pushes harder. It moves a little more.</p>
+<p class="normaltexty">'Aargh,' cries the woman.</p>
+<p class="normaltexty">Suddenly the rock moves down the volcano.</p>
+<p class="normaltexty">The woman's face is white. She smiles slowly.</p>
+<p class="picture"><img src="../../../Images/image06879.jpeg" alt="alt"/></p>
+<p class="normaltext0">'Are you Jenny?' Mike asks.</p>
+<p class="normaltexty">'Yes, I am!' she says. 'How do you know?'</p>
+<p class="normaltexty">'It doesn't matter now. My name is Mike. I have to carry you, Jenny. But first...'</p>
+<p class="normaltexty">Mike has a tripod. He ties it to Jenny's leg. 'Does that feel better?' he asks.</p>
+<p class="normaltexty">Jenny smiles again. 'Thank you, Mike,' she says. She is very tired. 'I'm usually very careful – but not today.'</p>
+<p class="normaltexty">'Come on. We have to get off the volcano,' says Mike.</p>
+<p class="picture"><img src="../../../Images/image06880.jpeg" alt="alt"/></p>
+<p class="normaltext0">'Put your arm around me,' Mike tells Jenny. He puts down his camera. Jenny gets up slowly. Her leg is very bad.</p>
+<p class="normaltexty">'Take it easy,' Mike says. They start to walk very slowly.</p>
+<p class="normaltexty">'It's okay,' he says. 'You're okay.'</p>
+<p class="normaltexty">Metre by metre they move down the volcano. They are almost hit by rocks. Black smoke is in their mouths. Hot fire is close behind them. But they are alive.</p>
+<p class="picture"><img src="../../../Images/image06881.jpeg" alt="alt"/></p>
+<p class="normaltext0">'Mike – wait,' says Jenny suddenly. 'Your camera!' She stops walking. Her face is black with smoke. Jenny's blue eyes look at Mike.</p>
+<p class="normaltexty">Mike looks back at Jenny. 'You're more important than my camera,' he tells her.</p>
+<p class="normaltexty">'But the volcano... I can wait here. You go back. It's not too late.'</p>
+<p class="normaltexty">Mike says nothing.</p>
+<p class="normaltexty">They keep walking slowly down the volcano – and away from Mike's camera.</p>
+<p class="picture"><img src="../../../Images/image06882.jpeg" alt="alt"/></p>
+<p class="normaltext0">Jenny is now very tired. Her leg is badly broken. Mike stops behind a big rock.</p>
+<p class="normaltexty">'Do you want some water?' he asks.</p>
+<p class="normaltexty">Mike has some water in his bag. Jenny and Mike are both thirsty. They drink the water.</p>
+<p class="normaltexty">Jenny begins to go to sleep. 'This is dangerous. Jenny must stay alive,' Mike thinks. 'Don't go to sleep, Jenny. Talk to me. Where is your home? Tell me about your family. Do you like books?'</p>
+<p class="normaltexty">They walk and Jenny talks. When she stops talking, Mike asks another question.</p>
+<p class="normaltexty">They are almost off the volcano. Mike looks back. Where is his camera? Is it in the fire?</p>
+<p class="picture"><img src="../../../Images/image06883.jpeg" alt="alt"/></p>
+<p class="normaltext0">They are off the volcano. Mike sits down next to Jenny. He puts his head in his hands.</p>
+<p class="normaltexty">'What's the matter?' asks Jenny.</p>
+<p class="normaltexty">'Everything,' says Mike. 'I have no camera and no film. Now I don't have a job. There are no more chances.'</p>
+<p class="normaltexty">Jenny puts her arm around him. 'It's okay.'</p>
+<p class="picture"><img src="../../../Images/image06884.jpeg" alt="alt"/></p>
+<p class="normaltext0">Two hours later, they walk into the town. People come out to see them.</p>
+<p class="normaltexty">'Are you all right?' they ask Jenny.</p>
+<p class="normaltexty">'I have a broken leg, but I am alive,' she says, and looks at Mike. 'Thank you, Mike.' He smiles.</p>
+<p class="normaltexty">'There is a helicopter waiting for you,' says a man in a suit. 'It is leaving the island. You must get on quickly.' The man helps them into the helicopter.</p>
+<p class="normaltexty">In the helicopter, a man says to Mike, 'Do you need anything?'</p>
+<p class="normaltexty">'My camera,' he says. 'But it is on the volcano. My camera is my best friend and oldest friend.' Mike closes his eyes and goes to sleep.</p>
+<p class="picture"><img src="../../../Images/image06885.jpeg" alt="alt"/></p>
+<p class="normaltext0">Mike is now at home. He does not want to see his boss, Mr Frank. Then one morning he hears the telephone. 'Hello?' he says.</p>
+<p class="normaltexty">'This is Mr Frank. You must come to work tomorrow. I need to talk to you. Goodbye.'</p>
+<p class="normaltexty">The next day, Mike goes to work. His friends are happy to see him. 'Well done, Mike,' they say.</p>
+<p class="normaltexty">'Thanks,' says Mike. He is happy to see his friends, but he is afraid of Mr Frank.</p>
+<p class="normaltexty">His boss sees him. 'You, get in here.'</p>
+<p class="normaltexty">'This is it,' thinks Mike.</p>
+<p class="picture"><img src="../../../Images/image06886.jpeg" alt="alt"/></p>
+<p class="normaltext0">In the office Mr Frank looks at Mike. He has something in his hands. 'Do you remember the people in the helicopter?' he asks.</p>
+<p class="normaltexty">'Yes,' says Mike.</p>
+<p class="normaltexty">'They remember you. I think you need to thank them.' He moves his hands. There is Mike's camera.</p>
+<p class="normaltexty">'My camera!' says Mike.</p>
+<p class="normaltexty">'The camera is broken,' says Mr Frank. 'But we have the film and it's very good.' He smiles.</p>
+<p class="normaltexty">'My old friend,' says Mike to his camera. He gives it a kiss.</p>
+<p class="normaltexty">'Let's watch your video,' Mr Frank says.</p>
+<p class="picture"><img src="../../../Images/image06887.jpeg" alt="alt"/></p>
+<p class="normaltext0">They watch the film on the TV. They can see Mike and Jenny. Mike moves the big rock. He helps Jenny to walk. Big rocks are falling out of the sky. The volcano makes a noise. The fire is red and the smoke is black. It is very exciting.</p>
+<p class="normaltexty">'Next time, remember to turn it off. Or maybe not!' says Mr Frank. 'This video hits me... right here!'</p>
+<p class="normaltexty">Then Mr Frank says, 'Oh, and Mike – we have a new news person.'</p>
+<p class="normaltexty">Jenny comes into the room. She isn't black with smoke now. She smiles at Mike. 'She's beautiful,' Mike thinks. 'She hits me... right here!'</p>
+<p class="picture"><img src="../../../Images/image06888.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">GLOSSARY　词汇表</p>
+<p class="normaltext3"><b>around</b> <span class="xt">prep</span>. all the way round　<span class="normaltext0x">环绕，在…周围</span></p>
+<p class="normaltext3"><b>boss</b> <span class="xt">n</span>. a person who tells workers what to do　<span class="normaltext0x">老板，上司</span></p>
+<p class="normaltext3"><b>broken</b> <span class="xt">adj</span>. in pieces or not working　<span class="normaltext0x">断裂的；损坏的</span></p>
+<p class="normaltext3"><b>camera</b> <span class="xt">n</span>. a thing you use for taking photographs or moving pictures　<span class="normaltext0x">照相机；摄像机</span></p>
+<p class="normaltext3"><b>cameraman</b> <span class="xt">n</span>. a person who films　<span class="normaltext0x">摄影师</span></p>
+<p class="normaltext3"><b>carry</b> <span class="xt">v</span>. to take　<span class="normaltext0x">背，送</span></p>
+<p class="normaltext3"><b>chance</b> <span class="xt">n</span>. when something can happen　<span class="normaltext0x">机会</span></p>
+<p class="normaltext3"><b>dangerous</b> <span class="xt">adj</span>. that can kill you　<span class="normaltext0x">危险的</span></p>
+<p class="normaltext3"><b>erupt</b> <span class="xt">v</span>. to throw out gas, hot rocks, and liquid rocks　<span class="normaltext0x">喷发，爆发</span></p>
+<p class="normaltext3"><b>exciting</b> <span class="xt">adj</span>. making you feel very happy　<span class="normaltext0x">令人兴奋的，刺激的，惊心动魄的</span></p>
+<p class="normaltext3"><b>film</b> <span class="xt">v</span>. to use cameras to make a movie　<span class="normaltext0x">拍摄（影片），把…拍成电影；</span><span class="xt">n</span>. moving pictures that tell a story　<span class="normaltext0x">影片，电影</span></p>
+<p class="normaltext3"><b>idea</b> <span class="xt">n</span>. something that you think　<span class="normaltext0x">主意，想法</span></p>
+<p class="normaltext3"><b>job</b> <span class="xt">n</span>. work　<span class="normaltext0x">工作；职位</span></p>
+<p class="normaltext3"><b>kiss</b> <span class="xt">v</span>. to touch lovingly with your mouth　<span class="normaltext0x">吻，亲吻</span></p>
+<p class="normaltext3"><b>surfing</b> <span class="xt">n</span>. standing or lying on a flat board when the sea carries you back to the beach　<span class="normaltext0x">冲浪（运动）</span></p>
+<p class="normaltext3"><b>throw</b> <span class="xt">v</span>. to make something move from your hand through the air　<span class="normaltext0x">扔，投，拋</span></p>
+<p class="normaltext3"><b>trouble</b> <span class="xt">n</span>. problems　<span class="normaltext0x">麻烦，问题</span></p>
+<p class="normaltext3"><b>unlucky</b> <span class="xt">adj</span>. when something bad happens to you　<span class="normaltext0x">不幸的，不走运的</span></p>
+<p class="normaltext3"><b>volcano</b> <span class="xt">n</span>. a mountain with a hole in the top where fire, gas, and hot liquid rock sometimes come out　<span class="normaltext0x">火山</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">Last Chance</p>
+<p class="sx1"></p>
+<p class="subtitle1" id="mllj1">ACTIVITIES<br/>阅读练习</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><span class="xt">Before Reading</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Look at the front cover of the book. Answer these questions.</p>
+<p class="normaltextaa">1) The main character in the story is...</p>
+<p class="normaltexta2">a □ a gardener</p>
+<p class="normaltexta2">b □ a student</p>
+<p class="normaltexta2">c □ a cameraman</p>
+<p class="normaltextaa">2) The story happens...</p>
+<p class="normaltexta2">a □ in an office</p>
+<p class="normaltexta2">b □ in an airport</p>
+<p class="normaltexta2">c □ on a volcano</p>
+<p class="normaltext04">2 Read the story introduction and <a href="part0298.xhtml">back cover</a> of the book. Answer these questions.</p>
+<p class="normaltextaa">1) How will the story make you feel?</p>
+<p class="normaltexta2">a □ Happy</p>
+<p class="normaltexta2">b □ Sad</p>
+<p class="normaltexta2">c □ Excited</p>
+<p class="normaltextaa">2) Who has one 'last chance'?</p>
+<p class="normaltexta2">a □ Mr Frank</p>
+<p class="normaltexta2">b □ Mike</p>
+<p class="normaltexta2">c □ Jenny</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><span class="xt">While Reading</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Now answer these questions.</p>
+<p class="normaltexta">1) Where is the volcano?</p>
+<p class="normaltexta">2) What is the name of Mike's boss?</p>
+<p class="normaltexta">3) What is Mike's job?</p>
+<p class="normaltexta">4) What does Mike see through the window?</p>
+<p class="normaltexta">5) Mike's boss has a son. How old is he?</p>
+<p class="normaltexta">6) Is Mike happy?</p>
+<p class="normaltext04">2 Now make these sentences correct.</p>
+<p class="normaltexta">1) There are only three people on the plane.</p>
+<p class="normaltexta">2) There are big birds on the sea.</p>
+<p class="normaltexta">3) A girl tells him that the volcano is very beautiful.</p>
+<p class="normaltexta">4) Her friend has big green eyes.</p>
+<p class="normaltext04">3 Put these sentences in the correct order. Number them 1-4.</p>
+<p class="normaltexta">a □ Mike starts to run away.</p>
+<p class="normaltexta">b □ Mike hears someone shout, 'Help!'</p>
+<p class="normaltexta">c □ A man says Mike must walk to the volcano.</p>
+<p class="normaltexta">d □ A big rock nearly hits Mike.</p>
+<p class="normaltext04">4 Now answer these questions.</p>
+<p class="normaltextaa">Who...</p>
+<p class="normaltexta">1) ... says, 'Take it easy.'?</p>
+<p class="normaltexta">2) ... has a white face?</p>
+<p class="normaltextaa">What ...</p>
+<p class="normaltexta">3) ... is on Jenny's leg?</p>
+<p class="normaltexta">4) ... does Mike tie to Jenny's leg?</p>
+<p class="normaltext04">5 Now answer these questions.</p>
+<p class="normaltexta">1) Why is Mike unhappy?</p>
+<p class="normaltexta">a □ Because he has a bad leg.</p>
+<p class="normaltexta">b □ Because he doesn't want to leave the volcano.</p>
+<p class="normaltexta">c □ Because he doesn't have his camera.</p>
+<p class="normaltextaa">2) What does Mike have in his bag?</p>
+<p class="normaltexta">a □ A sandwich.</p>
+<p class="normaltexta">b □ A menu.</p>
+<p class="normaltexta">c □ Some water.</p>
+<p class="normaltext04">6 Before you read the end of the story, what do you think happens?</p>
+<p class="normaltexta">1) Jenny finds Mike's camera.</p>
+<p class="normaltext1"><span class="xt">Yes</span> □　<span class="xt">No</span> □</p>
+<p class="normaltexta">2) Mr Frank is pleased with Mike.</p>
+<p class="normaltext1"><span class="xt">Yes</span> □　<span class="xt">No</span> □</p>
+<p class="normaltexta">3) Mike loses his job.</p>
+<p class="normaltext1"><span class="xt">Yes</span> □　<span class="xt">No</span> □</p>
+<p class="normaltexta">4) Mike kisses his camera.</p>
+<p class="normaltext1"><span class="xt">Yes</span> □　<span class="xt">No</span> □</p>
+<p class="normaltexta">5) Mike kisses Jenny.</p>
+<p class="normaltext1"><span class="xt">Yes</span> □　<span class="xt">No</span> □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><span class="xt">After Reading</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 What do you know about Mike? Write about him using these words:</p>
+<p class="normaltextaa"><span class="xt">job / cameraman / good</span></p>
+<p class="normaltexta"><span class="xt">boss / nasty / afraid</span></p>
+<p class="normaltexta"><span class="xt">drive / car / fast</span></p>
+<p class="normaltexta"><span class="xt">best friend / camera</span></p>
+<p class="normaltexta"><span class="xt">like surfing</span></p>
+<p class="normaltext04">2 Make four complete sentences. Use these words:</p>
+<p class="normaltextaa"><span class="xt">and / but / when / because</span></p>
+<p class="normaltextaa">1) Mike loses his camera ...</p>
+<p class="normaltexta">2) Mike pushes the rock ...</p>
+<p class="normaltexta">3) Mr Frank is angry ...</p>
+<p class="normaltexta">4) The volcano erupts ...</p>
+<p class="normaltextaa">a) ... black smoke comes out of the top.</p>
+<p class="normaltexta">b) ... he helps Jenny on the volcano.</p>
+<p class="normaltexta">c) ... it is too big to move.</p>
+<p class="normaltexta">d) ... Mike does not make good films.</p>
+<p class="normaltext04">3 Who says these words? Who do they say it to?</p>
+<p class="normaltexta">1) 'This is your last chance.'</p>
+<p class="normaltexta">2) 'We can do it, old friend.'</p>
+<p class="normaltexta">3) 'Look out for my friend Jenny.'</p>
+<p class="normaltexta">4) 'Take lots of water with you.'</p>
+<p class="normaltexta">5) 'I'm here. Please help me!'</p>
+<p class="normaltexta">6) 'Don't go to sleep, Jenny.'</p>
+<p class="normaltext04">4 Complete this summary of the story. Use these words:</p>
+<p class="normaltext5"><span class="xt">boss / like / job / Jenny / volcano / rock<br/>helicopter / hears / camera / chance</span></p>
+<p class="normaltexta1">Mike is in trouble because his _________ does not _________ his work. Mr Frank gives Mike one last _________.</p>
+<p class="normaltexta1">He goes to Hawaii to film a _________. He _________ a woman shout 'Help!' when he is filming. The woman is called _________. Her leg is under a _________. Mike moves the rock and carries her down the volcano, but he loses his _________. He thinks he will lose his job too. But a _________ finds his camera and the film is very good. Mike's boss is very happy. Mike is also happy when Jenny gets a _________ working with him.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle">TRANSLATION　参考译文</p>
+<p class="title1">Last Chance<br/><span class="0x">最后一次机会</span></p>
+<p class="normaltextx">“进来！”迈克的老板说。他又一次生气了。</p>
+<p class="normaltextx">迈克是一名摄影师，在SFX新闻部工作。他的老板弗兰克先生在生他的气。这是本周的第二次。</p>
+<p class="normaltextx">迈克慢慢地走进办公室。他有大麻烦了。</p>
+<p class="normaltextx">“关上门。”弗兰克先生说。他手里拿着一盘录像带。</p>
+<p class="normaltextx">“糟糕，”迈克心想，“他不喜欢我拍的东西。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">弗兰克先生看着迈克。“你是新闻摄影师吗？”他问道。</p>
+<p class="normaltextx">“是，当然是。”迈克说。</p>
+<p class="normaltextx">“但这不是新闻。”他把录像带朝门口扔去。“这东西……这东西……我有个3岁的儿子，他都能做得比你好。去外面找点儿新闻吧。我想要一个能打动我这里的片子。”弗兰克先生把手放在自己的心口处。</p>
+<p class="normaltextx">“还有，迈克……”</p>
+<p class="normaltextx">“什么，老板？”</p>
+<p class="normaltextx">“这是你最后一次机会。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">迈克慢慢地走出弗兰克先生的办公室。他满脸通红。</p>
+<p class="normaltextx">“他不能那样跟我说话，”迈克想，“我是个很好的摄影师，只是运气不好而已。但是我不能生他的气，因为我需要这份工作。”</p>
+<p class="normaltextx">迈克坐在椅子上往窗外望去。他看见一个老人坐在自家的花园里。他感觉很疲惫。“是我太老了，不适合做这份工作了吗？”迈克想，“我是不是太累了？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">迈克的桌上有一份报纸，他拿起来看。夏威夷有座火山在喷发，人们在撤离。迈克看到一张火山的照片，火山看上去很危险。“嗯，也许……”他想。</p>
+<p class="normaltextx">弗兰克先生从门口走过。“在看报？”他说，“记住，这是你最后一次机会。”</p>
+<p class="normaltextx">迈克非常生气，但他什么也没说。“情况不妙，”他想，“我必须去一趟夏威夷，拍个刺激的片子。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">迈克上了自己的车并迅速开车回家。他的车不错，车速很快，他非常喜欢。养车也很费钱，所以他需要工作。</p>
+<p class="normaltextx">迈克把车停在家门旁边，走进屋子。“我需要带些什么呢？”他想。他把几件衣服放进一个包里，拎了起来。</p>
+<p class="normaltextx">“还有个东西，”他想，“我的摄像机。”他拿起摄像机亲吻了一下。“我们能行，老伙计。”他说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">当天晚些时候，迈克乘坐飞机前往夏威夷。飞机上只有7个人。他望向窗外。“夏威夷真美！”他想。海面上波涛汹涌。“我想去冲浪，”他想，“或许下次吧。”</p>
+<p class="normaltextx">然而当飞机接近夏威夷的时候，天空非常阴暗。</p>
+<p class="normaltextx">机场上许多人在奔跑。有些人在哭。“火山正在喷发，”他们对迈克说，“你为什么来这里呢？”</p>
+<p class="normaltextx">“我来这儿是因为我是一名新闻摄影师，一名<span class="dashed">优秀的</span>新闻摄影师。”他告诉他们。他能看见火山。火山离得很远，那里有黑色的烟和红色的火。“这是个好主意吗？”迈克想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">一些记者正在撤离夏威夷。他们登机时，迈克向他们打听情况。一个女孩告诉他火山非常危险。</p>
+<p class="normaltextx">“我想我的朋友珍妮在那里。她也想拍个片子。我不知道她现在是生是死。”这个女孩说。“你必须跟我们一起离开，”她说，“你不能去火山。”</p>
+<p class="normaltextx">“我想离开这个岛，”迈克想，“我不想死，可是……”</p>
+<p class="normaltextx">“我不能和你们一起走，我有工作要做。”他说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">“好吧，”女孩说，“留意一下我的朋友珍妮。她有一双蓝色的大眼睛。请叫她离开这个岛。”</p>
+<p class="normaltextx">“好的。”迈克说。他跟女孩告别后目送着飞机飞走了。“这的确是我最后一次机会了。”他想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">这时，火山发出一声巨响。一只狗飞跑而过。一位老太太哭了起来。迈克看着她，想说些什么却说不出话来。太阳火辣辣的，但是他忽然感觉很冷。他害怕了。</p>
+<p class="normaltextx">“我不能害怕。”他说。他看了看摄像机后说：“我们过去吧，老伙计。”</p>
+<p class="normaltextx">迈克步行穿过城里。天空越来越暗，火山上红色的火正在蔓延，火势越来越大。迈克感到更害怕了。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">在城里迈克遇到一个男人。他正和家人一起撤离。“我怎么才能到火山呢？”迈克问。</p>
+<p class="normaltextx">“汽车不会去火山，”那人说，“司机们很害怕。你只能走着去。”</p>
+<p class="normaltextx">“离这儿远吗？”迈克问。</p>
+<p class="normaltextx">“不远，”那人说，“但是火烤得慌，要带上大量的水。”</p>
+<p class="normaltextx">一家商店的橱窗里有台电视机。它没有播放火山的画面。“我是这里唯一的记者，”迈克想，“我有机会成为唯一一个拍摄火山片子的人，我必须要去。”</p>
+<p class="normaltextx">前面有很长一段路要走。他觉得两腿乏力，但是他还是迈开步往前走。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">漫长的两个小时后，迈克来到了火山边上。那里烟雾弥漫，火势凶猛。迈克一个人也看不见。</p>
+<p class="normaltextx">“我必须得快点儿。”他想。迈克拍下烟雾和大火。一块大石头差点儿砸中他，但是他把这块石头也拍下来了。“这个片子不错。”他想。</p>
+<p class="normaltextx">他心里既害怕又高兴。“这一回弗兰克先生还会生气吗？”迈克想。他拍摄了许多画面。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">又有一块石头差点砸中他。迈克感到又热又累，“该走了。”迈克说。“干得不错！”他对自己的摄像机说。</p>
+<p class="normaltextx">一块更大的石头从他头上飞过。“我不喜欢这样冒险。我现在必须走了。”他说。迈克能闻到烟味儿，感受到火的炙烤。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">迈克用胳膊夹住摄像机，开始往下跑。这时火山发出一声轰响。迈克加快了速度。忽然，他听见了一个异样的声音。</p>
+<p class="normaltextx">“是个女人吗？”迈克想，“不可能，这儿没有其他人。”</p>
+<p class="normaltextx">他又开始跑了，但是这时……</p>
+<p class="normaltextx">“救命！”</p>
+<p class="normaltextx">“<span class="dashed">确实</span>有人，这人需要我。”他想。“喂，”他说，“你在哪儿？”迈克四处张望，可一个人也看不到。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">“我在这儿。请帮帮我！”</p>
+<p class="normaltextx">迈克看见一块石头后面有什么东西。它在动。他走过去，看见那儿有一个姑娘。她的一条腿被一块石头压住了，她没法挪动。</p>
+<p class="normaltextx">“啊，谢谢你，谢谢你。”她对迈克说。她接着哭了起来，“我的腿，我想它已经断了。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">“稍等一会儿，”迈克说，“我能帮忙。”</p>
+<p class="normaltextx">他推了推那块石头。石头太大了，而且前面还有一些小石头。他先把小石头清走，然后再推那块大石头。石头移动了一点儿，他更用力地推，石头又动了一点儿。</p>
+<p class="normaltextx">“哎哟。”姑娘大叫一声。</p>
+<p class="normaltextx">突然石头滚下了火山。</p>
+<p class="normaltextx">姑娘面色煞白。她慢慢地露出了笑容。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">“你是珍妮吗？”迈克问。</p>
+<p class="normaltextx">“是的，我是！”她说，“你怎么会知道？”</p>
+<p class="normaltextx">“这个现在不重要。我叫迈克。我得送你下去，珍妮。但是首先……”</p>
+<p class="normaltextx">迈克有一个三脚架，他把它绑在珍妮腿上。“这样感觉好些吗？”他问。</p>
+<p class="normaltextx">珍妮又笑了笑。“谢谢你，迈克。”她说。她非常累。“我一般都很小心——但今天冒失了。”</p>
+<p class="normaltextx">“振作起来。我们必须离开火山。”迈克说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">“把胳膊搭在我肩膀上。”迈克告诉珍妮。他放下摄像机。珍妮慢慢地站起来。她的腿伤得很重。</p>
+<p class="normaltextx">“放松点儿。”迈克说。他们开始缓慢地行走。</p>
+<p class="normaltextx">“没问题，”他说，“你可以的。”</p>
+<p class="normaltextx">他们慢慢地往火山下面走，差点儿被石头砸中。他们嘴里满是黑烟，灼热的火就在他们身后不远处。不过他们活着。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">“迈克，等等，”珍妮突然说，“你的摄像机！”她停住了脚步。她的脸被烟雾熏得黑黑的，一双蓝眼睛看着迈克。</p>
+<p class="normaltextx">迈克回看了一下珍妮。“你比我的摄像机更重要。”他告诉她。</p>
+<p class="normaltextx">“但是火山……我可以在这儿等。你回去吧。现在还来得及。”</p>
+<p class="normaltextx">迈克一言不发。</p>
+<p class="normaltextx">他们继续慢慢地走下火山，离迈克的摄像机越来越远。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">珍妮此时很疲惫。她的腿伤非常严重。迈克在一块大石头后边停了下来。</p>
+<p class="normaltextx">“你要喝点儿水吗？”他问。</p>
+<p class="normaltextx">迈克的包里有些水。珍妮和迈克都非常渴。他们喝了些水。</p>
+<p class="normaltextx">珍妮开始想睡。“这样很危险。珍妮必须要活下去，”迈克想，“不要睡，珍妮。跟我说说话。你家在哪里？跟我说说你的家人。你喜欢看书吗？”</p>
+<p class="normaltextx">他们一路走，珍妮则一路说着话。她一停下来，迈克就问她另外一个问题。</p>
+<p class="normaltextx">他们差不多远离火山了。迈克回头看看。他的摄像机在哪儿？会被大火吞噬吗？</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">他们离开了火山。迈克坐到珍妮身边，用双手抱住头。</p>
+<p class="normaltextx">“怎么了？”珍妮问。</p>
+<p class="normaltextx">“全完了，”迈克说，“我没了摄像机和片子，现在工作也丢了。再也没有机会了。”</p>
+<p class="normaltextx">珍妮搂住他，“没事儿的。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">两个小时后，他们走进城里。人们出来看望他俩。</p>
+<p class="normaltextx">“你还好吗？”他们问珍妮。</p>
+<p class="normaltextx">“我的一条腿断了，但我还活着，”珍妮边说边看了看迈克，“谢谢你，迈克。”迈克笑了。</p>
+<p class="normaltextx">“有一架直升机在等你们，”一个穿着西服的人说，“它马上要离开这个岛。你们得赶快登机。”这个人帮助他们上了直升机。</p>
+<p class="normaltextx">在直升机里，一个人对迈克说：“你需要什么吗？”</p>
+<p class="normaltextx">“我的摄像机，”他说，“可它在火山上。我的摄像机是我最好的朋友，也是跟了我最久的朋友。”迈克闭上眼睛睡着了。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">迈克现在回到了家里。他不想见他的老板弗兰克先生。一天早上，他听见电话响了。“喂？”他说。</p>
+<p class="normaltextx">“我是弗兰克。你明天必须来上班，我要跟你谈谈。再见。”</p>
+<p class="normaltextx">第二天，迈克上班去了。他的朋友们见到他都很高兴。“干得好，迈克。”他们说。</p>
+<p class="normaltextx">“谢谢。”迈克说。他很高兴见到他的朋友们，但他害怕见到弗兰克先生。</p>
+<p class="normaltextx">他的老板看见了他，“你，进来。”</p>
+<p class="normaltextx">“这下完了。”迈克想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">办公室里，弗兰克先生看着迈克。他手里拿着什么东西。“你记得直升机里的人吗？”他问。</p>
+<p class="normaltextx">“记得。”迈克说。</p>
+<p class="normaltextx">“他们也记得你。我想你得感谢他们。”他抬起手。原来是迈克的摄像机。</p>
+<p class="normaltextx">“我的摄像机！”迈克说。</p>
+<p class="normaltextx">“这个摄像机坏了，”弗兰克先生说，“不过我们拿到了片子，拍得非常好。”他笑了。</p>
+<p class="normaltextx">“我的老伙计。”迈克对他的摄像机说。他亲吻了它一下。</p>
+<p class="normaltextx">“咱们来看看你拍的东西。”弗兰克先生说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">他们看着电视上播放的录像。他们看见了迈克和珍妮。迈克推开大石头，搀着珍妮走。一些大石头从天而降，火山发出轰响，还有红色的大火和黑色的烟雾。很是惊心动魄。</p>
+<p class="normaltextx">“下次，记得把摄像机关上。或许还是别关了！”弗兰克先生说，“这个录像打动我了……打动了这里！”</p>
+<p class="normaltextx">接着弗兰克先生说：“哦，还有，迈克，我们来了一个新记者。”</p>
+<p class="normaltextx">珍妮走了进来。现在她的脸不再是被烟雾熏得黑乎乎的了。她朝迈克微笑着。“她很美，”迈克心想，“她打动我了……打动了这里！”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06890.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

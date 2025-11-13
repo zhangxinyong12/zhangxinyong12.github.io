@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>监控录像 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '监控录像';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>监控录像</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">监控录像</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">POLICE TV</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">1 The jogger</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">2 TV</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">3 Help me! Quick!</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">4 Man with a knife</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">5 At the police station</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-12" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-13" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="mllj0"><img src="../../../Images/image06678.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字：01-2013-7808</p>
+<p class="normaltext0">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext0">© Oxford University Press 2008</p>
+<p class="normaltext0">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">监控录像：英汉对照／（英）维卡（Vicary, T.）著；（英）蒂格（Teague, D.）绘；刘冰洁译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Police TV</p>
+<p class="normaltext">ISBN 978-7-5135-3778-0</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①监…　Ⅱ．①维…②蒂…③刘…　Ⅲ．①英语－汉语－对照读物②短篇小说－英国－现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第271146号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">出版人　　蔡剑峰</p>
+<p class="normaltext0">责任编辑　罗来鸥</p>
+<p class="normaltext0">封面设计　蔡　颖</p>
+<p class="normaltext0">出版发行　外语教学与研究出版社</p>
+<p class="normaltext0">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext0">网　　址　http://www.fltrp.com</p>
+<p class="normaltext0">版　　次　2013年12月第1版</p>
+<p class="normaltext0">书　　号　ISBN 978-7-5135-3778-0</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">制售盗版必究　举报查实奖励</p>
+<p class="normaltext0">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">内容简介</p>
+<p class="normaltextx">你出去购物时会随身带多少钱？你会不会很小心？有时会有人当街偷钱——这时你就需要警察的帮助。</p>
+<p class="normaltextx">丹、苏和吉姆是伦敦的警察。他们最近很不开心，因为有个小偷每天都从商店附近的人身上偷钱。</p>
+<p class="normaltextx">他们怎样才能找到这个小偷？这个小偷长什么样——是男是女？是老是少？要弄清这些可不容易。</p>
+<p class="normaltextx">他们有什么设备可以帮上忙吗？他们有对讲机——可小偷有手机。丹、苏和吉姆需要一样小偷没有的东西——他们需要监控录像！</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">POLICE TV</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">POLICE TV</p>
+<p class="normaltext0">How much money do you take with you when you go shopping?  Are  you  careful?  Sometimes  people  steal money in the street – then you need the police to help you.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Dan, Sue, and Jim are police officers in London. They are not happy because a robber steals money from people near some shops every day.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">How can they find the robber? What does the robber look like – is it a man or a woman? Old or young? It is not always easy to know.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">What do they have to help them? They have radios – but robbers have phones. Dan, Sue, and Jim need something that the robber doesn't have – they need Police TV!</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">CONTENTS<br/>目　录</div>
+  <div class="contents1"><a href="part0193.xhtml">内容简介</a></div>
+  <div class="contents1"><a href="part0196.xhtml">1 The jogger</a></div>
+  <div class="contents1"><a href="part0197.xhtml">2 TV</a></div>
+  <div class="contents1"><a href="part0198.xhtml">3 Help me! Quick!</a></div>
+  <div class="contents1"><a href="part0199.xhtml">4 Man with a knife</a></div>
+  <div class="contents1"><a href="part0200.xhtml">5 At the police station</a></div>
+  <p class="normaltext"><br/></p>
+  <div class="contents1"><a href="part0201.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="contents1"><a href="part0202.xhtml">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="contents1"><a href="part0203.xhtml">TRANSLATION<br/>参考译文</a></div>
+ <p class="normaltext"><br/></p>
+ <div class="contents1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<p class="normaltext">“书虫”<b>免费</b>增值服务上线！</p>
+<p class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</p>
+<p class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">1 The jogger</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a1">1 THE JOGGER</p>
+<p class="normaltext0">Dan and Sue are police officers in London. It is a Tuesday morning, and Dan is angry.</p>
+<p class="normaltexty">'What's the matter, Dan?' Sue asks.</p>
+<p class="normaltexty">'Look at this,' Dan says. 'Every day someone steals money from people near the shops. We must stop this.'</p>
+<p class="normaltexty">'Yes, of course,' Sue says. 'But who is it?'</p>
+<p class="picture"><img src="../../../Images/image06679.jpeg" alt="alt"/></p>
+<p class="normaltexty">'There is a jogger,' Dan says. 'Every day he runs near the shops. Sometimes he runs into people. Perhaps he steals the money.'</p>
+<p class="normaltexty">'OK,' Sue says. 'Let's go to the shops. Perhaps we can see this jogger.'</p>
+<p class="normaltexty">They sit upstairs in a window over the shops. Dan has a radio. They watch the people in the street.</p>
+<p class="normaltexty">'Look!' Sue says. 'There's the jogger!'</p>
+<p class="picture"><img src="../../../Images/image06680.jpeg" alt="alt"/></p>
+<p class="normaltexty">The young man runs into an old woman, and she falls down. The jogger puts his hand on the old woman's arm. 'I'm sorry,' he says. 'Can I help you? Here's your bag.'</p>
+<p class="normaltexty">Then a young woman shouts at him. 'Don't run here!' she says. 'It's dangerous! Go away!'</p>
+<p class="normaltexty">The young man runs away. Dan talks in his radio. 'Quick! Stop him! He's running up North Street!'</p>
+<p class="normaltexty">A police car stops the young man in North Street.</p>
+<p class="picture"><img src="../../../Images/image06681.jpeg" alt="alt"/></p>
+<p class="normaltexty">'Are you OK now?' Sue asks the old woman.</p>
+<p class="normaltexty">'Yes, thank you. Where is that nice young woman? I can't see her now.'</p>
+<p class="normaltexty">'Have you got all your money?' Sue asks.</p>
+<p class="normaltexty">The old woman looks in her bag. 'No, I haven't! My money's in my purse. But my purse isn't here!'</p>
+<p class="normaltexty">'OK Sue,' Dan says. 'Let's talk to the jogger!'</p>
+<p class="picture"><img src="../../../Images/image06682.jpeg" alt="alt"/></p>
+<p class="normaltexty">'Who are you?' Sue asks the young man.</p>
+<p class="normaltexty">'My name's Peter Jones. Why? Who are you?'</p>
+<p class="normaltexty">'We're police officers. Why do you go running past the shops every day?'</p>
+<p class="normaltexty">'Why not? I like running.'</p>
+<p class="normaltexty">'OK,' Dan says. 'Let's look for the money.'</p>
+<p class="normaltexty">'What money?' Peter Jones asks. 'What are you talking about? I never take money with me when I run.'</p>
+<p class="normaltexty">Dan looks for the money but he cannot find any.</p>
+<p class="picture"><img src="../../../Images/image06683.jpeg" alt="alt"/></p>
+<p class="normaltexty">'Can I go now?' Peter Jones asks.</p>
+<p class="normaltexty">'OK,' Dan says angrily. 'But don't come back!'</p>
+<p class="normaltexty">'Why not?' Peter asks angrily. 'I live here! And I'm not doing anything wrong!' He runs away.</p>
+<p class="normaltexty">'What do we do now?' Sue asks. 'Where is the old woman's money, and her purse?'</p>
+<p class="normaltexty">'I don't know,' says Dan. 'Somebody has it. But who?'</p>
+<p class="picture"><img src="../../../Images/image06684.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">2 TV</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a2">2 TV</p>
+<p class="normaltext0">Dan and Sue go back to the shops. 'I don't understand,' Dan says. 'The jogger hasn't got the money so we must look for someone different.'</p>
+<p class="normaltexty">'Look,' Sue says. 'There's a TV camera over that shop door. Perhaps that can help us.'</p>
+<p class="picture"><img src="../../../Images/image06685.jpeg" alt="alt"/></p>
+<p class="normaltexty">They go into the shop and watch the video.</p>
+<p class="normaltexty">'Look,' Sue says. 'There's the old woman. She's getting money from the bank and putting it into her purse. Now she's putting the purse into the bag.'</p>
+<p class="normaltexty">'Stop the video there,' says Dan. 'Now, look carefully. Is anybody watching her?'</p>
+<p class="normaltexty">'There are a lot of people in the street,' Sue says. 'I'm not sure. Is it that man with the long hair?'</p>
+<p class="picture"><img src="../../../Images/image06686.jpeg" alt="alt"/></p>
+<p class="normaltexty">'Perhaps,' says Dan. 'Let's go on. What happens next?'</p>
+<p class="normaltexty">They watch the video. The jogger runs into the old lady. He stops and helps her. She shouts at him and he runs away. Then a lot of people come and help the old lady.</p>
+<p class="normaltexty">'Look!' Sue says. 'The long-haired man has her arm.'</p>
+<p class="normaltexty">'Yes, but that woman has her bag,' Dan says. 'What's she doing with it? Oh! I can't see! There's a man in front of her!'</p>
+<p class="picture"><img src="../../../Images/image06687.jpeg" alt="alt"/></p>
+<p class="normaltexty">'Listen, I have an idea,' Dan says. 'You go to the bank tomorrow, and take some money out.'</p>
+<p class="normaltexty">'Why's that a good idea?' Sue asks.</p>
+<p class="normaltexty">'Because we can watch you,' Dan answers. 'Get a lot of money from the bank, and let everybody in the street see it. Take a radio too, so you can talk to me.'</p>
+<p class="normaltexty">'OK,' Sue says. 'We can do that tomorrow morning, then.'</p>
+<p class="picture"><img src="../../../Images/image06688.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">3 Help me! Quick!</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a3">3 HELP ME! QUICK!</p>
+<p class="normaltext0">Next day Sue goes to the bank. Dan is watching with another policeman, Jim. They have radios.</p>
+<p class="normaltexty">'I'm getting the money now,' Sue says.</p>
+<p class="normaltexty">'That's good, Sue,' Dan says on his radio. 'Now let everybody see it.'</p>
+<p class="normaltexty">Sue drops some money near her feet. People in the street look at her.</p>
+<p class="picture"><img src="../../../Images/image06689.jpeg" alt="alt"/></p>
+<p class="normaltexty">'Look – there's the man with the long hair!' Jim says. 'He's picking up the money. Shall I arrest him?'</p>
+<p class="normaltexty">'No, wait,' Dan says. 'Watch.'</p>
+<p class="normaltexty">The man picks up the money and gives it to Sue. 'Here you are,' he says. 'That's a lot of money – be careful!'</p>
+<p class="normaltexty">'Thanks,' Sue says.</p>
+<p class="normaltexty">'That's OK.' The man smiles and walks away.</p>
+<p class="picture"><img src="../../../Images/image06690.jpeg" alt="alt"/></p>
+<p class="normaltexty">'Have you got all the money, Sue?' Dan asks by radio. 'Yes, it's all here,' Sue says. 'What can I do now?'</p>
+<p class="normaltexty">'Buy some things in the shops, and then walk slowly down the street,' Dan says. 'We're watching you.'</p>
+<p class="normaltexty">Sue buys some apples, milk and bread. Then she walks slowly down the street. Dan and Jim watch her go.</p>
+<p class="normaltexty">'Is anybody following me?' Sue asks.</p>
+<p class="normaltexty">'No,' Dan says. 'There's a woman with a baby. That's all.'</p>
+<p class="picture"><img src="../../../Images/image06691.jpeg" alt="alt"/></p>
+<p class="normaltexty">'Don't follow me,' Sue says into the radio. 'Nobody must see you. I'm turning right, into Smith Street... now I'm turning left into Peg Lane. The woman with the baby is following me... I'm turning right, into Dale Avenue.'</p>
+<p class="normaltexty">'Are there lots of people about?' Dan asks.</p>
+<p class="normaltexty">'No, it's very quiet. Nothing is happening.'</p>
+<p class="normaltexty">Dan and Jim wait. Then Sue shouts: 'Be careful! Oh, help me, quick! Help!'</p>
+<p class="picture"><img src="../../../Images/image06692.jpeg" alt="alt"/></p>
+<p class="normaltexty">The jogger, Peter Jones, runs into Sue and she falls over. There are apples, milk and bread everywhere.</p>
+<p class="normaltexty">'I'm sorry,' says the man. 'Let me help you.'</p>
+<p class="normaltexty">The woman takes Sue's arm. 'Are you OK?' she asks. 'Go away!' she shouts at the man.</p>
+<p class="normaltexty">But he sees the radio in Sue's pocket. 'What's this?' he asks. 'A police radio? Give me the money, quick!'</p>
+<p class="normaltexty">He takes the money and runs.</p>
+<p class="picture"><img src="../../../Images/image06693.jpeg" alt="alt"/></p>
+<p class="normaltexty">The woman wants to run after him but Sue holds her. 'Stop!' she says. 'I'm a police officer. You must stay here!'</p>
+<p class="normaltexty">'But why?' the woman asks. 'I want to help you. That man has your money – I haven't got it!'</p>
+<p class="normaltexty">'Is he your friend?' Sue asks. 'Where does he live?'</p>
+<p class="normaltexty">'I don't know,' the woman says. 'I don't know him.'</p>
+<p class="normaltexty">'Who are you?' Sue asks. 'Where do you live?'</p>
+<p class="normaltexty">'Linda... Linda Wilks. I live at 14, Old Street.'</p>
+<p class="picture"><img src="../../../Images/image06694.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">4 Man with a knife</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a4">4 MAN WITH A KNIFE</p>
+<p class="normaltext0">Dan runs up to Sue. 'Are you OK?' he asks.</p>
+<p class="normaltexty">'Yes, I'm OK,' she says. 'Go on, Dan – run!'</p>
+<p class="normaltexty">Sue calls a police car on her radio. Dan runs after Peter Jones. 'Jim, he's turning left into Dock Lane!' he shouts. 'Can you see him?'</p>
+<p class="picture"><img src="../../../Images/image06695.jpeg" alt="alt"/></p>
+<p class="normaltexty">'I can see him but he's running very fast,' Jim says. The jogger sees Jim and gets into a boat. Jim runs to the river and gets into the boat, too.</p>
+<p class="normaltexty">'Stop!' Jim says. 'I'm a police officer – Oh no!'</p>
+<p class="normaltexty">The jogger, Peter Jones, hits Jim and he falls into the water. The boat goes across the river.</p>
+<p class="picture"><img src="../../../Images/image06696.jpeg" alt="alt"/></p>
+<p class="normaltexty">Dan helps Jim out of the water. 'He's going into a café,' Dan says. 'Come on – let's run to that bridge!'</p>
+<p class="normaltexty">They go across the bridge and run to the café. Jim goes behind the café and Dan goes in.</p>
+<p class="normaltexty">'Is he in there?' Jim asks on his radio.</p>
+<p class="normaltexty">'Yes,' Dan answers. 'Jim – he's coming out!'</p>
+<p class="normaltexty">'Stop,' says Jim. 'I'm a police officer.'</p>
+<p class="normaltexty">But Peter has a knife in his hand.</p>
+<p class="picture"><img src="../../../Images/image06697.jpeg" alt="alt"/></p>
+<p class="normaltexty">Jim holds out his hand. 'Give me the knife, Peter.'</p>
+<p class="normaltexty">'Stay back!' Peter says. 'I can kill you with this.'</p>
+<p class="normaltexty">Jim can see Dan in the door behind Peter. Dan walks out of the door, very slowly and quietly.</p>
+<p class="normaltexty">'Come on, Peter,' says Jim. 'Give me the knife.'</p>
+<p class="normaltexty">Dan takes Peter's arms from behind, and Jim takes the knife from his hand. Dan finds the money in Peter's trousers.</p>
+<p class="picture"><img src="../../../Images/image06698.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">5 At the police station</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a5">5 AT THE POLICE STATION</p>
+<p class="normaltext0">'I want to go home now,' says Linda. 'My baby is hungry and tired.'</p>
+<p class="normaltexty">'Do you know Peter Jones?' Sue asks. 'Do you and Peter steal money from people?'</p>
+<p class="normaltexty">'No, I don't know him. And I never steal money.'</p>
+<p class="normaltexty">'Do you know this woman, Peter?' Dan asks.</p>
+<p class="normaltexty">'No,' says Peter. 'I don't know her. Who is she?'</p>
+<p class="picture"><img src="../../../Images/image06699.jpeg" alt="alt"/></p>
+<p class="normaltexty">Dan and Sue go back to their office.</p>
+<p class="normaltexty">'Does Linda work with Peter?' Dan asks Sue.</p>
+<p class="normaltexty">'Yes, she does,' says Sue. 'Watch this video. Look – there she is! She's watching me get the money, and now she's talking to someone on her phone.'</p>
+<p class="normaltexty">'But who is she talking to?'</p>
+<p class="normaltexty">'She's talking to Peter, of course. Now she's following me and talking to him again. She's talking about me.'</p>
+<p class="picture"><img src="../../../Images/image06700.jpeg" alt="alt"/></p>
+<p class="normaltexty">Dan and Sue speak to Linda again.</p>
+<p class="normaltexty">'Can I see your phone, please, Ms Wilks?' Sue asks.</p>
+<p class="normaltexty">'My phone? Why do you want to see that?'</p>
+<p class="normaltexty">'Well, it remembers a lot of numbers.'</p>
+<p class="normaltexty">Sue presses <span class="xt">1</span> on Linda's phone. Peter's phone begins to ring. Sue laughs. 'Let me ask you again, Ms Wilks. Do you know Peter Jones?'</p>
+<p class="normaltexty">'Well, yes, OK. I know him. But I don't steal money.'</p>
+<p class="picture"><img src="../../../Images/image06701.jpeg" alt="alt"/></p>
+<p class="normaltexty">Sue and Dan take Linda home. They go into her house.</p>
+<p class="normaltexty">'There's two hundred pounds under your bed, Linda,' Dan says. 'And look – this is the old lady's purse.'</p>
+<p class="normaltexty">'This is a nice photo of you and the baby,' Sue says. 'But who is the man? Is he the baby's father?'</p>
+<p class="normaltexty">'OK, it's Peter,' says Linda. 'And yes, I do steal the money. I'm sorry, OK?'</p>
+<p class="normaltexty">'No, Linda, it's not OK,' Sue says. 'It's not OK at all.'</p>
+<p class="picture"><img src="../../../Images/image06702.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">GLOSSARY<br/>词汇表</p>
+<p class="normaltext3"><b>arrest</b> <span class="xt">v</span>. when the police find a bad man and take him to the police station <span class="normaltext0x">逮捕，拘捕</span></p>
+<p class="normaltext3"><b>bridge</b> <span class="xt">n</span>. a road or path that goes over water <span class="normaltext0x">桥，桥梁</span></p>
+<p class="normaltext3"><b>buy</b> <span class="xt">v</span>. get something from a shop with money <span class="normaltext0x">买，购买</span></p>
+<p class="normaltext3"><b>café</b> <span class="xt">n</span>. a place where you sit and drink coffee or tea <span class="normaltext0x">咖啡馆</span></p>
+<p class="normaltext3"><b>dangerous</b> <span class="xt">adj</span>. something that can hurt you is dangerous <span class="normaltext0x">危险的，有危害的</span></p>
+<p class="normaltext3"><b>follow</b> <span class="xt">v</span>. walk behind someone <span class="normaltext0x">跟着，跟随</span></p>
+<p class="normaltext3"><b>idea</b> <span class="xt">n</span>. something you think <span class="normaltext0x">想法，主意</span></p>
+<p class="normaltext3"><b>jogger</b> <span class="xt">n</span>. a runner <span class="normaltext0x">慢跑者</span></p>
+<p class="normaltext3"><b>let</b> <span class="xt">v</span>. make it easy for something to happen <span class="normaltext0x">让，使；任由</span></p>
+<p class="normaltext3"><b>police officer</b> <span class="xt">n</span>. a man or woman in the police <span class="normaltext0x">警察，警官</span></p>
+<p class="normaltext3"><b>purse</b> <span class="xt">n</span>. a small bag for money <span class="normaltext0x">钱包</span></p>
+<p class="normaltext3"><b>shout</b> <span class="xt">v</span>. talk very loudly <span class="normaltext0x">大声说，喊叫</span></p>
+<p class="normaltext3"><b>steal</b> <span class="xt">v</span>. take something that is not yours <span class="normaltext0x">偷，窃取</span></p>
+<p class="normaltext3"><b>turn</b> <span class="xt">v</span>. go left or right <span class="normaltext0x">转弯，转向</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">Police TV</p>
+<p class="sx"></p>
+<p class="subtitle1">ACTIVITIES<br/>阅读练习</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><span class="xt">Before Reading</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Look at the front and <a href="part0205.xhtml">back covers</a> and then answer the questions. Tick one box for each question.</p>
+<p class="normaltexta">1) When does the story happen?</p>
+<p class="normaltexta2">a □ In the present.</p>
+<p class="normaltexta2">b □ In the future.</p>
+<p class="normaltexta2">c □ Long ago.</p>
+<p class="normaltexta">2) Who is the story about?</p>
+<p class="normaltexta2">a □ Young people.</p>
+<p class="normaltexta2">b □ Older people.</p>
+<p class="normaltexta2">c □ Children.</p>
+<p class="normaltexta">3) Who steals money from people?</p>
+<p class="normaltexta2">a □ Dan.</p>
+<p class="normaltexta2">b □ A robber.</p>
+<p class="normaltexta2">c □ The police.</p>
+<p class="normaltexta">4) What kind of story is this?</p>
+<p class="normaltexta2">a □ Frightening.</p>
+<p class="normaltexta2">b □ Exciting.</p>
+<p class="normaltexta2">c □ ......... (You can write your own answer.)</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><span class="xt">While Reading</span></p>
+<p class="normaltext04">1 Read the first half of Chapter 1 and then answer these questions.</p>
+<p class="normaltexta">1) What happens every day near the shops?</p>
+<p class="normaltexta2">a □ A woman runs past the shops.</p>
+<p class="normaltexta2">b □ Someone takes money from people.</p>
+<p class="normaltexta2">c □ Dan and Sue go shopping.</p>
+<p class="normaltexta">2) What does the young man do to the old woman?</p>
+<p class="normaltexta2">a □ He puts his hand on her arm.</p>
+<p class="normaltexta2">b □ He puts his hand on her leg.</p>
+<p class="normaltexta2">c □ He takes her bag.</p>
+<p class="normaltext04">2 Read the second half of Chapter 1. Who says this in the story?</p>
+<p class="normaltextaa">1) 'Have you got all your money?'</p>
+<p class="normaltextaa">2) 'My purse isn't here!'</p>
+<p class="normaltextaa">3) 'I like running.'</p>
+<p class="normaltextaa">4) 'OK. But don't come back!'</p>
+<p class="normaltext04">3 Read Chapter 2. Answer these questions.</p>
+<p class="normaltextaa">1) What does Sue see over the shop door?</p>
+<p class="normaltextaa">2) What do Dan and Sue do in the shop?</p>
+<p class="normaltextaa">3) How many people come to help the old lady?</p>
+<p class="normaltextaa">4) Who goes to the bank and takes some money out?</p>
+<p class="normaltext04">4 Read Chapter 3. Are these statements true (T) or false (F)?</p>
+<p class="normaltextaa">1) The man with the long hair picks up the money.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">2) The man with the long hair takes the money from Sue.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">3) Sue is following a woman with a baby.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">4) It's very quiet in Dale Avenue.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">5) Peter Jones takes the radio from Sue's pocket.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext04">5 Read Chapter 4. Answer these questions.</p>
+<p class="normaltext">Who</p>
+<p class="normaltextaa">1) ... calls a police car on her radio?</p>
+<p class="normaltextaa">2) ... hits Jim?</p>
+<p class="normaltextaa">3) ... helps Jim out of the water?</p>
+<p class="normaltextaa">4) ... goes behind the café?</p>
+<p class="normaltextaa">5) ... takes Peter's arms from behind?</p>
+<p class="normaltext04">6 Before you read Chapter 5, can you guess what happens?</p>
+<p class="normaltextaa">1) The police take Peter to the police station.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">2) Linda knows Peter.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">3) Linda tries to help Peter.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">4) Linda is angry with Peter.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">5) Peter runs away, but Linda finds him.</p>
+<p class="normaltext1">YES □／NO □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><span class="xt">After Reading</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Use these words to join these sentences together.</p>
+<p class="normaltextaa"><span class="xt">and　but　so　because</span></p>
+<p class="normaltextaa">1) Peter Jones runs into the old woman. She falls down.</p>
+<p class="normaltextaa">2) The old woman looks in her bag. She can't find her purse.</p>
+<p class="normaltextaa">3) Dan has a radio. He can talk to Sue.</p>
+<p class="normaltextaa">4) Peter is afraid. He sees a radio in Sue's pocket.</p>
+<p class="normaltext04">2 Put these seven sentences in the right order.</p>
+<p class="normaltext0aa">a □ Peter Jones runs into Sue.</p>
+<p class="normaltext0aa">b □ She drops the money in the street.</p>
+<p class="normaltext0aa">c □ Sue walks into Smith Street, Peg Lane, and Dale Avenue.</p>
+<p class="normaltext0aa">d □ He sees the radio in her pocket, takes her money, and runs.</p>
+<p class="normaltext0aa">e □ The long-haired man picks up the money and gives it to her.</p>
+<p class="normaltext0aa">f □ The woman with the baby follows her.</p>
+<p class="normaltext0aa">g □ Sue takes some money out of the bank.</p>
+<p class="normaltext04">3 Look at each picture, then answer the questions.</p>
+<p class="normaltextaa">1)</p>
+<p class="normaltextaa"><img src="../../../Images/image06703.jpeg" alt="alt"/></p>
+<p class="normaltextaa">Who is this?</p>
+<p class="normaltextaa">What is she doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextaa">2)</p>
+<p class="normaltextaa"><img src="../../../Images/image06704.jpeg" alt="alt"/></p>
+<p class="normaltextaa">Who is this?</p>
+<p class="normaltextaa">What is she doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextaa">3)</p>
+<p class="normaltextaa"><img src="../../../Images/image06705.jpeg" alt="alt"/></p>
+<p class="normaltextaa">Who is this?</p>
+<p class="normaltextaa">What is she doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextaa">4)</p>
+<p class="normaltextaa"><img src="../../../Images/image06706.jpeg" alt="alt"/></p>
+<p class="normaltextaa">Who is this?</p>
+<p class="normaltextaa">Who is she talking to?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextaa">5)</p>
+<p class="normaltextaa"><img src="../../../Images/image06707.jpeg" alt="alt"/></p>
+<p class="normaltextaa">Who is this?</p>
+<p class="normaltextaa">What is he doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextaa">6)</p>
+<p class="normaltextaa"><img src="../../../Images/image06708.jpeg" alt="alt"/></p>
+<p class="normaltextaa">Who is this?</p>
+<p class="normaltextaa">What is he doing?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-12" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle">TRANSLATION　参考译文</p>
+<p class="title1">Police TV</p>
+<p class="title1">监控录像</p>
+<p class="subtitle01"><a href="part0196.xhtml#a1">1　慢跑的人</a></p>
+<p class="normaltextx">丹和苏是伦敦的警察。一个星期二的早晨，丹在生气。</p>
+<p class="normaltextx">“怎么了，丹？”苏问道。</p>
+<p class="normaltextx">“看这个，”丹说，“有个人每天都在商店附近偷人家的钱。我们必须阻止这种事。”</p>
+<p class="normaltextx">“那当然，”苏说，“不过这个人是谁呢？”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“有个慢跑的人，”丹说，“他每天都在商店附近跑步。有时还会撞到人，可能他就是小偷。”</p>
+<p class="normaltextx">“好，”苏说，“我们去商店。或许能见到那个慢跑的人。”</p>
+<p class="normaltextx">他们坐在商店对面楼上的一扇窗边。丹拿着对讲机，他们观察着街上的行人。</p>
+<p class="normaltextx">“看！”苏说道，“那个慢跑的人！”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">那个小伙子撞到了一个老太太，老太太摔倒在地。小伙子扶着老太太的胳膊。“对不起，”他说，“需要我帮忙吗？这是你的包。”</p>
+<p class="normaltextx">这时，一个年轻女子朝他嚷嚷。“别在这儿跑步！”她说，“很危险！走开！”</p>
+<p class="normaltextx">小伙子跑开了。丹对着对讲机说道：“快！拦住他！他正沿着北街跑！”</p>
+<p class="normaltextx">一辆警车在北街拦住了那个小伙子。</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“您现在还好吧？”苏问老太太。</p>
+<p class="normaltextx">“我没事儿，谢谢。那个热心的姑娘在哪儿？她不见了。”</p>
+<p class="normaltextx">“您的钱都在吗？”苏问。</p>
+<p class="normaltextx">老太太看看包里。“不见了！我的钱放在钱包里，可钱包不见了！”</p>
+<p class="normaltextx">“好啦，苏，”丹说，“我们去和那个慢跑的人谈谈！”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“你叫什么？”苏问那个小伙子。</p>
+<p class="normaltextx">“我叫彼得·琼斯。怎么了？你们是谁？”</p>
+<p class="normaltextx">“我们是警察。你为什么每天都要从商店门口跑过？”</p>
+<p class="normaltextx">“有什么不行呢？我喜欢跑步。”</p>
+<p class="normaltextx">“好吧，”丹说，“我们来找找那些钱。”</p>
+<p class="normaltextx">“什么钱？”彼得·琼斯问，“你们在说什么？我跑步时从来不随身带钱。”</p>
+<p class="normaltextx">丹搜了搜，可一分钱也没找到。</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“现在我能走了吗？”彼得·琼斯问。</p>
+<p class="normaltextx">“走吧。”丹生气地说，“但别再回来了！”</p>
+<p class="normaltextx">“凭什么？”彼得生气地问道，“我住这儿！再说我又没做错什么！”他跑开了。</p>
+<p class="normaltextx">“现在怎么办？”苏问，“那老太太的钱在哪儿？还有她的钱包呢？”</p>
+<p class="normaltextx">“我不知道，”丹说，“肯定有人偷了，到底是谁呢？”</p>
+<p class="subtitle01"><a href="part0197.xhtml#a2">2　监控录像</a></p>
+<p class="normaltextx">丹和苏回到商店。“我不明白，”丹说，“那个慢跑的人没有偷钱，那我们必须寻找其他嫌疑人。”</p>
+<p class="normaltextx">“看，”苏说，“商店的门上有个监控摄像机。或许它能帮上忙。”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">他们走进商店查看录像。</p>
+<p class="normaltextx">“看，”苏说，“这是那个老太太，她正从银行取钱，把钱放进钱包里。现在她正把钱包放到包里。”</p>
+<p class="normaltextx">“暂停一下录像，”丹说，“现在，仔细看看。有人在盯着她吗？”</p>
+<p class="normaltextx">“街上有很多人，”苏说，“我也不确定。是那个长头发男人吗？”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“有可能，”丹说，“继续看吧。接下来发生了什么事？”</p>
+<p class="normaltextx">他们接着看录像。慢跑的人撞到了老太太，停下来帮她，老太太冲他大喊，他就跑开了。然后很多人走过来帮老太太。</p>
+<p class="normaltextx">“看！”苏说，“那个长头发男人拉着她的胳膊。”</p>
+<p class="normaltextx">“不错，可那个女人拿着她的包。”丹说，“她拿着包干什么？哦！我看不到！有个男人挡在她前面！”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“听着，我有个主意，”丹说，“你明天去银行取些钱出来。”</p>
+<p class="normaltextx">“这个主意有什么好啊？”苏问。</p>
+<p class="normaltextx">“因为我们能暗中观察，”丹回答说，“你从银行取很多钱，让街上所有人都看见。再带个对讲机，这样你就能跟我通话了。”</p>
+<p class="normaltextx">“好吧，”苏说，“那我们明天早上就行动。”</p>
+<p class="subtitle01"><a href="part0198.xhtml#a3">3　帮我！快！</a></p>
+<p class="normaltextx">第二天，苏去了银行。丹和另一个警察吉姆在暗中观察。他们带着对讲机。</p>
+<p class="normaltextx">“我现在要取钱了。”苏说。</p>
+<p class="normaltextx">“好的，苏，”丹对着对讲机说，“要让每个人都看见。”</p>
+<p class="normaltextx">苏掉了些钱在她脚边。街上的人纷纷看着她。</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“看——那个长头发男人！”吉姆说，“他正捡钱呢。要我去逮捕他吗？”</p>
+<p class="normaltextx">“别，先等等。”丹说，“再看看。”</p>
+<p class="normaltextx">长发男人把钱捡起来还给了苏。“给你，”他说，“不少钱呢——当心点！”</p>
+<p class="normaltextx">“谢谢！”苏说。</p>
+<p class="normaltextx">“不客气。”男人笑了笑，走开了。</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“你的钱都在吗，苏？”丹用对讲机问。“在，都在。”苏回答说，“我现在做什么？”</p>
+<p class="normaltextx">“去商店买些东西，再沿着街慢慢走。”丹说，“我们看着你。”</p>
+<p class="normaltextx">苏买了些苹果、牛奶和面包，然后沿街慢慢走。丹和吉姆一直观察着。</p>
+<p class="normaltextx">“有人跟踪我吗？”苏问。</p>
+<p class="normaltextx">“没有，”丹回答说，“有个带小孩的女人。没别人了。”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“别跟着我。”苏对着对讲机说，“不能让人看见你们。我在往右拐，到史密斯大街了……我现在往左拐，到佩格路了。带小孩的那个女人在跟着我……我往右拐，到戴尔大道了。”</p>
+<p class="normaltextx">“附近人多吗？”丹问。</p>
+<p class="normaltextx">“不多，很安静。什么事都没有。”</p>
+<p class="normaltextx">丹和吉姆等着，接着就听到苏在喊：“小心！啊，快来帮我，快！”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">彼得·琼斯——那个慢跑的人——撞到了苏，苏摔倒在地。苹果、牛奶和面包掉了一地。</p>
+<p class="normaltextx">“对不起。”他说，“我来帮你。”</p>
+<p class="normaltextx">带小孩的女人拉着苏的胳膊。“你没事吧？”她问。“走开！”她冲彼得·琼斯嚷道。</p>
+<p class="normaltextx">彼得看到了苏口袋里的对讲机。“这是什么？”他问，“警用对讲机？把钱给我，快！”</p>
+<p class="normaltextx">他拿着钱跑了。</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">那女人也想跟着他跑掉，但被苏抓住了。“站住！”苏说，“我是警察。不许动！”</p>
+<p class="normaltextx">“为什么？”女人问，“我是想帮你。那个男的抢了你的钱，不是我！”</p>
+<p class="normaltextx">“他是你朋友？”苏问，“他住哪儿？”</p>
+<p class="normaltextx">“我不知道，”女人说，“我不认识他。”</p>
+<p class="normaltextx">“你叫什么？”苏问道，“你住哪儿？”</p>
+<p class="normaltextx">“琳达……琳达·威尔克斯。我住在老街14号。”</p>
+<p class="subtitle01"><a href="part0199.xhtml#a4">4　持刀男子</a></p>
+<p class="normaltextx">丹朝苏跑过去。“你没事吧？”他问。</p>
+<p class="normaltextx">“没事，我还好。”苏说，“赶紧追，丹——快！”</p>
+<p class="normaltextx">苏用对讲机呼叫了警车。丹紧追彼得·琼斯。“吉姆，他左拐跑到码头路上了！”丹喊道，“看到他了吗？”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">“看到了，可他跑得很快。”吉姆说。慢跑者看见了吉姆，然后上了一艘小艇。吉姆跑到河边，也上了那艘小艇。</p>
+<p class="normaltextx">“站住！”吉姆说，“我是警察——哦，不！”</p>
+<p class="normaltextx">彼得·琼斯打了吉姆一拳，吉姆掉进了水里。小艇驶向河对岸。</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">丹把吉姆拉上了岸。“他要进一家咖啡厅。”丹说，“快，我们往桥那儿跑！”</p>
+<p class="normaltextx">他们过了桥，朝那家咖啡厅跑过去。吉姆绕到了咖啡厅的后面，丹从前面走了进去。</p>
+<p class="normaltextx">“他在里面吗？”吉姆用对讲机问道。</p>
+<p class="normaltextx">“在。”丹回答，“吉姆——他出来了！”</p>
+<p class="normaltextx">“站住，”吉姆说，“我是警察。”</p>
+<p class="normaltextx">但彼得手里拿着一把刀。</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">吉姆伸出手。“把刀给我，彼得。”</p>
+<p class="normaltextx">“别过来！”彼得说，“我可以用这把刀杀了你。”</p>
+<p class="normaltextx">吉姆看到丹在彼得身后的门里。丹慢慢地、轻轻地走出来。</p>
+<p class="normaltextx">“快点，彼得，”吉姆说，“把刀给我。”</p>
+<p class="normaltextx">丹从背后抓住了彼得的胳膊，吉姆把刀从他手里夺过来。丹在彼得裤子里找到了那些钱。</p>
+<p class="subtitle01"><a href="part0200.xhtml#a5">5　在警察局</a></p>
+<p class="normaltextx">“我现在想回家。”琳达说，“我宝宝又累又饿。”</p>
+<p class="normaltextx">“你认识彼得·琼斯吗？”苏问，“你是不是和彼得合伙偷钱？”</p>
+<p class="normaltextx">“不，我不认识他。而且我从来没偷过钱。”</p>
+<p class="normaltextx">“你认识这个女人吗，彼得？”丹问。</p>
+<p class="normaltextx">“不认识。”彼得说，“我不认识她。她是谁？”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">丹和苏回到办公室。</p>
+<p class="normaltextx">“琳达是彼得的同伙吗？”丹问苏。</p>
+<p class="normaltextx">“是，她是。”苏说，“看这段录像。看——她就在那儿！她看着我取了钱，这会儿在给什么人打电话。”</p>
+<p class="normaltextx">“可她在跟谁说话呢？”</p>
+<p class="normaltextx">“当然是和彼得。现在她跟踪我，又跟他通了话。她在说我的事。”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">丹和苏又去问琳达。</p>
+<p class="normaltextx">“我能看一下你的手机吗，威尔克斯女士？”苏问。</p>
+<p class="normaltextx">“我的手机？你为什么想看我的手机？”</p>
+<p class="normaltextx">“嗯，里面记录了很多号码。”</p>
+<p class="normaltextx">苏按了琳达手机上的1键。彼得的手机响了起来。苏笑道：“我再问你一遍，威尔克斯女士。你认识彼得·琼斯吗？”</p>
+<p class="normaltextx">“好吧，是，我认识。我是认识他。可我不偷钱。”</p>
+<p class="normaltextx"><br/></p>
+<p class="normaltextx">苏和丹把琳达带回她的家。他们一起进屋。</p>
+<p class="normaltextx">“你床底下有两百英镑，琳达。”丹说，“看——这是那个老太太的钱包。”</p>
+<p class="normaltextx">“你和宝宝的这张照片照得真好。”苏说，“不过这个男的是谁？是孩子他爸吗？”</p>
+<p class="normaltextx">“行啦，那是彼得。”琳达说，“是，钱是我偷的。对不起，行了吧？”</p>
+<p class="normaltextx">“不，琳达，不行。”苏说，“这绝对不行。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-13" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06710.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

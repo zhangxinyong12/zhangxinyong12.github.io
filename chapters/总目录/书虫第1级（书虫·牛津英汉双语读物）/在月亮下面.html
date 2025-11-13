@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在月亮下面 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '在月亮下面';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>在月亮下面</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫第1级（书虫·牛津英汉双语读物）/index.html">书虫第1级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">在月亮下面</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">1 AOL</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">人工臭氧层</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">2 Visit to Australia</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">访问澳大利亚</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">3 Earth Commander</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">地球司令</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">4 Prison 888</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">888号监狱</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-12" class="toc-link">5 Forest fires</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-13" class="toc-link">森林大火</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-14" class="toc-link">6 Spaceship to the Moon</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-15" class="toc-link">飞往月球的宇宙飞船</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-16" class="toc-link">Exercises</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-17" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="m0"><img src="../../../Images/image07041.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="bqbt1">京权图字01-97-0354</p>
+<p class="bq-text2">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 1992</p>
+<p class="bq-text2">This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="bq-text2">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="bq-text2">只限中华人民共和国境内销售，不包括香港特别行政区、澳门特别行政区及台湾省。不得出口。</p>
+<p class="bqbt1">图书在版编目（CIP）数据</p>
+<p class="bq-text1">在月亮下面：英汉对照 ／（英）阿金耶米（Akinyemi, R.）著；赵婴译．— 北京：外语教学与研究出版社，1998.11（2014.11 重印）</p>
+<p class="bq-text1">书名原文：Under the Moon</p>
+<p class="bq-text1">（书虫·牛津英汉双语读物）</p>
+<p class="bq-text1">ISBN 978-7-5600-1470-8</p>
+<p class="normaltext"><br/></p>
+<p class="bq-text1">Ⅰ．在…　Ⅱ．①阿…　②赵…　Ⅲ．科学幻想小说—英国—对照读物—汉、英　Ⅳ．H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="bq-text1">中国版本图书馆CIP数据核字（1998）第17019号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="bq-text3">出版人：　蔡剑峰</p>
+<p class="bq-text3">责任编辑：余　军</p>
+<p class="bq-text3">封面设计：孙莉明</p>
+<p class="bq-text3">出版发行：外语教学与研究出版社</p>
+<p class="bq-text3">社　　址：北京市西三环北路19号（100089）</p>
+<p class="bq-text3">网　　址：http://www.fltrp.com</p>
+<p class="bq-text3">版　　次：1998年11月第1版</p>
+<p class="bq-text3">书　　号：ISBN 978-7-5600-1470-8</p>
+<p class="bq-text3">*　　*　　*</p>
+<p class="bq-text03">凡侵权、盗版书籍线索，请联系我社法律事务部</p>
+<p class="bq-text03">举报电话：(010)88817519　　电子邮箱：banquan@fltrp. com</p>
+<p class="bq-text03">法律顾问：立方律师事务所　刘旭东律师</p>
+<p class="bq-text03a">中咨律师事务所　殷　斌律师</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">简　介</p>
+<p class="normaltext">太阳是一个巨大的燃烧着的火球。没有来自太阳的光和热，我们就不能在地球这颗行星上生存。在这颗行星周围有臭氧层保护着我们免受太阳之火的伤害。但是如果臭氧层破裂，将会怎样呢？现在臭氧层上已经有了小洞，有人说那些小洞会变得越来越大——直到有一天再没有任何东西挡在我们和太阳的火焰之间。</p>
+<p class="normaltext">事情发生在2222年。地球人制造了AOL——人工臭氧层。美丽的地球又有了1000年的生命。树又发芽了，下雨了，河里有了水……</p>
+<p class="normaltext">但现在是2522年，人工臭氧层已经破裂。幼嫩的树林开始枯萎，河流也逐渐干涸。凯和瑞拉从他们的宇宙飞船里看到了这危险的情景，可他们又能做些什么呢？月亮下面的部族里有他们的朋友，可是路途遥远，而地球首领高格又不肯听从他们的指挥。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">本书的作者罗维纳·阿金耶米是英国人。曾在非洲居住和工作了多年。现在她在剑桥工作和生活。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <p class="mulu">目　录<br/>CONTENTS</p>
+  <p class="mulu1"><a href="part0399.xhtml">简介</a></p>
+  <p class="mulu1"><a href="part0401.xhtml">1 AOL</a></p>
+  <p class="mulu2"><a href="part0402.xhtml">人工臭氧层</a></p>
+  <p class="mulu1"><a href="part0403.xhtml">2 Visit to Australia</a></p>
+  <p class="mulu2"><a href="part0404.xhtml">访问澳大利亚</a></p>
+  <p class="mulu1"><a href="part0405.xhtml">3 Earth Commander</a></p>
+  <p class="mulu2"><a href="part0406.xhtml">地球司令</a></p>
+  <p class="mulu1"><a href="part0407.xhtml">4 Prison 888</a></p>
+  <p class="mulu2"><a href="part0408.xhtml">888号监狱</a></p>
+  <p class="mulu1"><a href="part0409.xhtml">5 Forest fires</a></p>
+  <p class="mulu2"><a href="part0410.xhtml">森林大火</a></p>
+  <p class="mulu1"><a href="part0411.xhtml">6 Spaceship to the Moon</a></p>
+  <p class="mulu2"><a href="part0412.xhtml">飞往月球的宇宙飞船</a></p>
+<p class="normaltext"><br/></p>
+  <p class="mulu1"><a href="part0413.xhtml">Exercises</a></p>
+<p class="normaltext"><br/></p>
+  <p class="mulu1"><a href="part0001.xhtml">返回总目录</a></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">“书虫”<b>免费</b>增值服务上线！</p>
+<p class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</p>
+<p class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">1 AOL</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="xx">1</span><br/>AOL</p>
+<p class="normaltext">Five hundred kilometres over Europe, Ship OM-45 moved north. In a room at the back of the ship, Kiah watched the numbers on the computer in front of him.</p>
+<p class="normaltext">'Time for dinner,' Rilla said.</p>
+<p class="normaltext">The numbers changed quickly and Kiah's eyes didn't move. Rilla went across the room to his table. She began to watch the numbers, too.</p>
+<p class="normaltext">'What's wrong with the satellite?' she asked. She was a beautiful girl, about twenty years old, with long black hair and big eyes.</p>
+<p class="normaltext">'Nothing's wrong with the satellite,' Kiah answered quietly. 'It's the AOL.' He began to write the numbers in the book on his table.</p>
+<p class="normaltext">Suddenly, the numbers stopped changing. Kiah looked at Rilla. 'Over Europe,' he said. 'It's happening. The AOL is breaking up. There are big holes in the AOL and they're getting bigger.'</p>
+<p class="normaltext">'You're right! Shall we see Captain Seru now, before dinner?'</p>
+<p class="normaltext">Kiah stood up. He was nearly two metres tall, with dark eyes and hair. 'Yes, come on,' he said.</p>
+<p class="normaltext">Quickly, they went to Captain Seru's room. They waited at the door.</p>
+<p class="picture"><img src="../../../Images/image07042.jpeg" alt="alt"/></p>
+<p class="normaltext">'Come in!' Captain Seru called. She was a little woman with a fat face. 'Come in! Would you like a drink?'</p>
+<p class="normaltext">'No, thank you,' Kiah answered. 'I'd like you to look at these numbers.' Kiah gave Captain Seru his book.</p>
+<p class="normaltext">Captain Seru looked at the numbers. Suddenly, her face changed. 'No, no,' she said. 'I don't want to talk. It's late and I'm tired. Sit down and have a drink.'</p>
+<p class="normaltext">Kiah and Rilla sat down. There was a big window in Captain Seru's room. Kiah looked out of the window at the dark sky. He saw the Moon. It was cold and white in the dark sky.</p>
+<p class="normaltext">'<em>Captain</em> Seru,' he began. 'It's important. Look at those numbers carefully. The AOL is beginning to—'</p>
+<p class="normaltext">'Stop!' Captain Seru stood up and put her hands in her pockets. She went to the window and looked at the sky.</p>
+<p class="normaltext">'Three hundred years ago, Earth nearly died,' Rilla said. 'Earth stopped dying because of the AOL. But now, over Europe, the AOL is breaking up. We would like you to talk to Earth Commander.'</p>
+<p class="normaltext">Captain Seru did not move. 'Do you remember Adai?' she asked. She didn't wait for an answer. 'I was on his ship, two years ago. One evening, the satellite gave us interesting numbers about the AOL. We went back to Earth and saw Earth Commander.' Captain Seru stopped speaking.</p>
+<p class="normaltext">Rilla looked at Kiah. 'And then?' she asked Captain Seru.</p>
+<p class="normaltext">'Gog was angry, very angry,' Captain Seru said. 'In the end, he sent Adai to the Moon. Adai's there now, Commander of the Moon colony, under the Moon.'</p>
+<p class="normaltext">Kiah waited for a second or two. 'I know about Adai. But we need to talk to Earth Commander again. These numbers are worse.'</p>
+<p class="normaltext">Captain Seru's face went red. 'You don't understand. I'm not going to talk to Gog. Last time, he sent me to a weather ship in the Antarctic! This is my first Ship for two years!' And Captain Seru began drinking.</p>
+<p class="normaltext">Kiah stood up. 'Thank you, Captain Seru.'</p>
+<p class="normaltext">Captain Seru said nothing.</p>
+<p class="normaltext">Kiah and Rilla left the room, and walked slowly downstairs. The Ship was dark and quiet. It was eight o'clock and everybody was at dinner.</p>
+<p class="normaltext">'What are we going to do next?' Rilla asked.</p>
+<p class="normaltext">'I need to talk to Adai,' Kiah said.</p>
+<p class="normaltext">'OK, talk to Adai. But he's far away on the Moon colony,' Rilla said. 'Let's visit Commander Zadak.'</p>
+<p class="normaltext">'Zadak? Commander of Australia? He's famous!'</p>
+<p class="normaltext">'Yes. He's my father's friend. He worked with my father in Brazil ten years ago. Perhaps he can help us.'</p>
+<p class="normaltext">Kiah smiled. 'Good! We return to Earth next week. I can phone Adai from Kisangani and then we can go to Australia. But now, I'm hungry! Let's get some dinner.'</p>
+<hr/>
+<p class="normaltext02"><b>AOL</b> <span class="xt">artificial ozone layer.</span> 人工臭氧层。</p>
+<p class="normaltext02"><b>kilometre</b> <span class="xt">n. 1000 metres.</span>公里。</p>
+<p class="normaltext02"><b>computer</b> <span class="xt">n. an electronic machine that can quickly make calculations.</span> 计算机。</p>
+<p class="normaltext02"><b>quickly</b> <span class="xt">adv. with great speed.</span> 迅速地。</p>
+<p class="normaltext02"><b>satellite</b> <span class="xt">n. sth. made by people, moving round the Earth sending information back.</span> 卫星。</p>
+<p class="normaltext02"><b>beautiful</b> <span class="xt">adj. giving pleasure to the mind or sense.</span> 美丽的。</p>
+<p class="normaltext02"><b>hole</b> <span class="xt">n. a hollow space in sth. Solid, with an opening on one side.</span> 洞，洞穴。</p>
+<p class="normaltext02"><b>break up</b> <span class="xt">to break into small pieces.</span> 破裂。</p>
+<p class="normaltext02"><b>Captain</b> <span class="xt">n. man or woman in charge of a ship or aeroplane.</span> 船长，机长。</p>
+<p class="normaltext02"><b>suddenly</b> <span class="xt">adv. quickly and unexpectedly.</span> 突然地。</p>
+<p class="normaltext02"><b>Moon</b> <span class="xt">n. it moves round the Earth and shines at night.</span> 月亮。</p>
+<p class="normaltext02"><b>important</b> <span class="xt">adj. very significant, valuable, or necessary.</span> 重要的。</p>
+<p class="normaltext02"><b>pocket</b> <span class="xt">n. small bag sewn into and forming part of an artical of clothing , for carrying things in.</span> 衣袋。</p>
+<p class="normaltext02"><b>Commander</b> <span class="xt">n. man or woman in charge of many others.</span> 司令。</p>
+<p class="normaltext02"><b>remember</b> <span class="xt">v. be able to keep sth. in memory.</span> 记得，记起。</p>
+<p class="normaltext02"><b>colony</b> <span class="xt">n. place lived in by people from a different country.</span> 殖民地，聚居于某一特定地区的一群人。</p>
+<p class="normaltext02"><b>worse</b> <span class="xt">adj. bad to a greater degree or less good.</span> 更坏，更差。</p>
+<p class="normaltext02"><b>understand</b> <span class="xt">v. to know why someone behaves in the way that he does.</span> 理解，明白。</p>
+<p class="normaltext02"><b>weather</b> <span class="xt">n. the condition of the atmosphere, for example whether it is raining, sunny, hot, or windy in an area at a particular time.</span> 天气。</p>
+<p class="normaltext02"><b>famous</b> <span class="xt">adj. very well known.</span> 著名的。</p>
+<p class="normaltext02"><b>help</b> <span class="xt">v. do part of the work of another person; make it easier for sb. to do sth.</span> 帮助。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">人工臭氧层</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01"><span class="xt big">1</span>　人工臭氧层</p>
+<p class="normaltext">OM-45号宇宙飞船在欧洲上空500公里的高度向北飞行。飞船尾部的一个房间里，凯注视着面前计算机屏幕上的数字。</p>
+<p class="normaltext">“该吃饭了。”瑞拉叫他。</p>
+<p class="normaltext">那些数字飞快地变换着，凯眼都不眨一下。瑞拉穿过房间走到他的桌旁。她也开始观察那些数字。</p>
+<p class="normaltext">“卫星怎么了？”她问。她是个美丽的女孩，大约二十岁，黑黑的长发，大大的眼睛。</p>
+<p class="normaltext">“卫星没问题，”凯平静地回答，“是人工臭氧层。”他伏在桌上，开始往一个本子上记录那些数字。</p>
+<p class="normaltext">突然，那些数字停止了变换。凯望向瑞拉。“在欧洲上空，”他说，“已经开始了。人工臭氧层正在破裂。那上面本来就有大洞了，现在那些洞还在增大。”</p>
+<p class="normaltext">“说得对，咱们现在去见塞鲁船长吧，待会儿再吃饭好吗？”</p>
+<p class="normaltext">凯站起身。他身高几乎有两米，眼睛和头发都是黑色的。“好，走吧。”他说。</p>
+<p class="normaltext">他们迅速朝塞鲁船长的房间走去。他们等在船长的门外。</p>
+<p class="normaltext">“进来！”塞鲁船长喊道。她是个有张胖脸的小个子女人。“进来！喝点什么吗？”</p>
+<p class="normaltext">“不用，谢谢，”凯说，“我想请您看看这些数字。”凯把自己的笔记本递给塞鲁船长。</p>
+<p class="normaltext">塞鲁船长看了看那些数字。突然，她的脸色变了。“不，不，”她说，“我不想谈。时候不早了，我也累了。坐下喝点什么吧。”</p>
+<p class="normaltext">凯和瑞拉坐了下来。塞鲁船长的房间里有一扇大窗子。凯透过窗子凝望黑色的天空。他看见了月亮。在黑色的天幕下月亮显得冰冷皎洁。</p>
+<p class="normaltext">“塞鲁船长，”他开口了，“这事很重要。仔细看看那些数字。人工臭氧层正开始……”</p>
+<p class="normaltext">“别说了。”塞鲁船长站起身把双手插进衣兜。她走到窗前注视着天空。</p>
+<p class="normaltext">“300年前，地球几乎毁灭，”瑞拉说，“因为有人工臭氧层地球才幸免于难。但是现在，在欧洲上空，人工臭氧层正在破裂。我们希望您能和地球司令谈一谈。”</p>
+<p class="normaltext">塞鲁船长没有动。“你还记得阿岱吗？”她问。不等回答，她接着说：“两年前我在他的船上。一天晚上卫星发回了关于人工臭氧层的一些不寻常的数据。我们回到地球去见地球司令。”塞鲁船长停了下来。</p>
+<p class="normaltext">瑞拉看了一眼凯。“然后呢？”她问塞鲁船长。</p>
+<p class="normaltext">“高格生气了，特别生气，”塞鲁船长说，“最后，他把阿岱分配到了月球。阿岱现在还在那儿，在月亮下面作月亮部族的司令。”</p>
+<p class="normaltext">凯等了一两秒钟：“我知道阿岱的事。但是我们需要再和地球司令谈谈。这些数据比上次的还要糟。”</p>
+<p class="normaltext">塞鲁船长的脸涨红了：“你不明白。我不会去跟高格说的。上次他把我发配到了南极的一艘气象飞船上。如今这是我第一艘待了两年的飞船。”塞鲁船长喝了一口水。</p>
+<p class="normaltext">凯站起身：“谢谢您，塞鲁船长。”</p>
+<p class="normaltext">塞鲁船长没说活。</p>
+<p class="normaltext">凯和瑞拉出了门，脚步迟缓地下楼去了。飞船里寂静漆黑。8点钟了，大家都在吃饭。</p>
+<p class="normaltext">“下一步咱们怎们办？”瑞拉问。</p>
+<p class="normaltext">“我得跟阿岱谈谈。”凯说。</p>
+<p class="normaltext">“好，跟阿岱谈谈。可是他现在在遥远的月亮部族，”瑞拉说，“咱们还是去见扎达克司令吧。”</p>
+<p class="normaltext">“扎达克？澳大利亚司令？他很有名气呢！”</p>
+<p class="normaltext">“是的，他是我父亲的朋友。10年前他和我父亲一起在巴西工作。也许他能帮忙。”</p>
+<p class="normaltext">凯笑了，“好，咱们下周回地球。我可以在基桑加尼给阿岱打个电话，然后咱们就去澳大利亚。现在嘛，我可饿了。咱们吃饭去吧。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">2 Visit to Australia</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="xx">2</span><br/>Visit to Australia</p>
+<p class="normaltext">On Friday, after three weeks in space, Kiah and Rilla finished work and left Ship OM-45 on a space plane to Kisangani. Kiah phoned Adai and Rilla phoned Commander Zadak in Australia. The next morning they took an aeroplane to Sydney. A taxi took them from the airport to Commander Zadak's office, some kilometres north of Sydney.</p>
+<p class="normaltext">'Wait for us here,' Kiah said to the taxi driver.</p>
+<p class="normaltext">Kiah and Rilla walked to the gate. About ten guards stood in front of the gate. Across the road, a train waited.</p>
+<p class="normaltext">'Rilla, OM-45,' Rilla said. 'To see Commander Zadak at four-thirty.'</p>
+<p class="normaltext">'Let me call the Commander's office,' the guard said.</p>
+<p class="normaltext">Kiah and Rilla waited. It was hot and Kiah began to feel thirsty.</p>
+<p class="normaltext">The guard came back. 'I'm sorry,' he said. 'The Commander can't see you.'</p>
+<p class="normaltext">'But I talked to the Commander yesterday,' Rilla said. 'He wanted to see us at four-thirty.'</p>
+<p class="normaltext">'The Commander is leaving on the train in three minutes,' the guard said.</p>
+<p class="normaltext">Can we wait and see him here?' Kiah asked.</p>
+<p class="normaltext">'No!' the guard shouted. 'Get out of here!'</p>
+<p class="normaltext">Kiah and Rilla walked back to the taxi.</p>
+<p class="picture"><img src="../../../Images/image07043.jpeg" alt="alt"/></p>
+<p class="normaltext">'Where's the driver?' Kiah asked.</p>
+<p class="normaltext">'Look! He's sitting by that wall,' Rilla said.</p>
+<p class="normaltext">Just then, Commander Zadak came out of the gate. He was a very tall, big man with blue eyes and a lot of white hair. Two guards marched in front of him, and two guards marched behind him. They all carried guns.</p>
+<p class="normaltext">'There he is!' Rilla cried. 'Commander!' And she began to run along the road to him.</p>
+<p class="normaltext">Commander Zadak did not stop. A guard opened the door of the train and the Commander got in. Slowly, the train began to move.</p>
+<p class="normaltext">Kiah ran to the taxi and jumped in. Then he drove the taxi fast down the road. The taxi driver saw him and ran after him. The train began to move faster. Suddenly, Kiah drove the taxi off the road. He drove in front of the train and stopped.</p>
+<p class="normaltext">The train came nearer. And then the train stopped, very near the taxi, and some guards jumped off. Kiah opened the door and got out of the taxi.</p>
+<p class="normaltext">'Put up your hands!' the guards shouted.</p>
+<p class="normaltext">Two of the guards began to hit Kiah.</p>
+<p class="normaltext">'Stop that!' someone shouted. 'Bring him over here!' It was Commander Zadak.</p>
+<p class="normaltext">Kiah stood in front of the Commander. Just then, Rilla arrived.</p>
+<p class="normaltext">'Oh, it's you!' Commander Zadak said. He did not smile. 'Rilla, your father's going to be angry.'</p>
+<p class="normaltext">'We want to talk to you, Commander,' Rilla said. 'It's very important.'</p>
+<p class="normaltext">'Very well. I'm listening.'</p>
+<p class="normaltext">Kiah began to talk. 'Two years ago, Adai told you about the holes in the AOL. Now they're worse. The AOL is breaking up over Europe. Please look at these numbers and this satellite picture.'</p>
+<p class="normaltext">He gave his book to Commander Zadak and the Commander looked at the numbers.</p>
+<p class="normaltext">'It's important, Commander,' Kiah said. In ten years Earth is going to die.'</p>
+<p class="normaltext">'You stopped my train because of this?' Commander Zadak asked. 'Two years ago Adai talked to me about the AOL. Then he talked to Earth Commander, and what happened? Where is Adai now? Is the Moon colony helping the AOL?'</p>
+<p class="normaltext">'We know about Adai, Commander,' Rilla said. 'But someone needs to talk to Earth Commander again.'</p>
+<p class="normaltext">'I'm going to talk to Gog about rain, I can tell you that. Earth needs rain: there was no rain last winter. Half of Australia has no water and my trees here are dying. Without rain, many people are going to die. Is Gog going to understand that? I don't know!'</p>
+<p class="normaltext">Commander Zadak began to walk back to his train. 'Move that taxi!' he called to his guards.</p>
+<p class="normaltext">Some guards moved the taxi back to the road and then they jumped on to the train again. The train began to move.</p>
+<p class="normaltext">'OK,' the taxi driver shouted. 'What are you going to do next? Drive my taxi into the river?'</p>
+<p class="normaltext">Kiah smiled. He took some money from his pocket and gave it to the taxi driver.</p>
+<p class="normaltext">The taxi driver looked at the money. 'OK, OK,' he said. 'Where now? Back to the airport?'</p>
+<p class="normaltext">Kiah took Rilla's hand, 'Yes,' he said. 'Let's get back to Kisangani. We can phone Adai again tomorrow.'</p>
+<hr/>
+<p class="normaltext02"><b>space</b> <span class="xt">n. far from Earth where there is no air.</span> 太空。</p>
+<p class="normaltext02"><b>aeroplane</b> <span class="xt">n. flying machine with one or more engines.</span> 飞机。</p>
+<p class="normaltext02"><b>airport</b> <span class="xt">n. place where aeroplanes come down.</span> 机场。</p>
+<p class="normaltext02"><b>gate</b> <span class="xt">n. a door in a fence or wall.</span> 大门。</p>
+<p class="normaltext02"><b>guard</b> <span class="xt">n. a man or woman watching for danger.</span> 卫兵。</p>
+<p class="normaltext02"><b>across</b> <span class="xt">prep. from one side to the other side of.</span> 从一边到另一边。</p>
+<p class="normaltext02"><b>train</b> <span class="xt">n. a number of railway coaches, wagons, etc. joined together.</span> 火车。</p>
+<p class="normaltext02"><b>thirsty</b> <span class="xt">adj. feeling caused by a desire to drink.</span> 渴的，口渴。</p>
+<p class="normaltext02"><b>march</b> <span class="xt">v. walk as soldiers do，with measured steps.</span> 阔步前进。</p>
+<p class="normaltext02"><b>gun</b> <span class="xt">n. sth. that sends bullets from a metal tube.</span> 枪。</p>
+<p class="normaltext02"><b>ran</b> <span class="xt">vi. past tense of "to run"; move with quick steps.</span> 跑步。</p>
+<p class="normaltext02"><b>drove</b> <span class="xt">vt. past tense of "to drive"; control a car or a bus.</span> 驾驶。</p>
+<p class="normaltext02"><b>hit</b> <span class="xt">v. past tense of "to hit"; give a blow or stroke to.</span> 打，打击。</p>
+<p class="normaltext02"><b>dying</b> <span class="xt">adj. not likely to live or exist much longer.</span> 快死的，行将完结的。</p>
+<p class="normaltext02"><b>jump</b> <span class="xt">v. to move quickly off sth. or on to sth.</span> 跳跃。</p>
+<p class="normaltext02"><b>money</b> <span class="xt">n. coins or printed notes, given and accepted when buying and selling things.</span> 钱，钱币。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">访问澳大利亚</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01"><span class="xt big">2</span>　访问澳大利亚</p>
+<p class="normaltext">这是个星期五，凯和瑞拉已经在太空飞行了三周。他们结束了工作，离开OΜ-45号宇宙飞船，乘航天飞机飞往基桑加尼。凯和瑞拉分别跟阿岱和澳大利亚司令扎达克通了电话。第二天早晨他们乘飞机来到悉尼。一辆出租车把他们从机场带到了悉尼以北几公里以外的扎达克司令的办公室。</p>
+<p class="normaltext">“在这儿等我们。”凯吩咐出租车司机。</p>
+<p class="normaltext">凯和瑞拉朝大门走去。门前站着大约有十个卫兵。一辆火车正等在马路对面。</p>
+<p class="normaltext">“我叫瑞拉，OM-45号的，”瑞拉说，“扎达克司令4点半要接见我们。”</p>
+<p class="normaltext">“我给司令办公室打个电话。”卫兵说。</p>
+<p class="normaltext">凯和瑞拉站在那儿等着。天气很热，凯开始感到口渴。</p>
+<p class="normaltext">那个卫兵回来了。“对不起，”他说，“司令不能见你们。”</p>
+<p class="normaltext">“可是我昨天跟司令说过，”瑞拉说，“他答应今天4点半见我们。”</p>
+<p class="normaltext">“再过三分钟司令就要坐火车出发了。”卫兵说。</p>
+<p class="normaltext">“我们能不能在这儿等着见他一面？”凯问。</p>
+<p class="normaltext">“不行！”卫兵喊了起来，“出去！”</p>
+<p class="normaltext">凯和瑞拉回到出租车那儿。</p>
+<p class="normaltext">“司机哪去了？”凯问。</p>
+<p class="normaltext">“那不是嘛！在墙边坐着呢。”瑞拉说。</p>
+<p class="normaltext">正说着，扎达克司令出现在大门口。他高大魁梧，蓝眼睛，长着一头浓密的白发。四个卫兵两前两后阔步行进护卫着他。他们都带着枪。</p>
+<p class="normaltext">“他在那儿！”瑞拉喊了起来，“扎达克司令！”她随即顺着马路朝他跑去。</p>
+<p class="normaltext">扎达克司令并没有停下脚步。一个卫兵打开火车门，扎达克跨了进去。火车缓缓地开动了。</p>
+<p class="normaltext">凯奔向那辆出租车，迅速坐进车里。随即他开着车飞快地顺路而下。出租车司机看见了他，在后面紧追不放。火车开始加速。突然，凯把出租车开下了马路。直驶到火车前头停了下来。</p>
+<p class="normaltext">火车越来越近了。在就要撞到出租车的时候，它停了下来。几个卫兵从车厢里跳了下来。凯打开车门从出租车里出来。</p>
+<p class="normaltext">“举起手来！”卫兵们朝他喊。</p>
+<p class="normaltext">两个卫兵对凯一阵拳打脚踢。</p>
+<p class="normaltext">“住手！”有人喊了一声，“把他带到这儿来！”是扎达克司令。</p>
+<p class="normaltext">凯站到了司令面前。正在这时，瑞拉赶到了。</p>
+<p class="normaltext">“噢，是你。”扎达克司令说话了。他不带一丝笑容：“瑞拉，你父亲会生气的。”</p>
+<p class="normaltext">“我们想和您谈谈，司令，”瑞拉说，“这事非常重要。”</p>
+<p class="normaltext">“说吧，我听着呢。”</p>
+<p class="normaltext">凯开口了：“两年前阿岱曾跟您谈过人工臭氧层上的洞。现在情况更糟了。欧洲上空的人工臭氧层已经开裂。请您看看这些数据和这张卫星照片。”</p>
+<p class="normaltext">他把笔记本递给扎达克司令，扎达克看了看本子上的数据。</p>
+<p class="normaltext">“这事非常重要，司令，”凯说，“10年后地球就要毁灭了。”</p>
+<p class="normaltext">“你们拦住我的火车就为这事？”扎达克司令问，“两年前阿岱跟我谈过人工臭氧层的事。然后他又跟地球司令谈了这件事。之后又怎么样了呢？阿岱现在在哪？月亮部族能帮助修复人工臭氧层吗？”</p>
+<p class="normaltext">“我们知道阿岱的事，司令。”瑞拉说，“但是得有人再去跟地球司令谈谈。”</p>
+<p class="normaltext">“我可以告诉你们，我正准备去跟高格谈谈雨水的事。地球需要雨水：去年冬天没下雨。澳大利亚有一半地区没有水，我们的树都要枯死了。假如没有水的话很多人都要活不下去了。高格会理解这一切吗？我不知道。”</p>
+<p class="normaltext">扎达克司令朝他的火车走去。“把那辆出租车弄走！”他朝卫兵们喊。</p>
+<p class="normaltext">几个卫兵把出租车推回到公路上，然后跳上了火车。火车启动了。</p>
+<p class="normaltext">“好啊，”出租车司机喊道，“接下去你们还想干什么？把我的出租车开到河里去？”</p>
+<p class="normaltext">凯笑了。他从衣兜里拿出一些钱递给出租车司机。</p>
+<p class="normaltext">出租车司机看了看那些钱。“好吧，好吧。”他说，“现在去哪？回机场？”</p>
+<p class="normaltext">凯拉住瑞拉的手。“是的，”他说，“咱们回基桑加尼去。我们明天再给阿岱打个电话。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">3 Earth Commander</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="xx">3</span><br/>Earth Commander</p>
+<p class="normaltext">The next day in Kisangani, Kiah and Rilla waited quietly in an office in Gog's house. Suddenly, Commander Zadak came into the office and gave some letters to the man behind the table. He saw the two young people and stopped in front of them.</p>
+<p class="normaltext">'You again!' he said. 'What are you doing here?'</p>
+<p class="normaltext">Kiah stood up. 'Good morning, Commander. We're here because we want to see Earth Commander.'</p>
+<p class="normaltext">'I saw Earth Commander some minutes ago and talked to him about rain, 'Zadak said quietly. 'But he didn't listen. Your captain, Seru, was here earlier this morning and began to tell him about the holes in the AOL. But Gog doesn't want to hear about our planet. He's always talking about Mars. In the end, he's going to destroy Earth.'</p>
+<p class="normaltext">'Please help us!' Rilla cried. 'Come and see Gog with us!'</p>
+<p class="normaltext">'No.' Zadak looked at Kiah and then at Rilla with his blue eyes. 'I'm not talking to Gog again. And you—Gog isn't going to listen to you. Be careful—and good luck!'</p>
+<p class="normaltext">Commander Zadak opened the door and left the office.</p>
+<p class="normaltext">Rilla looked at Kiah. 'Earth Commander is a difficult man. I don't understand him.'</p>
+<p class="normaltext">'Everyone is afraid of him, 'Kiah said. 'And Commander Zadak isn't going to help us.'</p>
+<p class="picture"><img src="../../../Images/image07044.jpeg" alt="alt"/></p>
+<p class="normaltext">Kiah and Rilla waited. They waited and waited. At nearly twelve o'clock, a guard came into the office.</p>
+<p class="normaltext">'Come!' he said.</p>
+<p class="normaltext">Kiah and Rilla went with the guard. The house was big and old, with big windows and many doors. The guard went downstairs and opened one of the doors. There was nobody in the room.</p>
+<p class="normaltext">'Wait here,' the guard said, and left.</p>
+<p class="normaltext">Kiah and Rilla sat down on the expensive green and black chairs and looked at the expensive flowers on the tables. There were no windows in this room. Suddenly, the door opened and a tall, fat woman came in. Her name was Bel, and she was Gog's wife. She had a lot of long red hair and she wore an expensive blue dress. Bel liked expensive things. She carried a cat. The cat was black and white: half its face was black and half was white; half its body was black and half was white.</p>
+<p class="normaltext">'Why are you here? Why do you want to see Earth Commander?' she asked.</p>
+<p class="normaltext">Rilla stood up. 'How do you do?' she said. 'We want to talk to Earth Commander about the AOL. We have new numbers from the satellite.'</p>
+<p class="normaltext">Bel's face was red. 'The AOL! Earth Commander knows about the AOL, and he is the best man—'</p>
+<p class="normaltext">'Excuse me,' Kiah said quietly. 'We want to help Earth Commander.'</p>
+<p class="normaltext">Bel began to laugh. 'Help? You?' The cat jumped down and walked across the room. 'How can you help? Why can't you understand? Listen. Earth Commander is working on the spaceship for Mars. It's difficult and expensive work.' The cat jumped on to Rilla's chair and looked at her with its yellow eyes. 'Two years ago, Adai wanted more money for the AOL—and Earth Commander sent him to the colony under the Moon. Now you're talking about the AOL. Do you want to go to the Moon, too?'</p>
+<p class="normaltext">The door opened again and a different guard came in. 'Excuse me. Earth Commander is ready now.'</p>
+<p class="normaltext">Bel stood up. 'You can see Earth Commander now,' she said coldly. 'But you're going to be sorry!'</p>
+<p class="normaltext">The guard opened a different door, and Bel and the cat went into a beautiful room with expensive, very old tables and chairs. Rilla and Kiah went in behind them. There were no windows in the room, but a lot of pictures. There was Gog! The richest man on Earth; and the worst man on Earth. He was tall and fat, and without much hair. He sat behind a big table with a television, three computers and five telephones. He watched the television and didn't look at Kiah or Rilla. Two guards with guns stood behind him and two more guards stood near the door.</p>
+<p class="normaltext">'Here they are!' Bel said. 'They aren't friends, oh no! They want to talk about the AOL, of course. No one understands about Mars—'</p>
+<p class="normaltext">'That's all right, that's all right,' Gog said quickly. And then he looked up, first at Rilla and then at Kiah. His eyes were cold and green. 'I know about you two,' he said. 'Your captain told me about you. You're famous! Two children! You want to help planet Earth, is that right?' He waited. The cat jumped on to his table and sat down in front of the television.</p>
+<p class="normaltext">'Yes, Commander,' Kiah began. 'The AOL is breaking up—'</p>
+<p class="normaltext">'When? Tonight? Tomorrow?' Gog said angrily. 'I heard this old story two years ago, from Adai. Everyone comes here and wants money—money for the AOL, money for rain, money for the Moon colony. But I am Earth Commander, and you are nobody! I know about the AOL and the AOL is good for a hundred years!'</p>
+<p class="normaltext">'But the satellite—' Kiah began again.</p>
+<p class="normaltext">'Be quiet!' Gog cried. 'I am Earth Commander! I'm not going to give money for the AOL! Or for rain! Or for the Moon!' Gog looked at the guards near the door. 'Take them— take them away. I don't want to hear them.'</p>
+<p class="normaltext">The guards moved behind Kiah and Rilla, and Bel began to laugh. 'Goodbye!' she said. 'You're not going to the Moon, you're going to prison! You can talk about the holes in the AOL there!'</p>
+<hr/>
+<p class="normaltext02"><b>came</b> <span class="xt">vi. past tense of "to come", move to be with somebody or to be at a place.</span> 来，来到。</p>
+<p class="normaltext02"><b>letter</b> <span class="xt">n. written message sent by one person to another.</span> 信，信件。</p>
+<p class="normaltext02"><b>Mars</b> <span class="xt">n. the planet fourth in order from the sun, and next to the earth.</span> 火星。</p>
+<p class="normaltext02"><b>destroy</b> <span class="xt">v. to kill, to ruin completely.</span> 毁掉。</p>
+<p class="normaltext02"><b>careful</b> <span class="xt">adj. taking care with the intention of avoiding danger.</span> 小心的。</p>
+<p class="normaltext02"><b>difficult</b> <span class="xt">adj. not easy, requiring effort, strength, or skill.</span> 困难的。</p>
+<p class="normaltext02"><b>expensive</b> <span class="xt">adj. high priced.</span> 昂贵的。</p>
+<p class="normaltext02"><b>dress</b> <span class="xt">n. one-piece outer garment worn by a woman or a girl.</span> 妇女的外衣，裙子。</p>
+<p class="normaltext02"><b>laugh</b> <span class="xt">v. make sounds and movements of the face and body, showing joy.</span> 笑，大笑。</p>
+<p class="normaltext02"><b>spaceship</b> <span class="xt">n. sth. that can carry people into space.</span> 宇宙飞船。</p>
+<p class="normaltext02"><b>planet</b> <span class="xt">n. a large object in space moving round the sun, like the Earth.</span> 行星。</p>
+<p class="normaltext02"><b>soon</b> <span class="xt">adv. in a short time.</span> 很快。</p>
+<p class="normaltext02"><b>prison</b> <span class="xt">n. a place where people are locked up.</span> 监狱。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">地球司令</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01"><span class="xt big">3</span>　地球司令</p>
+<p class="normaltext">第二天在基桑加尼，凯和瑞拉在高格住处的一间办公室里静静地等待着。突然，扎达克司令走进办公室，递给办公桌后面的那个人一些信件。他看见了两个年轻人，在他们面前站住了。</p>
+<p class="normaltext">“又是你们！”他说，“你们在这儿干嘛？”</p>
+<p class="normaltext">凯站了起来：“早晨好，司令。我们来这儿是为了见地球司令。”</p>
+<p class="normaltext">“几分钟前我见到了地球司令，还跟他谈了雨水的事。”扎达克平静地说，“但是他不听。你们塞鲁船长今天早晨来过，并且告诉他人工臭氧层有了洞。可是髙格不想听我们这颗星球的事。他总是谈论火星。最终他会毁了地球。”</p>
+<p class="normaltext">“请您帮帮我们！”瑞拉喊着，“和我们一起去见见高格吧！”</p>
+<p class="normaltext">“不，”扎达克用他蓝蓝的眼睛看了看凯，又看了看瑞拉，“我不会再跟高格谈了。而你们——高格不会听你们的。小心点——祝你们好运！”</p>
+<p class="normaltext">扎达克司令打开房门走出了办公室。</p>
+<p class="normaltext">瑞拉看了看凯：“地球司令是个不好相处的人。我真不知道他是怎么想的。”</p>
+<p class="normaltext">“大家都怕他，”凯说，“扎达克司令也不准备帮助我们。”</p>
+<p class="normaltext">凯和瑞拉等待着。他们等啊等。快12点时，一个卫兵走进办公室。</p>
+<p class="normaltext">“来吧。”他说。</p>
+<p class="normaltext">凯和瑞拉跟在卫兵后面。这是座宽敞的旧房子，有巨大的窗户，许多扇门。卫兵下了楼，打开了一扇门。房间里一个人也没有。</p>
+<p class="normaltext">“在这儿等着。”卫兵说了一句就离开了。</p>
+<p class="normaltext">凯和瑞拉在昂贵的绿黑相间的椅子上坐了下来，观赏着桌子上那些名贵的鲜花。这个房间没有窗子。突然，门开了，一个身高体胖的女人走了进来。她叫贝尔，是高格的妻子。她有一头浓密的红色长发，穿着一件昂贵的蓝色裙子。贝尔喜欢昂贵的东西。她抱着一只猫。那是只黑白相间的猫：猫脸一半黑一半白；猫身也是一半黑一半白。</p>
+<p class="normaltext">“你们来这儿干嘛？你们为什么要见地球司令？”她问。</p>
+<p class="normaltext">瑞拉站起身。“你好，”她说，“我们要和地球司令谈谈人工臭氧层的事。我们从卫星上获得了新数据。”</p>
+<p class="normaltext">贝尔的脸涨红了：“人工臭氧层！地球司令知道人工臭氧层的事。他是最——“</p>
+<p class="normaltext">“对不起，”凯平静地说，“我们想帮助地球司令。”</p>
+<p class="normaltext">贝尔笑了：“帮助？你们？”那只猫跳了下来走到房间的另一头。“你们怎么帮他？你们怎么不明白呢？听着，地球司令正忙着制造去火星的飞船。这可是既费力又费钱的工作。”那只猫跳到瑞拉的椅子上，黄色的眼睛盯着她。“两年前，阿岱想为人工臭氧层要更多的钱——地球司令把他送到了月亮下面的部族。现在你们又在谈人工臭氧层，你们也想到月亮那儿去吗？”</p>
+<p class="normaltext">门又开了，另一个卫兵走了进来：“对不起，地球司令可以接见了。”</p>
+<p class="normaltext">贝尔站起身。“你们现在可以去见地球司令了，”她冷冰冰地说，“可你们会后悔的！”</p>
+<p class="normaltext">卫兵打开另外一扇门，贝尔和那只猫走进一个摆满非常古老、昂贵的桌椅的漂亮房间。瑞拉和凯跟在他们后面。这间屋子也没有窗户，墙上挂满了图画。高格就在里面！这个世界上最富也最坏的人。他又高又胖，头发稀疏。他坐在一张大桌子后面，桌上放着一台电视，三台电脑，五部电话。只见他注视着电视屏幕，根本不看凯和瑞拉。两个持枪的卫兵站在他身后，还有两个站在门边。</p>
+<p class="normaltext">“他们来了，”贝尔说，“他们不是朋友，噢，不是。当然，他们要谈谈人工臭氧层的事。没人懂得火星——”</p>
+<p class="normaltext">“行了，行了，”高格快速地打断她。之后他抬起头看看瑞拉又看看凯。那是一双冷漠的绿眼睛。“我知道你们俩，”他说，“你们船长跟我说起过你们。你们名气不小啊！两个孩子！你们想拯救地球，是不是？”他等着回答。那只猫跳上他的桌子坐在电视机前。</p>
+<p class="normaltext">“是的，司令，”凯开口了，“人工臭氧层正在破裂——”</p>
+<p class="normaltext">“什么时候？今天晚上？明天？”高格生气地说，“两年前我就听阿岱说过这个老掉牙的故事。每个人都到这儿来要钱——为人工臭氧层，为下雨的事，为月亮部族。但是我是地球司令，你们什么也不是！我知道人工臭氧层，它能坚持一百年！”</p>
+<p class="normaltext">“可是卫星——”凯又开口了。</p>
+<p class="normaltext">“少废话！”高格叫了起来，“我是地球司令！我不会为人工臭氧层花钱！也不为下雨的事花钱！也不为月亮！”高格看了一眼门口的卫兵，“把他们——把他们带走。我不想听他们讲话。”</p>
+<p class="normaltext">卫兵们在凯和瑞拉身后行动起来，贝尔笑了。“再见了！”她说，“你们不会去月球，你们要去监狱！你们可以在那儿谈论人工臭氧层上的洞！”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">4 Prison 888</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="xx">4</span><br/>Prison 888</p>
+<p class="normaltext">Commander Zadak was in his room at the biggest hotel in Kisangani. Suddenly, he heard the phone.</p>
+<p class="normaltext">'Commander?' someone said, very quietly. 'A man and a woman—from Ship OM-45—in prison 888.' The phone went dead. Zadak put the phone down, stood up, and left his room.</p>
+<p class="normaltext">Prison 888 was a big white building without windows, near Gog's house. There were a lot of guards at the gate, and some more guards marched past the building. All the guards carried guns.</p>
+<p class="normaltext">Commander Zadak walked across the road to the prison. 'I want to visit someone. My name is Commander Zadak.'</p>
+<p class="normaltext">'I'm sorry, Commander,' a guard said. 'We can't open the gate. Nobody can go in without a letter from Earth Commander.'</p>
+<p class="normaltext">'That's all right,' Zadak said, and walked along the road, past the prison.</p>
+<p class="normaltext">A guard ran behind him. 'Excuse me, Commander,' he said quickly. 'Please come back tonight. I can open the back gate at midnight. You can see the two people from Ship OM-45.'</p>
+<p class="normaltext">Zadak looked at the guard. 'Your captain's going to kill you.'</p>
+<p class="picture"><img src="../../../Images/image07045.jpeg" alt="alt"/></p>
+<p class="normaltext">The guard smiled. 'My captain phoned you about the two people from OM-45. He's the brother of Captain Seru.'</p>
+<p class="normaltext">Zadak didn't smile. 'The prison commander is going to kill you and your captain.'</p>
+<p class="normaltext">'It doesn't matter,' the guard said. 'We want to help.'</p>
+<p class="normaltext">'Midnight,' Zadak said, and walked away.</p>
+<p class="normaltext">At midnight there were four guards at the front gate of prison 888, and there was one guard at the back gate. The guard opened the gate and Zadak went in. The guard said nothing. They walked downstairs into a big room. A lot of prisoners slept on the floor because there were no beds or chairs. Kiah and Rilla sat on the floor near the door.</p>
+<p class="normaltext">'You can talk for five minutes,' the guard said quietly. 'The next guard arrives at 12.15.'</p>
+<p class="normaltext">Kiah and Rilla stood up. 'Good evening, Commander,' they said.</p>
+<p class="normaltext">Zadak looked at the prisoners. 'Why are all these people here?' he said to Kiah and Rilla. 'They're in prison because Gog doesn't like them. I talk to Gog about rain, I talk to him about the AOL, but he never listens. Today, someone told me about some fires in the new forest here in Africa; but Gog doesn't want to hear about those fires.' Zadak laughed angrily. 'And he doesn't want to hear about my trees in Australia. He never listens to me. He's always thinking about Mars, Not about our beautiful planet Earth.'</p>
+<p class="normaltext">Kiah listened carefully. 'Take it easy, Commander,' he said quietly. 'Please talk to Adai. Adai wants to help. He can come back from the Moon and help you.'</p>
+<p class="normaltext">'No,' Zadak said. 'I phoned Adai this afternoon. He's a good man and he wants to help. But I don't need help. I'm going to stop Gog: I'm going to kill him.'</p>
+<p class="normaltext">Kiah closed his eyes for a minute. 'Gog's guards have guns. They can kill you, Commander,' he said. 'You need more people to help. Wait for Adai. He can help you to look for more people.'</p>
+<p class="normaltext">'No, Kiah,' Zadak said quietly. I don't want more people. Adai can come back to Earth after Gog is dead—after I am dead, perhaps. I don't want Adai to die, too.'</p>
+<p class="normaltext">'Excuse me, Commander,' the guard said. He looked at the clock near the door.</p>
+<p class="normaltext">'OK. Let's go,' Zadak said to the guard. He looked at Rilla and then at Kiah. His eyes were very blue. 'Goodbye,' he said.</p>
+<p class="normaltext">'Goodbye, Commander,' Kiah said.</p>
+<p class="normaltext">'Be careful!' Rilla cried. 'And good luck!'</p>
+<p class="normaltext">Early that morning, Earth Commander's house was quiet.</p>
+<p class="normaltext">A guard opened the door.</p>
+<p class="normaltext">'Good morning, Commander Zadak,' he said. 'Earth Commander isn't in his office.'</p>
+<p class="normaltext">'That's all right,' Zadak said. 'I can wait.'</p>
+<p class="normaltext">Zadak went upstairs and waited.</p>
+<p class="normaltext">At eight o'clock Bel came into the room. 'Good morning, Commander,' she said. 'You're early this morning. Are you happier today? Earth Commander was very angry with you yesterday. Don't begin talking about rain or the AOL today.'</p>
+<p class="normaltext">Zadak smiled, but his blue eyes were cold. 'No,' he said. 'I'm not going to talk about rain today.'</p>
+<p class="normaltext">Just then, Gog came into the room. He looked at Zadak. 'What's wrong? Why are you here at eight o'clock in the morning?'</p>
+<p class="normaltext">Zadak took his gun from his pocket. Gog saw the gun and his face went white. His eyes were dark and afraid. For a second nobody moved.</p>
+<p class="normaltext">Suddenly, Bel's black and white cat ran into the room.</p>
+<p class="normaltext">'Guards! Guards!' Bel shouted.</p>
+<p class="normaltext">The cat jumped at Zadak, and Zadak hit the cat away from him. Bel ran across the room to Gog and Zadak, at that second, shot at Gog. But Bel was between him and Gog. She gave a cry and fell to the floor. Her hair looked very red on the black floor.</p>
+<p class="normaltext">'No!' 'Gog cried. 'You shot Bel!'</p>
+<p class="normaltext">Three guards ran into the room with their big guns and stood in front of Gog.</p>
+<p class="normaltext">'Kill him!' Gog shouted, and began to help Bel.</p>
+<p class="normaltext">Zadak looked at the guards and then at Bel and Gog. Kiah was right: he was going to die.</p>
+<p class="normaltext">'I'm sorry, Kiah. I'm sorry, Adai,' he said quietly.</p>
+<p class="normaltext">The guards shot Zadak. Slowly, he fell to the floor.</p>
+<hr/>
+<p class="normaltext02"><b>phone</b> <span class="xt">n. machines that can carry the human voice through wires.</span> 电话。</p>
+<p class="normaltext02"><b>smile</b> <span class="xt">v. show pleased, happy, amused or other expression on the face.</span> 微笑。</p>
+<p class="normaltext02"><b>prisoner</b> <span class="xt">n. people Locked locked in the prison.</span> 犯人。</p>
+<p class="normaltext02"><b>slept</b> <span class="xt">v. past tense of "to sleep"; rest with the eyes closed.</span> 睡觉。</p>
+<p class="normaltext02"><b>kill</b> <span class="xt">v. put to death.</span> 杀，杀死。</p>
+<p class="normaltext02"><b>clock</b> <span class="xt">n. machine that can show the time.</span> 钟表。</p>
+<p class="normaltext02"><b>cry</b> <span class="xt">n. any loud sound expressing fear, anger.</span> 叫喊。</p>
+<p class="normaltext02"><b>fell</b> <span class="xt">vi. past tense of "to fail", to go down suddenly.</span> 倒下。</p>
+<p class="normaltext02"><b>second</b> <span class="xt">n. there are sixty of them in one minute.</span> 秒，秒钟。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">888号监狱</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01"><span class="xt big">4</span>　888号监狱</p>
+<p class="normaltext">在基桑加尼最大的饭店，扎达克司令正待在他的房间里。突然，电话铃响了。</p>
+<p class="normaltext">“司令吗？”有人非常平静地说，“一个男的和一个女的——从OM-45号飞船上来的——正在888号监狱里。”电话挂断了。扎达克放下听筒，站起身，离开了他的房间。</p>
+<p class="normaltext">888号监狱座落在高格家附近，是座没有窗户的高大的白色建筑。监狱门口有许多卫兵，另外还有一些卫兵从监狱前走过。所有的卫兵都带着枪。</p>
+<p class="normaltext">扎达克司令穿过马路来到监狱门前，说道：“我是扎达克司令。我要见一个人。”</p>
+<p class="normaltext">“对不起，司令，”一个卫兵说，“我们不能开门。没有地球司令的信谁也不能进去。”</p>
+<p class="normaltext">“好吧，”扎达克说。他顺着马路从监狱旁边绕了过去。</p>
+<p class="normaltext">一个卫兵从后面赶了上来。“对不起，司令，”他说得很快，“请您今天晚上来吧。午夜的时候我可以打开后门。您能见到从OM-45号宇宙飞船来的那两个人。”</p>
+<p class="normaltext">扎达克注视着那个卫兵：“你们队长会杀了你的。”</p>
+<p class="normaltext">那个卫兵笑了：“是我们队长给您打电话，告诉您OM-45号那两个人的事的。他是塞鲁船长的哥哥。”</p>
+<p class="normaltext">扎达克没有笑：“监狱长会把你和你们队长都杀掉的。”</p>
+<p class="normaltext">“没关系，”那个卫兵说，“我们愿意帮忙。”</p>
+<p class="normaltext">“午夜。”扎达克说了一声就走了。</p>
+<p class="normaltext">午夜时分，888号监狱正门前有四个卫兵，还有一个卫兵守在后门。那个卫兵打开后门，扎达克走了进去。卫兵什么也没说。他们走下楼梯进了一个大房间。那个房间里没有床也没有椅子，许多犯人睡在地板上。凯和瑞拉坐在门边的地板上。</p>
+<p class="normaltext">“你们可以谈五分钟，”那个卫兵悄悄说，“下一班卫兵12点一刻来。”</p>
+<p class="normaltext">凯和瑞拉站起身：“晚上好，司令。”他们说。</p>
+<p class="normaltext">扎达克看了看那些犯人：“这些人为什么被关在这儿？”他对凯和瑞拉说道，“高格不喜欢他们，所以把他们关了起来。我跟高格说了下雨的事，还有人工臭氧层的事，可是他根本不听。今天有人告诉我非洲那些幼林失火了，可是高格根本不想听火灾的事。”扎达克愤怒地冷笑了一声：“他也不想知道澳大利亚我那些树林的事。他从来不听我的。他总想着火星，从来不想想我们美丽的地球。”</p>
+<p class="normaltext">凯认真听着。“别太在意，司令，”他平静地说，“请您和阿岱谈谈。他会帮忙的。他可以从月球回来帮助您。”</p>
+<p class="normaltext">“不行，”扎达克说，“今天下午我给他打了电话。他是个好人，也愿意帮忙。可我不需要帮助。我要阻止高格——我要杀了他。”</p>
+<p class="normaltext">凯闭目凝神了一会儿。“高格的卫兵有枪。他们会杀了您的，司令。”他说，“您需要多一些人帮忙。等等阿岱。他能帮您找更多的人。”</p>
+<p class="normaltext">“不，凯，”扎达克平静地说，“我不想要更多的人。阿岱可以在高格死了以后——也许我死了以后再回来。我不希望阿岱也来送死。”</p>
+<p class="normaltext">“对不起，司令。”那个卫兵说。他看了看门边挂着的钟。</p>
+<p class="normaltext">“好吧，咱们走。”扎达克对卫兵说。他看了看瑞拉又看了看凯。他的双眼晶莹碧蓝。“再见了。”他说。</p>
+<p class="normaltext">“再见，司令。”凯说。</p>
+<p class="normaltext">“要小心！”瑞拉喊着，“祝您好运！”</p>
+<p class="normaltext">那天清晨，地球司令的家里非常安静。一个卫兵打开房门。</p>
+<p class="normaltext">“早晨好，扎达克司令，”他说，“地球司令不在办公室。”</p>
+<p class="normaltext">“没关系，”扎达克说，“我可以等。”</p>
+<p class="normaltext">扎达克来到楼上开始等待。</p>
+<p class="normaltext">8点钟的时候贝尔走了进来。“早晨好，司令，”她说，“今天您可真早。您今天高兴点了吗？地球司令昨天跟您发了很大的火。今天可别上来就谈什么雨水或者人工臭氧层的事了。”</p>
+<p class="normaltext">扎达克笑了，可他的蓝眼睛里透着寒光。“不会的，”他说，“今天我不准备谈雨水的事。”</p>
+<p class="normaltext">正说着，高格走了进来。他看着扎达克：“这是怎么了？你为什么早晨8点钟就来这儿？”</p>
+<p class="normaltext">扎达克从衣兜里掏出了枪。高格看见了那支枪，脸色煞白。他目光灰暗，充满恐惧。一时间大家都僵在了那儿。</p>
+<p class="normaltext">突然，贝尔那只黑白相间的猫跑了进来。</p>
+<p class="normaltext">“卫兵！卫兵！”贝尔喊了起来。</p>
+<p class="normaltext">那只猫朝扎达克扑过来，扎达克把猫抡到一边。贝尔朝房间另一头的高格跑去，就在这时，扎达克朝高格开枪了。可是贝尔正好跑到他和高格之问。她叫了一声就倒在了地板上。在黑色地板的映衬下她的头发显得越发红艳。</p>
+<p class="normaltext">“不！”高格大喊，“你打死了贝尔！”</p>
+<p class="normaltext">三个拿着长枪的卫兵跑了进来，站在高格前面。</p>
+<p class="normaltext">“杀了他！”高格叫着，一边去救贝尔。</p>
+<p class="normaltext">扎达克看了看那几个卫兵，又看了看贝尔和高格。凯说得对：他活不成了。</p>
+<p class="normaltext">“凯，阿岱，我对不起你们。”他平静地说。</p>
+<p class="normaltext">卫兵们朝扎达克开了枪。他缓缓地倒在地板上。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-12" class="chapter-section">
+                <h2 class="chapter-title">5 Forest fires</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="xx">5</span><br/>Forest fires</p>
+<p class="normaltext">Later that morning, four guards took Rilla to Gog's office. His face looked tired and his eyes were red.</p>
+<p class="normaltext">'Leave us,' he said to the guards. Then he looked at Rilla. 'Tell me about Kiah. When did you first meet him? Is Zadak his friend? What do they talk about?'</p>
+<p class="normaltext">Rilla looked down at the floor and said nothing.</p>
+<p class="normaltext">'Come on, tell me!' Gog said angrily. He waited, but Rilla said nothing. 'Tell me about Zadak, then. Your father and Commander Zadak were friends. Now, you're talking to Zadak about the AOL. I know that. What is Zadak saying?'</p>
+<p class="normaltext">'Why? Why do you want to know about Commander Zadak?' Rilla asked.</p>
+<p class="normaltext">'I'm asking the questions, not you,' Gog said. 'Did you see Zadak yesterday?'</p>
+<p class="normaltext">'The AOL is important, not Commander Zadak,' Rilla said.</p>
+<p class="normaltext">Gog watched Rilla carefully. 'Zadak is dead.'</p>
+<p class="normaltext">'No!' Rilla cried.</p>
+<p class="normaltext">'He is dead,' Gog said again. 'You lost your friend, here in this building, early this morning. My guards shot him.'</p>
+<p class="normaltext">Rilla's face went white, 'What happened? Tell me!'</p>
+<p class="normaltext">'I'm going to tell you one thing,' Gog said angrily. 'I'm going to destroy Australia. I'm going to burn Zadak's new forest there. You can tell all your friends! Zadak wanted to kill me, but I killed him. He wanted money for rain, money for the AOL, and now he's dead. You can tell all those prisoners in prison 888. They wanted to stop me, but they can't now. I'm going to Mars! Bel always wanted to go to Mars.' He began to hit the table with his hand. 'I'm going to leave this dead planet! Nobody can stop me!'</p>
+<p class="picture"><img src="../../../Images/image07046.jpeg" alt="alt"/></p>
+<p class="normaltext">'You're crazy,' Rilla said. 'You killed Zadak, but one day someone is going to kill you.'</p>
+<p class="normaltext">Gog stood up. His face was tired and he looked ill. 'Be quiet!' he said. 'Guards! Take her away. Back to 888.'</p>
+<p class="normaltext">The guards came in and took Rilla out.</p>
+<p class="normaltext">'What happened?' she asked them. 'Commander Zadak is dead; why is Gog angry?'</p>
+<p class="normaltext">The guards said nothing. But after they returned to the gate of 888, a guard said to Rilla, very quietly: 'Bel is dead. Zadak didn't shoot Gog, but he shot Bel, before the guards shot him.'</p>
+<p class="normaltext">A guard. took Rilla into the prison, and soon she was with Kiah again.</p>
+<p class="normaltext">'What happened?' Kiah asked. 'Tell me.'</p>
+<p class="normaltext"> Rilla put her hands over her face and began to cry. 'Zadak is dead,' she began. 'He didn't kill Gog. He killed Bel before the guards shot him, and now Gog is going to destroy Australia.'</p>
+<p class="normaltext">Kiah sat down on the floor next to Rilla. His face was sad. 'Don't cry,' he said quietly.</p>
+<p class="normaltext">Three or four prisoners came across the room.</p>
+<p class="normaltext">'What's the matter?' they asked.</p>
+<p class="normaltext">'Zadak is dead,' Kiah said. 'But Bel is dead, too.'</p>
+<p class="normaltext">'What's going to happen next?' someone asked. But nobody answered.</p>
+<p class="normaltext">The next afternoon, Captain Seru's brother took Kiah and Rilla to a little room at the back of the prison.They sat down, and five minutes later Captain Seru arrived. Nobody smiled.</p>
+<p class="normaltext">'You were right, Captain,' Kiah said. 'Gog sent us to prison because we told him about the holes in the AOL.'</p>
+<p class="normaltext">Seru smiled. 'You were right, Kiah,' she said. 'Those satellite numbers were very bad. I began to tell Gog, but he didn't listen to me.'</p>
+<p class="normaltext">'Would you like some coffee? And some sandwiches?' Seru's brother asked.</p>
+<p class="normaltext">'Yes, please,' Seru said. 'I'm hungry.' She looked at Kiah and Rilla. 'Things are very bad.'</p>
+<p class="normaltext">'What's happening?' Rilla asked.</p>
+<p class="normaltext">'You know about Zadak? And Bel?'</p>
+<p class="normaltext">'Yes. Gog told Rilla yesterday,' Kiah said.</p>
+<p class="normaltext">Seru smiled, but her eyes were not happy. 'Gog talked to me this morning,' she said. Her brother came in with the coffee and sandwiches and Seru began to eat. 'Gog wants to know about Zadak, and about you,' she said. 'He's going to kill us all, I think, before he goes to Mars.'</p>
+<p class="normaltext">Suddenly, Rilla felt ill. 'I can't eat now!' she cried. But she took some coffee and began to drink. 'Let's get out of here,' she said. 'Perhaps we can get a plane to Brazil and go to my family.'</p>
+<p class="normaltext">'Difficult,' Seru said. 'Last night fires began in the new forest in Europe, and they're moving across Europe. The fires in Africa are burning fast. Gog began to destroy Zadak's forest in Australia yesterday.'</p>
+<p class="normaltext">'Did you phone Adai?' Kiah asked.</p>
+<p class="normaltext">'Adai! You never stop talking about Adai. What can he do?' Rilla said. She felt angry.</p>
+<p class="normaltext">Seru looked at Rilla for a minute. 'Yes, I phoned Adai before I came here. I told him about Zadak and Bel, and about the fires. He asked about you, Kiah. He can't come down at Kisangani airport because Gog is there with a lot of his guards. Ship MARS 4 is nearly ready and Gog is watching it. He wants to leave Earth tomorrow.'</p>
+<p class="normaltext">'How can Adai help us?' Rilla asked. 'He can't shoot all the guards here.'</p>
+<p class="normaltext">Captain Seru finished the last sandwich. 'Let's leave that to Adai,' she said. 'We can do nothing.'</p>
+<p class="normaltext">'Are you going to stay here?' Kiah asked.</p>
+<p class="normaltext">'Yes,' Seru answered. 'Adai is coming to the prison after he arrives on Earth.'</p>
+<p class="normaltext">'Oh yes?' Rilla said tiredly. 'But when? Gog can kill us before Adai comes.'</p>
+<p class="normaltext">'No, he can't,' Seru's brother said. 'You can stay here, in this room. Gog's guards are all afraid—afraid of the fires, afraid of the people. They aren't going to look for you here.'</p>
+<hr/>
+<p class="normaltext02"><b>angrily</b> <span class="xt">adv. with anger, the feeling that makes people want to fight.</span> 生气地，愤怒地。</p>
+<p class="normaltext02"><b>lost</b> <span class="xt">vt. past tense of "to lose", no longer have.</span> 失去。</p>
+<p class="normaltext02"><b>burn</b> <span class="xt">v. to be on fire.</span> 着火；燃烧。</p>
+<p class="normaltext02"><b>crazy</b> <span class="xt">adj. mad , foolish.</span> 疯，傻的。</p>
+<p class="normaltext02"><b>sad</b> <span class="xt">adj. unhappy.</span> 难过，伤心。</p>
+<p class="normaltext02"><b>meet</b> <span class="xt">v. come face to face with.</span> 见面，会见。</p>
+<p class="normaltext02"><b>sandwich</b> <span class="xt">n. two pieces of bread with meat in between.</span> 三明治。</p>
+<p class="normaltext02"><b>felt</b> <span class="xt">v. past tense of "to feel"; learn about by touching.</span> 触摸。</p>
+<p class="normaltext02"><b>fire</b> <span class="xt">n. sth. burning.</span> 火，火焰。</p>
+<p class="normaltext02"><b>ill</b> <span class="xt">adj. in bad health.</span> 病，生病。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-13" class="chapter-section">
+                <h2 class="chapter-title">森林大火</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01"><span class="xt big">5</span>　森林大火</p>
+<p class="normaltext">那天上午发生了这些事情之后，四个卫兵把瑞拉带到了高格的办公室。高格一脸疲惫，眼睛红红的。</p>
+<p class="normaltext">“出去吧。”他吩咐卫兵。之后他盯着瑞拉：“跟我说说凯。你第一次见到他是什么时候？扎达克是他的朋友吗？他们都谈些什么呢？”</p>
+<p class="normaltext">瑞拉低头看着地板，一言不发。</p>
+<p class="normaltext">“说呀，告诉我！”高格生气地喊。他等待着，瑞拉仍旧什么也没说。“那就说说扎达克吧。你爸爸和扎达克司令是朋友。现在你把人工臭氧层的事告诉了他。我知道这些。扎达克他怎么说？”</p>
+<p class="normaltext">“为什么？为什么你想知道扎达克司令的事？”瑞拉问。</p>
+<p class="normaltext">“是我在提问，不是你，”高格说，“昨天你见到扎达克了吗？”</p>
+<p class="normaltext">“人工臭氧层才是重要的，不是扎达克司令。”瑞拉说。</p>
+<p class="normaltext">高格凝视着瑞拉：“扎达克死了。”</p>
+<p class="normaltext">“不！”瑞拉叫了起来。</p>
+<p class="normaltext">“他死了，”高格重复了一遍，“你失去了你的朋友，就在这座楼里，就在今天清晨。我的卫兵开枪打死了他。”</p>
+<p class="normaltext">瑞拉的脸白了：“出了什么事？告诉我！”</p>
+<p class="normaltext">“有一件事我得告诉你，”高格恼怒地说，“我要毁掉澳大利亚。我要把扎达克新栽的森林烧毁，你可以告诉你所有的朋友。扎达克想杀死我，可我杀了他。他想为下雨的事，为人工臭氧层要钱，可现在他死了。你可以告诉888号监狱里所有的人。他们想阻止我，可现在他们不可能了。我要去火星！贝尔一直想去火星的。”他用手敲打着桌面，“我要离开这个死亡的星球！没人能阻拦我！”</p>
+<p class="normaltext">“你疯了，”瑞拉说，“你杀了扎达克，但总有一天也会有人把你杀掉的。”</p>
+<p class="normaltext">高格站起身。他面色疲惫，憔悴不堪。“住嘴！”他喊着，“卫兵！把她带走。带回888号监狱去。”</p>
+<p class="normaltext">卫兵们把瑞拉带了出去。</p>
+<p class="normaltext">“出了什么事？”她问他们，“扎达克司令死了，高格为什么那么生气？”</p>
+<p class="normaltext">卫兵们什么也没说。可是到了888号监狱门口，一个卫兵小声告诉瑞拉：“贝尔死了。扎达克没打着高格，可他打死了贝尔，然后卫兵才朝扎达克开的枪。”</p>
+<p class="normaltext">一个卫兵把瑞拉带进监狱，很快瑞拉就回到了凯身边。</p>
+<p class="normaltext">“出了什么事？”凯问，“告诉我。”</p>
+<p class="normaltext">瑞拉捂着脸哭了起来。“扎达克死了，”她说，“他没能杀死高格。他打死贝尔之后那些卫兵杀了他，现在高格要毁掉澳大利亚。”</p>
+<p class="normaltext">凯在瑞拉身边坐了下来。“别哭了。”他轻轻对瑞拉说，脸上流露出悲伤的神情。</p>
+<p class="normaltext">三四个犯人走了过来。</p>
+<p class="normaltext">“出了什么事？”他们问。</p>
+<p class="normaltext">“扎达克死了，”凯说，“贝尔也死了。”</p>
+<p class="normaltext">“以后还会出什么事呢？”一个人问。可是没人回答。</p>
+<p class="normaltext">第二天下午，塞鲁船长的哥哥把凯和瑞拉带到监狱后面的一个小房间。他们坐了下来，5分钟后，塞鲁船长来了。大家都很严肃。</p>
+<p class="normaltext">“船长，不出您所料，"凯说，“我们告诉高格人工臭氧层有洞的事，他就把我们送进了监狱。”</p>
+<p class="normaltext">塞鲁笑了。“你说得对，凯，”她说，“那些卫星数据的确很糟糕。我试着跟高格说，可他根本不听我的。”</p>
+<p class="normaltext">“要点咖啡吗？还有三明治？”塞鲁的哥哥问。</p>
+<p class="normaltext">“好吧，要一点，”塞鲁说，“我饿了。”她看着凯和瑞拉：“情况非常糟糕。”</p>
+<p class="normaltext">“出了什么事？”瑞拉问。</p>
+<p class="normaltext">“你知道扎达克的事吗？还有贝尔？”</p>
+<p class="normaltext">“瑞拉知道，高格昨天告诉她了。”凯说。</p>
+<p class="normaltext">塞鲁笑了，可她的目光中却没有喜悦的神情。“高格今天早晨跟我谈过了。”她说。她哥哥拿着咖啡和三明治走了进来，塞鲁边吃边说：“高格想知道关于扎达克的情况，他也想知道关于你们的情况。”她说，“我想，他要把我们大家都杀掉，然后再去火星。”</p>
+<p class="normaltext">突然，瑞拉感到很难受。“我现在吃不下去！”她喊着，一边倒了杯咖啡喝起来。“咱们出去吧，”她说，“也许我们能搭上去巴西的飞机回我家去。”</p>
+<p class="normaltext">“很困难，”塞鲁说，“昨天夜里欧洲的新森林起了火，火势正向整个欧洲蔓延。非洲的大火越烧越猛。昨天高格开始摧毁扎达克在澳大利亚的森林。”</p>
+<p class="normaltext">“你给阿岱打电话了吗？”凯问。</p>
+<p class="normaltext">“阿岱！你怎么老是说起他，他能干什么呢？”瑞拉非常生气。</p>
+<p class="normaltext">塞鲁注视了一阵瑞拉：“是的，我来之前给阿岱打过电话。我告诉了他扎达克和贝尔的事，还有火灾。他还问到你，凯。他不能降落在基桑加尼机场，因为髙格在那儿，他还布置了许多士兵。火星4号宇宙飞船已经基本准备就绪，高格正密切关注着它的进展。他想明天离开地球。”</p>
+<p class="normaltext">“阿岱怎么帮助我们呢？”瑞拉问，“他也不能把这儿所有的卫兵都打死。”</p>
+<p class="normaltext">塞鲁船长吃完了最后一个三明治。“这个问题就留给阿岱吧，”她说，“我们什么也做不了。”</p>
+<p class="normaltext">“您准备待在这儿吗？”凯问。</p>
+<p class="normaltext">“是的，”塞鲁说，“阿岱抵达地球之后就会到这座监狱来的。”</p>
+<p class="normaltext">“噢，真的吗？”瑞拉疲惫地说，“可是什么时候呢？阿岱来之前高格就会把我们杀了。”</p>
+<p class="normaltext">“不，他不会，”塞鲁的哥哥说，“你们可以待在这儿，在这个房间里。髙格的卫兵都害怕——怕那些火灾；怕那些人。他们不会到这儿来找你们的。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-14" class="chapter-section">
+                <h2 class="chapter-title">6 Spaceship to the Moon</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="xx">6</span><br/>Spaceship to the Moon</p>
+<p class="normaltext">And so they waited. And waited. Rilla slept in her chair. Kiah and Seru talked quietly. Seru's brother came and went. Most of the prison guards ran away with the prisoners. Seven or eight people—some prisoners and some guards—didn't want to run away, so they came into the room and waited, too.</p>
+<p class="normaltext"> Ten o'clock came, then eleven o'clock. It was very quiet. Seru walked up and down the room. Kiah sat next to Rilla. Seru's brother came into the room again.</p>
+<p class="normaltext">'It's after midnight,' he said.</p>
+<p class="normaltext">Just then, they heard the noise of a plane. Kiah stood up. 'Come on,' he said. 'Let's get out of the building.'</p>
+<p class="normaltext">Quietly, they left the building. It was a dark, hot night. There were no guards in front of the prison, so they went to the gate and waited there. Suddenly, they saw the plane. It was a little plane, and it came down on the road in front of the prison!</p>
+<p class="normaltext">Rilla took Kiah's hand. 'You were right,' she said. 'I'm sorry.'</p>
+<p class="normaltext">Kiah smiled. He began to feel happy. 'That's all right. I understand. I know Adai very well, and you don't.'</p>
+<p class="normaltext">The plane stopped and someone opened the door. Kiah ran across to the plane.</p>
+<p class="picture"><img src="../../../Images/image07047.jpeg" alt="alt"/></p>
+<p class="normaltext">'How many can you take?' he called. 'There are twelve of us.'</p>
+<p class="normaltext">'That's all right,' someone said. 'Quickly, the spaceship is waiting.'</p>
+<p class="normaltext">The twelve people got into the little plane, and the plane began to move. Rilla looked at the captain of the plane. He was tall, with brown hair. He looked nice. Was this the famous Commander Adai?</p>
+<p class="normaltext">'Where is the spaceship?' Kiah asked.</p>
+<p class="normaltext">'At the old airport,' the man said. 'One of the fires is moving very quickly across the new forest. It's going to arrive at the west of Kisangani before tomorrow, I think. But the old airport is OK.' Then the man looked at Kiah and smiled warmly. 'My brother,' he said. 'My little brother, in prison 888!'</p>
+<p class="normaltext">'Your brother? Commander Adai?' Rilla asked. 'But you didn't tell me that!'</p>
+<p class="normaltext">Kiah smiled. 'Nobody knew,' he said. 'But now—it doesn't matter now. Everyone can know.'</p>
+<p class="normaltext">The little plane came down at the old airport, south of the town.</p>
+<p class="normaltext">'Let's be careful,' Adai said. 'We don't want someone to shoot us before we leave.</p>
+<p class="normaltext">The spaceship was dark. Quickly, everyone jumped down from the plane and ran across to the spaceship. Soon, the spaceship left Earth, and everyone looked down at the burning planet. They saw the dark smoke over Africa, and here and there, through the smoke, the red, angry fires.</p>
+<p class="normaltext">'The fires are destroying the forest very quickly,' Seru said.</p>
+<p class="normaltext">Adai put his hand on Kiah's arm. 'I'm sorry about Zadak,' he said.</p>
+<p class="normaltext">'I wanted him to wait,' Kiah said. 'I wanted him to talk to you.'</p>
+<p class="normaltext">Adai's face was sad. 'He didn't want me to die,' he said quietly. 'He was a good man. And now he's dead.'</p>
+<p class="normaltext">'And Gog is going to Mars,' Seru said.</p>
+<p class="normaltext">'Mars? He's crazy! Mars isn't ready for people,' Adai said.</p>
+<p class="normaltext">'But Gog wants to go, and so he's going,' Seru said. 'Tell us about the Moon colony. That isn't ready: you need more money.'</p>
+<p class="normaltext">'No, I don't,' Adai said. 'The Moon colony is ready. I asked for more money because of Zadak: I wanted to give him money for rain. But Gog didn't listen; he wanted all Earth's money for the spaceship to Mars.'</p>
+<p class="normaltext">'I don't want to leave Earth,' Rilla said sadly. She felt tired and afraid.</p>
+<p class="normaltext">Adai smiled warmly at Rilla. 'Nobody wants to leave Earth,' he said. 'But under the Moon is the best home for us now. Wait and see. The Moon colony is a beautiful, wonderful country, with rivers and rain, forests and flowers, buildings—and the first town. You can visit Earth again soon, and bring more people to the Moon colony. We all want to help Earth, because it's our first home. I know that. At the same time, you are going to be happy under the Moon.'</p>
+<p class="normaltext">Suddenly, someone cried: 'Look at the Moon!'</p>
+<p class="normaltext">And through the window of the spaceship they saw the Moon before them, cold, white and beautiful; and under the Moon, there was the Moon colony!</p>
+<hr/>
+<p class="normaltext02"><b>midnight</b> <span class="xt">n. 12 o' clock at night.</span> 午夜。</p>
+<p class="normaltext02"><b>smoke</b> <span class="xt">n. visible vapour coming from a burning thing.</span> 烟，烟雾。</p>
+<p class="normaltext02"><b>ready</b> <span class="xt">adj. in the condition for doing some thing.</span> 准备好的。</p>
+<p class="normaltext02"><b>country</b> <span class="xt">n. land of a nation.</span> 国土；国家。</p>
+<p class="normaltext02"><b>river</b> <span class="xt">n. natural stream of water flowing to the sea or to a Lakelake.</span> 河流。</p>
+<p class="normaltext02"><b>happy</b> <span class="xt">adj. lucky, feeling pleased.</span> 高兴。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-15" class="chapter-section">
+                <h2 class="chapter-title">飞往月球的宇宙飞船</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01"><span class="xt big">6</span>　飞往月球的宇宙飞船</p>
+<p class="normaltext">于是他们等待着。等了又等。瑞拉蜷在她的椅子里睡着了。凯和塞鲁悄悄地谈着什么。塞鲁的哥哥进来一趟又出去了。监狱里的大部分卫兵都和犯人一起逃走了。只有大约七八个人——包括犯人和卫兵，不愿意逃走，于是也到这个房间里一起等待。</p>
+<p class="normaltext">10点钟，11点钟。房间里安静极了。塞鲁在房间里走来走去。凯坐在瑞拉身边。塞鲁的哥哥又走了进来。</p>
+<p class="normaltext">“已经过了午夜了。”他说。</p>
+<p class="normaltext">就在这时，他们听到一阵飞机的轰鸣。凯站起身。“来啊，”他说，“咱们到楼外面去。”</p>
+<p class="normaltext">他们悄悄地离开了大楼。这是个漆黑闷热的夜晚。监狱前面没有卫兵，于是他们来到大门口，在那儿等着。突然，他们看到了一架飞机。那是一架小飞机降落在了监狱门前的马路上！</p>
+<p class="normaltext">瑞拉抓住凯的手。“你说得对，”她说，“我很抱歉。“</p>
+<p class="normaltext">凯笑了。他高兴起来：“没关系，我明白。我非常了解阿岱，而你并不了解他。”</p>
+<p class="normaltext">那架飞机停了下来，有人打开了舱门。凯朝飞机跑了过去。</p>
+<p class="normaltext">“你们能带多少人？”他喊着，“我们一共12个人。”</p>
+<p class="normaltext">“没问题，”有人答道，“快点，宇宙飞船正等着呢。”</p>
+<p class="normaltext">12个人都上了那架小飞机，飞机启动了。瑞拉看了看机长。他身材髙大，头发是棕色的。这个人看上去很不错。他是不是那位著名的阿岱司令？</p>
+<p class="normaltext">“宇宙飞船在哪儿？”凯问。</p>
+<p class="normaltext">“那个旧机场，”那人说，“一股大火正飞速掠过新森林。我想明天之前这火就会烧到基桑加尼西部。好在那个旧机场还能用。”说完，那人注视着凯，脸上带着亲切的笑容。“我的弟弟，”他说，“我的小弟弟，住进了888号监狱！”</p>
+<p class="normaltext">“他是你哥哥？阿岱司令？”瑞拉问，“可你从来没跟我说过！”</p>
+<p class="normaltext">凯笑了。“以前没人知道，”他说，“可是现在——现在没关系了。大家都可以知道。”</p>
+<p class="normaltext">小飞机在城南的旧机场降落了。</p>
+<p class="normaltext">“咱们要小心，”阿岱说，“可不能在出发之前中了别人的枪子儿。”</p>
+<p class="normaltext">宇宙飞船笼罩在一片黑暗中。大家迅速跳下飞机朝飞船跑去。很快，飞船离开了地球，大家俯视着下面这颗燃烧着的星球。他们看到了非洲上空的黑烟，以及黑烟下面到处肆虐着的愤怒的火红烈焰。</p>
+<p class="normaltext">“大火很快就会把森林烧毁。”塞鲁说。</p>
+<p class="normaltext">阿岱把手搭在凯的臂膀上。“扎达克的事真让我难过。”他说。</p>
+<p class="normaltext">“我曾希望他再等等，”凯说，“我本来想让他和你谈谈。”</p>
+<p class="normaltext">阿岱神情悲切。“他不想让我送死，”他低声说，“他是个好人。可现在他死了。”</p>
+<p class="normaltext">“还有，高格要到火星去。”塞鲁船长说。</p>
+<p class="normaltext">“火星？他疯了！火星还不能住人。”阿岱说。</p>
+<p class="normaltext">“可高格要去，他马上就要出发了。”塞鲁说，“跟我们讲讲月亮部族吧。它还不成形，你还需要很多钱。”</p>
+<p class="normaltext">“不，我不需要，”阿岱说，“月亮部族已经准备就绪。我要更多的钱是为了扎达克：我想给他钱解决雨水的问题。可是高格不听；他要把地球所有的钱都用在去火星的宇宙飞船上。”</p>
+<p class="normaltext">“我不想离开地球。”瑞拉忧伤地说。她感到又累又恐惧。</p>
+<p class="normaltext">阿岱对瑞拉温和地笑了笑。“没有人愿意离开地球，”他说，“可是现在我们最好的家园在月亮下面。等着看吧。月亮部族是个美丽迷人的国家，有河流，有雨水，也有森林和鲜花，还有楼房——以及第一座城镇。你很快就可以再回到地球去。然后带更多的人到月亮部族去。我们都想帮助地球，因为它是我们的第一个家。我理解你。同时，你也一定会在月亮下面生活得愉快的。”</p>
+<p class="normaltext">突然，有人喊了一声：“快看月亮！”</p>
+<p class="normaltext">透过飞船的窗子，他们看到了眼前的月球：冰冷，皎洁，美丽；而在月亮下面，他们看到了月亮部族！</p>
+        
+                </div>
+            </section>
+            <section id="chapter-16" class="chapter-section">
+                <h2 class="chapter-title">Exercises</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">Exercises</p>
+<p class="subtitle">A Checking your understanding</p>
+<p class="normaltext2"><b>Chapter 1</b> <span class="xt">Who said these words in the chapter?</span></p>
+<p class="normaltext3">1 'There are big holes in the AOL and they're getting bigger.'</p>
+<p class="normaltext3">2 'We would like you to talk to Earth Commander.'</p>
+<p class="normaltext3">3 'Adai's there now, Commander of the Moon colony, under the Moon.'</p>
+<p class="normaltext3">4 'This is my first ship for two years!'</p>
+<p class="normaltext3">5 'Zadak? Commander of Australia? He's famous!'</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2"><b>Chapter 2</b> <span class="xt">Which person in the chapter...</span></p>
+<p class="normaltext3">1 ... phoned Commander Zadak in Australia?</p>
+<p class="normaltext3">2 ... opened the door of the train?</p>
+<p class="normaltext3">3 ... drove the taxi in front of the train and stopped?</p>
+<p class="normaltext3">4 ... looked at the numbers in Kiah's book?</p>
+<p class="normaltext3">5 ... was going to talk to Gog about rain?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2"><b>Chapter 3</b> <span class="xt">Write answers to these questions.</span></p>
+<p class="normaltext3">1 What is Gog always talking about?</p>
+<p class="normaltext3">2 Who came into the office at nearly twelve o'clock?</p>
+<p class="normaltext3">3 What did Bel carry?</p>
+<p class="normaltext3">4 What things were on Gog's big table?</p>
+<p class="normaltext3">5 Who began to laugh?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2"><b>Chapter 4</b> <span class="xt">Are these sentences true (T) or false (F)?</span></p>
+<p class="normaltext3">1 There were no guards at the gate of prison 888. </p>
+<p class="normaltext3">2 Zadak talked to Rilla and Kiah in prison.</p>
+<p class="normaltext3">3 Zadak wanted Adai to die, too.</p>
+<p class="normaltext3">4 Bel's cat jumped at Zadak.</p>
+<p class="normaltext3">5 Gog shot Zadak.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2"><b>Chapter 5</b> <span class="xt">Who said these words in the chapter?</span></p>
+<p class="normaltext3">1 'Tell me about Kiah. When did you first meet him?'</p>
+<p class="normaltext3">2 'I'm going to leave this dead planet!'</p>
+<p class="normaltext3">3 'Let's get out of here.'</p>
+<p class="normaltext3">4 'I phoned Adai before I came here.'</p>
+<p class="normaltext3">5 'Gog's guards are all afraid—afraid of the fires, afraid of the people.'</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2"><b>Chapter 6</b> <span class="xt">Are these sentences true (T) or false (F)?</span></p>
+<p class="normaltext3">1 Most of the prison guards ran away.</p>
+<p class="normaltext3">2 The captain of the plane was the famous Commander Adai.</p>
+<p class="normaltext3">3 Commander Adai did not know Kiah.</p>
+<p class="normaltext3">4 Nobody in the spaceship saw the dark smoke over Africa.</p>
+<p class="normaltext3">5 Gog wanted all Earth's money for the spaceship to Mars.</p>
+<p class="normaltext"><br/></p>
+<p class="subtitle">B Working with language</p>
+<p class="normaltext3"><b>1</b> <span class="xt">Use these words to join the two sentences together.</span><br/>and then　　because　　but</p>
+<p class="normaltext3">1 The guard opened the gate. Zadak went in.</p>
+<p class="normaltext3">2 A lot of prisoners slept on the floor. There were no beds or chairs.</p>
+<p class="normaltext3">3 'I talk to Gog about the AOL. He never listens.'</p>
+<p class="normaltext3">4 'All these people are in prison. Gog doesn't like them.'</p>
+<p class="normaltext3">5 Zadak smiled. His blue eyes were cold.</p>
+<p class="normaltext3">6 The cat jumped at Zadak. Zadak hit the cat.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>2</b> <span class="xt">Put these sentences in the right order. Then check your order with Chapter 6.</span></p>
+<p class="normaltext3">1 Soon, the spaceship left Earth.</p>
+<p class="normaltext3">2 The twelve people got into the little plane.</p>
+<p class="normaltext3">3 Quietly, they left the building and waited at the gate.</p>
+<p class="normaltext3">4 Next, the plane came down at the old airport, south of the town.</p>
+<p class="normaltext3">5 The plane came down on the road in front of the prison.</p>
+<p class="normaltext3">6 Quickly, everyone jumped down from the plane and ran across to the spaceship.</p>
+<p class="normaltext"><br/></p>
+<p class="subtitle">C Activities</p>
+<p class="normaltext3">1 You are a TV news reporter. Interview Gog, or Adai.</p>
+<p class="normaltext3">2 Write about a person that you like in the story.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-17" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image07049.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

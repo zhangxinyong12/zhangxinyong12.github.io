@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生存游戏 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '生存游戏';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>生存游戏</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">生存游戏</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">Copyright</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">Survive!</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">ACTIVITIES Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="m1"><img src="../../../Images/image06368.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">Copyright</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext">Copyright © Foreign Language Teaching and Research Press 2007</p>
+<p class="normaltext">All rights reserved. No part of this publication may be reproduced or distributed by any means, or stored in a database or retrieval system, without the prior written permission of Foreign Language Teaching and Research Press.</p>
+<p class="normaltext">本书版权由外语教学与研究出版社独家所有。如未获得该社书面同意，书中任何部分之文字及图片，不得用任何方式抄袭、节录、翻印或存储利用于任何数据库及检索系统等。</p>
+<p class="normaltext">Published by Foreign Language Teaching and Research Press</p>
+<p class="normaltext">No. 19 Xisanhuan Beilu</p>
+<p class="normaltext">Beijing, China 100089</p>
+<p class="normaltext">http://www.fltrp.com</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2B">京权图字01-2006-2801</p>
+<p class="normaltext00">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 2002 This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext00">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="subtitle2B">图书在版编目（CIP）数据</p>
+<p class="normaltext">生存游戏／（英）布鲁克（Brooke, H.）著．—北京：外语教学与研究出版社，2006.5（2013.6重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Survive!</p>
+<p class="normaltext">ISBN 978-7-5600-5454-4</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．生…　Ⅱ．布…　Ⅲ．①英语—语言读物②短篇小说—英国—现代　Ⅳ．H319.4: I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2007）第018922号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext00"><b>出版人：</b>蔡剑峰</p>
+<p class="normaltext00"><b>责任编辑：</b>余　军</p>
+<p class="normaltext00"><b>封面设计：</b>孙莉明</p>
+<p class="normaltext00"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltext00"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltext00"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltext00"><b>书　　号：</b>ISBN 978-7-5600-5454-4</p>
+<p class="normaltext00">*　　*　　*</p>
+<p class="normaltext00"><b>制售盗版必究　举报查实奖励</b></p>
+<p class="normaltext00"><b>版权保护举报电话：(010)88817519</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <p class="mulu">目　录</p>
+  <p class="mulu1"><a href="part0074.xhtml">Survive!</a></p>
+  <p class="mulu1"><a href="part0075.xhtml">ACTIVITIES Before Reading</a></p>
+  <p class="mulu1"><a href="part0076.xhtml">ACTIVITIES While Reading</a></p>
+  <p class="mulu1"><a href="part0077.xhtml">ACTIVITIES After Reading</a></p>
+  <p class="mulu1"><a href="part0078.xhtml">参考译文</a></p>
+  <p class="normaltext"><br/></p>
+  <p class="mulu1"><a href="part0001.xhtml">返回总目录</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">Survive!</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">Survive!</p>
+<p class="picture"><img src="../../../Images/image06369.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b1" href="part0078.xhtml#m1"><b>1</b></a>　Your name is Chris, and you are in a small plane, going across the Rocky Mountains. Suddenly the engine starts to make strange noises and the plane begins to go down into one of the mountains. Your radio does not work, and nobody knows where you are.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b20">20</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b2" href="part0078.xhtml#m2"><b>2</b></a>　You walk for about twenty minutes, wearing the coat and carrying the whisky and the map. The snow is deep and you are very cold.</p>
+<p class="normaltext">■<em> You go back to the plane and get some different things. Go to <a href="part0074.xhtml#b29">29</a>.</em></p>
+<p class="normaltext">■<em> You want to get warm and you drink the whisky. Go to <a href="part0074.xhtml#b34">34</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06370.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b3" href="part0078.xhtml#m3"><b>3</b></a>　You go back to sleep. You don't hear the helicopter again. The next day you walk down the river again.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b21">21</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b4" href="part0078.xhtml#m4"><b>4</b></a>　You walk back out of the tunnel and into the rocky valley.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b16">16</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06371.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b5" href="part0078.xhtml#m5"><b>5</b></a>　You eat the fruit. It isn't very good, but you're very hungry so you eat a lot. You take some with you. You can eat it later.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b10">10</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b6" href="part0078.xhtml#m6"><b>6</b></a>　You walk for about twenty minutes, wearing the coat and carrying the bananas and the cigarette lighter. The snow is deep and you are very cold. You go into the trees and light a fire.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b36">36</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06372.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b7" href="part0078.xhtml#m7"><b>7</b></a>　It's evening again, but because of the fish you are not hungry. You make a small house under the trees. You wake up early in the morning. There's a lot of noise. You run out and look up. There's a helicopter in the sky. You can see it, but it can't see you because of the trees, and it is going away.</p>
+<p class="normaltext">■<em> You run after the helicopter. Go to <a href="part0074.xhtml#b31">31</a>.</em></p>
+<p class="normaltext">■<em> You go back to sleep. Go to <a href="part0074.xhtml#b3">3</a>.</em></p>
+<p class="normaltext">■<em> You build a big fire. Go to <a href="part0074.xhtml#b35">35</a>.</em></p>
+<p class="normaltext">■<em> You shout at the helicopter and wave your arms. Go to <a href="part0074.xhtml#b37">37</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06373.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b8" href="part0078.xhtml#m8"><b>8</b></a>　You are a long way down the valley, and it is nearly night again. You make a fire in the trees and eat the bananas. The next morning you are very hungry. You must find something to eat. In the snow you see the tracks of an animal. Perhaps you can kill and eat this animal.</p>
+<p class="normaltext">■<em> You walk after the tracks. Go to <a href="part0074.xhtml#b39">39</a>.</em></p>
+<p class="normaltext">■<em> You are afraid of big animals. Perhaps the animal is dangerous. You walk down the mountain. Go to <a href="part0074.xhtml#b17">17</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06374.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b9" href="part0078.xhtml#m9"><b>9</b></a>　You walk for a few minutes, carrying the bananas, the cigarette lighter and the map. But it is very cold.</p>
+<p class="normaltext">■<em> You light a fire. Go to <a href="part0074.xhtml#b36">36</a>.</em></p>
+<p class="normaltext">■<em> You go back to the plane and get the whisky. Go to <a href="part0074.xhtml#b34">34</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b10" href="part0078.xhtml#m10"><b>10</b></a>　It is now afternoon. You begin to feel very ill. Perhaps the fruit is poisonous. You sit down in the snow. You cannot walk. You sit in the snow and get colder and colder.</p>
+<p class="normaltext">■<em> Go back to<a href="part0074.xhtml#b1">1</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b11" href="part0078.xhtml#m11"><b>11</b></a>　You turn to the right and the plane hits the trees.</p>
+<p class="normaltext">■<em> Go back to<a href="part0074.xhtml#b1">1</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06375.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b12" href="part0078.xhtml#m12"><b>12</b></a>　You walk across the lake. After a few minutes, you go through the ice, and you fall into the icy water.</p>
+<p class="normaltext">■<em> Go back to<a href="part0074.xhtml#b1">1</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06376.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b13" href="part0078.xhtml#m13"><b>13</b></a>　You walk for a few minutes, carrying the whisky, the cigarette lighter and the bananas. You are very cold.</p>
+<p class="normaltext">■<em> You drink the whisky. Go to <a href="part0074.xhtml#b34">34</a>.</em></p>
+<p class="normaltext">■<em> You go back to the plane, leave the whisky and take the coat. Go to <a href="part0074.xhtml#b6">6</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b14" href="part0078.xhtml#m14"><b>14</b></a>　There is ice over the river, but there are holes in it. You see that there are fish in the river. Perhaps you can catch a fish and eat it.</p>
+<p class="normaltext">■<em> You try and catch a fish through the ice. Go to <a href="part0074.xhtml#b26">26</a>.</em></p>
+<p class="normaltext">■<em> Fishing in the river is very dangerous. You walk on. Go to <a href="part0074.xhtml#b21">21</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06377.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b15" href="part0078.xhtml#m15"><b>15</b></a>　You turn to the left because you want to land on the snow. The plane goes into the snow and stops. You are safe, but you are at the top of a mountain and it is very cold. And it is evening.</p>
+<p class="normaltext">■<em> You stay in the plane. Go to <a href="part0074.xhtml#b24">24</a>.</em></p>
+<p class="normaltext">■<em> You go down the mountain. Go to <a href="part0074.xhtml#b29">29</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06378.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b16" href="part0078.xhtml#m16"><b>16</b></a>　It is very difficult to go past the rocks in the valley. After a few minutes you are very tired.</p>
+<p class="normaltext">■<em> You go on down the valley. Go to <a href="part0074.xhtml#b8">8</a>.</em></p>
+<p class="normaltext">■<em> You go back up the valley and into the tunnel. Go to <a href="part0074.xhtml#b33">33</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06379.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b17" href="part0078.xhtml#m17"><b>17</b></a>　You walk through the trees down the mountain. You are very hungry. You see some strange fruit on one of the trees.</p>
+<p class="normaltext">■<em> You eat the fruit. Go to <a href="part0074.xhtml#b5">5</a>.</em></p>
+<p class="normaltext">■<em> You don't eat the fruit. Go to <a href="part0074.xhtml#b23">23</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06380.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b18" href="part0078.xhtml#m18"><b>18</b></a>　You walk carefully onto the lake. After a few hundred metres, the ice begins to move under your feet.</p>
+<p class="normaltext">■<em> You go on across the lake. Go to <a href="part0074.xhtml#b12">12</a>.</em></p>
+<p class="normaltext">■<em> You go back and walk around the lake. Go to <a href="part0074.xhtml#b28">28</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b19" href="part0078.xhtml#m19"><b>19</b></a>　You make another fire. After about two hours you hear the helicopter again. This time it sees the smoke and lands on the snow near you. You are safe. You fly to hospital where you can rest and eat.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b20" href="part0078.xhtml#m20"><b>20</b></a>　You are going down very fast into the mountain but you can turn the plane to the left or the right. To the right there are some trees. To the left there is deep snow.</p>
+<p class="normaltext">■<em> You turn to the right. Go to <a href="part0074.xhtml#b11">11</a>.</em></p>
+<p class="normaltext">■<em> You turn to the left. Go to <a href="part0074.xhtml#b15">15</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06381.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="picture"><img src="../../../Images/image06382.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b21" href="part0078.xhtml#m21"><b>21</b></a>　You walk on down the river. You are now very hungry. You must eat something. There is fruit on the trees, or fish in the river.</p>
+<p class="normaltext">■<em> You try and catch a fish. Go to <a href="part0074.xhtml#b26">26</a>.</em></p>
+<p class="normaltext">■<em> You eat some fruit. Go to <a href="part0074.xhtml#b5">5</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b22" href="part0078.xhtml#m22"><b>22</b></a>　The rope breaks.</p>
+<p class="normaltext">■<em> Go back to<a href="part0074.xhtml#b1">1</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b23" href="part0078.xhtml#m23"><b>23</b></a>　You continue through the snow. There is nothing to eat, but you can make fires, and there is snow to drink. Suddenly you come to an icy lake.</p>
+<p class="normaltext">■<em> You walk across the lake. It's quicker, and you must find something to eat. Go to <a href="part0074.xhtml#b18">18</a>.</em></p>
+<p class="normaltext">■<em> You walk around the lake. You can look for a river. Go to <a href="part0074.xhtml#b28">28</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06383.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b24" href="part0078.xhtml#m24"><b>24</b></a>　You stay in the plane. But it is very cold. Do you really want to die?</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b29">29</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b25" href="part0078.xhtml#m25"><b>25</b></a>　You stay in the plane for four days. You see and hear nothing. You must go down the mountain.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b27">27</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06384.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b26" href="part0078.xhtml#m26"><b>26</b></a>　You fish for about twenty minutes. Finally you catch one. You catch more. You are now very cold, so you make a fire and cook and eat a fish. It's very good.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b7">7</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b27" href="part0078.xhtml#m27"><b>27</b></a>　You go down the mountain. After a few minutes you see a tunnel in front of you. There is a small valley to your left with a lot of rocks in it.</p>
+<p class="normaltext">■<em> You go down the valley. Go to <a href="part0074.xhtml#b16">16</a>.</em></p>
+<p class="normaltext">■<em> You go into the tunnel. Go to <a href="part0074.xhtml#b33">33</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06385.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b28" href="part0078.xhtml#m28"><b>28</b></a>　You walk around the lake. After about five kilometres you find a river. The water is going out of the lake and down a valley.</p>
+<p class="normaltext">■<em> You go on around the lake. Go to 38</em></p>
+<p class="normaltext">■<em> You walk down the river. Go to <a href="part0074.xhtml#b14">14</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b29" href="part0078.xhtml#m29"><b>29</b></a>　You want to go down the mountain. There are some things in the plane. You can take some of them with you. What do you take?</p>
+<p class="normaltext">■<em> The coat, the whisky, and the map. Go to <a href="part0074.xhtml#b2">2</a>.</em></p>
+<p class="normaltext">■<em> The coat, the bananas, and the cigarette lighter. Go to <a href="part0074.xhtml#b6">6</a>.</em></p>
+<p class="normaltext">■<em> The bananas, the cigarette lighter, and the map. Go to <a href="part0074.xhtml#b9">9</a>.</em></p>
+<p class="normaltext">■<em> The whisky, the cigarette lighter, and the bananas. Go to <a href="part0074.xhtml#b13">13</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06386.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b30" href="part0078.xhtml#m30"><b>30</b></a>　The smoke goes up into the sky all day. But you don't see the helicopter. You wait all day. The next morning you wake up early again.</p>
+<p class="normaltext">■<em> You build another fire. Go to <a href="part0074.xhtml#b19">19</a>.</em></p>
+<p class="normaltext">■<em> You walk down the river. Go to <a href="part0074.xhtml#b21">21</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06387.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b31" href="part0078.xhtml#m31"><b>31</b></a>　You run after the helicopter but it is going very fast. You have to go up the mountain, and you walk all day in the deep snow, but you don't see the helicopter again.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b23">23</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b32" href="part0078.xhtml#m32"><b>32</b></a>　You stay near the plane. You sit by the fire and watch the sky for two days. Nothing happens.</p>
+<p class="normaltext">■<em> You stay near the plane. Go to <a href="part0074.xhtml#b25">25</a>.</em></p>
+<p class="normaltext">■<em> You try and go down the mountain. Go to <a href="part0074.xhtml#b27">27</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b33" href="part0078.xhtml#m33"><b>33</b></a>　You walk into the tunnel. It's very dark. You see a lamp and you light it.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b40">40</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06388.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b34" href="part0078.xhtml#m34"><b>34</b></a>　You want to get warm, so you drink the whisky. But you don't get warm, you just feel tired, very tired.</p>
+<p class="normaltext">■<em> Go back to<a href="part0074.xhtml#b1">1</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b35" href="part0078.xhtml#m35"><b>35</b></a>　You build a big fire. There is a lot of smoke. You watch it go up into the sky.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b30">30</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06389.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b36" href="part0078.xhtml#m36"><b>36</b></a>　You sit all night in the trees in front of your fire. It is cold, but you have a good fire. You can sleep a little. You need to think about what you can do in the morning.</p>
+<p class="normaltext">■<em> You stay near the plane with a fire. Go to <a href="part0074.xhtml#b32">32</a>.</em></p>
+<p class="normaltext">■<em> You go down the mountain. Go to <a href="part0074.xhtml#b27">27</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b37" href="part0078.xhtml#m37"><b>37</b></a>　You shout at the helicopter and wave your arms. The helicopter turns and comes back for a minute. Then it starts to go up the mountain.</p>
+<p class="normaltext">■<em> You run after the helicopter. Go to <a href="part0074.xhtml#b31">31</a>.</em></p>
+<p class="normaltext">■<em> You go back to sleep. Go to <a href="part0074.xhtml#b3">3</a>.</em></p>
+<p class="normaltext">■<em> You build a big fire. Go to <a href="part0074.xhtml#b35">35</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06390.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b38" href="part0078.xhtml#m38"><b>38</b></a>　You walk all round the lake. You are very tired and you don't find anything to eat. You must go down the river.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b14">14</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b39" href="part0078.xhtml#m39"><b>39</b></a>　You walk in the tracks for a long way through the trees. They go behind a big tree. You look behind the tree and you see a very big bear. You don't think you can eat this. You walk quietly away.</p>
+<p class="normaltext">■<em> Go to <a href="part0074.xhtml#b17">17</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06391.jpeg" alt="alt"/></p>
+<p class="normaltext"><a id="b40" href="part0078.xhtml#m40"><b>40</b></a>　You walk down into the mountain for about ten minutes. You come to a big hole in the ground. There is an old rope in the hole.</p>
+<p class="normaltext">■<em> You go down the rope. Go to <a href="part0074.xhtml#b22">22</a>.</em></p>
+<p class="normaltext">■<em> You go back up the tunnel. Go to <a href="part0074.xhtml#b4">4</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06392.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>Before Reading</em></p>
+<p class="normaltext0">1. Look at the front and back covers of the book and choose the correct ending for these sentences.</p>
+<p class="normaltext">1) This book is _____</p>
+<p class="normaltext">　a　a love story.</p>
+<p class="normaltext">　b　a detective story.</p>
+<p class="normaltext">　c　an adventure story.</p>
+<p class="normaltext">　d　a science fiction story.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">2) The story happens in _____</p>
+<p class="normaltext">　a　Australia.</p>
+<p class="normaltext">　b　North America.</p>
+<p class="normaltext">　c　England.</p>
+<p class="normaltext">　d　Africa.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">3) Which of these things are in the story, do you think?</p>
+<p class="normaltext">　a　a bicycle</p>
+<p class="normaltext">　b　a car</p>
+<p class="normaltext">　c　a cat</p>
+<p class="normaltext">　d　a coat</p>
+<p class="normaltext">　e　a dog</p>
+<p class="normaltext">　f　a plane</p>
+<p class="normaltext">　g　a telephone</p>
+<p class="normaltext">　h　a tree</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>While Reading</em></p>
+<p class="subtitle03">　<em>AT THE END OF PART 16</em></p>
+<p class="normaltext0000">1. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) Chris has a big plane.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) There are two people in the plane.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) The radio works.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) The engine is making strange noises.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">5) Chris can turn the plane to the left.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">6) There are some trees to the left.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">7) There are some trees to the right.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext000">2. Which way does Chris turn the plane, do you think?</p>
+<p class="normaltext">1)　To the right.</p>
+<p class="normaltext">2)　To the left.</p>
+<p class="subtitle03">　<em>AT THE END OF PART 27</em></p>
+<p class="normaltext0000">1. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) It is very cold.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) Chris can light a fire.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) There is no snow on the mountain.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) There are a lot of rocks.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">5) Chris has a cigarette lighter.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext000">2. What next?</p>
+<p class="normaltext">Chris _____</p>
+<p class="normaltext">1) finds a person in the tunnel.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) finds an animal in the tunnel.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) doesn't go into the tunnel.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) finds nothing in the tunnel.</p>
+<p class="normaltextAA">T/F</p>
+<p class="subtitle03">　<em>AT THE END OF PART 7</em></p>
+<p class="normaltext0000">1. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) There is nothing to eat in the mountains.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) There can be dangerous animals in the mountains.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) The cigarette lighter is very useful for Chris.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) The whisky is very useful for Chris.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">5) Chris can be warm.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">6) There are a lot of people in the mountains.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext000">2. What next?</p>
+<p class="normaltext">1) Chris ______</p>
+<p class="normaltext">　a　sees the helicopter again.</p>
+<p class="normaltext">　b　sees a plane.</p>
+<p class="normaltext">　c　walks down the valley again.</p>
+<p class="normaltext">2) The helicopter</p>
+<p class="normaltext">　a　hits the mountain and explodes.</p>
+<p class="normaltext">　b　sees Chris.</p>
+<p class="normaltext">　c　goes away and doesn't come back.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext000">1. Answer these questions.</p>
+<p class="normaltext">1) Which dangerous animal lives on the mountain?</p>
+<p class="normaltext">　___________________________</p>
+<p class="normaltext">2) What is white, deep and very cold?</p>
+<p class="normaltext">　___________________________</p>
+<p class="normaltext">3) What animal lives in rivers?</p>
+<p class="normaltext">　___________________________</p>
+<p class="normaltext">4) What does Chris use to light a fire?</p>
+<p class="normaltext">　___________________________</p>
+<p class="normaltext">5) Does Chris walk up or down the mountain?</p>
+<p class="normaltext">　___________________________</p>
+<p class="normaltext">6) How many nights is Chris on the mountain?</p>
+<p class="normaltext">　___________________________</p>
+<p class="normaltext000">2. Choose the correct ending to these sentences.</p>
+<p class="normaltext">1) The plane hits the mountain______</p>
+<p class="normaltext">　a　because the radio doesn't work.</p>
+<p class="normaltext">　b　because the engine stops.</p>
+<p class="normaltext">　c　because it is snowing.</p>
+<p class="normaltext">2) The lake is dangerous______</p>
+<p class="normaltext">　a　because there are fish in it.</p>
+<p class="normaltext">　b　because it is on fire.</p>
+<p class="normaltext">　c　because there are holes in the ice.</p>
+<p class="normaltext">3) When Chris sees the helicopter, she lights the fire______</p>
+<p class="normaltext">　a　because it is cold.</p>
+<p class="normaltext">　b　because she wants to burn the helicopter.</p>
+<p class="normaltext">　c　because she wants to make smoke.</p>
+<p class="normaltext000">3. Can you remember what these things are?</p>
+<p class="picture"><img src="../../../Images/image06393.jpeg" alt="alt"/></p>
+<p class="normaltext000">4. Complete these sentences using the following words: </p>
+<p class="normaltext"><em>cold, deep, fires, helicopter, houses, Mountains, plane, river, safe, snow, valley, walks.</em></p>
+<p class="normaltext">Chris is in a small ______ going across the Rocky ______. The engine stops and the plane comes down in the ______. There are no ______ or roads near. Chris takes some things from the plane and ______ down the mountain through the ______ snow. It is very ______, and Chris lights ______. Chris goes down a long ______, near a ______. Finally Chris sees a ______. Chris is ______.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">参考译文</p>
+<p class="title1">Survive!<br/>生存游戏</p>
+<p class="normaltext0" id="m1">1　你名叫克丽丝，正驾驶一架小型飞机飞越落基山脉。突然，发动机发出了奇怪的响声，飞机朝着一座山坠去。你的无线电失灵了，没有人知道你所在的位置。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m20">20</a>节。</p>
+<p class="normaltext0" id="m2">2　你穿着外套，拿着威士忌和地图，走了大约二十分钟。积雪很厚，你感到很冷。</p>
+<p class="note1">■你回到飞机上，拿了一些其他物品。见第<a href="part0078.xhtml#m29">29</a>节。</p>
+<p class="note1">■为了暖和一点儿，你喝了威士忌。见第<a href="part0078.xhtml#m34">34</a>节。</p>
+<p class="normaltext0" id="m3">3　你回去睡觉，再也没听到直升机的声音。第二天，你继续沿着河边走。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m21">21</a>节。</p>
+<p class="normaltext0" id="m4">4　你原路返回，出了隧道，走进乱石丛生的山谷。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m16">16</a>节。</p>
+<p class="normaltext0" id="m5">5　你吃了果子。虽然味道不好，但是你太饿了，还是吃了不少。你带了些果子在身上，过后可以吃。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m10">10</a>节。</p>
+<p class="normaltext0" id="m6">6　你穿着外套，拿着香蕉和打火机，走了大约二十分钟。积雪很厚，你感到很冷。你走到树林里，生起一堆火。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m36">36</a>节。</p>
+<p class="normaltext0" id="m7">7　又到了晚上，但因为之前吃了鱼，你并没有觉得饿。你在树下搭了一座小棚子。早上醒来后，你听到了一阵响声。你跑出棚子往天上看，发现有一架直升机。虽然你看得见飞机，但因为树木的遮挡，飞机上的人看不到你。飞机就要飞走了。</p>
+<p class="note1">■你追着直升机跑。见第<a href="part0078.xhtml#m31">31</a>节。</p>
+<p class="note1">■你回棚子睡觉。见第<a href="part0078.xhtml#m3">3</a>节。</p>
+<p class="note1">■你生起一大堆火。见第<a href="part0078.xhtml#m35">35</a>节。</p>
+<p class="note1">■你冲着直升机一边大声呼喊，一边挥动双臂。见第<a href="part0078.xhtml#m37">37</a>节。</p>
+<p class="normaltext0" id="m8">8　你顺着山谷走出很远，夜晚又要来临了。你在树林里生起了火，吃了香蕉。第二天早上，你感到很饿，必须找些东西吃。你在雪地上发现了动物的脚印，也许你可以猎杀这只动物作食物。</p>
+<p class="note1">■你沿着脚印追踪而去。见第<a href="part0078.xhtml#m39">39</a>节。</p>
+<p class="note1">■你很害怕大型动物。或许这只动物很危险，于是你向山下走去。见第<a href="part0078.xhtml#m17">17</a>节。</p>
+<p class="normaltext0" id="m9">9　你带着香蕉、打火机和地图走了几分钟，感到非常寒冷。</p>
+<p class="note1">■你生起一堆火。见第<a href="part0078.xhtml#m36">36</a>节。</p>
+<p class="note1">■你回到飞机上去取威士忌。见第<a href="part0078.xhtml#m34">34</a>节。</p>
+<p class="normaltext0" id="m10">10　时间到了下午。你开始觉得很不舒服。也许那些果子有毒。你走不动了，坐在雪地上，觉得越来越冷。</p>
+<p class="note1">■回到第<a href="part0078.xhtml#m1">1</a>节。</p>
+<p class="normaltext0" id="m11">11　你向右转，飞机撞到了树上。</p>
+<p class="note1">■回到第<a href="part0078.xhtml#m1">1</a>节。</p>
+<p class="normaltext0" id="m12">12　你横穿湖面，在冰上走。几分钟后，冰裂开了，你掉进了冰水里。</p>
+<p class="note1">■回到第<a href="part0078.xhtml#m1">1</a>节。</p>
+<p class="normaltext0" id="m13">13　你带着威士忌、打火机和香蕉走了几分钟，感到非常寒冷。</p>
+<p class="note1">■你喝了威士忌。见第<a href="part0078.xhtml#m34">34</a>节。</p>
+<p class="note1">■你回到飞机上，放下了威士忌，带上了外套。见第<a href="part0078.xhtml#m6">6</a>节。</p>
+<p class="normaltext0" id="m14">14　河面上结了冰，但中间有洞隙。你看到河里有鱼。也许你可以抓一条鱼吃。</p>
+<p class="note1">■你试着从冰隙间捉一条鱼。见第<a href="part0078.xhtml#m26">26</a>节。</p>
+<p class="note1">■在河里捉鱼很危险。你继续往前走。见第<a href="part0078.xhtml#m21">21</a>节。</p>
+<p class="normaltext0" id="m15">15　你向左转，想在雪地上着陆。飞机落入雪中，停了下来。你虽然安全了，但却身处山顶，天气非常寒冷。天黑了下来。</p>
+<p class="note1">■你待在飞机上。见第<a href="part0078.xhtml#m24">24</a>节。</p>
+<p class="note1">■你向山下走去。见第<a href="part0078.xhtml#m29">29</a>节。</p>
+<p class="normaltext0" id="m16">16　山谷中的岩石很难攀爬，几分钟之后你就疲惫不堪了。</p>
+<p class="note1">■你继续沿着山谷走。见第<a href="part0078.xhtml#m8">8</a>节。</p>
+<p class="note1">■你往回走，出了山谷，进了隧道。见第<a href="part0078.xhtml#m33">33</a>节。</p>
+<p class="normaltext0" id="m17">17　你穿过树林向山下走，感觉饥肠辘辘。你看到有一棵树上结着没见过的果子。</p>
+<p class="note1">■你吃了果子。见第<a href="part0078.xhtml#m5">5</a>节。</p>
+<p class="note1">■你不吃果子。见第<a href="part0078.xhtml#m23">23</a>节。</p>
+<p class="normaltext0" id="m18">18　你小心地走上湖面。走了几百米后，脚下的冰开始晃动。</p>
+<p class="note1">■你继续在湖面上穿行。见第<a href="part0078.xhtml#m12">12</a>节。</p>
+<p class="note1">■你退了回去，然后绕着湖走。见第<a href="part0078.xhtml#m28">28</a>节。</p>
+<p class="normaltext0" id="m19">19　你重新生起一堆火。大概两个小时后，你又听到了直升机的声音。这一次，飞机看到了烟，停在了你旁边的雪地上。这下你安全了。你乘飞机前往医院，可以在那里吃饭和休息。</p>
+<p class="normaltext0" id="m20">20　你极快地向山中坠去，但你可以让飞机向左转弯或向右转弯。右边是一些树木，左边是厚厚的积雪。</p>
+<p class="note1">■你向右转。见第<a href="part0078.xhtml#m11">11</a>节。</p>
+<p class="note1">■你向左转。见第<a href="part0078.xhtml#m15">15</a>节。</p>
+<p class="normaltext0" id="m21">21　你继续沿着河走，感觉非常饥饿，必须找东西吃。树上有果子，河中有鱼。</p>
+<p class="note1">■你尝试着抓一条鱼。见第<a href="part0078.xhtml#m26">26</a>节。</p>
+<p class="note1">■你吃了一些果子。见第<a href="part0078.xhtml#m5">5</a>节。</p>
+<p class="normaltext0" id="m22">22　绳子断了。</p>
+<p class="note1">■回到第<a href="part0078.xhtml#m1">1</a>节。</p>
+<p class="normaltext0" id="m23">23　你继续在雪中跋涉。没有吃的东西，但你可以生火，还可以喝雪水。突然，你发现前面有一片结了冰的湖。</p>
+<p class="note1">■你横穿湖面。这样会快一些，你必须找点吃的东西。见第<a href="part0078.xhtml#m18">18</a>节。</p>
+<p class="note1">■你绕着湖走。你去寻找一条河。见第<a href="part0078.xhtml#m28">28</a>节。</p>
+<p class="normaltext0" id="m24">24　你待在飞机上，但感到非常寒冷。你真的不想活了吗？</p>
+<p class="note1">■见第<a href="part0078.xhtml#m29">29</a>节。</p>
+<p class="normaltext0" id="m25">25　你在飞机上待了四天，什么也看不到，什么也听不到。你必须下山。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m27">27</a>节。</p>
+<p class="normaltext0" id="m26">26　经过二十分钟的努力，你终于捉到了一条鱼。你又多捉了几条。你感到很冷，于是生起了一堆火，烤了一条鱼吃。味道好极了。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m7">7</a>节。</p>
+<p class="normaltext0" id="m27">27　你朝山下走去。几分钟后看到前面有一条隧道。你的左侧还有一个布满岩石的小山谷。</p>
+<p class="note1">■你沿着山谷走去。见第<a href="part0078.xhtml#m16">16</a>节。</p>
+<p class="note1">■你走进隧道。见第<a href="part0078.xhtml#m33">33</a>节。</p>
+<p class="normaltext0" id="m28">28　你绕着湖走。大约走了五公里，你发现了一条河。河水从湖中流出，向山谷流去。</p>
+<p class="note1">■你继续绕着湖走。见第<a href="part0078.xhtml#m38">38</a>节。</p>
+<p class="note1">■你沿着河走去。见第<a href="part0078.xhtml#m14">14</a>节。</p>
+<p class="normaltext0" id="m29">29　你想下山。飞机上有一些东西，你可以随身带上几样。你会带哪些呢？</p>
+<p class="note1">■外套、威士忌和地图。见第<a href="part0078.xhtml#m2">2</a>节。</p>
+<p class="note1">■外套、香蕉和打火机。见第<a href="part0078.xhtml#m6">6</a>节。</p>
+<p class="note1">■香蕉、打火机和地图。见第<a href="part0078.xhtml#m9">9</a>节。</p>
+<p class="note1">■威士忌、打火机和香蕉。见第<a href="part0078.xhtml#m13">13</a>节。</p>
+<p class="normaltext0" id="m30">30　一整天，烟不停地升上天空，但是直升机没有出现。你等了一整天。第二天，你又一大早就醒来了。</p>
+<p class="note1">■你重新生起一堆火。见第<a href="part0078.xhtml#m19">19</a>节。</p>
+<p class="note1">■你沿着河走去。见第<a href="part0078.xhtml#m21">21</a>节。</p>
+<p class="normaltext0" id="m31">31　你追着直升机跑，但它飞得很快。你不得不往山上爬，在厚厚的雪中跋涉了一整天，但再也没见到那架直升机。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m23">23</a>节。</p>
+<p class="normaltext0" id="m32">32　你待在飞机附近。坐在火边，看着天，就这样过了两天。什么也没有发生。</p>
+<p class="note1">■你待在飞机附近。见第<a href="part0078.xhtml#m25">25</a>节。</p>
+<p class="note1">■你试着向山下走去。见第<a href="part0078.xhtml#m27">27</a>节。</p>
+<p class="normaltext0" id="m33">33　你走进隧道。里面漆黑一片。你看到有一盏灯，便点上了。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m40">40</a>节。</p>
+<p class="normaltext0" id="m34">34　为了暖和一点儿，你喝了威士忌，但并没有觉得暖和起来。你只是感到很累，筋疲力尽。</p>
+<p class="note1">■回到第<a href="part0078.xhtml#m1">1</a>节。</p>
+<p class="normaltext0" id="m35">35　你生起一大堆火，火堆冒出很多烟。你看着冲天的烟柱。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m30">30</a>节。</p>
+<p class="normaltext0" id="m36">36　你整晚都坐在树林里的火堆前。虽然天很冷，但火烧得很旺，你可以稍微睡一会儿。你需要想想天亮以后你可以做些什么。</p>
+<p class="note1">■你燃着火堆，待在飞机附近。见第<a href="part0078.xhtml#m32">32</a>节。</p>
+<p class="note1">■你向山下走去。见第<a href="part0078.xhtml#m27">27</a>节。</p>
+<p class="normaltext0" id="m37">37　你冲着直升机一边大声呼喊，一边挥动双臂。直升机掉头往回飞了一会儿，然后向山上飞去。</p>
+<p class="note1">■你追着直升机跑。见第<a href="part0078.xhtml#m31">31</a>节。</p>
+<p class="note1">■你回去睡觉。见第<a href="part0078.xhtml#m3">3</a>节。</p>
+<p class="note1">■你生起一大堆火。见第<a href="part0078.xhtml#m35">35</a>节。</p>
+<p class="normaltext0" id="m38">38　你绕着湖走了一整圈，筋疲力尽，没有找到任何食物。你只能沿着河走。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m14">14</a>节。</p>
+<p class="normaltext0" id="m39">39　你沿着脚印在树林中走了很远。脚印延伸到一棵大树的后面。你朝树后看去，看到了一只大熊。这肯定不是能吃的。你悄悄地离开了。</p>
+<p class="note1">■见第<a href="part0078.xhtml#m17">17</a>节。</p>
+<p class="normaltext0" id="m40">40　你向山的深处走，大约走了十分钟，发现地上有一个很大的洞。一条很旧的绳子一直延伸到洞中。</p>
+<p class="note1">■你顺着绳子下到洞中。见第<a href="part0078.xhtml#m22">22</a>节。</p>
+<p class="note1">■你退回到隧道口。见第<a href="part0078.xhtml#m4">4</a>节。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06394.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

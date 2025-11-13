@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海盗的宝藏 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '海盗的宝藏';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>海盗的宝藏</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">海盗的宝藏</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">PIRATE TREASURE</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">Pirate Treasure　海盗的宝藏</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP1"><img src="../../../Images/image06892.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2" id="CHP2">京权图字：01-2013-7806</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2010</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">海盗的宝藏：英汉对照／（英）伯罗斯（Burrows, P.），（英）福斯特（Foster, M.）著；田娜译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Pirate treasure</p>
+<p class="normaltext">ISBN 978-7-5135-3781-0</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①海…　Ⅱ．①伯…②福…③田…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272354号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">出版人　　蔡剑峰</p>
+<p class="normaltext3">责任编辑　徐传斌</p>
+<p class="normaltext3">封面设计　蔡　颖</p>
+<p class="normaltext3">出版发行　外语教学与研究出版社</p>
+<p class="normaltext3">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext3">网　　址　http://www.fltrp.com</p>
+<p class="normaltext3">版　　次　2013年12月第1版</p>
+<p class="normaltext3">书　　号　ISBN 978-7-5135-3781-0</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">制售盗版必究　举报查实奖励</p>
+<p class="normaltext3">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP3">内容简介</h1>
+<p class="normaltext2">1607年，汤姆·克里克的海盗船“黑星号”沉入了海底，汤姆·克里克失去了他所有的财宝。就在船沉入海底的时候，他喊道：“这是我的财宝，不是别人的。我诅咒这些财宝——永远诅咒！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">许多年过去了。许多人试图得到那些财宝。许多人因此而丧生。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">2009年，又有一行人踏上了寻找“黑星号”的征程。这艘船叫作“沙丁鱼号”。约翰·韦斯特和他的妻子梅以及他们的朋友们想要找到财宝，他们并不害怕汤姆·克里克的诅咒，有的人甚至认为根本没有什么诅咒。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">他们这么想，究竟是对了，还是疯了？</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">PIRATE TREASURE</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP4">PIRATE TREASURE</h1>
+<p class="normaltext3">It is 1607. Tom Creek's pirate boat, The Black Star, goes down in the sea. Tom Creek loses all his treasure. As the boat goes down he shouts, 'This is my treasure and no other man's. I curse this treasure – forever.'</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Many years pass. Many men try to get the treasure. Many men die.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">It is 2009. There is a new expedition to The Black Star. The boat is called The Sardine. John West, his wife Mae, and their friends want to get the treasure. They are not afraid of Tom Creek's curse. Some of them think there is no curse.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Are they right or are they mad?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">CONTENTS<br/>目　录</div>
+<div class="contents1"><a href="part0302.xhtml#CHP3">内容简介</a></div>
+<div class="contents1"><a href="part0305.xhtml#CHP5">Pirate Treasure<br/>海盗的宝藏</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0306.xhtml#CHP6">GLOSSARY<br/>词汇表</a></div>
+<div class="contents1"><a href="part0307.xhtml#CHP7">ACTIVITIES<br/>阅读练习</a></div>
+<div class="contents1"><a href="part0308.xhtml#CHP8">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">Pirate Treasure　海盗的宝藏</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP5">PIRATE TREASURE</h1>
+<p class="picture"><a href="part0308.xhtml#a1"><img src="../../../Images/image06893.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a2"><img src="../../../Images/image06894.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a3"><img src="../../../Images/image06895.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a4"><img src="../../../Images/image06896.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a5"><img src="../../../Images/image06897.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a6"><img src="../../../Images/image06898.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a7"><img src="../../../Images/image06899.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a8"><img src="../../../Images/image06900.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a9"><img src="../../../Images/image06901.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a10"><img src="../../../Images/image06902.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a11"><img src="../../../Images/image06903.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a12"><img src="../../../Images/image06904.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a13"><img src="../../../Images/image06905.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a14"><img src="../../../Images/image06906.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a15"><img src="../../../Images/image06907.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a16"><img src="../../../Images/image06908.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a17"><img src="../../../Images/image06909.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a18"><img src="../../../Images/image06910.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a19"><img src="../../../Images/image06911.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a20"><img src="../../../Images/image06912.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a21"><img src="../../../Images/image06913.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a22"><img src="../../../Images/image06914.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a23"><img src="../../../Images/image06915.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0308.xhtml#a24"><img src="../../../Images/image06916.jpeg" alt="alt"/></a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP6">GLOSSARY<br/>词汇表</h1>
+<p class="normaltext03b"><b>boat</b> <em>n.</em> you travel across the sea in this 船</p>
+<p class="normaltext03b"><b>broken</b> <em>adj.</em> in more than one piece 破碎的</p>
+<p class="normaltext03b"><b>captain</b> <em>n. </em>the most important man on a boat 船长</p>
+<p class="normaltext03b"><b>curse</b> <em>v. </em>to make something bad happen to another person 诅咒</p>
+<p class="normaltext03b"><b>dive</b> <em>v. </em>to go a long way under the sea 潜水</p>
+<p class="normaltext03b"><b>escape</b> <em>v. </em>to run away from something 逃脱</p>
+<p class="normaltext03b"><b>expedition</b> <em>n. </em>when people go somewhere to look for something 探险</p>
+<p class="normaltext03b"><b>fight</b> <em>v. </em>to hit someone 与……战斗</p>
+<p class="normaltext03b"><b>fish</b> <em>n. </em>an animal that swims in the sea 鱼</p>
+<p class="normaltext03b"><b>forever</b> <em>adv. </em>for a very long time 永远</p>
+<p class="normaltext03b"><b>full</b> <em>adj. </em>a bag is full when it has lots of things in it 充满的</p>
+<p class="normaltext03b"><b>mad</b> <em>adj. </em>when a person is not normal 疯狂的</p>
+<p class="normaltext03b"><b>rich</b> <em>adj. </em>when you have lots of money 富有的</p>
+<p class="normaltext03b"><b>safe</b> <em>adj. </em>when no one can hurt you 安全的</p>
+<p class="normaltext03b"><b>swim</b> <em>v. </em>to move through water 游泳</p>
+<p class="normaltext03b"><b>this is the life</b> we say this when everything is good 这才是生活呢</p>
+<p class="normaltext03b"><b>treasure</b> <em>n. </em>important things that you can get a lot of money for 宝藏</p>
+<p class="normaltext03b"><b>trouble</b> <em>n. </em>problems 麻烦</p>
+<p class="normaltext03b"><b>world</b> <em>n. </em>the planet Earth 世界</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01" id="CHP7">ACTIVITIES　阅读练习</p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>Before Reading</em></h2>
+<p class="normaltextb1">1 Look at the front and <a href="part0310.xhtml#CHP9">back covers</a> of the book. Now answer these questions.</p>
+<p class="normaltextb02">1) What is John West looking for?</p>
+<p class="normaltextb3">a □ Treasure.</p>
+<p class="normaltextb3">b □ Fish.</p>
+<p class="normaltextb3">c □ Love.</p>
+<p class="normaltextb02">2) Where is he looking?</p>
+<p class="normaltextb3">a □ Up a hill.</p>
+<p class="normaltextb3">b □ Under the sea.</p>
+<p class="normaltextb3">c □ In a city.</p>
+<p class="normaltextb02">3) Who is Tom Creek?</p>
+<p class="normaltextb3">a □ A diver.</p>
+<p class="normaltextb3">b □ John West's friend.</p>
+<p class="normaltextb3">c □ A pirate.</p>
+<p class="normaltextb1">2 Guess what happens. In the story...</p>
+<p class="normaltextb2">1) Tom Creek loses some treasure.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">2) Tom Creek finds some treasure.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">3) John West's friends run away.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">4) they see a dolphin.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>While Reading</em></h2>
+<p class="normaltextb1">1 Answer these questions.</p>
+<p class="normaltextb2">1) When does The Black Star go down?</p>
+<p class="normaltextb2">2) Who says 'I curse this treasure forever'?</p>
+<p class="normaltextb2">3) When does a big wave hit a boat?</p>
+<p class="normaltextb2">4) When does a door shut under the sea?</p>
+<p class="normaltextb1">2 What are the missing words?</p>
+<p class="normaltextb02">1) 'Tomorrow they are going to find The Black Star's _____.'</p>
+<p class="normaltextb2">a □ treasure</p>
+<p class="normaltextb2">b □ pirate</p>
+<p class="normaltextb2">c □ sandwiches</p>
+<p class="normaltextb02">2) 'Are you mad? There is no _____.'</p>
+<p class="normaltextb2">a □ shark</p>
+<p class="normaltextb2">b □ sun</p>
+<p class="normaltextb2">c □ curse</p>
+<p class="normaltextb02">3) 'We are all good _____. Let's find the treasure.'</p>
+<p class="normaltextb2">a □ pirates</p>
+<p class="normaltextb2">b □ men</p>
+<p class="normaltextb2">c □ divers</p>
+<p class="normaltextb02">4) 'Don't go to The Black Star. My men... they are all _____.'</p>
+<p class="normaltextb2">a □ angry</p>
+<p class="normaltextb2">b □ dead</p>
+<p class="normaltextb2">c □ afraid</p>
+<p class="normaltextb1">3 Answer these questions.</p>
+<p class="normaltextb2">1) How does Barry Barnes leave the room?</p>
+<p class="normaltextb2">2) Who sees a dolphin?</p>
+<p class="normaltextb2">3) What can they see on the screen?</p>
+<p class="normaltextb2">4) Why can't they dive today?</p>
+<p class="normaltextb1">4 Answer these questions.</p>
+<p class="normaltextb2">1) Why does John say, 'Mae, you can't dive'?</p>
+<p class="normaltextb2">2) Why does John say, 'That doesn't look good'?</p>
+<p class="normaltextb2">3) Why does the diver say, 'Look at that'?</p>
+<p class="normaltextb2">4) Why does Mae say, 'John, there's trouble'?</p>
+<p class="normaltextb1">5 Are these sentences true or false?</p>
+<p class="normaltext1">　　　</p>
+<p class="normaltextb2">1) John thinks The Black Star is bad.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb2">2) They can see a dolphin in the water.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb2">3) They run away from the shark.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb2">4) The shark sees some blood.</p>
+<p class="normaltext1"><em>T</em> □／<em>F</em> □</p>
+<p class="normaltextb1">6 Answer these questions.</p>
+<p class="normaltextb2">1) Why does John say, 'Mae! Come back'?</p>
+<p class="normaltextb2">2) Why does Mae say, 'They aren't interested in me'?</p>
+<p class="normaltextb2">3) Why does Mae ask, 'What do you think, little one'?</p>
+<p class="normaltextb2">4) Why does Mae say, 'No more. I'm too tired'?</p>
+<p class="normaltextb2">5) Why does the dolphin say, 'Ow! It's them again'?</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>After Reading</em></h2>
+<p class="normaltextb1">1 Tell the story to a friend. Use these words.</p>
+<p class="normaltext0"><em>pirate / boat / curse / dead / treasure / shark / dolphin / woman /</em><em> dive / expedition</em></p>
+<p class="normaltextb1">2 Fill in the bubbles to write a different ending.</p>
+<p class="picture"><img src="../../../Images/image06917.jpeg" alt="alt"/></p>
+<p class="normaltextb1">3 Put these sentences in the correct order. Number them 1–6.</p>
+<p class="normaltextb002">a □ '... But I am a <em>woman</em>!'</p>
+<p class="normaltextb002">b □ 'Don't be afraid of the shark. I know what to do.'</p>
+<p class="normaltextb002">c □ 'Fight them, boys. The Black Star is our boat.'</p>
+<p class="normaltextb002">d □ 'I can't stay here. I must find her now.'</p>
+<p class="normaltextb002">e □ 'Be careful. I think his foot is broken.'</p>
+<p class="normaltextb002">f □ 'Hey! You really are dead.'</p>
+<p class="normaltextb1">4 Match the beginnings and endings of these sentences.</p>
+<p class="normaltextb2">1) The Black Star is...</p>
+<p class="normaltextb2">2) John West tries to get the treasure...</p>
+<p class="normaltextb2">3) John cuts his hand...</p>
+<p class="normaltextb2">4) Mae is not hurt by the curse...</p>
+<p class="normaltextb2">5) The dolphin does...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextb2">a) and a shark comes.</p>
+<p class="normaltextb2">b) not get a fish.</p>
+<p class="normaltextb2">c) Tom Creek's pirate boat.</p>
+<p class="normaltextb2">d) in his boat, The Sardine.</p>
+<p class="normaltextb2">e) because she is a woman.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01" id="CHP8">TRANSLATION　参考译文</p>
+<h2 class="title2">PIRATE TREASURE<br/><span class="Kai">海盗的宝藏</span></h2>
+<hr/>
+<p class="normaltext3" id="a1"><b>5th August 1607.</b></p>
+<p class="normaltext03a">Fight them, boys. The Black Star is our boat.</p>
+<p class="normaltext03a">I am afraid!</p>
+<p class="normaltext03a">Ow, my leg!</p>
+<p class="normaltext03a"><b>(Boom!)</b></p>
+<p class="normaltext03a">That looks close.</p>
+<p class="normaltext03a">Very close!</p>
+<p class="normaltext03a">Be careful. I am Tom Creek, and I feel angry. Don't do that again.</p>
+<p class="normaltext03a">Is this the wrong time to ask for more money?</p>
+<p class="normaltext03a">Yes!</p>
+<p class="normaltext03a">This is my treasure and no other man's. I curse this treasure — forever. This is Tom Creek's curse!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>1607年8月5日。</b></p>
+<p class="normaltext03">杀呀，伙计们！“黑星号”是我们的船！</p>
+<p class="normaltext03">我好害怕！</p>
+<p class="normaltext03">哎哟，我的腿！</p>
+<p class="normaltext03a"><b>（轰隆！）</b></p>
+<p class="normaltext03">好险。</p>
+<p class="normaltext03">险得很！</p>
+<p class="normaltext03">小心点儿！我是汤姆·克里克，我很生气！别再搞这种把戏。</p>
+<p class="normaltext03">这会儿要求加薪是不是不太合适？</p>
+<p class="normaltext03">当然！</p>
+<p class="normaltext03">这是我的财宝，不是别人的。我诅咒这些财宝——永远诅咒！这是汤姆·克里克的诅咒！</p>
+<hr/>
+<p class="normaltext3" id="a2"><b>7th December 1841. On the sea near The Black Star.</b></p>
+<p class="normaltext03a">Come on, men!</p>
+<p class="normaltext03a">Let's find the treasure.</p>
+<p class="normaltext03a">Goodbye, Mum. Goodbye, Dad.</p>
+<p class="normaltext03a">Help! I can't swim.</p>
+<p class="normaltext03a">Goodbye, World.</p>
+<p class="normaltext03a"><b>22nd April 1907. Another man wants the treasure.</b></p>
+<p class="normaltext03a">Yum. Take it easy!</p>
+<p class="normaltext03a">Yuk. Get off me.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>1841年12月7日，“黑星号”附近的海面上。</b></p>
+<p class="normaltext03">加油，伙计们！</p>
+<p class="normaltext03">咱们去找宝藏。</p>
+<p class="normaltext03">再见了，妈妈。再见了，爸爸。</p>
+<p class="normaltext03">救命啊！我不会游泳！</p>
+<p class="normaltext03">再见了，这个世界。</p>
+<p class="normaltext03a"><b>1907年4月22日，又有一个人想找到宝藏。</b></p>
+<p class="normaltext03">呀呣。放轻松点儿！</p>
+<p class="normaltext03">呸！放开我！</p>
+<hr/>
+<p class="normaltext3" id="a3"><b>16th February 1977. Another boat needs help.</b></p>
+<p class="normaltext03a">Wheeee!</p>
+<p class="normaltext03a">Stop! I feel ill.</p>
+<p class="normaltext03a">Uh oh. No treasure today.</p>
+<p class="normaltext03a"><b>25th June 1999. Another man dies.</b></p>
+<p class="normaltext03a">Look at that lot!</p>
+<p class="normaltext03a"><b>(THUMP!)</b></p>
+<p class="normaltext03a">Oh dear.</p>
+<p class="normaltext03a"><b>(CRACK!)</b></p>
+<p class="normaltext03a">Help me! Help me!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>1977年2月16日，又有一艘船需要帮助。</b></p>
+<p class="normaltext03">啊啊啊！</p>
+<p class="normaltext03">停下来！我觉得不舒服。</p>
+<p class="normaltext03">哎呀！今天找不到财宝了。</p>
+<p class="normaltext03a"><b>1999年6月25日，又有一人丧生。</b></p>
+<p class="normaltext03">瞧！这么多财宝！</p>
+<p class="normaltext03a"><b>（砰！）</b></p>
+<p class="normaltext03">唉，天哪！</p>
+<p class="normaltext03a"><b>（咔嚓！）</b></p>
+<p class="normaltext03">救救我！救救我！</p>
+<hr/>
+<p class="normaltext3" id="a4">Look, that's us.</p>
+<p class="normaltext03a">Listen! <em>"The boat is called The</em><em> Sardine. John West and his wife</em><em> Mae own it. Tomorrow they are</em><em> going to find The Black Star's</em><em> treasure. Are they afraid of Tom</em><em> Creek's curse?"</em></p>
+<p class="normaltext03a">Well, are you afraid of the curse, men?</p>
+<p class="normaltext03a">I'm not afraid of anything... well... cats. I don't like cats.</p>
+<p class="normaltext03a">Cats? Where are the cats?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">瞧，这说的是我们。</p>
+<p class="normaltext03">听着！“这艘船叫‘沙丁鱼号’，船的主人是约翰·韦斯特和他的妻子梅。明天他们就要去寻找‘黑星号’的财宝了。他们会惧怕汤姆·克里克的诅咒吗？”</p>
+<p class="normaltext03">那么，你们害怕诅咒吗，伙计们？</p>
+<p class="normaltext03">我什么都不怕……这个……除了猫。我不喜欢猫。</p>
+<p class="normaltext03">猫？猫在哪儿呢？</p>
+<hr/>
+<p class="normaltext3" id="a5">Are you mad? <b>(POP!) </b>There is no curse.</p>
+<p class="normaltext03a">Tom Creek is dead. The curse is dead.</p>
+<p class="normaltext03a">Our boat is ready. We are all good divers. Let's find the treasure! Yes?</p>
+<p class="normaltext03a">Yes!</p>
+<p class="normaltext03a">Arrr!</p>
+<p class="normaltext03a">Oooh!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">你疯了吗？<b>（嘭！）</b>根本没什么诅咒。</p>
+<p class="normaltext03">汤姆·克里克已经死了，诅咒就不存在了。</p>
+<p class="normaltext03">我们的船已经备好了，我们都很擅长潜水。咱们去找宝藏吧！好吗？</p>
+<p class="normaltext03">好的！</p>
+<p class="normaltext03">啊！</p>
+<p class="normaltext03">哦！</p>
+<hr/>
+<p class="normaltext3" id="a6"><b>Later that day.</b></p>
+<p class="normaltext03a">I think The Black Star is here.</p>
+<p class="normaltext03a">Who is that man?</p>
+<p class="normaltext03a">Barry Barnes? He's a captain like you. But all his men are dead because of the treasure.</p>
+<p class="normaltext03a">Tell me about the treasure. And the curse.</p>
+<p class="normaltext03a">Don't go to The Black Star. My men... they are all dead. All dead, I tell you.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>那天晚些时候。</b></p>
+<p class="normaltext03">我认为“黑星号”就在这里。</p>
+<p class="normaltext03">那个人是谁？</p>
+<p class="normaltext03">巴里·巴恩斯？他跟你一样，也是个船长。不过他手下的人都因为那个宝藏而死掉了。</p>
+<p class="normaltext03">给我说说那个宝藏的事情，还有那个诅咒。</p>
+<p class="normaltext03">别去找“黑星号”。我的手下……他们都死了。都死了，我告诉你吧。</p>
+<hr/>
+<p class="normaltext3" id="a7">The treasure... is it here?</p>
+<p class="normaltext03a">Bad!</p>
+<p class="normaltext03a"><b>(RIP!)</b></p>
+<p class="normaltext03a">Dead!</p>
+<p class="normaltext03a">Curse!</p>
+<p class="normaltext03a"><b>One minute later.</b></p>
+<p class="normaltext03a">Hey! You really are dead.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">宝藏……在这里吗？</p>
+<p class="normaltext03">烂玩意儿！</p>
+<p class="normaltext03a"><b>（哧！）</b></p>
+<p class="normaltext03">该死！</p>
+<p class="normaltext03">天杀的！</p>
+<p class="normaltext03a"><b>一分钟之后。</b></p>
+<p class="normaltext03">喂！你们死定了！</p>
+<hr/>
+<p class="normaltext3" id="a8"><b>The next morning.</b></p>
+<p class="normaltext03a">Last night... that man in red trousers?</p>
+<p class="normaltext03a">He is mad. There isn't a curse.</p>
+<p class="normaltext03a">Please don't go. Too many men are dead.</p>
+<p class="normaltext03a">Don't listen to her.</p>
+<p class="normaltext03a"><b>A little later.</b></p>
+<p class="normaltext03a"><b>(Chug...)</b></p>
+<p class="normaltext03a">Mmm.</p>
+<p class="normaltext03a">Yum.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>第二天早晨。</b></p>
+<p class="normaltext03">昨天晚上……那个穿红裤子的人？</p>
+<p class="normaltext03">他疯了。没什么诅咒。</p>
+<p class="normaltext03">请不要去。已经死了太多人了！</p>
+<p class="normaltext03">别听她的。</p>
+<p class="normaltext03a"><b>没过多久。</b></p>
+<p class="normaltext03a"><b>（突突突……）</b></p>
+<p class="normaltext03">呣。</p>
+<p class="normaltext03">呀呣，好吃。</p>
+<hr/>
+<p class="normaltext3" id="a9">Aah! Sun, sea, and sandwiches. This is the life!</p>
+<p class="normaltext03a">Yum.</p>
+<p class="normaltext03a">Mmm.</p>
+<p class="normaltext03a">Look! A dolphin.</p>
+<p class="normaltext03a">I'm not afraid of dolphins — just cats.</p>
+<p class="normaltext03a">Look at me!</p>
+<p class="normaltext03a">Come on. Give me a fish.</p>
+<p class="normaltext03a">Forget it. I'm off.</p>
+<p class="normaltext03a"><b>(SPLASH!)</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">啊！阳光、大海和三明治——这才是生活！</p>
+<p class="normaltext03">呀呣，好吃。</p>
+<p class="normaltext03">呣。</p>
+<p class="normaltext03">瞧啊！海豚。</p>
+<p class="normaltext03">我可不害怕海豚——我只怕猫。</p>
+<p class="normaltext03">瞧瞧我！</p>
+<p class="normaltext03">来，给我一条鱼。</p>
+<p class="normaltext03">算了吧，我走了。</p>
+<p class="normaltext03a"><b>（哗啦！）</b></p>
+<hr/>
+<p class="normaltext3" id="a10"><b>Two days later.</b></p>
+<p class="normaltext03a"><b>(Chug...)</b></p>
+<p class="normaltext03a">Okay, men. The Black Star is here.</p>
+<p class="normaltext03a">Hurray! I want to swim. Let me dive.</p>
+<p class="normaltext03a">Wait! You can't dive now. First we must look.</p>
+<p class="normaltext03a">What can you see?</p>
+<p class="normaltext03a">Wait a minute.</p>
+<p class="normaltext03a">Look at that!</p>
+<p class="normaltext03a">We're rich!</p>
+<p class="normaltext03a">Money. Money. Money.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>两天后。</b></p>
+<p class="normaltext03a"><b>（突突突……）</b></p>
+<p class="normaltext03">好了，伙计们。“黑星号”就在这里。好哇！我想游泳。让我潜水吧。</p>
+<p class="normaltext03">等一等！你现在不能潜水。我们得先看看情况。</p>
+<p class="normaltext03">你看到了什么？</p>
+<p class="normaltext03">等一下。</p>
+<p class="normaltext03">看那个！</p>
+<p class="normaltext03">我们发财了！</p>
+<p class="normaltext03">钱！钱！钱！</p>
+<hr/>
+<p class="normaltext3" id="a11">Wait. Look at the screen. It's a skeleton. This doesn't look good.</p>
+<p class="normaltext03a">It's okay. It's not the curse.</p>
+<p class="normaltext03a"><b>(GULP!)</b></p>
+<p class="normaltext03a">Look! There are more skeletons.</p>
+<p class="normaltext03a">Yes... and there's more treasure. We're all very rich. It's okay.</p>
+<p class="normaltext03a">Why are we waiting? Let's go.</p>
+<p class="normaltext03a">It's too late today. We can dive tomorrow morning.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">等等。看屏幕，是一具骷髅。这看起来可不妙。</p>
+<p class="normaltext03">没关系。这跟诅咒无关。</p>
+<p class="normaltext03a"><b>（倒吸口气！）</b></p>
+<p class="normaltext03">瞧！还有一些骷髅。</p>
+<p class="normaltext03">是的……还有更多财宝呢。我们都发财了。没事的。</p>
+<p class="normaltext03">那我们还等什么？动手吧！</p>
+<p class="normaltext03">今天太晚了。我们可以明天早晨再潜水。</p>
+<hr/>
+<p class="normaltext3" id="a12"><b>The next morning.</b></p>
+<p class="normaltext03a">Are you okay, Mick?</p>
+<p class="normaltext03a">My wetsuit is too small.</p>
+<p class="normaltext03a">You're too big, I think.</p>
+<p class="normaltext03a">Mae, you can't dive. We must watch the screen.</p>
+<p class="normaltext03a">Watch out!</p>
+<p class="normaltext03a">Oooh. It's cold!</p>
+<p class="normaltext03a">I'm not happy. The men are diving— and I am not.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>第二天早晨。</b></p>
+<p class="normaltext03">你没事吧，米克？</p>
+<p class="normaltext03">我的潜水衣太瘦了。</p>
+<p class="normaltext03">我觉得是你太胖了。</p>
+<p class="normaltext03">梅，你不能潜水。我们得有人监视着屏幕。</p>
+<p class="normaltext03">小心点儿！</p>
+<p class="normaltext03">哦！太冷了！</p>
+<p class="normaltext03">我不开心。男人都去潜水了，而我却去不了。</p>
+<hr/>
+<p class="normaltext3" id="a13"><b>Suddenly it gets dark.</b></p>
+<p class="normaltext03a">That doesn't look good.</p>
+<p class="normaltext03a">No, you're right.</p>
+<p class="normaltext03a">Let's bring them up.</p>
+<p class="normaltext03a">Oh, they're okay. They're in the water.</p>
+<p class="normaltext03a">They're big men, not boys.</p>
+<p class="normaltext03a">I'm still not happy.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>突然，天色暗了下来。</b></p>
+<p class="normaltext03">这看起来可不妙。</p>
+<p class="normaltext03">你说得对，的确不妙。</p>
+<p class="normaltext03">咱们把他们叫上来吧。</p>
+<p class="normaltext03">哦，他们没事的。他们在水里呢。</p>
+<p class="normaltext03">他们是大男人，不是小孩子了。</p>
+<p class="normaltext03">我还是不开心。</p>
+<hr/>
+<p class="normaltext3" id="a14">It's a long way.</p>
+<p class="normaltext03a">Nothing here.</p>
+<p class="normaltext03a">Nothing there.</p>
+<p class="normaltext03a">Wow!</p>
+<p class="normaltext03a">Look at that!</p>
+<p class="normaltext03a">Oh, man!</p>
+<p class="normaltext03a"><b>(CRACK!)</b></p>
+<p class="normaltext03a">Watch out!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">真够远的。</p>
+<p class="normaltext03">这儿什么都没有。</p>
+<p class="normaltext03">那儿也什么都没有。</p>
+<p class="normaltext03">哇！</p>
+<p class="normaltext03">瞧那个！</p>
+<p class="normaltext03">哦，乖乖！</p>
+<p class="normaltext03a"><b>（咔嚓！）</b></p>
+<p class="normaltext03">小心！</p>
+<hr/>
+<p class="normaltext3" id="a15">John, there's trouble.</p>
+<p class="normaltext03a"><b>(POP!)</b></p>
+<p class="normaltext03a">Aghh... my foot!</p>
+<p class="normaltext03a">It's okay. You're safe now.</p>
+<p class="normaltext03a">Help him up.</p>
+<p class="normaltext03a">Be careful. I think his foot is broken.</p>
+<p class="normaltext03a">Thanks, boys.</p>
+<p class="normaltext03a">Look at all that treasure. Let's dive again tomorrow.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">约翰，有麻烦了。</p>
+<p class="normaltext03a"><b>（啪！）</b></p>
+<p class="normaltext03">啊……我的脚！</p>
+<p class="normaltext03">没事了。你现在安全了。</p>
+<p class="normaltext03">帮忙把他弄上去。</p>
+<p class="normaltext03">小心点儿。恐怕他的脚骨折了。</p>
+<p class="normaltext03">谢谢，伙计们。</p>
+<p class="normaltext03">瞧那些财宝！咱们明天再潜吧！</p>
+<hr/>
+<p class="normaltext3" id="a16"><b>The next day.</b></p>
+<p class="normaltext03a">More breakfast.</p>
+<p class="normaltext03a">Okay. Mick can't dive today, but I can.</p>
+<p class="normaltext03a">Be careful, John. The Black Star is bad.</p>
+<p class="normaltext03a"><b>Later that morning.</b></p>
+<p class="normaltext03a">This is easy. There's lots of treasure.</p>
+<p class="normaltext03a">Can cats swim?</p>
+<p class="normaltext03a"><b>(OW!)</b></p>
+<p class="normaltext03a">Do you need help?</p>
+<p class="normaltext03a">I'm okay. It's nothing.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>第二天。</b></p>
+<p class="normaltext03">早餐又来喽。</p>
+<p class="normaltext03">好了。米克今天不能潜水了，可我能。</p>
+<p class="normaltext03">小心点儿，约翰。“黑星号”不太吉利。</p>
+<p class="normaltext03a"><b>那天上午晚些时候。</b></p>
+<p class="normaltext03">这简单。这儿财宝真多。</p>
+<p class="normaltext03">猫会游泳吗？</p>
+<p class="normaltext03a"><b>（哎哟！）</b></p>
+<p class="normaltext03">你需要帮助吗?</p>
+<p class="normaltext03">我没事。没什么。</p>
+<hr/>
+<p class="normaltext3" id="a17"><b>There is a black thing in the water.</b></p>
+<p class="normaltext03a">What's that? I can see something.</p>
+<p class="normaltext03a">It's only a dolphin.</p>
+<p class="normaltext03a">There's nothing there.</p>
+<p class="normaltext03a"><b>Suddenly...</b></p>
+<p class="normaltext03a"><b>(CRUNCH!)</b></p>
+<p class="normaltext03a">Watch out! There is something there.</p>
+<p class="normaltext03a">It's a shark! A big one!</p>
+<p class="normaltext03a">Quick, come in here. It's safe in here.</p>
+<p class="normaltext03a">Perhaps there is a curse.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>水里有个黑色的物体。</b></p>
+<p class="normaltext03">那是什么？我看到有什么东西。</p>
+<p class="normaltext03">不过是一只海豚。</p>
+<p class="normaltext03">那儿什么都没有。</p>
+<p class="normaltext03a"><b>突然……</b></p>
+<p class="normaltext03a"><b>（嘎吱吱！）</b></p>
+<p class="normaltext03">小心！那儿有东西。</p>
+<p class="normaltext03">是条鲨鱼！个头儿很大！</p>
+<p class="normaltext03">快，到这儿来。这里是安全的。</p>
+<p class="normaltext03">或许真的有诅咒。</p>
+<hr/>
+<p class="normaltext3" id="a18">Quick! In here.</p>
+<p class="normaltext03a">What happens now? We must escape from the shark.</p>
+<p class="normaltext03a">Keith — swim to the left. Bill —swim to the right.</p>
+<p class="normaltext03a">What about the shark?</p>
+<p class="normaltext03a">Don't be afraid of the shark. I know what to do.</p>
+<p class="normaltext03a">I think this is left.</p>
+<p class="normaltext03a">I think this is right.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">快！到这儿来！</p>
+<p class="normaltext03">现在怎么样了？我们必须躲开那条鲨鱼。</p>
+<p class="normaltext03">基思——朝左边游。比尔——朝右边游。</p>
+<p class="normaltext03">那鲨鱼呢?</p>
+<p class="normaltext03">别害怕鲨鱼。我知道怎么办。</p>
+<p class="normaltext03">我想这边是左。</p>
+<p class="normaltext03">我想这边是右。</p>
+<hr/>
+<p class="normaltext3" id="a19">Swim faster, swim faster.</p>
+<p class="normaltext03a">Be very careful, John. We need you.</p>
+<p class="normaltext03a">Got you!</p>
+<p class="normaltext03a">Ooh... look at him.</p>
+<p class="normaltext03a">Nice wetsuit.</p>
+<p class="normaltext03a">Take that! I can swim away now.</p>
+<p class="normaltext03a">Ouch! Something's wrong. That looks like... blood.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">游快点儿，游快点儿。</p>
+<p class="normaltext03">千万小心，约翰。我们需要你。</p>
+<p class="normaltext03">抓住你了！</p>
+<p class="normaltext03">啊……瞧瞧他。</p>
+<p class="normaltext03">潜水衣不错。</p>
+<p class="normaltext03">接招！现在我可以游走了。</p>
+<p class="normaltext03">哎哟！有点不对劲儿。那看起来像是……血！</p>
+<hr/>
+<p class="normaltext3" id="a20"><b>Back in the boat.</b></p>
+<p class="normaltext03a">What do we do now?</p>
+<p class="normaltext03a">I don't know.</p>
+<p class="normaltext03a">I know.</p>
+<p class="normaltext03a">You men! I understand Tom Creek's curse now. I know what to do.</p>
+<p class="normaltext03a">Mae! Come back! There's a shark in the water.</p>
+<p class="normaltext03a">Mae!</p>
+<p class="normaltext03a">Come back!</p>
+<p class="normaltext03a"><b>(GLUG...)</b></p>
+<p class="normaltext03a">There's more than one shark, John. Look at this.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>回到了船上。</b></p>
+<p class="normaltext03">我们现在怎么办呢？</p>
+<p class="normaltext03">我不知道。</p>
+<p class="normaltext03">我知道。</p>
+<p class="normaltext03">你们这些男人！我现在明白汤姆·克里克的诅咒了。我知道该干什么了。</p>
+<p class="normaltext03">梅！回来！水里有鲨鱼。</p>
+<p class="normaltext03">梅！</p>
+<p class="normaltext03">回来！</p>
+<p class="normaltext03a"><b>（咕嘟……）</b></p>
+<p class="normaltext03">水里不止一条鲨鱼，约翰。看这里。</p>
+<hr/>
+<p class="normaltext3" id="a21">Ha! They aren't interested in me!</p>
+<p class="normaltext03a">I'm almost there.</p>
+<p class="normaltext03a">The men are too fat. They cannot get in here.</p>
+<p class="normaltext03a">Look!</p>
+<p class="normaltext03a">I can see sharks, but I can't see Mae. Where is she?</p>
+<p class="normaltext03a">I can't stay here. I must find her now.</p>
+<p class="normaltext03a">Wait, John. Look at this.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">哈！它们对我不感兴趣！</p>
+<p class="normaltext03">我快到了！</p>
+<p class="normaltext03">男人太胖了，这里他们进不去。</p>
+<p class="normaltext03">瞧！</p>
+<p class="normaltext03">我能看到鲨鱼，可我看不见梅。她去哪儿了？</p>
+<p class="normaltext03">我不能待在这儿。我现在必须去找她。</p>
+<p class="normaltext03">等等，约翰。快来看。</p>
+<hr/>
+<p class="normaltext3" id="a22"><b>They watch the screen.</b></p>
+<p class="normaltext03a">Good girl!</p>
+<p class="normaltext03a">That bag is full of treasure.</p>
+<p class="normaltext03a"><b>The men bring up one bag... then another...</b></p>
+<p class="normaltext03a"><b>... and another.</b></p>
+<p class="normaltext03a">What do you think, little one?</p>
+<p class="normaltext03a">Don't ask me. I'm a fish.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03a"><b>他们看着屏幕。</b></p>
+<p class="normaltext03">干得漂亮！</p>
+<p class="normaltext03">那个袋子装满了财宝。</p>
+<p class="normaltext03a"><b>男人们拉上来一个袋子……又拉上来一个袋子……</b></p>
+<p class="normaltext03a"><b>……又拉上来一个袋子。</b></p>
+<p class="normaltext03">你觉得怎么样，小家伙？</p>
+<p class="normaltext03">别问我，我是条鱼。</p>
+<hr/>
+<p class="normaltext3" id="a23">No more. I'm too tired.</p>
+<p class="normaltext03a">Money, money, money...</p>
+<p class="normaltext03a">Mae. We are all rich. But I am richer than anyone — because I have you.</p>
+<p class="normaltext03a">And I have my treasure here — in my arms.</p>
+<p class="normaltext03a">I have my treasure here in my hands.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">没有了。我太累了。</p>
+<p class="normaltext03">钱，钱，钱……</p>
+<p class="normaltext03">梅，我们发财了。但我比谁都更富有——因为我有你。</p>
+<p class="normaltext03">我的财宝在这儿——我怀里的就是。</p>
+<p class="normaltext03">我的财宝——我手里的就是。</p>
+<hr/>
+<p class="normaltext3" id="a24">Looks like this is all for us then.</p>
+<p class="normaltext03a">Oy!</p>
+<p class="normaltext03a">Ow! It's them again!</p>
+<p class="normaltext03a">Look at all this treasure! I know there is no curse.</p>
+<p class="normaltext03a">You're wrong. The curse says, no <em>man</em> can have Tom Creek's treasure...</p>
+<p class="normaltext03">... But I am a <em>woman</em>!</p>
+<p class="normaltext03a">Hoorah!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext03">看起来这些都是我们的了。</p>
+<p class="normaltext03">是的！</p>
+<p class="normaltext03">哎哟！又是它们！</p>
+<p class="normaltext03">瞧这些财宝！我就知道没有什么诅咒。</p>
+<p class="normaltext03">你错了。诅咒说的是：任何<span class="xx">男人</span>都别想得到汤姆·克里克的财宝……</p>
+<p class="normaltext03">……可是，我是个<span class="xx">女人</span>！</p>
+<p class="normaltext03">好哇！</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP9"><img src="../../../Images/image06919.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

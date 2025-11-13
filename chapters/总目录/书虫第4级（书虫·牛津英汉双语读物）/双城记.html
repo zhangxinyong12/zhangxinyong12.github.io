@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双城记 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '双城记';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>双城记</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫第4级（书虫·牛津英汉双语读物）/index.html">书虫第4级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">双城记</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">1 The road to Paris—1775</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">去巴黎的路——1775年</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">2 A wine-shop in Paris</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">巴黎的一家酒店</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">3 A trial in London—1780</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">伦敦的一次审判——1780年</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">4 The Marquis of Evrémonde</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">埃弗蒙侯爵</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-12" class="toc-link">5 Two men speak of love</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-13" class="toc-link">两个男人谈论爱情</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-14" class="toc-link">6 Stormy years in France</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-15" class="toc-link">法国的暴风雨年代</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-16" class="toc-link">7 A call for help</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-17" class="toc-link">求救</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-18" class="toc-link">8 In the hands of the citizens</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-19" class="toc-link">在公民们的手里</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-20" class="toc-link">9 The spy</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-21" class="toc-link">间谍</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-22" class="toc-link">10 The secret paper</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-23" class="toc-link">秘密纸条</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-24" class="toc-link">11 Madame Defarge's revenge</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-25" class="toc-link">得法热夫人的报复</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-26" class="toc-link">12 A change of clothes</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-27" class="toc-link">互换衣服</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-28" class="toc-link">13 The last goodbyes</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-29" class="toc-link">最后的道别</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-30" class="toc-link">Exercises</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-31" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="chp1"><img src="../../../Images/image08636.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext"><b>京权图字 01-96-1573</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 1994</p>
+<p class="normaltext0">This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext0">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>图书在版编目（CIP）数据</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">双城记 = A Tale of Two Cities／（英）狄更斯（Dickens, C.）著；（英）莫厄特（Mowat, R.）改写；杨学义译．—北京：外语教学与研究出版社，1996.12（2014.11 重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">ISBN 978-7-5600-1157-8</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．双…　Ⅱ．①狄…②莫…　③杨…　Ⅲ．英语—语言读物，小说　Ⅳ．H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（96）第24478号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0"><b>出版人：　</b>蔡剑峰</p>
+<p class="normaltext0"><b>责任编辑：</b>田　娜</p>
+<p class="normaltext0"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltext0"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltext0"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltext0"><b>版　　次：</b>1997年1月第1版</p>
+<p class="normaltext0"><b>书　　号：</b>ISBN 978-7-5600-1157-8</p>
+<p class="normaltext0"><b>*　　*　　*</b></p>
+<p class="normaltext0"><b>凡侵权、盗版书籍线索，请联系我社法律事务部</b></p>
+<p class="normaltext0"><b>举报电话：（010）88817519</b></p>
+<p class="normaltext0"><b>电子邮箱：banquan@fltrp.com</b></p>
+<p class="normaltext0"><b>法律顾问：立方律师事务所　刘旭东律师</b></p>
+<p class="normaltext0"><b>　　　　　中咨律师事务所　殷　斌律师</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">简　介</h1>
+<p class="normaltext">时间是1775年，在巴黎的一家酒馆的楼上的一间屋子里坐着一位白发男人，他正忙着做鞋。他曾在巴士底狱当了18年的囚徒。现在他已是一个自由人了，然而他却不知道自己的名字，也认不出他的朋友。他所知道的就是他必须继续做鞋。</p>
+<p class="normaltext">在一辆去巴黎的车上坐着路茜，这是他从未见过面的女儿。路茜把她父亲带回了伦敦，在女儿的爱心和照料之下，他忘掉了过去并学会了重像一个自由人那样去生活。</p>
+<p class="normaltext">然而在法国大革命的暴风雨年代，过去既没有消失也没有被忘掉。于是不久过去的危险秘密地把路茜和她所爱的人们带回了巴黎……那儿恐怖的死亡机器——断头台正饥饿地等候着法兰西的敌人们。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">查尔斯·狄更斯是英国最伟大的作家之一，他1812年出生于普茨茅斯，1870年去世。他出身贫寒，但在不幸的童年过后，他很快便变得富有和成功。在他众多的著名小说中有《雾都孤儿》、《远大前程》及《圣诞欢歌》。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents">CONTENTS<br/>目　录</div>
+  <div class="mulu01"><a href="part2380.xhtml">简介</a></div>
+  <div class="mulu01"><a href="part2382.xhtml">1 The road to Paris—1775</a></div>
+  <div class="mulu10"><a href="part2383.xhtml">去巴黎的路——1775年</a></div>
+  <div class="mulu01"><a href="part2384.xhtml">2 A wine-shop in Paris</a></div>
+  <div class="mulu10"><a href="part2385.xhtml">巴黎的一家酒店</a></div>
+  <div class="mulu01"><a href="part2386.xhtml">3 A trial in London—1780</a></div>
+  <div class="mulu10"><a href="part2387.xhtml">伦敦的一次审判——1780年</a></div>
+  <div class="mulu01"><a href="part2388.xhtml">4 The Marquis of Evrémonde</a></div>
+  <div class="mulu10"><a href="part2389.xhtml">埃弗蒙侯爵</a></div>
+  <div class="mulu01"><a href="part2390.xhtml">5 Two men speak of love</a></div>
+  <div class="mulu10"><a href="part2391.xhtml">两个男人谈论爱情</a></div>
+  <div class="mulu01"><a href="part2392.xhtml">6 Stormy years in France</a></div>
+  <div class="mulu10"><a href="part2393.xhtml">法国的暴风雨年代</a></div>
+  <div class="mulu01"><a href="part2394.xhtml">7 A call for help</a></div>
+  <div class="mulu10"><a href="part2395.xhtml">求救</a></div>
+  <div class="mulu01"><a href="part2396.xhtml">8 In the hands of the citizens</a></div>
+  <div class="mulu10"><a href="part2397.xhtml">在公民们的手里</a></div>
+  <div class="mulu01"><a href="part2398.xhtml">9 The spy</a></div>
+  <div class="mulu10"><a href="part2399.xhtml">间谍</a></div>
+  <div class="mulu1"><a href="part2400.xhtml">10 The secret paper</a></div>
+  <div class="mulu10"><a href="part2401.xhtml">秘密纸条</a></div>
+  <div class="mulu1"><a href="part2402.xhtml">11 Madame Defarge's revenge</a></div>
+  <div class="mulu10"><a href="part2403.xhtml">得法热夫人的报复</a></div>
+  <div class="mulu1"><a href="part2404.xhtml">12 A change of clothes</a></div>
+  <div class="mulu10"><a href="part2405.xhtml">互换衣服</a></div>
+  <div class="mulu1"><a href="part2406.xhtml">13 The last goodbyes</a></div>
+  <div class="mulu10"><a href="part2407.xhtml">最后的道别</a></div>
+    <p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part2408.xhtml">Exercises</a></div>
+  <p class="normaltext"><br/></p>
+<div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">1 The road to Paris—1775</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">1</h1>
+<h1 class="title1">The road to Paris—1775</h1>
+<p class="normaltext">It was the best of times, it was the worst of times. It was the season of light, it was the season of darkness. It was the spring of hope, it was the winter of sadness. It was the year one thousand seven hundred and seventy-five.</p>
+<p class="normaltext">In France there was a King and a Queen, and in England there was a King and a Queen. They believed that nothing would ever change. But in France things were bad, and getting worse. The people were poor, hungry and unhappy. The King made paper money and spent it, and the people had nothing to eat. Behind closed doors in the homes of the people, voices spoke in whispers against the King and his noblemen; they were only whispers, but they were the angry whispers of desperate people.</p>
+<p class="normaltext">Late one November night, in that same year 1775, a coach going from London to Dover, stopped at the top of a long hill. The horses were tired, but as they rested, the driver heard anther horse coming fast up the hill behind them. The rider stopped his horse beside the coach and shouted:</p>
+<p class="normaltext">'I want a passenger, Mr Jarvis Lorry, from Tellson's Bank in London.'</p>
+<p class="normaltext">'I am Mr Jarvis Lorry,' said one of the passengers, putting his head out of the window. 'What do you want?'</p>
+<p class="normaltext">'It's me! Jerry, Jerry Cruncher, from Tellson's Bank, sir,' cried the man on the horse.</p>
+<p class="normaltext">'What's the matter, Jerry?' called Mr Lorry.</p>
+<p class="normaltext">'A message for you, Mr Lorry. You've got to wait at Dover for a young lady.'</p>
+<p class="normaltext">'Very well, Jerry,' said Mr Lorry. 'Tell them my answer is CAME BACK TO LIFE'.</p>
+<p class="normaltext">It was a strange message, and a stranger answer. No one in the coach understood what they meant.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">The next day Mr Lorry was sitting in his hotel in Dover when a young lady arrived. She was pretty, with golden hair and blue eyes, and Mr Lorry remembered a small child, almost a baby. He had carried her in his arms when he came from Calais to Dover, from France to England, many years ago. Mr Lorry asked the young lady to sit down.</p>
+<p class="normaltext">'Miss Manette,' he said. 'I have a strange story to tell you, about one of the customers of Tellson's Bank. That's where I work.'</p>
+<p class="normaltext">'Yes, but I don't quite understand, Mr Lorry,' said the young lady. 'I received a message from Tellson's Bank, asking me to come here to meet you. I understood there was some news about my poor father's money. He died so long ago—before I was born. What is this story you want to tell me?'</p>
+<p class="normaltext">'About twenty years ago, Miss Manette, a French doctor married an English lady. They had a daughter, but just before she was born, her father disappeared. Nobody knew what had happened to him. Not long afterwards his unhappy wife died, and their daughter was brought back to England.'</p>
+<p class="normaltext">'But this is like my father's story, Mr Lorry. And wasn't it you who brought me back to England?'</p>
+<p class="normaltext">'Yes, that's true, Miss Manette. Many years ago I brought you from France to England, and Tellson's Bank has taken care of you since then. You were told that your father had died. But think, Miss Manette. Perhaps your father wasn't dead. Perhaps he was in prison. Not because he had done something wrong! But just because he had a powerful enemy—an enemy with the power to send him to prison and to keep him there, hidden and forgotten, for eighteen years!'</p>
+<p class="normaltext">'Can it be true? Is it possible that my father is still alive?' Lucie Manette stared at Mr Lorry. Her face was white and her hands trembled. 'It will be his ghost—not him!'</p>
+<p class="normaltext">'No, Miss Manette,' said Mr Lorry gently. 'He is alive, but he has changed very much. Even his name had been forgotten! And we must ask no questions about the past, no questions at all. It would be too dangerous. He has been taken to the house of an old servant in Paris, and we are going there to bring him back to life.'</p>
+<hr/>
+<p class="normaltext0"><b>sadness</b><em> n. unhappy feelings.</em> 悲伤。</p>
+<p class="normaltext0"><b>whisper</b><em> n. whispering sound or speech.</em> 低声耳语。</p>
+<p class="normaltext0"><b>nobleman</b><em> n.</em> 贵族。</p>
+<p class="normaltext0"><b>coach</b><em> n. four-wheeled carriage pulled by four or more horses.</em> 四轮马车。</p>
+<p class="normaltext0"><b>passenger</b><em> n. person being conveyed by bus, taxi, tram, train, ship, etc.</em> 乘客，旅客。</p>
+<p class="normaltext0"><b>message</b><em> n. piece of news, or a request, sent to sb.</em> 消息。</p>
+<p class="normaltext0"><b>customer</b><em> n. person who buys things.</em> 顾客。</p>
+<p class="normaltext0"><b>marry</b><em> v. take as a husband or a wife.</em> 结婚。</p>
+<p class="normaltext0"><b>receive</b><em> v. accept, take, get.</em> 接受，接收。</p>
+<p class="normaltext0"><b>disappear</b><em> v. go out of sight.</em> 消失。</p>
+<p class="normaltext0"><b>powerful</b><em> adj. having or producing great power.</em> 有力的，强的。</p>
+<p class="normaltext0"><b>tremble</b> <em>v. shake involuntarily.</em> 发抖。</p>
+<p class="normaltext0"><b>afterwards</b><em> adv. after, later.</em> 以后，后来。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">去巴黎的路——1775年</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>1</em>　去巴黎的路——1775年</h1>
+<p class="picture"><img src="../../../Images/image08637.jpeg" alt="alt"/></p>
+<p class="normaltext">那是最好的年代，也是最糟的年代。那是光明的时节，也是黑暗的时节。那是希望的春季，也是悲伤的冬日。那是公元1775年。</p>
+<p class="normaltext">那时的法国有国王和王后，英国也有国王和王后，他们相信什么事情都不会改变。但是法国的境况很糟糕，而且是每况愈下。人民在贫穷、饥饿和不幸中生活。国王发行纸币进行挥霍，而百姓却要忍饥挨饿。在门户紧闭的家中，人们悄声地谈论着反对国王和他的贵族们的话题。它们只是低声的密谈，但却是绝望中的人们愤怒的声音。</p>
+<p class="normaltext">就在那1775年11月的一个深夜，一辆从伦敦赶往多佛的马车停在了一条绵延的山丘的顶部。马匹都已经很累了，但在它们休息时，赶车人听到后面有另一匹马正急速地朝他们赶来。骑马人把马停在马车的旁边并喊道：</p>
+<p class="normaltext">“我要找伦敦台尔森银行来的贾维斯·劳里先生。”</p>
+<p class="normaltext">“我就是贾维斯·劳里先生，”车内的一位乘客从车窗探出头来说道。“有什么事吗？”</p>
+<p class="normaltext">“是我！杰里，杰里·克拉彻，从台尔森银行来的，先生。”马上的人喊道。</p>
+<p class="normaltext">“什么事，杰里？”劳里先生问道。</p>
+<p class="normaltext">“捎个信儿给您，劳里先生，您得在多佛等候一位年轻女士。”</p>
+<p class="normaltext">“好吧，杰里，”劳里先生说，“告诉他们，就说我的答复是‘活过来’。”</p>
+<p class="normaltext">口信儿是奇特的，而答复就更奇特了。马车上的人都不明白他们在说什么。</p>
+<p class="normaltext">第二天，劳里先生在多佛的旅馆里坐着时，来了一位年轻的女士。她很美，有一头金黄的头发和蓝色的眼睛，这让劳里先生想起了一个小孩儿，几乎是个婴儿。那是在很多年前，在从法国加莱去英国多佛的路上，他曾把她抱在怀里。劳里先生让这位年轻女士坐下来。</p>
+<p class="normaltext">“马内特小姐，”他说道。“我有个离奇的故事要告诉你，是关于台尔森银行的一位顾客的。台尔森银行是我工作的地方。”</p>
+<p class="normaltext">“好吧，但是我不太明白，劳里先生，”年轻的女士说，“我从台尔森银行接到口信，要我到这儿来见您。我知道一些有关我可怜的父亲的钱的事。他很早就已死了——还在我出生之前。您要告诉我的是什么故事呢？”</p>
+<p class="normaltext">“大约20年前，马内特小姐，有位法国医生娶了一位英国女士。他们有了一个女儿，但是还在他们的女儿出生之前，这位父亲却失踪了。没有人知道他出了什么事。不久，他那位伤心的妻子也死了，他们的女儿被带回了英国。”</p>
+<p class="normaltext">“但这像是我父亲的故事呀，劳里先生。况且不正是您把我带回英国的吗？”</p>
+<p class="normaltext">“是的，是这样的，马内特小姐。很多年前我把你从法国带到了英国，并且自那以后台尔森银行就开始照料你。人家告诉你说你的父亲已经死了。但是设想一下，马内特小姐，或许你的父亲那时并没有死，或许他在监狱里呢。那并不是因为他犯了什么罪！而只是因为他有一个强大的敌人——这个敌人拥有权势将他投进监狱，而且把他在那里与世隔绝、被人遗忘地关了18年！”</p>
+<p class="normaltext">“这是真的吗？我父亲可能还活着吗？”路茜·马内特紧盯着劳里先生。她的脸色苍白，双手颤抖着。“那会是他的灵魂，而不是他本人！”</p>
+<p class="normaltext">“不，马内特小姐，”劳里先生温和地说。“他还活着，只是有了很大的变化，就连他自己的名字也记不得了！我们绝对不可以问起从前的事，一点都不能问。那样的话就太危险了。他已经被带到巴黎一个旧日的仆人的家里，我们就是要去那里让他回到生活中来。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">2 A wine-shop in Paris</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">2</h1>
+<h1 class="title1">A wine-shop in Paris</h1>
+<p class="normaltext">In the part of Paris called Saint Antoine everyone was poor. The streets were narrow and dirty, the food-shops were almost empty. The faces of the children looked old already, because they were so hungry. In the wine-shop of Monsieur Defarge there were not many customers and Defarge was outside, talking to a man in the street. His wife, Madame Defarge, sat inside the shop, knitting and watching. Defarge came in and his wife looked at him, then turned her eyes to look at two new customers, a man of about sixty and a young lady. Defarge went over to speak to them, suddenly kissed the young lady's hand, and led them out of the back of the shop. They followed him upstairs, many stairs, until they reached the top. Defarge took a key out of his pocket.</p>
+<p class="normaltext">'Why is the door locked?' asked Mr Lorry in surprise. 'He is a free man now.'</p>
+<p class="normaltext">'Because he has lived too long behind a locked door,' replied Defarge angrily. 'He is afraid if the door is not locked! That is one of the things they have done to him.'</p>
+<p class="normaltext">'I'm afraid, too,' whispered Miss Manette. Her blue eyes looked worriedly at Mr Lorry. 'I am afraid of him—of my father.'</p>
+<p class="normaltext">Defarge made a lot of noise as he opened the door. Mr Lorry and Lucie went into the room behind him. A thin, white haired man was sitting on a wooden seat. He was very busy, making shoes.</p>
+<p class="normaltext">'Good day,' said Defarge. 'You are still working hard, I see.'</p>
+<p class="normaltext">After a while they heard a whisper. 'Yes, I am still working.'</p>
+<p class="normaltext">'Come,' said Defarge. 'You have a visitor. Tell him your name.'</p>
+<p class="normaltext">'My name?' came the whisper. 'One Hundred and Five, North Tower.'</p>
+<p class="normaltext">Mr Lorry moved closer to the old man. 'Dr Manette, don't you remember me, Jarvis Lorry?' he asked gently.</p>
+<p class="normaltext">The old prisoner looked up at Mr Lorry, but there was no surprise, no understanding in his tired face, and he went back to work making shoes.</p>
+<p class="normaltext">Slowly Lucie came near to the old man. After a while he noticed her.</p>
+<p class="normaltext">'Who are you?' he asked.</p>
+<p class="normaltext">Lucie put her arms around the old man and held him, tears of happiness and sadness running down her face. From a little bag the old man took some golden hair. He looked at it, and then he looked at Lucie's hair. 'It is the same. How can it be?' He stared into Lucie's face. 'No, no, you are too young, too young.'</p>
+<p class="normaltext">Through her tears Lucie tried to explain that she was the daughter he had never seen. The old man still did not understand, but he seemed to like the sound of Lucie's voice and the touch of her warm young hand on his.</p>
+<p class="normaltext">Then Lucie said to Mr Lorry, 'I think we should leave Paris at once. Can you arrange it?'</p>
+<p class="normaltext">'Yes, of course,' said Mr Lorry. 'But do you think he is able to travel?'</p>
+<p class="normaltext">'He will be better far away from this city where he has lost so much of his life,' said Lucie.</p>
+<p class="normaltext">'You are right,' said Defarge. 'And there are many other reasons why Dr Manette shoud leave France now.'</p>
+<p class="normaltext">While Mr Lorry and Defarge went to arrange for a coach to take them out of Paris, Lucie sat with her father. Exhausted by the meeting, he fell asleep on the floor, and his daughter watched him quietly and patiently until it was time to go.</p>
+<p class="normaltext">When Mr Lorry returned, he and Defarge brought food and clothes for Dr Manette. The Doctor did everything they told him to do; he had been used to obeying orders for so many years. As he came down the stairs, Mr Lorry heard him say again and again, 'One Hundred and Five, North Tower.'</p>
+<p class="normaltext">When they went to the coach, only one person saw them go: Madame Defarge. She stood in the doorway, and knitted and watched, seeing everything... and seeing nothing.</p>
+<hr/>
+<p class="normaltext0"><b>narrow</b><em> adj. measuring little across in comparison with length.</em> 窄的。</p>
+<p class="normaltext0"><b>knit</b><em> v. make by looping wool, silk, etc.</em> 编织。</p>
+<p class="normaltext0"><b>reply</b><em> v. answer.</em> 回答。</p>
+<p class="normaltext0"><b>lock</b><em> v. fasten with a lock.</em> 锁。</p>
+<p class="normaltext0"><b>wooden</b><em> adj. made of wood.</em> 木制的。</p>
+<p class="normaltext0"><b>prisoner</b><em> n. person kept in prison for crime or until tried in a law-court.</em> 犯人。</p>
+<p class="normaltext0"><b>stare</b><em> v. look fixedly.</em> 瞪视。</p>
+<p class="normaltext0"><b>notice</b><em> v. observe.</em> 注意，看到。</p>
+<p class="normaltext0"><b>arrange</b><em> v. provide for.</em> 安排。</p>
+<p class="normaltext0"><b>exhaust</b><em> v. use up completely.</em> 用尽。</p>
+<p class="normaltext0"><b>patient</b><em> adj. having, showing, patience.</em> 有耐性的。</p>
+<p class="normaltext0"><b>obey</b><em> v. do what one is told to do.</em> 服从，执行。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">巴黎的一家酒店</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>2</em>　巴黎的一家酒店</h1>
+<p class="picture"><img src="../../../Images/image08638.jpeg" alt="alt"/></p>
+<p class="normaltext">在巴黎的一个名叫圣安东尼的地方，所有的人都很穷。街道狭窄肮脏，食品店几乎都是空的。孩子们的脸已显出老态，因为他们太饥饿了。在得法热先生的酒店里没有多少顾客，得法热则在门外与街上的一个男人交谈着。他的妻子得法热夫人正坐在店里一边织毛衣一边观察着周围。得法热走进店来，他的妻子看着他，然后就把眼光转过去盯着两位新来的顾客，他们是一位大约60岁的男人和一位年轻的女士。得法热走过去同他们说话，他突然吻起了那位小姐的手，接着领着他们从店铺后面走出去。他们跟着他上楼，爬了很多级楼梯才到达楼顶。得法热从兜里掏出一把钥匙来。</p>
+<p class="normaltext">“为什么锁着门？”劳里先生惊讶地问，“他现在是个自由人了。”</p>
+<p class="normaltext">“因为他在上了锁的房子里生活的时间太长了，”得法热气愤地回答说，“门要是不锁上他就会害怕！这是他们给他造成的恶果之一。”</p>
+<p class="normaltext">“我也害怕，”马内特小姐低声地说。她那蓝蓝的眼睛忧心地看着劳里先生。“我害怕他——我的父亲。”</p>
+<p class="normaltext">得法热开门时弄出了很多响声，劳里先生和路茜跟在他后面进了屋子。一个瘦削、满头白发的人正坐在一个木头凳子上。他在忙着做鞋子。</p>
+<p class="normaltext">“您好，”得法热说，“您还在忙着哪？”</p>
+<p class="normaltext">过了一会儿他们才听到一声嘟哝：“是的，我还在干着活。”</p>
+<p class="normaltext">“瞧，”得法热说，“有人来看您了。告诉他们您的名字。”</p>
+<p class="normaltext">“我的名字？”嘟哝声传过来道。“一百零五，北塔。”</p>
+<p class="normaltext">劳里先生走近了老人。“马内特医生，您不记得我了吗，贾维斯·劳里？”他轻声地问道。</p>
+<p class="normaltext">这个老犯人抬起头看着劳里先生，但是没有表现出惊奇，疲惫的脸上没有显示出他明白了什么的表情，然后他又重新做起鞋来。</p>
+<p class="normaltext">路茜慢慢地走近了老人。过了片刻他才注意到了她。</p>
+<p class="normaltext">“你是谁？”他问道。</p>
+<p class="normaltext">路茜伸出胳膊抱住了老人并搂紧他，悲喜交加的泪水滚下了脸颊。老人从一个小包里拿出几缕金发。他看看它们，然后又看看路茜的头发。“是一样的，这怎么可能呢？”他凝视着路茜的脸，“不，不，你太年轻了，太年轻了。”</p>
+<p class="normaltext">路茜含着泪竭力地要说明她是他从未曾见过的女儿。老人仍旧不明白，但却似乎很喜欢路茜的声音以及她年轻温暖的手触摸他的手。</p>
+<p class="normaltext">后来路茜对劳里先生说：“我看我们得马上离开巴黎。您能安排一下吗？”</p>
+<p class="normaltext">“是的，当然能，”劳里先生说，“但你认为他能够旅行吗？”</p>
+<p class="normaltext">“远离这个让他失去生命中如此之多的城市，他就会好些的。”路茜说道。</p>
+<p class="normaltext">“您说得对，”得法热说，“况且让马内特医生马上离开法国还有很多其他的原因。”</p>
+<p class="normaltext">在劳里先生和得法热去安排载他们出巴黎的马车时，路茜陪坐在她父亲的身旁。他被这次相会弄得疲倦极了，便在地板上睡着了，他的女儿则安静而耐心地看顾着他，直到该走的时候。</p>
+<p class="normaltext">劳里先生回来时，他和得法热给马内特医生带回来些食物和衣服。医生完全照着他们的要求行事，这么多年来他已经习惯了服从命令。在他下楼时，劳里先生听见他一遍又一遍地说着“105，北塔。”</p>
+<p class="normaltext">在他们朝马车走去时，只有一个人看到了他们，那就是得法热夫人。她站在门口，边织着毛衣边观察着。她看到了所有的事情……但没有发现任何的问题。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">3 A trial in London—1780</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">3</h1>
+<h1 class="title1">A trial in London—1780</h1>
+<p class="normaltext">Tellson's Bank in the City of London was an old, dark, and ugly building. It smelt of dust and old papers, and the people who worked there all seemed old and dusty, too. Outside the building sat Jerry Cruncher, who carried messages for people in the bank.</p>
+<p class="normaltext">One morning in March 1780, Jerry had to go to the Old Bailey to collect an important message from Mr Lorry. Trials at the Old Bailey were usually for very dangerous criminals, and the prisoner that morning was a young man of about twenty-five, well dressed and quite calm.</p>
+<p class="normaltext">'What's he done?' Jerry asked the doorman quietly.</p>
+<p class="normaltext">'He's a spy! A French spy!' the doorman told him. 'He travels from England to France and tells the French King secret information about our English army.'</p>
+<p class="normaltext">'What'll happen if he's guilty?' asked Jerry.</p>
+<p class="normaltext">'Oh, he'll have to die, no question of that,' replied the doorman enthusiastically. 'They'll hang him.'</p>
+<p class="normaltext">'What's his name?'</p>
+<p class="normaltext">'Darnay, Charles Darnay. Not an English name, is it?'</p>
+<p class="normaltext">While Jerry waited, he looked around at the crowd inside the Old Bailey and noticed a young lady of about twenty years, and her father, a gentleman with very white hair. The young lady seemed very sad when she looked at the prisoner, and held herself close to her father.</p>
+<p class="normaltext">Then the trial began, and the first person who spoke against Charles Darnay was called John Barsad.</p>
+<p class="normaltext">He was an honest man, he said, and proud to be an Englishman. Yes, he was, or had been, a friend of the prisoner's. And in the prisoner's pockets he had seen important plans and lists about the English armies. No, of course he had not put the lists there himself. And no, he was not a spy himself, he was not someone paid to make traps for innocent people.</p>
+<p class="normaltext">Next the young lady spoke. She said that she had met the prisoner on the boat which had carried her and her father from France to England. 'He was very good and kind to my father and to me,' she said.</p>
+<p class="normaltext">'Was he travelling alone on the ship?'</p>
+<p class="normaltext">'No, he was with two French gentlemen.'</p>
+<p class="normaltext">'Now, Miss Manette, did you see him show them any papers, or anything that looked like a list?'</p>
+<p class="normaltext">'No, I didn't see anything like that.'</p>
+<p class="normaltext">Questions, questions, questions! The trial went on, and finally, a small, red-haired man spoke. He told the judge that he had seen Mr Darnay at a hotel in a town where there were many soldiers and ships. Then one of the lawyers, a man called Sydney Carton, wrote some words on a piece of paper, and gave it to Mr Stryver, the lawyer who was speaking for Mr Darnay.</p>
+<p class="normaltext">'Are you quite sure that the prisoner is the man you saw?' Mr Stryver asked the red-haired man.</p>
+<p class="normaltext">'Quite sure,' said the man.</p>
+<p class="normaltext">'Have you ever seen anyone like the prisoner?' asked Mr Stryver.</p>
+<p class="normaltext">'I'd always be able to recognize him.' The red-haired man was very confident.</p>
+<p class="normaltext">'Then I must ask you to look at the gentleman over there,' said Mr Stryver, pointing to Sydney Carton. 'Don't you think that he is very like the prisoner?'</p>
+<p class="normaltext">Everyone in the court could see that Sydney Carton and Charles Darnay were indeed very similar.</p>
+<p class="normaltext">'Well then,' said Mr Stryver, 'it is so easy to find a man like the prisoner that we can even find one in this room. So how can you be so sure that it was the prisoner you saw in that hotel?'</p>
+<p class="normaltext">And the red-haired man said not another word.</p>
+<p class="normaltext">The lawyers talked and argued, and when at last the trial came to an end, Jerry Cruncher had fallen asleep.</p>
+<p class="normaltext">But Mr Lorry woke him up and gave him a piece of paper. 'NOT GUILTY' were the words written on it, and Jerry hurried back to Tellson's Bank with the message.</p>
+<p class="normaltext">Sydney Carton seemed to be a man who did not care about anyone or anything. He was Mr Stryver's assistant. In fact, he did most of the real work for Mr Stryver. Stryver was good at speaking at a trial, but he was not good at discovering important facts and details, especially when these details were hidden in a lot of papers. Every night Carton studied the many papers that lawyers have to read, and he wrote down the questions which Stryver should ask at the next day's trial. And every day Stryver asked these questions, and people thought how clever he was.</p>
+<p class="normaltext">Outside the Old Bailey Mr Darnay, now a free man, met his friends: Dr Manette and his daughter Lucie, Mr Jarvis Lorry, Mr Stryver, and Mr Carton.</p>
+<p class="normaltext">Dr Manette no longer looked like the man in the room above Defarge's wine-shop five years ago. His hair was white, but his eyes were bright and he stood straight and strong. Sometimes his face became dark and sad when he remembered the years in the Bastille prison; at these times only his daughter Lucie, whom he loved so much, could help him.</p>
+<p class="normaltext">As they stood there talking, a strange expression came over Dr Manette's face. He was staring at Charles Darnay, but he did not seem to see him. For a few moments there was dislike, even fear in his eyes. 'My father,' said Lucie softly, putting her hand on his arm, 'shall we go home now?'</p>
+<p class="normaltext">'Yes,' he answered slowly.</p>
+<p class="normaltext">Soon they drove off in a coach, and then Mr Stryver and Mr Lorry walked away, leaving Mr Darnay and Mr Carton alone.</p>
+<p class="normaltext">'It must be strange for you,' said Carton, 'to be a free man again, and to be standing here, talking to a man who looks just like you. Let us go out and eat together.'</p>
+<p class="normaltext">After they had eaten, Carton said softly, 'How sad and worried Miss Manette was for you today! She's a very beautiful young woman, don't you think?'</p>
+<p class="normaltext">Darnay did not reply to what Carton had said, but he thanked him for his help at the trial.</p>
+<p class="normaltext">'I don't want your thanks,' replied Carton. 'I have done nothing. And I don't think I like you.'</p>
+<p class="normaltext">'Well,' said Darnay, 'you have no reason to like me. But I hope that you will allow me to pay the bill for both of us.'</p>
+<p class="normaltext">'Of course. And as you are paying for me, I'll have another bottle of wine.'</p>
+<p class="normaltext">After Darnay had left, Carton drank some more wine and looked at himself in the mirror. He was angry because Darnay looked so much like him, but was so different. Carton knew that he was a clever lawyer, and that he was a good and honest man, but he had never been successful for himself. He drank too much, and his life was unhappy and friendless. His cleverness and his hard work in the law only made others, like Mr Stryver, successful and rich. He remembered Lucie Manette's worried face when she watched Darnay in court.</p>
+<p class="normaltext">'If I changed places with Darnay,' he whispered to himself, 'would those blue eyes of Miss Manette look at me, in the same way? No, no, it's too late now.'</p>
+<p class="normaltext">He drank another bottle of wine and fell asleep.</p>
+<p class="normaltext">In a quiet street not far away was the house where Dr Manette and Lucie lived. They had one servant, Miss Pross, who had taken care of Lucie since she was a child. Miss Pross had red hair and a quick, sharp voice, and seemed at first sight a very alarming person. But everybody knew that she was in fact a warm-hearted and unselfish friend, who would do anything to guard her darling Lucie from trouble or danger.</p>
+<p class="normaltext">Dr Manette was now well enough to work as a doctor, and he, Lucie, and Miss Pross led a quiet, comfortable life. Mr Lorry, who had become a close family friend, came regularly to the house, and in the months after the trial, Mr Darnay and Mr Carton were also frequent visitors. This did not please Miss Pross at all, who always looked very cross when they came.</p>
+<p class="normaltext">'Nobody is good enough for my darling Lucie,' she told Mr Lorry one day, 'and I don't like all these hundreds of visitors.'</p>
+<p class="normaltext">Mr Lorry had a very high opinion of Miss Pross, but he wasn't brave enough to argue that two visitors were not 'hundreds'. Nobody argued with Miss Pross if they could avoid it.</p>
+<hr/>
+<p class="normaltext0"><b>trial</b><em> n. examination in court of law before a judge.</em> 审讯。</p>
+<p class="normaltext0"><b>criminal</b><em> adj. of crime.</em> 犯罪的。</p>
+<p class="normaltext0"><b>enthusiastically</b><em> adv. full of enthusiasm.</em> 热心地，热情洋溢地。</p>
+<p class="normaltext0"><b>information</b><em> n. sth. told; news or knowledge given.</em> 消息，情报。</p>
+<p class="normaltext0"><b>spy</b><em> n. person who tries to get secret information. esp. about the military affairs of other countries.</em> 间谍。</p>
+<p class="normaltext0"><b>trap</b><em> v. capture by a trick.</em> 陷害。</p>
+<p class="normaltext0"><b>innocent</b><em> adj. not guilty.</em> 无罪的。</p>
+<p class="normaltext0"><b>confident</b><em> adj. feeling or showing confidence.</em> 有信心的。</p>
+<p class="normaltext0"><b>similar</b><em> adj. like.</em> 类似的。</p>
+<p class="normaltext0"><b>assistant</b><em> n. helper.</em> 助手。</p>
+<p class="normaltext0"><b>detail</b><em> n. collection of such small facts or items.</em> 详情。</p>
+<p class="normaltext0"><b>gentleman</b><em> n. polite form of address to male members of an audience.</em> 先生。</p>
+<p class="normaltext0"><b>write down</b><em> take a note of.</em> 记下，写下。</p>
+<p class="normaltext0"><b>straight</b><em> adj. without a bend or curve.</em> 直的。</p>
+<p class="normaltext0"><b>expression</b><em> n. a person's facial appearance.</em> 表情。</p>
+<p class="normaltext0"><b>dislike</b><em> v. not like.</em> 不喜欢。</p>
+<p class="normaltext0"><b>allow</b><em> v. let, permit.</em> 允许</p>
+<p class="normaltext0"><b>bill</b><em> n. statement of charges for goods delivered or services rendered.</em> 账单。</p>
+<p class="normaltext0"><b>servant</b><em> n. person who works in a household for wages, food, and lodging.</em> 仆人。</p>
+<p class="normaltext0"><b>mirror</b> <em>n.</em> 镜子。</p>
+<p class="normaltext0"><b>successful</b><em> adj. having the gaining of what is aimed at.</em> 成功的。</p>
+<p class="normaltext0"><b>alarming</b><em> adj. causing alarm.</em> 吓人的。</p>
+<p class="normaltext0"><b>frequent</b><em> adj. often happening.</em> 时常发生的。</p>
+<p class="normaltext0"><b>avoid</b><em> v. keep or get away from.</em> 避免。</p>
+<p class="normaltext0"><b>regularly</b><em> adv. in a regular manner.</em> 经常地。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">伦敦的一次审判——1780年</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>3</em>　伦敦的一次审判——1780年</h1>
+<p class="picture"><img src="../../../Images/image08639.jpeg" alt="alt"/></p>
+<p class="normaltext">伦敦城里的台尔森银行是一座古老、灰暗而且丑陋的建筑。这里充斥着灰尘和废纸的气味，就连在里面工作的人似乎也都古旧而灰头灰脑的。负责为银行里的人传书送信的杰里·克拉彻坐在银行的外面。</p>
+<p class="normaltext">1780年3月的一天早晨，杰里要去旧巴勒从劳里先生那儿获取一条重要信息。在旧巴勒的审判往往都是对那些非常危险的犯人进行的，而那天早上的罪犯是一个大约25岁左右的年轻人。他穿着体面，人也很沉着。</p>
+<p class="normaltext">“他犯了什么罪？”杰里轻声地问看门人。</p>
+<p class="normaltext">“他是一个间谍！一个法国间谍！”看门人告诉他，“他从英国赶到法国，然后把英国军队的动向秘报给了法国国王。”</p>
+<p class="normaltext">“如果判他有罪的话他会受什么样的惩罚？”杰里问。</p>
+<p class="normaltext">“哦，得判死刑，这是无疑的。”看门人情绪高昂地回答说，“他们会绞死他的。”</p>
+<p class="normaltext">“他叫什么名字？”</p>
+<p class="normaltext">“代尔那，查尔斯·代尔那。不是一个英国名字，是吧？”</p>
+<p class="normaltext">杰里一边等着，一边朝旧巴勒里的人群巡视。他注意到了一位20岁左右的年轻女子和她的父亲——一位白发苍苍的绅士。当年轻女子看着罪犯时显得很悲伤，并紧紧地搂住她的父亲。</p>
+<p class="normaltext">审判开始了。第一个起诉查尔斯·代尔那的人名叫约翰·巴萨德。他自称是一个诚实的人，并以自己是英国人而自豪。他承认自己是或曾经是罪犯的一个朋友，而且他曾见过罪犯的衣袋里有一些关于英国军队的重要计划和图表。当然，他否认是他本人把图表放进去的，也否认自己是间谍，他也不是受人收买而去陷害无辜的那种人。</p>
+<p class="normaltext">接下来是那个年轻女子发言。她说在她和父亲从法国来英国的船上曾遇到过这个犯人。“他对我父亲和我都很友善。”她说。</p>
+<p class="normaltext">“他当时是只身一人乘船旅行的吗？”</p>
+<p class="normaltext">“不，他和两个法国人在一起。”</p>
+<p class="normaltext">“那么，马内特小姐，你看到他给他们看了什么文件或任何类似表格的东西吗？”</p>
+<p class="normaltext">“没有，我没有看见过任何这类的东西。”</p>
+<p class="normaltext">问题一个接着一个地提出来！审判继续进行着。最后，一位矮小、红头发的男人说话了。他告诉法官说他曾在一个小镇的一家旅馆见到过代尔那先生，那儿有很多的士兵和船只。接下来一位名叫西得尼·卡登的律师在一张纸上写了几个字并把它递给代尔那先生的辩护律师史太弗先生。</p>
+<p class="normaltext">“你能肯定这个犯人就是你见过的那个人吗？”史太弗先生问那个红头发男人。</p>
+<p class="normaltext">“非常肯定。”他说。</p>
+<p class="normaltext">“你曾见过和这个罪犯长得相像的人吗？”史太弗先生问。</p>
+<p class="normaltext">“无论如何我都能把他认出来的。”红头发男人非常自信。</p>
+<p class="normaltext">“那么我得请您看看那边的那位先生，”史太弗先生指着西得尼·卡登说，“您不认为他长得非常像这位犯人吗？”</p>
+<p class="normaltext">法庭上的每一个人都能看出西得尼·卡登和查尔斯·代尔那长得的确很相像。</p>
+<p class="normaltext">“那么说，”史太弗先生说道。“很容易就能找到一个与罪犯相像的人，甚至在这间屋子里我们就能找出一个和罪犯长得酷似的人，那你又怎么能确信你在旅馆里看到的人就是罪犯呢？”</p>
+<p class="normaltext">红头发男人再也说不出话来了。</p>
+<p class="normaltext">律师们开始争辩讨论。当审判最后结束时，杰里·克拉彻都已睡着了。</p>
+<p class="normaltext">但是劳里先生叫醒他并且给了他一张纸条，上面写着“无罪”的字样，杰里便急急忙忙地带着这条消息回了银行。</p>
+<p class="normaltext">西得尼·卡登似乎对任何人或任何事都不在乎。他是史太弗先生的助手，实际上，多数实际工作是他代劳的。史太弗先生在法庭上能言善辩，但却不擅长于发现重要的事实和细节，尤其是当这些细节隐藏在一大堆文件中的时候。每天晚上卡登都要研读那些律师必读的文件，然后写下史太弗在第二天的审判中所要问的问题。每天史太弗问到这些问题时，人们都会赞叹他的机智。</p>
+<p class="normaltext">在旧巴勒的外面，现在已是自由人的代尔那先生和他的朋友们在一起：有马内特医生和他的女儿路茜、贾维斯·劳里先生、史太弗先生和卡登先生。</p>
+<p class="normaltext">马内特医生看上去已不再是5年前在得法热酒店楼上房间里的那个样子了。他的头发白了，但眼睛炯炯有神。他站姿笔直，显得很矍铄。有时当他想起在巴士底狱的日子，脸上就会显得阴沉而悲伤。这时只有他所钟爱的女儿路茜能让他快活起来。</p>
+<p class="normaltext">在他们站着谈话时，一种奇怪的表情掠过医生的脸。他盯着查尔斯·代尔那，但又似乎并没有看他。有好一阵儿他的眼中都显出反感甚至是恐惧的神情。</p>
+<p class="normaltext">“爸爸，”路茜柔声地说着，并把手放在了他的胳膊上，“我们回家好吗？”</p>
+<p class="normaltext">“好吧。”他慢慢地答道。</p>
+<p class="normaltext">很快他们就坐上马车走了。然后，史太弗先生和劳里先生也走开了，剩下代尔那先生和卡登先生单独在一起。</p>
+<p class="normaltext">“你一定感到奇怪。”卡登说，“你又自由了，而且站在这儿和一个长得酷似你的人谈话。我们一起出去吃一顿吧。”</p>
+<p class="normaltext">饭后，卡登轻声地说，“瞧，今天马内特小姐为你多么伤心着急呀！她可是个漂亮的姑娘，你不这么认为吗？”</p>
+<p class="normaltext">代尔那没有回应卡登的话，而是对他在法庭上的帮助表示感谢。</p>
+<p class="normaltext">“我不要你的感谢。”卡登说，“我没做什么。我想我也并不喜欢你。”</p>
+<p class="normaltext">“好吧，”代尔那说，“你没有理由要喜欢我，但是我希望你允许我为我们两个人付账。”</p>
+<p class="normaltext">“当然。而且既然你要为我付账，那么我就再来一瓶葡萄酒吧。”</p>
+<p class="normaltext">代尔那走后，卡登又喝了些酒，并照了照镜子。让他恼火的是代尔那长得和他如此相像，但是他们又如此不同。卡登明白自己是一个精明的律师，又是一个诚实的好人，但他自己却从未成功过。他酗酒，生活不幸且没有朋友。他在法律方面的聪明才智和辛勤工作仅仅使得他人，比如史太弗先生，名利双收。路茜·马内特在法庭上看着代尔那时的焦急面容仍在他的脑海中。</p>
+<p class="normaltext">“如果我和代尔那换个位置，”他悄声对自己说，“马内特小姐的那双蓝眼睛也会那样看着我吗？不，不，现在已经太晚了。”</p>
+<p class="normaltext">他又喝了一瓶酒，然后就睡着了。</p>
+<p class="normaltext">马内特医生和路茜所住的房子就在不远处的一条宁静的街上。他们有一个仆人，普罗斯小姐。路茜从小时候起就是由她带大的。普罗斯小姐有一头红发，说话急促而尖利。第一眼看上去她会让人感到害怕。但每个人都知道她实际上是个热心而无私的朋友。她会不惜一切地保护她亲爱的路茜免遭麻烦和危险。</p>
+<p class="normaltext">马内特医生现在已恢复得很好，已经可以胜任医生的工作了。他、路茜和普罗斯小姐过着宁静而舒适的生活。劳里先生已成为这个家的亲密朋友，经常来这里做客。同时在那个审判会过后几个月，代尔那先生和卡登先生也成了这里的常客，这让普罗斯小姐一点儿都不高兴。每次他们来时她都显得很生气。</p>
+<p class="normaltext">“没有人能配得上我亲爱的路茜。”她有一天对劳里先生说，“而且我也不喜欢这成百个的客人。”</p>
+<p class="normaltext">劳里先生很看重普罗斯小姐，可他却没有足够的勇气去和她争论说两个客人够不上“成百个”。只要能避免就没人愿意去和普罗斯小姐争吵。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">4 The Marquis of Evrémonde</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">4</h1>
+<h1 class="title1">The Marquis of Evrémonde</h1>
+<p class="normaltext">The Marquis of Evrémonde was a disappointed man. He had waited for hours at the palace of the King of France, but the King had not spoken to him. Angrily, the Marquis got into his coach and told the driver to take him home. Very soon the coach was driving fast out of Paris, and the people in the narrow streets had to run to get out of the way—if they could. At the corner of a street in Saint Antoine, one of the coach wheels hit something, and the people in the street screamed loudly. The horses were frightened and stopped.</p>
+<p class="normaltext">'What has gone wrong?' asked the Marquis calmly, looking out of the window of the coach. A tall man had picked something up from under the feet of the horses and was crying loudly over it.</p>
+<p class="normaltext">'Why is that man making that terrible noise?' asked the Marquis impatiently.</p>
+<p class="normaltext">'I'm sorry, Monsieur the Marquis. It is his child,' said one of the people.</p>
+<p class="normaltext">'Dead! Killed!' screamed the man.</p>
+<p class="normaltext">The people in the street came close to the coach and looked at the Marquis with stony, silent faces. The Marquis looked back at them in bored dislike. To him, they were no more than animals.</p>
+<p class="normaltext">'I can't understand,' he said coldly, 'why you people cannot take care of yourselves and your children. I hope my horses are not hurt.' And he threw a gold coin to his driver. 'Give this to that man!'</p>
+<p class="normaltext">'Dead!' shouted the father of the child again.</p>
+<p class="normaltext">Another man came forward. 'Be brave, Gaspard. Your child has died quickly, and without pain. It is better to die like that than to go on living in these terrible times.'</p>
+<p class="normaltext">'You are a sensible man,' said the Marquis from his coach. 'What is your name?'</p>
+<p class="normaltext">'They call me Defarge.'</p>
+<p class="normaltext">'This is for you,' said the Marquis, and he threw Defarge another gold coin. 'Drive on,' he called to his driver.</p>
+<p class="normaltext">Just as the coach was leaving, a coin was thrown back in through the window. The Marquis looked angrily at the corner where Defarge had been standing. Defarge had gone. At the corner there now stood a large, dark-haired woman, knitting. She stared long and hard at the face of the Marquis, but he did not look at her, and drove on.</p>
+<p class="normaltext">Later that day, as the sun was going down, the same coach stopped in a village near the Marquis's castle. Several villagers, in poor thin clothes, with thin hungry faces, were standing in the village square. The Marquis looked at their faces and then pointed to one of them.</p>
+<p class="normaltext">'Bring that man to me,' he said to his driver.</p>
+<p class="normaltext">The man came up to the coach, hat in hand, and the other villagers moved closer to listen.</p>
+<p class="normaltext">'I passed you on the road just outside the village,' said the Marquis. 'You were looking at my coach in a very strange way. Why was that?'</p>
+<p class="normaltext">'Monsieur, I was looking at the man,' came the reply.</p>
+<p class="normaltext">'What man?' asked the Marquis angrily.</p>
+<p class="normaltext">'The man who was holding on under your coach,' said the poor man, trembling with fear.</p>
+<p class="normaltext">'What was he like?'</p>
+<p class="normaltext">'Oh, Monsieur, he was white from head to foot. All covered with dust. Just like a ghost.'</p>
+<p class="normaltext">'Where is he now? What happened to him?'</p>
+<p class="normaltext">'Oh, he ran away down the hill outside the village.'</p>
+<p class="normaltext">The Marquis turned to speak to another man. This was Monsieur Gabelle, the Marquis's official in the village.</p>
+<p class="normaltext">'Gabelle,' the Marquis said, 'watch out for this man. If he comes here, put him in prison.'</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">When the Marquis arrived at his castle, he asked if his nephew, Monsieur Charles, had arrived from England.</p>
+<p class="normaltext">'Not yet, sir,' replied the servant, but as the Marquis was eating his dinner, he heard the sound of a coach outside. Soon his nephew entered the room. In England he was known as Charles Darnay.</p>
+<p class="normaltext">'You've been away for a long time,' said the Marquis, with his cold, polite smile.</p>
+<p class="normaltext">'I've had many problems in England. Perhaps because of you,' Darnay said to his uncle. 'I was in great danger.'</p>
+<p class="normaltext">'No, no, I had nothing to do with your problems,' replied the Marquis coldly. 'Unfortunately, our family no longer has the power that it once had.'</p>
+<p class="normaltext">'If it still had that power, one word from you would doubtless send me to prison,' said Darnay.</p>
+<p class="normaltext">'Possibly. For the good of our family.'</p>
+<p class="normaltext">'The name of our family is hated everywhere in France. We are hard, cruel landowners. Our miserable people own nothing. They work for us night and day, but they don't even have enough food for themselves and their children. If this land became mine, I would give it away, and go and live somewhere else.'</p>
+<p class="normaltext">'You seem to be very fond of England, although you are not a rich man there,' said the Marquis. 'I believe you know another Frenchman who has found a safe home there. A Doctor, I believe?'</p>
+<p class="normaltext">'Yes.'</p>
+<p class="normaltext">'With a daughter?'</p>
+<p class="normaltext">'Yes.'</p>
+<p class="normaltext">'Yes,' said the Marquis with a secret smile on his face. 'So, a new way of life begins. But you are tired. Goodnight, Charles. Sleep well. I shall see you in the morning.'</p>
+<p class="normaltext">After his nephew had gone to bed, the Marquis went to his room. The castle was surrounded with darkness. In the villages nearby the hungry people dreamt of a better life, with enough good food to eat, and time to rest from their work.</p>
+<p class="normaltext">Early in the morning the dreamers awoke and started their day's hard work. The people in the castle did not get up until later, but when they did, why did the great bell start ringing? Why did people run out of the castle to the village as fast as they could?</p>
+<p class="normaltext">The answer lay in the bed of the Marquis. He lay there, like stone, with a knife pushed into his heart. On his chest lay a piece of paper with the words:</p>
+<p class="normaltext"><em>'Drive him fast to his grave. This is from JACQUES.'</em></p>
+<hr/>
+<p class="normaltext0"><b>disappointed</b><em> adj. sad at not getting what was hoped for.</em> 失望的。</p>
+<p class="normaltext0"><b>hit</b><em> v. strike, come against with force.</em> 撞，碰。</p>
+<p class="normaltext0"><b>scream</b><em> v. give a loud, sharp cry of.</em> 尖声叫喊。</p>
+<p class="normaltext0"><b>stony</b><em> adj. hard, cold, and unsympathetic.</em> 冷酷的，无情的。</p>
+<p class="normaltext0"><b>take care of</b><em> look after.</em> 照看，照顾。</p>
+<p class="normaltext0"><b>coin</b><em> n. metal money.</em> 硬币。</p>
+<p class="normaltext0"><b>sensible</b><em> adj. having or showing good sense.</em> 明智的。</p>
+<p class="normaltext0"><b>square</b><em> n. square space in a town, with buildings round it.</em> 广场。</p>
+<p class="normaltext0"><b>point to</b><em> direct attention to.</em> 指向。</p>
+<p class="normaltext0"><b>ghost</b><em> n. spirit of a dead person appearing to sb. still living.</em> 鬼，幽灵。</p>
+<p class="normaltext0"><b>official</b><em> n. person holding a government position or engaged in public work.</em> 官员。</p>
+<p class="normaltext0"><b>castle</b><em> n. large building or group of buildings fortified against attack, esp. as in olden times.</em> 古堡，城堡。</p>
+<p class="normaltext0"><b>enter</b><em> v. come or go into.</em> 进入。</p>
+<p class="normaltext0"><b>unfortunately</b><em> adv. in an unfortunate manner.</em> 不幸地。</p>
+<p class="normaltext0"><b>doubtless</b><em> adv. without doubt; very probably.</em> 无疑地。</p>
+<p class="normaltext0"><b>miserable</b><em> adj. very unhappy.</em> 不幸的，可怜的。</p>
+<p class="normaltext0"><b>cruel</b><em> adj. taking pleasure in the suffering of others.</em> 残忍的。</p>
+<p class="normaltext0"><b>awake</b><em> adj. roused from sleep.</em> 被唤醒的。</p>
+<p class="normaltext0"><b>chest</b><em> n. upper front part of the body.</em> 胸部。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">埃弗蒙侯爵</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>4</em>　埃弗蒙侯爵</h1>
+<p class="picture"><img src="../../../Images/image08640.jpeg" alt="alt"/></p>
+<p class="normaltext">埃弗蒙侯爵很失望。他在法国王宫里等了好几个小时了，可是国王一直没和他说话。侯爵怒气冲冲地上了马车并告诉车夫送他回家。很快马车就快速地驶出巴黎，人们不得不在狭窄的街道上跑着给它让路——如果他们能做到的话。在圣安东尼的一个街道的拐角处，马车的一个车轮撞上了什么东西，街上的人们都尖叫起来。马匹受了惊吓，停了下来。</p>
+<p class="normaltext">“出了什么事？”侯爵从车窗探出头来沉着地问。一个高个子男人已从马蹄底下捡起了什么东西并朝它大哭起来。</p>
+<p class="normaltext">“那个男人干嘛弄出那么可怕的声音？”侯爵不耐烦地问。</p>
+<p class="normaltext">“对不起，侯爵先生，那是他的孩子。”其中一个人说。</p>
+<p class="normaltext">“死了！被撞死了！”那个男人哭喊道。</p>
+<p class="normaltext">街上的人们走近马车，带着冰冷、无言的表情看着侯爵。侯爵不耐烦又厌恶地回头看着他们。对他来说，他们不过是些动物而已。</p>
+<p class="normaltext">“我真不明白，”他冷冷地说，“你们这帮人为什么不能照顾好自己和你们的孩子。但愿我的马没有受伤。”接着他把一个金币扔给车夫。“把它给那个男人！”</p>
+<p class="normaltext">“死了呀！”孩子的父亲又一次嚷道。</p>
+<p class="normaltext">另外一个男人走上前来。“勇敢些，加斯珀，你的孩子很快地就死了，而且没有痛苦，这样死掉总比活在这个可怕的年月里要好些。”</p>
+<p class="normaltext">“你是一个通情达理的人。”侯爵在马车上说。</p>
+<p class="normaltext">“你叫什么名字？”</p>
+<p class="normaltext">“他们叫我得法热。”</p>
+<p class="normaltext">“这是给你的。”侯爵说着，将另一枚金币扔给得法热。“继续走。”他对他的车夫喊道。</p>
+<p class="normaltext">就在马车离开时，一枚金币从车窗扔进了车里。侯爵愤怒地看着得法热一直站着的那个拐角处。得法热已经走了。那个拐角处现在站着一个身材高大、黑头发的女人在织着毛线活儿。她长久地死死盯着侯爵的脸，但他并没有看她而是接着赶路。</p>
+<p class="normaltext">那天的晚些时候，太阳落山时，那同一辆马车停在了侯爵的城堡附近的一个村子里。几个衣衫褴褛、面黄饥瘦的村民正站在村里的场地上。侯爵看着他们的脸庞然后指着其中的一个人。</p>
+<p class="normaltext">“把那个男人带过来。”他对他的车夫说道。</p>
+<p class="normaltext">那个人朝马车走过来，手里拿着帽子，其余的村民都走近前来聆听。</p>
+<p class="normaltext">“我在村外的那条路上从你旁边经过，”侯爵说，“你当时正用一种奇特的眼光看着我的马车。为什么要这样？”</p>
+<p class="normaltext">“先生，我那时正看着那个男人。”回答说。</p>
+<p class="normaltext">“什么男人？”侯爵生气地问。</p>
+<p class="normaltext">“就是那个扒在您马车底下的男人。”这个可怜人说道，身子因为害怕而发抖。</p>
+<p class="normaltext">“他长得什么样？”</p>
+<p class="normaltext">“<img src="../../../Images/image08641.gif" class="tpzz" style="height:1.5em;" alt="alt"/>，先生，他从头到脚都是白的，全身是土，活象一个鬼魂。”</p>
+<p class="normaltext">“他现在在哪儿？他怎么啦？”</p>
+<p class="normaltext">“哦，他朝村外的山脚下跑去了。”</p>
+<p class="normaltext">侯爵转过身去和另外一个人说话。那是加贝尔先生，是侯爵在村子里的官员。</p>
+<p class="normaltext">“加贝尔，”侯爵说，“留神这个人。如果他来这儿，就把他送进监狱。”</p>
+<p class="normaltext">当侯爵到了他的城堡后，他便问起他侄儿查尔斯先生是否从英格兰回来了。</p>
+<p class="normaltext">“还没有，先生。”仆人回答说。但是在侯爵吃晚饭时，他听到外面有马车的声音。不久他的侄子便走进屋来。在英国他的名字是查尔斯·代尔那。</p>
+<p class="normaltext">“你离开很长时间了。”侯爵带着冷冷的、有礼貌的微笑说道。</p>
+<p class="normaltext">“我在英国遇到了很多麻烦，也许是因为你。”代尔那对他的叔叔说，“我的处境曾经非常危险。”</p>
+<p class="normaltext">“不，不，我和你遇到的麻烦没有关系。”侯爵冷漠地说，“很不幸，我们的家族不再有它以往的权势了。”</p>
+<p class="normaltext">“如果还有那样的权势，你的一句话就可以毫无疑问地把我送进监狱了。”</p>
+<p class="normaltext">“也许吧。为了家族的利益嘛。”</p>
+<p class="normaltext">“我们家族的名字在法国所有的地方都令人痛恨。我们是心狠手辣的地主。我们苦难的人民一无所有。他们日夜为我们工作，可他们和他们的孩子却食不果腹。如果把这些土地给我，我就把它们分给别人，然后离开这儿去别处生活。”</p>
+<p class="normaltext">“你似乎很喜欢英国，尽管你在那儿算不上一个有钱人，”侯爵说，“我想你认识另外一个法国人，他已在那儿找到了安身之所。他是个医生，对吗？”</p>
+<p class="normaltext">“是的。”</p>
+<p class="normaltext">“他有一个女儿？”</p>
+<p class="normaltext">“是的。”</p>
+<p class="normaltext">“啊，”侯爵说，脸上露出神秘的笑容。“那么，一种新的生活方式开始啦。但是你已经累了。晚安，查尔斯，祝你睡个好觉，我明天早上再见你。”</p>
+<p class="normaltext">在他侄儿上床后，侯爵进了自己的房间。城堡被夜色包围。附近村子里饥饿的人们在梦想着过上好一点的生活，以便有足够的好食物吃，还可以工作后有时间休息。</p>
+<p class="normaltext">一大早人们便从睡梦中醒来开始他们一天的辛勤劳作。城堡里的人很晚才会起床的。可等到他们起床时，为什么那个大钟开始响了起来呢？人们为什么拼命地从城堡往村子里跑呢？</p>
+<p class="normaltext">答案就在侯爵的床上。侯爵像一块石头僵躺在床上。一把尖刀插进了他的心脏，在他的胸前放着一张纸条，上面写着：</p>
+<p class="normaltext">“快把他送进他的坟墓。这是雅克干的。”</p>
+<p class="picture"><img src="../../../Images/image08642.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-12" class="chapter-section">
+                <h2 class="chapter-title">5 Two men speak of love</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">5</h1>
+<h1 class="title1">Two men speak of love</h1>
+<p class="normaltext">Twelve months after the death of the Marquis in France, Charles Darnay had become a successful teacher of French in London. He had known, when he came to London, that he would have to work hard to earn his living, and he was successful. He was also in love. He had loved Lucie Manette from the time when his life was in danger in the Old Bailey. He had never heard a sound so sweet as her gentle voice; he had never seen a face so beautiful as hers. But he had never spoken to her about his love. The death of his uncle in France had become, over the twelve months, like a dream to him, but he had said nothing to Lucie of his feelings, nor of what had happened. He had good reason for this.</p>
+<p class="normaltext">But one day in the summer he came to Dr Manette's home in London. He knew that Lucie was out with Miss Pross, and he had decided to speak to her father. Dr Manette was now strong in body and mind, and sad memories of his long years in prison did not come back to him often. When Darnay arrived, the Doctor welcomed him warmly.</p>
+<p class="normaltext">'Dr Manette,' said Darnay, 'I know that Lucie is out. But I have come here today to speak to you.'</p>
+<p class="normaltext">There was a silence. 'Do you want to speak to me about Lucie?' asked the Doctor, slowly.</p>
+<p class="normaltext">'Yes. Dear Dr Manette, I love your daughter dearly. If there was ever love in the world, I love Lucie.</p>
+<p class="normaltext">'I believe you,' said Dr Manette sadly. 'It's very hard for me to speak of her at any time, but I believe you, Charles Darnay. Have you spoken to Lucie about your love?'</p>
+<p class="normaltext">'No, never. I know how much your daughter means to you, Dr Manette. Her love for you, and your love for her, these are the greatest things in your life, and in hers. I love Lucie. With all my heart I love her. But I do not want to come between you and her. The two of you will never be separated because of me.'</p>
+<p class="normaltext">For a moment Dr Manette turned his head away, and his eyes were full of fear, and pain. Then he looked back at Darnay, and tried to smile.</p>
+<p class="normaltext">'You have spoken very honestly, Charles,' he said. 'Have you any reason to believe that Lucie loves you?'</p>
+<p class="normaltext">'None!'</p>
+<p class="normaltext">'Then what do you want from me?'</p>
+<p class="normaltext">'A promise. A promise that if Lucie ever tells you that she loves me, you will not speak against me, and will tell her what I have said. I know that she would never accept me if she believed that it would make you unhappy.'</p>
+<p class="normaltext">'I can promise you more than that, Charles. If Lucie ever tells me that she loves you, I shall give her to you.'</p>
+<p class="normaltext">'Thank you, Dr Manette,' said Darnay, gratefully. 'There is one thing more. My name in England is not my real name. I want to tell you what my real name is, and why I am in England.'</p>
+<p class="normaltext">'Stop!' said the Doctor. He had even put his hands over his ears. 'I don't want to know. Tell me when I ask you. If Lucie agrees to marry you, you shall tell me on the morning of your marriage.'</p>
+<p class="normaltext">It was dark when Darnay left Dr Manette, and it was some time later when Lucie and Miss Pross came home.</p>
+<p class="normaltext">'Father,' Lucie called, 'where are you?' She heard no answer, but there were strange sounds coming from her father's bedroom. Frightened, she ran upstairs and found her father, pale and silent, busy at his old prison work of making shoes. The shadow of the Bastille had fallen on him again. She took his arm and spoke gently to him, and together they walked up and down for a long time until at last Dr Manette went quietly to bed.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Although Mr Carton visited Dr Manette's house quite often, he usually said very little when he was there. One day in August he arrived when Dr Manette was out and he was received by Lucie. She had always been a little shy with him, but on that day she noticed something different in his face.</p>
+<p class="normaltext">'Aren't you well, Mr Carton?' she asked.</p>
+<p class="normaltext">'No, probably not, Miss Manette, but my way of life is not good for my health.'</p>
+<p class="normaltext">'That seems sad,' said Lucie gently. 'Why do you not change your way of life?'</p>
+<p class="normaltext">'It's too late for that. I shall never be better than I am. But, Miss Manette, there is something that I want to say to you, but I find it so difficult. Will you listen to me?'</p>
+<p class="normaltext">'If it will help you, Mr Carton, I will be happy to listen to you,' said Lucie, but she was pale and trembling.</p>
+<p class="normaltext">'Miss Manette, I know that you could never have feelings of love for me, a man who has spent his life so badly.'</p>
+<p class="normaltext">'Even without my love, Mr Carton, can I not save you? Can I not help you?'</p>
+<p class="normaltext">'No, Miss Manette,' said Carton. 'Even if it was possible for you to love me, it is too late for me. I would only make you sad, and destroy your life. But it has been a last dream of my heart. To see you and your father together, to see the home that you have made for him—this has brought back old and happier memories for me.'</p>
+<p class="normaltext">'Can I do nothing to help you?' asked Lucie sadly.</p>
+<p class="normaltext">'Only this, Miss Manette. Let me remember that I spoke to you of the feelings of my heart, and that you were kind and gentle towards me.'</p>
+<p class="normaltext">'Oh, Mr Carton. Try again to change.'</p>
+<p class="normaltext">'No, Miss Manette, it is too late. My bad habits will never change now. But tell me that you will never speak of what I have said today, not to anyone, not even to the person dearest to you.'</p>
+<p class="normaltext">'Mr Carton,' said Lucie. 'This is your secret. No one will ever know it from me.'</p>
+<p class="normaltext">'Thank you, Miss Manette. I shall never speak of this again. But in the hour of my death, it will be a happy memory for me that my last words of love were to you.'</p>
+<p class="normaltext">Lucie had never heard Mr Carton speak like this before. Tears came to her eyes as she thought of his hopeless, miserable life.</p>
+<p class="normaltext">'Don't cry,' said Sydney Carton. 'I am not worth your love. But you should know that for you, or for anyone close to you, I would do anything. Please remember always, that there is a man who would give his life to keep someone you love alive and close to you. Goodbye, Miss Manette.'</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">On the day of Lucie's marriage to Charles Darnay, Mr Lorry and Miss Pross stood, with Lucie, outside the door of Dr Manette's room. Inside, the Doctor and Mr Darnay had been talking together for a long time.</p>
+<p class="normaltext">Soon it would be time to leave for the church. Lucie looked very beautiful, and Mr Lorry watched her proudly. He talked about the day, so long ago, when he had brought Lucie, as a baby in his arms, from France to England. Miss Pross, too, had her memories and thought fondly of her brother Solomon. He had stolen money from her many years ago and she had never seen him since then, but she still loved him.</p>
+<p class="normaltext">The door of the Doctor's room opened and he came out with Charles Darnay. The Doctor's face was white, but he was calm. He took his daughter's arm and they went out to the waiting coach. The others followed in a second coach and soon, in a nearby church, Lucie Manette and Charles Darnay were married.</p>
+<p class="normaltext">After the marriage Lucie and Charles came back to the house for breakfast, and then Lucie had to say goodbye to her father for two weeks—the first time they had not been together since his return from Paris.</p>
+<p class="normaltext">When Lucie and Charles had left, Mr Lorry noticed a change in the Doctor. A little sadness was natural, but there was a lost, frightened look in the Doctor's eyes, which worried Mr Lorry very much. When he left to go to Tellson's Bank, he whispered to Miss Pross that he would return as quickly as he could.</p>
+<p class="normaltext">Two hours later he hurried back to the house, and Miss Pross met him at the door.</p>
+<p class="normaltext">'Oh, what shall we do, Mr Lorry?' she cried. 'He doesn't know me, and is making shoes again!'</p>
+<p class="normaltext">Mr Lorry went up to the Doctor's room. 'Dr Manette, my dear friend. Look at me. Don't you remember me?'</p>
+<p class="normaltext">But Dr Manette said nothing and worked on in silence. Once again, he was a prisoner in the Bastille, without friends or family, without even a name of his own.</p>
+<p class="normaltext">For nine days and nine nights the shoemaker worked on, leaving his table only to sleep, eat, or walk up and down his room. Mr Lorry sat with him night and day, talking gently to him from time to time, trying to bring his friend's mind back to the present.</p>
+<p class="normaltext">Then at last, on the tenth morning, the shoemaking work was put away, and Dr Alexandre Manette, pale but calm, was his old self again. Lucie was never told, and in the quiet and happy years that followed her marriage, Dr Manette remained strong in mind and body.</p>
+<hr/>
+<p class="normaltext0"><b>sweet</b><em> adj. tasting like sugar or honey.</em> 甜的。</p>
+<p class="normaltext0"><b>memory</b><em> n. sth. that is remembered.</em> 记忆中的事。</p>
+<p class="normaltext0"><b>welcome</b><em> v. show pleasure or satisfaction at sth., at the arrival of sb. or sth.</em> 欢迎。</p>
+<p class="normaltext0"><b>separate</b><em> v. make, become or keep divided.</em> 使分离。</p>
+<p class="normaltext0"><b>full of</b><em> holding or having plenty.</em> 有很多的。</p>
+<p class="normaltext0"><b>promise</b><em> n. an assurance that one will or will not undertake a certain action, behaviour, etc.</em> 诺言，约定。</p>
+<p class="normaltext0"><b>accept</b><em> v. receive.</em> 接受，答应。</p>
+<p class="normaltext0"><b>agree</b><em> v. say 'yes'.</em> 同意，答应。</p>
+<p class="normaltext0"><b>frightened</b><em> adj. afraid.</em> 害怕的。</p>
+<p class="normaltext0"><b>pale</b><em> adj. having little color.</em> 苍白的，没有血色的。</p>
+<p class="normaltext0"><b>shadow</b><em> n. area of shade, dark shape.</em> 影，阴影。</p>
+<p class="normaltext0"><b>save</b><em> v. make or keep safe.</em> 拯救。</p>
+<p class="normaltext0"><b>possible</b><em> adj. that can be done, that can exist or happen.</em> 可能的。</p>
+<p class="normaltext0"><b>destroy</b><em> v. break to pieces.</em> 破坏。</p>
+<p class="normaltext0"><b>habit</b><em> n. sb.'s settled practice, esp. sth. that cannot easily be given up.</em> 习惯。</p>
+<p class="normaltext0"><b>worth</b><em> adj. giving a satisfactory or rewarding return for.</em> 值得。</p>
+<p class="normaltext0"><b>church</b><em> n. building for public Christian worship.</em> 基督教堂。</p>
+<p class="normaltext0"><b>fondly</b><em> adv. lovingly.</em> 爱怜地。</p>
+<p class="normaltext0"><b>natural</b><em> adj. ordinary; normal.</em> 普通的，正常的。</p>
+<p class="normaltext0"><b>silence</b><em> n. condition of not speaking, answering.</em> 无言。</p>
+<p class="normaltext0"><b>mind</b><em> n. what a person thinks or feels.</em> 心思，感想。</p>
+<p class="normaltext0"><b>present</b><em> n. the time now passing.</em> 现在，目前。</p>
+<p class="normaltext0"><b>put away</b><em> give up.</em> 放弃。</p>
+<p class="normaltext0"><b>remain</b><em> v. continue in some place or condition.</em> 依然，继续存在。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-13" class="chapter-section">
+                <h2 class="chapter-title">两个男人谈论爱情</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>5</em>　两个男人谈论爱情</h1>
+<p class="picture"><img src="../../../Images/image08643.jpeg" alt="alt"/></p>
+<p class="normaltext">法国侯爵死了12个月之后，查尔斯·代尔那已经在伦敦成了一名成功的法语教师。在他前往伦敦时他就知道自己将不得不靠勤奋的工作谋生。他成功了。同时他还陷入了爱河之中。还在他的生命在旧巴勒处于危险的境地时，他就已经爱上了路茜·马内特。他从未听到过像她那么甜蜜的声音，他也从未见过她那么美丽的脸庞。可他从未向她表白过爱慕之情。他在法国的叔叔的死在12个月之后，对他来说已经成了一个梦。但他没有对路茜说过他的感受，也从未提起过所发生的事情。对此他自有理由。</p>
+<p class="normaltext">但是夏季的一天他去到伦敦马内特医生家。他知道路茜和普罗斯小姐出去了。他已决定要和她的父亲谈一谈。马内特医生的身心现在都已很强壮，过去漫长的监狱生活的悲伤记忆已不常浮现在他眼前了。代尔那来时，医生热情地欢迎了他。</p>
+<p class="normaltext">“马内特医生，”代尔那说，“我知道路茜出去了。但我今天到这儿来是想和您谈谈的。”</p>
+<p class="normaltext">一阵沉默。“你是想和我谈谈路茜吧？”医生慢慢地问道。</p>
+<p class="normaltext">“是的，亲爱的马内特医生，我深深地爱着您的女儿。如果这世界上有爱情的话，那么我就爱路茜。”</p>
+<p class="normaltext">“我相信你，”马内特医生忧伤地说，“任何时候谈起她对我来说都很困难，但我相信你，查尔斯-代尔那。你对路茜表白过你对她的爱了吗？”</p>
+<p class="normaltext">“没有，从来没有过。我知道您女儿对您来说多么重要，马内特医生。她对您的爱和您对她的爱都是您的及她的生命中最重要的东西。我爱路茜，全心全意地爱她。但是我不想打破你们的关系。你们两个人将永不会因为我而分开。”</p>
+<p class="normaltext">有一阵儿马内特医生把头侧转过去，眼中充满了恐惧和痛苦。后来他转过头来看着代尔那，尽力装出一副笑脸。</p>
+<p class="normaltext">“你说得很诚恳，查尔斯，”他说，“你有什么理由相信路茜爱你吗？”</p>
+<p class="normaltext">“没有！”</p>
+<p class="normaltext">“那么你想从我这儿得到什么呢？”</p>
+<p class="normaltext">“承诺。这个承诺就是一旦路茜告诉您她爱我，那么您就不要说反对的话，并且告诉她我所说的这些话。我知道如果她认为您会痛苦，那就绝不会接受我的爱。”</p>
+<p class="normaltext">“我可以承诺更多的东西，查尔斯。如果路茜告诉我说她爱你，我就会把她交给你。”</p>
+<p class="normaltext">“谢谢您，马内特医生。”代尔那感激地说，“还有一件事，我在英国的名字不是我的真实姓名，我想告诉您我的真实姓名，还有我来英国的原因。”</p>
+<p class="normaltext">“打住！”医生说。他甚至已经用手捂住了耳朵。“我不想知道。我问你时你再告诉我吧。如果路茜同意嫁给你，你就要在你们结婚的那天早晨告诉我。”</p>
+<p class="normaltext">代尔那离开马内特医生时天已经黑了。路茜和普罗斯小姐晚些时候才回家。</p>
+<p class="normaltext">“爸爸，”路茜喊道，“您在哪儿？”她没有听到回答，可是从她父亲的卧室里传来了些奇怪的声音。路茜吓坏了，她跑上楼去见到了父亲，他脸色苍白，正在悄无声息地忙着做在监狱里干的老活计——做鞋子。巴士底狱的阴影又一次降临到了他身上。她抓住了父亲的手，温柔地对他说着话，并且和他一起来来回回走了很长时间，直到最后马内特医生安静地上床睡觉了。</p>
+<p class="normaltext">尽管卡登先生经常拜访马内特医生家，但他来时总是很少说话。8月的一天他来时马内特医生出去了，路茜接待了他。她在他面前总是有点害羞，但那天她注意到了他的脸上有种不同以往的神情。</p>
+<p class="normaltext">“您不舒服吗，卡登先生？”她问。</p>
+<p class="normaltext">“不，大概不是吧，马内特小姐。只是我的生活方式对健康不好。”</p>
+<p class="normaltext">“那可太不幸了，”路茜柔声说，“您为什么不改变一下您的生活方式呢？”</p>
+<p class="normaltext">“那太晚了。我永远不会比现在有什么起色了。但是，马内特小姐，我有一件事想对您说，但又发现这太难了。您会听我说吗？”</p>
+<p class="normaltext">“如果那对您有帮助的话，卡登先生，我会乐意听您说的。”路茜说。然而她的脸色苍白，浑身发抖。</p>
+<p class="normaltext">“马内特小姐，我知道您是永远不会对我有爱情的。我这个人生活得这么糟糕。”</p>
+<p class="normaltext">“即便没有爱情，卡登先生，难道我就不能挽救您吗？我不能帮您吗？”</p>
+<p class="normaltext">“不，马内特小姐，”卡登说，“即使您可能爱我，那对我来说也已经太晚了。我只会让您伤心，从而毁了您的生活。但那也是我心中最后的一个梦想。能看到您和您的父亲在一起，看到您为他建起的这个家——这已经为我带回了那古老而幸福的回忆。”</p>
+<p class="normaltext">“我就不能为您做点儿什么吗？”路茜悲伤地问。</p>
+<p class="normaltext">“仅此而已，马内特小姐，就让我记住我曾对您说过我心中的感情，而您对我又关怀又体贴。”</p>
+<p class="normaltext">“哦，卡登先生，再试着去改变一下吧。”</p>
+<p class="normaltext">“不，马内特小姐，这太晚了。我的坏毛病永远也不会改掉了。但是请您告诉我您以后绝不会提起我今天对您说过的话，不要告诉任何人，甚至您最亲爱的人。”</p>
+<p class="normaltext">“卡登先生，”路茜说，“这是您的隐私，不会有人从我这儿知道这些的。”</p>
+<p class="normaltext">“谢谢您，马内特小姐。我不会再说这些了，但在我死的时候，我会因为我最后的爱情表白是对您说的而留下幸福的回忆。”</p>
+<p class="normaltext">路茜以前从未听过卡登先生这么说过，一想到他绝望、不幸的生活，她的眼里就充满了泪水。</p>
+<p class="normaltext">“不要哭，”西得尼·卡登说，“我不值得您爱，但是您要知道我会乐意对您或任何您亲近的人做任何事情的。请永远记住，这里有一个男人，他将不惜自己的生命去保护您所爱的人的生命，并为了让他和您永远在一起而不惜一切。再见，马内特小姐。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">在路茜嫁给查尔斯·代尔那的这天，劳里先生和普罗斯小姐陪路茜站在马内特医生的房门外。屋子里，医生和代尔那先生已经在一起谈了很长时间。</p>
+<p class="normaltext">很快就将是去教堂的时间了。路茜显得非常漂亮。劳里先生骄傲地看着她。他说起了多年前他把路茜抱在怀里从法国去英国那天的事。普罗斯小姐也回忆起往事并深情地想起了她的弟弟所罗门。好多年前他偷了她的钱，从那以后她就再没见过他，但她仍旧爱他。</p>
+<p class="normaltext">医生的房门打开了。他和查尔斯·代尔那走了出来。医生的脸色苍白但仍很镇静。他挽起女儿的胳膊走向已在等候的马车。其他人则乘坐第二辆马车跟随其后。很快路茜·马内特和查尔斯·代尔那就在附近的一个教堂里举行了婚礼。</p>
+<p class="normaltext">婚礼结束后路茜和查尔斯回到家里吃早餐，然后路茜不得不和父亲告别两个星期——这是他从巴黎回来后他们第一次分开。</p>
+<p class="normaltext">路茜和查尔斯走后，劳里先生注意到医生的变化。有一些伤感是自然的，但是在他的眼睛里有一种失落、恐惧的神情，这使劳里先生非常担忧。在他要去台尔森银行时，他小声对普罗斯小姐说他将尽快回来。</p>
+<p class="normaltext">两个小时之后他匆忙返回时，普罗斯小姐在门口迎住了他。</p>
+<p class="normaltext">“噢，我们该怎么办，劳里先生？”她哭着说，“他不认识我了，而且又开始做起鞋子来了。”</p>
+<p class="normaltext">劳里先生上楼来到医生的房间。“马内特医生，我亲爱的朋友，看着我，你不记得我了吗？”</p>
+<p class="normaltext">可马内特医生什么话也没说，只是默默地做着他的活儿。他又成了巴士底狱里的囚犯了，没有朋友，没有家，甚至连名字都没有。</p>
+<p class="normaltext">连着9天9夜鞋匠一直在做他的活儿，只是在睡觉、吃饭或在屋子里走来走去时才离开工作台。劳里先生日夜陪着他，时不时地轻声和他说着话，竭力想把他朋友的思绪带回到现实中来。</p>
+<p class="normaltext">最后，在第10天的早晨，做鞋的工作被抛到了一边。亚历山大·马内特医生——脸色苍白却很平静，这时又恢复了他应有的神情。路茜没有被告知这些，而且在她婚后宁静而幸福的日子里，马内特医生始终保持着强健的心理和身体状态。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-14" class="chapter-section">
+                <h2 class="chapter-title">6 Stormy years in France</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">6</h1>
+<h1 class="title1">Stormy years in France</h1>
+<p class="normaltext">In Monsieur Defarge's wine-shop in Saint Antoine customers came and went all the time. They came to drink the thin, rough wine, but more often they came to listen and to talk, and to wait for news.</p>
+<p class="normaltext">One day there were more customers than usual. Defarge had been away for three days, and when he returned that morning, he brought a stranger with him, a man who repaired roads.</p>
+<p class="normaltext">'Madame,' Defarge said to his wife, 'this man, who is called Jacques, has walked a long way with me.' One customer got up and went out. 'This mender of roads,' continued Defarge, 'who is called Jacques, is a good man. Give him something to drink.' A second man got up and went out. The man who repaired roads sat down and drank. A third man got up and went out.</p>
+<p class="normaltext">'Have you finished, my friend?' said Defarge. 'Then come and see the room I promised you.'</p>
+<p class="normaltext">They went upstairs, to the room where Dr Manette had sat making shoes. The three men who had left the wine-shop were waiting. Defarge spoke to them.</p>
+<p class="normaltext">'No names. You are Jacques One, Jacques Two and Jacques Three. I am Jacques Four. This is Jacques Five. He brings us news of our poor friend Gaspard, whose child was killed by the Marquis's coach a year ago.'</p>
+<p class="normaltext">'I first saw Gaspard,' said Jacques Five, 'holding on under the Marquis's coach as it drove into our village. He ran away, but that night the Marquis was murdered. Gaspard disappeared and was only caught a few weeks ago. The soldiers brought him into the village and hanged him. And they have left his body hanging in the village square, where the women go to fetch water, and our children play.'</p>
+<p class="normaltext">When Jacques Five had left them, Jacques One said to his friends, 'What do you say? Shall we put their names on the list?'</p>
+<p class="normaltext">'Yes, all of them. The castle and all of the family of Evré monde.'</p>
+<p class="normaltext">'Is the list safe?' asked Jacques Two.</p>
+<p class="normaltext">'Yes, my friend,' said Defarge. 'My wife remembers everything. But more than that, every name is carefully knitted into her work. Nothing can be forgotten.'</p>
+<p class="normaltext">A few days later Defarge reported to his wife some news from his friend 'Jacques' in the police.</p>
+<p class="normaltext">'A new spy has been sent to Saint Antoine. His name is Barsad, John Barsad. He's English.'</p>
+<p class="normaltext">'What does he look like? Do we know?'</p>
+<p class="normaltext">'He's about forty years old, quite tall, black hair, thin face,' said Defarge.</p>
+<p class="normaltext">'Good,' said his wife. 'I'll put him on the list tomorrow. But you seem tired tonight. And sad.'</p>
+<p class="normaltext">'Well,' said Defarge, 'it is a long time.'</p>
+<p class="normaltext">'It takes time to prepare for change. The crimes against the people of France cannot be revenged in a day.'</p>
+<p class="normaltext">'But we may not live to see the end.'</p>
+<p class="normaltext">'Even if that happens,' replied Madame Defarge, 'we shall help it to come. But I believe that we shall see the day of our revenge against these hated noblemen.'</p>
+<p class="normaltext">The next day a stranger came into the wine-shop. At once, Madame Defarge picked up a rose from the table and put it in her hair. As soon as they saw this, the customers stopped talking and, one by one, without hurrying, left the wine shop.</p>
+<p class="normaltext">'Good day, Madame,' said the stranger.</p>
+<p class="normaltext">'Good day, Monsieur,' said Madame Defarge, but to herself she said, 'About forty years old, tall, black hair, thin face. Yes, I know who you are, Mr John Barsad.'</p>
+<p class="normaltext">'Is business good?' asked the stranger.</p>
+<p class="normaltext">'Business is bad. The people are so poor.' Madame Defarge looked over to the door. 'Ah, here is my husband.'</p>
+<p class="normaltext">'Good day, Jacques,' said the spy.</p>
+<p class="normaltext">'You're wrong,' said Defarge, staring at him. 'That's not my name. I am Ernest Defarge.'</p>
+<p class="normaltext">'It's all the same,' said the spy easily. 'I remember something about you, Monsieur Defarge. You took care of Dr Manette when he came out of the Bastille.'</p>
+<p class="normaltext">'That's true,' said Defarge.</p>
+<p class="normaltext">'Have you heard much from Dr Manette and his daughter? They're in England now.'</p>
+<p class="normaltext">'No, not for a long time.'</p>
+<p class="normaltext">'She was married recently. Not to an Englishman, but to a Frenchman. It's quite interesting when you remember poor Gaspard. Miss Manette has married the nephew of the Marquis that Gaspard killed. Her new husband is really the new Marquis, but he prefers to live unknown in England. He's not a Marquis there, just Mr Charles Darnay.'</p>
+<p class="normaltext">Monsieur Defarge was not happy at this news. When the spy had gone, he said to his wife, 'Can it be true? If it is, I hope that Miss Manette keeps her husband away from France.'</p>
+<p class="normaltext">'Who knows what will happen?' replied Madame Defarge. 'I only know that the name of Evrémonde is in my list, and for good reason.' She went on calmly knitting, adding name after name to her list of the enemies of the people.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Time passed, and Madame Defarge still knitted. The women of Saint Antoine also knitted, and the thin hungry faces of Jacques and his brothers became darker and angrier. The noise of the coming storm in Paris was growing louder.</p>
+<p class="normaltext">It began one summer day in the streets of Saint Antoine, around Defarge's wine-shop, with a great crowd of people. A crowd who carried guns, knives, sticks, even stones—anything that could be a weapon. An angry crowd who shouted and screamed, who were ready to fight and to die in battle.</p>
+<p class="normaltext">'Friends and citizens!' shouted Defarge. 'We are ready! To the Bastille!' The crowd began to move, like the waves of the sea.</p>
+<p class="normaltext">'Follow me, women!' cried Madame Defarge. A long sharp knife shone brightly in her hand. 'We can kill as well as any man!'</p>
+<p class="normaltext">The living sea of angry people ran through Saint Antoine to the Bastille, and soon the hated prison was ringing with the noise of battle. Fire and smoke climbed up the high stone walls and the thunder of the guns echoed through the city.</p>
+<p class="normaltext">Four terrible and violent hours. Then a white flag appeared above the walls and the gates were opened. The Bastille had been taken by the people of Paris! Soon the crowds were inside the building itself, and shouting 'Free the prisoners!' But Defarge put his strong hand on the shoulder of one of the soldiers.</p>
+<p class="normaltext">'Show me the North Tower. Take me to One Hundred and Five, North Tower! Quickly!'</p>
+<p class="normaltext">'Follow me,' said the frightened man, and Defarge and Jacques Three went with him through the dark prison, past heavy closed doors, up stone stairs, until they came to a low door. It was a small room, with dark stone walls and only one very small window, too high for anyone to look out. Defarge looked carefully along the walls.</p>
+<p class="normaltext">'There, look there, Jacques Three,' he cried.</p>
+<p class="normaltext">'A.M.!' whispered Jacques.</p>
+<p class="normaltext">'A.M. Alexandre Manette,' said Defarge softly. 'Let us go now.' But before they left, they searched the room and the furniture very carefully, looking for small hiding-places.</p>
+<p class="normaltext">Then they returned to the crowds below. The Bastille and its officers were now in the hands of the people, and the people wanted revenge, and blood.</p>
+<p class="normaltext">'At last, it has begun, my dear,' said Defarge to his wife. It was the fourteenth of July, 1789.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">In the village where the Marquis had lived, and where Gaspard had died, life was hard. Everything was old and tired and broken down—the people, the land, the houses, the animals. In the past everything and everybody had had to work for the Marquis, and he had given nothing in return.</p>
+<p class="normaltext">But now, strangers were travelling about the country, strangers who were poor, like the people, but who talked about new ideas—ideas which had started in Paris and were now running like fire across the country.</p>
+<p class="normaltext">The road-mender, who had brought the news of Gaspard to Paris, still worked repairing the roads. One day a stranger came to him as he worked on the road outside the village.</p>
+<p class="normaltext">'Jacques,' said the stranger. He shook the road-mender's hand, and turned to look at the Marquis's castle on the hill. 'It's tonight, Jacques,' he went on quietly. 'The others will meet me here.'</p>
+<p class="normaltext">It was very dark that night and the wind was strong. No one saw the four men who came quietly to the castle and said nothing. But soon the castle itself could be seen in the dark sky. The windows became bright; smoke and yellow flames climbed into the sky. Monsieur Gabelle called loudly for help, but the people in the village watched and did nothing to save the castle where the Marquis had lived.</p>
+<hr/>
+<p class="normaltext0"><b>rough</b><em> adj. made or done without attention to detail.</em> 粗制的。</p>
+<p class="normaltext0"><b>mender</b><em> n. one who repairs.</em> 修理者。</p>
+<p class="normaltext0"><b>murder</b><em> v. kill unlawfully and on purpose.</em> 谋杀。</p>
+<p class="normaltext0"><b>fetch</b><em> v. go for and bring back.</em> 接来，取来。</p>
+<p class="normaltext0"><b>list</b><em> n. number of names written or printed.</em> 名单。</p>
+<p class="normaltext0"><b>hang</b><em> v. put, be put, to death by hanging with a rope round the neck.</em> 绞死。</p>
+<p class="normaltext0"><b>revenge</b><em> v. do sth. to get satisfaction for.</em> 报仇。</p>
+<p class="normaltext0"><b>pick up</b><em> take hold of and lift.</em> 拾起，捡起。</p>
+<p class="normaltext0"><b>business</b><em> n. buying and selling.</em> 买卖。</p>
+<p class="normaltext0"><b>crime</b><em> n. serious law-breaking.</em> 犯罪行为。</p>
+<p class="normaltext0"><b>nephew</b><em> n. son of one's brother or sister.</em> 侄儿；外甥。</p>
+<p class="normaltext0"><b>keep away</b><em> avoid coming, going, to or near.</em> 远离，不接近。</p>
+<p class="normaltext0"><b>crowd</b><em> n. large number of people together, but without order or organization.</em> 人群，群众。</p>
+<p class="normaltext0"><b>stick</b><em> n. branch cut for a special purpose.</em> （用作某种特殊用途的）棍，棒。</p>
+<p class="normaltext0"><b>citizen</b><em> n. person who has full rights in a state, either by birth or by gaining such right.</em> 公民。</p>
+<p class="normaltext0"><b>wave</b><em> n. long ridge of water esp. on the sea, between two hollows.</em> 波浪。</p>
+<p class="normaltext0"><b>thunder</b><em> n. loud noise which usu. follows a flash of lightning.</em> 雷,雷声。</p>
+<p class="normaltext0"><b>echo</b><em> v. send back sound.</em> 发回声。</p>
+<p class="normaltext0"><b>furniture</b><em> n. all those things needed in a house, room, office.</em> 家具。</p>
+<p class="normaltext0"><b>softly</b><em> adv. not loudly.</em> 轻声地。</p>
+<p class="normaltext0"><b>in return</b><em> as repayment.</em> 报答。</p>
+<p class="normaltext0"><b>meet</b><em> v. go to a place and await the arrival of.</em> 迎接。</p>
+<p class="normaltext0"><b>flame</b><em> n. burning gas.</em> 火焰。</p>
+<p class="normaltext0"><b>climb</b><em> v. go or get up, esp. by using one's hand.</em> 攀登。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-15" class="chapter-section">
+                <h2 class="chapter-title">法国的暴风雨年代</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>6</em>　法国的暴风雨年代</h1>
+<p class="picture"><img src="../../../Images/image08644.jpeg" alt="alt"/></p>
+<p class="normaltext">在圣安东尼得法热先生的酒店里，顾客们来来往往络绎不绝。他们来这儿喝点清淡的粗制葡萄酒，但他们更多的是来这儿聆听和交谈的，还有等候消息的。</p>
+<p class="normaltext">一天，店里的顾客比平常要多。得法热已经出去3天了。当他那天早上回来时，他带回来了一个陌生人，一个修路工。</p>
+<p class="normaltext">“夫人，”得法热对他的妻子说，“这个人叫雅克，他已经和我一起走了很长一段路。”有一个顾客这时起身走了出去。“这个修路工，”得法热接着说，“叫雅克，是个好人。给他来点喝的吧。”第二个人起身走了出去。那个修路的人坐了下来喝酒。第三个人起身走了出去。</p>
+<p class="normaltext">“喝完了吗，我的朋友？”得法热说，“那就过来看看我答应给你的房间吧。”</p>
+<p class="normaltext">他们上了楼，来到马内特医生曾坐着做鞋子的房间。那三个刚才离开酒店的男人正在等着他们。得法热对他们说：</p>
+<p class="normaltext">“没有名字。你们是雅克一，雅克二和雅克三。我是雅克四，这是雅克五。他给我们带来了我们可怜的朋友加斯珀的消息，一年前他的孩子被侯爵的马车轧死了。”</p>
+<p class="normaltext">“我第一次看到加斯珀，”雅克五说，“是在侯爵的马车进村时，他扒在车底下。他跑掉了，但是那天晚上侯爵就被暗杀了。加斯珀失踪了，几星期前才被抓到。士兵们把他带到村子里绞死了他，而且他们把他的尸体吊在了村里的场地上。那是妇女们打水以及我们的孩子们玩耍的地方。”</p>
+<p class="normaltext">雅克五走后，雅克一对他的朋友们说：“你们有什么说的呢？我们是不是该把他们的名字列在名单上？”</p>
+<p class="normaltext">“是的，他们所有的名字。那个城堡里及所有埃弗蒙家族的人。”</p>
+<p class="normaltext">“名单安全吗？”雅克二问。</p>
+<p class="normaltext">“是的，我的朋友。”得法热说，“我老婆记得所有的事，不仅如此，每一个名字她都织到了毛线活儿里，绝不会被忘掉的。”</p>
+<p class="normaltext">几天后，得法热把一些从他在警察局里的雅克朋友那儿得到的消息告诉了他妻子。</p>
+<p class="normaltext">“一个新的间谍已被派到了圣安东尼，他叫巴萨德，约翰·巴萨德，是英国人。”</p>
+<p class="normaltext">“他长得什么样？我们知道吗？”</p>
+<p class="normaltext">“他大约40岁，个儿很高，黑头发，瘦脸庞。”得法热说。</p>
+<p class="normaltext">“好的，”他老婆说，“我明天就把他记入名单中。只是你今晚上好像累了，而且有些伤心。”</p>
+<p class="normaltext">“唉，”得法热说，“时间太长了。”</p>
+<p class="normaltext">“准备变革就得花费时间。法国人的仇不可能一天就报完了。”</p>
+<p class="normaltext">“但我们也许不会活着看到结果了。”</p>
+<p class="normaltext">“即使是这样，”得法热夫人说，“我们也要尽力让它到来。但是我相信我们会看到我们对那些可恨的贵族们复仇的那一天。”</p>
+<p class="normaltext">第二天，一个陌生人来到了酒店。立刻，得法热夫人便从桌上拿起一支玫瑰花插在了头发上。顾客们一看到这个动作便立刻停止了交谈，并一个接着一个从容地离开了酒店。</p>
+<p class="normaltext">“你好，夫人。”陌生人说。</p>
+<p class="normaltext">“你好，先生。”得法热夫人说。但她心里说：“大约40岁，高个儿，黑头发，瘦脸庞。对了，我知道你是谁，约翰·巴萨德先生。”</p>
+<p class="normaltext">“生意好吗？”陌生人问。</p>
+<p class="normaltext">“生意不好，人们太穷了。”得法热夫人抬起头看着门，“啊，这是我丈夫。”</p>
+<p class="normaltext">“你好，雅克。”间谍说道。</p>
+<p class="normaltext">“你错了，”得法热盯着他说，“那不是我的名字，我叫恩斯特·得法热。”</p>
+<p class="normaltext">“那都一样，”间谍随口说道。“我记得你的一些事，得法热先生。马内特医生从巴士底狱出来后是你照顾他的。”</p>
+<p class="normaltext">“是那样的。”得法热说。</p>
+<p class="normaltext">“你常有马内特医生和他女儿的消息吗？他们现在在英国。”</p>
+<p class="normaltext">“没有，很长时间都没有了。”</p>
+<p class="normaltext">“她最近结婚了。不是嫁给一个英国人，而是一个法国人。如果你联想起可怜的加斯珀，这件事真是有趣。马内特小姐嫁给了被加斯珀杀死的侯爵的侄子，她的新婚丈夫实际上是新的侯爵。可他宁愿不为人知地住在英国。他在那里可不是侯爵，而只不过是查尔斯·代尔那。”</p>
+<p class="normaltext">得法热先生听到这个消息后心里不高兴。在间谍走后，他对妻子说：“这会是真的吗？如果是，我希望马内特小姐让她的丈夫远离法国。”</p>
+<p class="normaltext">“谁知道会发生什么？”得法热夫人回答说，“我只知道埃弗蒙这个名字在我的名单上，而且有充分的理由。”她继续平静地织着毛线活儿，把一个又一个的名字织进人民公敌名单中。</p>
+<p class="normaltext">时间流逝着，得法热夫人仍旧在编织着。圣安东尼的妇女们也都在织着。雅克和他的兄弟们饥饿削瘦的脸变得越来越灰暗，也越来越愤怒。巴黎即将到来的暴风雨的隆隆雷声已愈来愈响了。</p>
+<p class="normaltext">事情开始于夏季的一天，在圣安东尼得法热酒店四周的街道上聚集了大队的人群。他们拿着枪、刀、棍子，甚至石头，即一切可以作为武器的东西。他们狂呼怒吼着，准备好去战斗，去牺牲。</p>
+<p class="normaltext">“朋友们、公民们！”得法热喊道，“我们做好了准备！向巴士底狱进军！”人群开始移动，像海浪般汹涌向前。</p>
+<p class="normaltext">“跟着我，妇女们！”得法热夫人喊道。一把明晃晃的长尖刀在她手中挥舞着。“我们也能像任何男人一样去杀人！”</p>
+<p class="normaltext">愤怒的人海穿过圣安东尼冲向了巴士底狱。很快，这让人痛恨的监狱便响起了战斗的声音。烈火和浓烟窜上了高大的石头墙，雷鸣般的炮声在城市中回响。</p>
+<p class="normaltext">恐怖而暴烈的4个小时之后，城墙上出现了一面白旗，城门被打开了。巴士底狱已经被巴黎人民攻占了！很快人群便拥入其中，他们呐喊着“释放犯人！”但是得法热把他结实的手放在了一个士兵肩上。</p>
+<p class="normaltext">“指给我‘北塔’，带我去北塔105！快！”</p>
+<p class="normaltext">“跟我来。”那个吓坏了的家伙说道。得法热和雅克三随他走过黑暗的监狱，路过了沉重紧锁的门，上了石头台阶，来到一个低矮的门前。这是一个狭小的房间，黑暗的石墙上只有一个很小的窗户，它很高，没人能够着它往外看。得法热顺着墙仔细地查看着。</p>
+<p class="normaltext">“这儿，看这儿，雅克三。”他嚷道。</p>
+<p class="normaltext">“A.M.！”雅克小声念道。</p>
+<p class="normaltext">“A.M.，亚历山大·马内特。”得法热轻声说，“我们现在走吧。”但在他们离开之前，他们细心地搜索了一遍房间和家具，寻找着细小的隐藏之处。</p>
+<p class="normaltext">然后他们返回到下面的人群中。巴士底狱及其官员们都在人民的手中了，他们要报仇雪恨，要血债血偿。</p>
+<p class="normaltext">“最终，它总算开始了，亲爱的。”得法热对他的妻子说。这天是1789年的7月14日。</p>
+<p class="normaltext">在侯爵生活和加斯珀死去的那个村庄，生活很艰难。一切东西都是衰老、疲惫和残缺的，包括村民、土地、房屋、牲畜。过去，所有的人力和物力都得为侯爵效劳，而且得不到任何回报。</p>
+<p class="normaltext">但是现在，陌生的人们在全国巡游。这些陌生人像当地人一样穷，但是他们谈论着新思想——那些源于巴黎的思想现在正像烈火一样燃遍全国。</p>
+<p class="normaltext">那个把加斯珀的消息带到巴黎的修路人，仍旧在修着道路。一天，当他在村子外面的路上干着活儿时，一个陌生人朝他走来。</p>
+<p class="normaltext">“雅克。”那个陌生人说。他握着修路人的手，并转身看着山上侯爵的城堡。</p>
+<p class="normaltext">“就是今晚，雅克，”他接着平静地说道。“另外的人将要在这儿和我见面。”</p>
+<p class="normaltext">那天晚上天很黑，而且风刮得很猛。没有人看见有4个人悄无声息地走向城堡。但是很快城堡就显露在黑暗的夜幕中。窗户明亮，烟雾和黄色的火焰直冲云天。加贝尔先生大声地喊着救命，但村子里的人们只是袖手旁观，没有采取任何行动去营救这座侯爵住过的城堡。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-16" class="chapter-section">
+                <h2 class="chapter-title">7 A call for help</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">7</h1>
+<h1 class="title1">A call for help</h1>
+<p class="normaltext">The troubles in France continued. The citizens of France had fought to win power, and now they used it. Castles were burned, laws were changed, and the rich and powerful nobles died—their heads cut off by that terrible new machine of death, the Guillotine. In Paris the King was put in prison, and in 1792 the people of France sent him to the Guillotine as well. The French Revolution was now three years old, but there were more years of terror to come.</p>
+<p class="normaltext">Not all the rich nobles had died. Some had escaped to England; some had even sent or brought their money to London before the Revolution began. And Tellson's Bank, which the French emigrants used, had become a meeting-place where they could hear and talk about the latest news from France.</p>
+<p class="normaltext">One wet August day Mr Lorry sat at his desk in the bank, talking to Charles Darnay. The years since Charles's marriage had seen the arrival of a daughter, little Lucie, who was now nine years old. Dr Manette had continued in good health, and at the centre of that warm family circle was always Lucie—a loving daughter, wife, mother, and a kind-hearted friend. Even Sydney Carton, though his old, bad ways were unchanged, was a family friend—and very much a favourite with little Lucie.</p>
+<p class="normaltext">But at this moment Charles Darnay was trying very hard to persuade his old friend Mr Lorry not to go to France. 'It's too dangerous. The weather is not good, the roads are bad, think of your age,' he said.</p>
+<p class="normaltext">'My dear Charles,' said the banker. 'You think that, at nearly eighty years of age, I'm too old. But that's exactly why I must go. I have the experience, I know the business. My work is to find and hide papers that might be dangerous to our customers. And anyway, Jerry Cruncher goes with me. He'll take good care of my old bones.'</p>
+<p class="normaltext">'I wish I could go,' said Charles restlessly. 'I feel sorry for the people in France, and perhaps I could help them. Only last night, when I was talking to Lucie—'</p>
+<p class="normaltext">'Talking to Lucie, 'repeated Mr Lorry. 'You talk about your lovely wife at the same time as you talk about going to France. You must not go. Your life is here, with your family.'</p>
+<p class="normaltext">'Well, I'm not going to France. But you are, and I'm worried about you.'</p>
+<p class="normaltext">Just at that moment a bank clerk put an old, unopened letter on Mr Lorry's desk, and Darnay happened to see the name on it: The Marquis of Evrémonde, at Tellson's Bank, London. Since his uncle's death, this was Darnay's real name. On the morning of his wedding to Lucie he had told Dr Manette, but the Doctor had made him promise to keep his name secret. Not even Lucie or Mr Lorry knew.</p>
+<p class="normaltext">'We can't find this Marquis,' said the clerk.</p>
+<p class="normaltext">'I know where to find him,' said Darnay. 'Shall I take the letter?'</p>
+<p class="normaltext">'That would be very kind,' said Mr Lorry.</p>
+<p class="normaltext">As soon as he had left the bank, Darnay opened the letter. It was from Monsieur Gabelle, who had been arrested and taken to Paris.</p>
+<p class="normaltext">　<em>Monsieur, once the Marquis</em></p>
+<p class="normaltext2"><em>I am in prison, and I may lose my life, because I worked for a landowner who has left France. You told me to work for the people and not against them, and I have done this. But no one believes me. They say only that I worked for an emigrant, and where is that emigrant? Oh Monsieur, please help me, I beg you!</em></p>
+<p class="normaltext">This cry for help made Darnay very unhappy. After the death of the Marquis, he had told Gabelle to do his best for the people. But now Gabelle was in prison, just because he was employed by a nobleman. It was clear to Darnay that he must go to Paris. He did not think that he would be in danger, as he had done everything he could to help the people of his village. He hoped that he would be able to save his old servant.</p>
+<p class="normaltext">That night Charles Darnay sat up late, writing two letters. One was to his wife, Lucie; the other was to her father, Dr Manette. He told them where he had gone and why, and he promised that he would write to them from France. He had left secretly, he wrote, to save them from worrying.</p>
+<p class="normaltext">The next day he went out, without saying anything to them of his plans. He kissed his wife and his daughter, and said that he would be back soon. And then he began his journey to Paris.</p>
+<p class="normaltext">When he arrived in France, Darnay found that he could travel only very, very slowly towards Paris. The roads were bad and every town, every village had its citizens with guns who stopped all travellers, asked them questions, looked at their papers, made them wait or threw them in prison, turned them back or sent them on their way. And it was all done in the name of freedom—the new Freedom of France.</p>
+<p class="normaltext">Darnay soon realized that he could not turn back until he had reached Paris and proved himself to be a good citizen, not an enemy of the people.</p>
+<p class="normaltext">On his third night in France he was woken by an official and three other men with guns.</p>
+<p class="normaltext">'Emigrant,' said the official. 'These three soldiers will take you to Paris, and you must pay them.'</p>
+<p class="normaltext">Darnay could only obey and at three o'clock in the morning he left with three soldiers to guard him. Even with them he was sometimes in danger; the people in the towns and villages all seemed to be very angry with emigrants, but finally they arrived safely at the gates of Paris. Darnay had to wait a long time while officials carefully read his papers, which explained the reasons for his journey. One official, seeing Gabelle's letter, looked up at Darnay in great surprise, but said nothing. Another official asked roughly:</p>
+<p class="normaltext">'Are you Evrémonde?'</p>
+<p class="normaltext">'Yes,' replied Darnay.</p>
+<p class="normaltext">'You will go to the prison of La Force!'</p>
+<p class="normaltext">'But why?' asked Darnay. 'Under what law?'</p>
+<p class="normaltext">'We have new laws, Evrémonde,' said the official sharply, 'and emigrants have no rights. You will be held in secret. Take him away.'</p>
+<p class="normaltext">As Darnay left, the first official said quietly to him, 'Are you the man who married the daughter of Dr Manette?'</p>
+<p class="normaltext">'Yes,' replied Darnay in surprise.</p>
+<p class="normaltext">'My name is Defarge and I have a wine-shop in Saint Antoine. Perhaps you have heard of me.'</p>
+<p class="normaltext">'Yes. My wife came to your house to find her father.'</p>
+<p class="normaltext">'Why did you come back to France? It will be very bad for you.'</p>
+<p class="normaltext">Darnay was taken to the prison of La Force and put in a cold empty room with a locked door and bars across the windows. He thought of Dr Manette and his many years alone, forgotten, in the Bastille.</p>
+<p class="normaltext">'Now I, too, have been buried alive,' he thought.</p>
+<hr/>
+<p class="normaltext0"><b>cut off</b><em> remove by cutting.</em> 切去。</p>
+<p class="normaltext0"><b>revolution</b><em> n. complete change.</em> 革命，改变。</p>
+<p class="normaltext0"><b>emigrant</b><em> n. person who goes away from one's own country to another to settle there.</em> 移民。</p>
+<p class="normaltext0"><b>favourite</b><em> n. a specially preferred person.</em> 最被喜爱的人。</p>
+<p class="normaltext0"><b>persuade</b><em> v. convince.</em> 劝说，说服。</p>
+<p class="normaltext0"><b>bone</b><em> n. one of the parts that make up the frame work of an animal's body.</em> 骨头。</p>
+<p class="normaltext0"><b>happen to</b><em> occur by chance.</em> 碰巧。</p>
+<p class="normaltext0"><b>secret</b><em> adj. kept from the knowledge or view of others.</em> 秘密的。</p>
+<p class="normaltext0"><b>arrest</b><em> v. seize by the authority of the law.</em> 拘捕。</p>
+<p class="normaltext0"><b>employ</b><em> v. give work to, usu.</em> for payment. 雇用。</p>
+<p class="normaltext0"><b>be able to</b><em> have the power, means, or opportunity to do sth.</em> 有能力做某事。</p>
+<p class="normaltext0"><b>journey</b><em> n. going to a place. esp. a distant place.</em> 旅行。</p>
+<p class="normaltext0"><b>travel</b><em> v. make journeys.</em> 旅行。</p>
+<p class="normaltext0"><b>freedom</b><em> n. condition of being free.</em> 自由。</p>
+<p class="normaltext0"><b>prove</b><em> v. supply proof of.</em> 证明。</p>
+<p class="normaltext0"><b>perhaps</b><em> adv. possibly.</em> 可能，也许。</p>
+<p class="normaltext0"><b>prison</b><em> n. building in which wrongdoers are kept locked up.</em> 监狱。</p>
+<p class="normaltext0"><b>empty</b><em> adj. having nothing inside.</em> 空的。</p>
+<p class="normaltext0"><b>bury</b><em> v. place in the ground, in a grave, or in the sea.</em> 埋葬。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-17" class="chapter-section">
+                <h2 class="chapter-title">求救</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>7</em>　求救</h1>
+<p class="picture"><img src="../../../Images/image08645.jpeg" alt="alt"/></p>
+<p class="normaltext">法国的风暴在继续着。法国的公民们曾为争得权力而战斗，现在他们可以使用权力了。城堡被烧掉，法律被改换，那些有钱有势的贵族死了：他们的脑袋被那可怕的新死亡机器——断头台给砍掉了。在巴黎，国王被投进了监狱。1792年，法国人民把他也送上了断头台。法国大革命到现在已3年了，但是恐怖还要持续更长的岁月。</p>
+<p class="normaltext">并非所有的有钱贵族都已死了，他们有一些逃到了英国；有一些在大革命开始之前就已把他们的钱财带到或寄到了伦敦。台尔森银行为法国移民所利用，现在它已经成了他们聚集在一起打听和谈论从法国来的最新消息的场所。</p>
+<p class="normaltext">8月里一个潮湿的日子，劳里先生坐在他银行里的办公桌旁和查尔斯·代尔那交谈。查尔斯婚后已有了一个女儿小路茜来到世上。现在她已经9岁了。马内特医生的身体一直很健康。这个温馨的家庭的中心始终是路茜——一个让人喜欢的女儿、妻子、母亲和善良的朋友。甚至西得尼·卡登，虽然他原先那些不好的生活方式并未改变，也是这个家庭的朋友——而且是小路茜最喜爱的人。</p>
+<p class="normaltext">但在此刻，查尔斯·代尔那正竭力说服他的老朋友劳里先生不要去法国。“那太危险了，天气也不好，路也难走，还有您的年纪。”他说。</p>
+<p class="normaltext">“我亲爱的查尔斯，”银行家说，“你认为我快80岁了，所以太老了，但这正是我必须去的原因。我有经验，也懂业务。我的工作是去找到并收藏有可能对我们的客户有危险的文件。况且还有杰里·克拉彻和我一起去，他会照顾好我这把老骨头的。”</p>
+<p class="normaltext">“我希望我能去。”查尔斯不安地说，“我为法国人民难过，也许我能帮助他们。只是昨天夜里，我和路茜谈起的时候——”</p>
+<p class="normaltext">“和路茜谈，”劳里先生重复道。“你谈起去法国一事的同时还谈起你可爱的妻子。你不能去，你的生活在这儿，和你的家人在一起。”</p>
+<p class="normaltext">“好吧，我不去法国了。但是你却要去，我是为你担心。”</p>
+<p class="normaltext">就在这时一个银行职员把一封旧的，没有打开的信放在了劳里先生的桌子上。代尔那正巧看见了信封上的名字，上面写着：伦敦，台尔森银行，埃弗蒙侯爵。在他叔叔死后，这就成了代尔那真正的名字。在他和路茜举行婚礼的那天早晨他就告诉了马内特医生，但是医生让他发誓将他的名字保密。所以，甚至路茜和劳里先生都不知道。</p>
+<p class="normaltext">“我们找不到这个侯爵。”那个职员说。</p>
+<p class="normaltext">“我知道上哪儿去找他。”代尔那说，“可以把这封信给我吗？”</p>
+<p class="normaltext">“那真是太好了。”劳里先生说。</p>
+<p class="normaltext">一离开银行，代尔那就打开了信。信是加贝尔先生写来的，他已经被抓了起来而且被送到了巴黎。</p>
+<p class="normaltexta">先生，前侯爵：</p>
+<p class="normaltexta">我在监狱里，而且也许会丧命，罪名是我曾为一个离开了法国的地主效劳。您曾告诉我要为人民效力而且不要反对他们，我这样做了，但是没有人相信我。他们只说我是为一个流亡者效力。还有就是那个流亡者在哪儿？啊，先生，请帮帮我吧，求求您了！</p>
+<p class="normaltext">这个求救的哭诉使代尔那十分难受。侯爵死后，他就告诉过加贝尔要尽自己最大的努力去帮助人民，但是现在加贝尔进了监狱，仅仅因为他受雇于一个贵族。代尔那清楚自己必须去一趟巴黎。他认为自己不会有危险，因为他已尽力去帮助过他的村民们。他希望他能搭救老仆人。</p>
+<p class="normaltext">那天晚上查尔斯·代尔那熬夜熬到很晚，写了两封信，一封给他的妻子路茜，另一封给他的岳父马内特医生。他告诉了他们他要去哪儿以及为什么要去，并许诺他会从法国写信给他们。他之所以不辞而别，他写道，是为了不让他们担心。</p>
+<p class="normaltext">第二天他走时，没有提起任何有关他计划的事。他吻了妻子和女儿，而且说他很快就会回来，然后他就开始了他的巴黎之旅。</p>
+<p class="normaltext">到了法国以后，代尔那发现他的巴黎之行只能异常缓慢地进行。路况很糟，而且每个城镇、每个村庄都有拿枪的公民拦截任何过往的行人。他们盘问，查看他们的证件，让他们等候着或把他们送进监狱，让他们返回或押送他们上路。</p>
+<p class="normaltext">这一切都是在自由的名义下干出来的——新式的法兰西自由。</p>
+<p class="normaltext">代尔那很快意识到在他去巴黎并证明自己是个好公民而不是人民的敌人之前，他是回不去了。</p>
+<p class="normaltext">在他到法国的第三天晚上，他被一个官员和另外三个荷枪的人弄醒了。</p>
+<p class="normaltext">“流亡者，”那个官员说，“这三个士兵将把你带到巴黎，你必须付给他们钱。”</p>
+<p class="normaltext">代尔那只得从命，早上三点时他就和三个保护他的士兵离开了。即使跟他们在一起，他也不时地陷入危险，城里和村子里的人们似乎全都非常痛恨流亡者，但最后他们总算安全到达了巴黎的城门。在官员们仔细地看他的证件时，代尔那不得不等了很长时间。这些证件是用来说明他为什么来法国的。当一个官员看了加贝尔的信后，大为吃惊地抬头看着代尔那，但是没说什么。另一个官员粗暴地问道：</p>
+<p class="normaltext">“你是埃弗蒙吗？”</p>
+<p class="normaltext">“是的。”代尔那回答。</p>
+<p class="normaltext">“你要进拉弗尔斯监狱。”</p>
+<p class="normaltext">“可是为什么？”代尔那问，“依据什么法律？”</p>
+<p class="normaltext">“我们有了新的法律，埃弗蒙，”那个官员厉声说，“流亡者没有权利；你将被秘密关押起来。把他带走！”</p>
+<p class="normaltext">代尔那正要走，第一位官员悄声问他：“你是和马内特医生的女儿结婚的那个人吗？”</p>
+<p class="normaltext">“是呀。”代尔那惊讶地回答。</p>
+<p class="normaltext">“我叫得法热，我在圣安东尼有一家酒店，也许你听说过我。”</p>
+<p class="normaltext">“是的，我妻子曾去你家里找回了他父亲。”</p>
+<p class="normaltext">“你为什么要回法国呢？这对你太糟糕了。”</p>
+<p class="normaltext">代尔那被送进了拉弗尔斯监狱，而且被关进一个寒冷而空荡的房间。门上了锁，窗户封了铁条。他想起了马内特医生在巴士底狱里多年孤独和被人遗忘的日子。</p>
+<p class="normaltext">“现在，我也被活埋了。”他想着。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-18" class="chapter-section">
+                <h2 class="chapter-title">8 In the hands of the citizens</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">8</h1>
+<h1 class="title1">In the hands of the citizens</h1>
+<p class="normaltext">Tellson's Bank in Paris was in a large building south of the river, close to the heart of the city. Mr Lorry had arrived in Paris some days before Charles Darnay, and was now living in some rooms above the bank. One evening, looking out of the window, he saw that a large grindstone had been brought into the square below. There was a wild, shouting crowd around it, busy sharpening their knives and swords and axes, which were already red with blood. With shaking hands, Mr Lorry closed the window.</p>
+<p class="normaltext">He had decided to go downstairs and talk to the bank guards, when suddenly the door of his room opened, and Lucie and her father ran in.</p>
+<p class="normaltext">'Lucie! Manette! What has happened? Why are you here?' cried Mr Lorry.</p>
+<p class="normaltext">'Charles is in Paris,' cried Lucie. 'He came to help an old family servant. But he's been taken to prison.'</p>
+<p class="normaltext">At that moment the shouts of the crowd outside grew louder.</p>
+<p class="normaltext">'What is that noise?' asked the Doctor.</p>
+<p class="normaltext">'Don't look out!' cried Mr Lorry.</p>
+<p class="normaltext">'My friend,' said the Doctor. 'I am safe in Paris. I was a prisoner in the Bastille. Everybody knows about me and how I suffered. Already people want to help me; they gave us news of Charles.'</p>
+<p class="normaltext">'Even so, don't look outside. Where is Charles?'</p>
+<p class="normaltext">'In the prison of La Force.'</p>
+<p class="normaltext">'La Force! Dear Lucie, you can do nothing tonight. You must go to one of the rooms here and wait. I must talk with your father at once.'</p>
+<p class="normaltext">Lucie kissed him and left the room.</p>
+<p class="normaltext">'Quick, Manette,' said Mr Lorry. 'These people outside, with their bloody knives, are murdering the prisoners. If you are so well known, if you have this power, talk to them. Tell them who you are, and go to La Force. Quick, before it is too late!'</p>
+<p class="normaltext">Dr Manette hurried outside. Mr Lorry watched from the window as the Doctor talked to the crowd. He heard shouts of 'Long live the Bastille prisoner! Help his friend in La Force!'</p>
+<p class="normaltext">Mr Lorry went to Lucie and found her with her daughter and Miss Pross. Together they waited all night for news, but none came.</p>
+<p class="normaltext">In the morning Mr Lorry found rooms for Lucie and her family in a quiet street near the bank. He left Jerry Cruncher with them as a guard, and returned worriedly to Tellson's. At the end of the day a strong, serious man came to see him.</p>
+<p class="normaltext">'My name is Defarge. I come from Dr Manette; he gave me this.' Defarge gave him a piece of paper.</p>
+<p class="normaltext">The Doctor had written, <em> Charles is safe, but I cannot leave this place yet. Take Defarge to Lucie.</em></p>
+<p class="normaltext">'Come with me,' said Mr Lorry happily. They went downstairs and at the front door found Madame Defarge, knitting. Without a word, she joined them, and Mr Lorry led them to Lucie's rooms.</p>
+<p class="normaltext">There, Defarge gave Lucie a note from her husband.</p>
+<p class="normaltext"><em>Dearest—be brave. I am well, and your father has some power here. You cannot answer this, but kiss our child for me.</em></p>
+<p class="normaltext">Only a short letter, but it meant so much to Lucie. Gratefully, she kissed the hands of Defarge and his wife. Madame Defarge said nothing; her hand was cold and heavy, and Lucie felt frightened of her.</p>
+<p class="normaltext">Miss Pross came in with little Lucie.</p>
+<p class="normaltext">'Is that his child?' asked Madame Defarge, stopping her knitting to stare.</p>
+<p class="normaltext">'Yes, Madame,' said Mr Lorry. 'That is our poor prisoner's little daughter.'</p>
+<p class="normaltext">'It is enough, my husband,' said Madame Defarge. 'We can go now.' Her voice was as cold as her hand.</p>
+<p class="normaltext">'You will be good to my husband?' asked Lucie, afraid. 'I beg you, as a wife and mother.'</p>
+<p class="normaltext">'We have known many wives and mothers,' said Madame Defarge. 'And we have seen many husbands and fathers put in prison, for many years. What is one more, among so many?'</p>
+<p class="normaltext">As the Defarges left, Lucie turned to Mr Lorry. 'I am more afraid of her than of any other person in Paris, 'she whispered. Mr Lorry held her hands; he did not say anything, but he was also very worried.</p>
+<p class="normaltext">The Doctor did not come back from La Force for several days. During that time eleven hundred prisoners were killed by the people. Inside the prison Dr Manette had come before a Tribunal, which was a group of judges appointed by the people. These judges made their own laws and threw prisoners out into the streets to be murdered by the crowds. Dr Manette told the Tribunal that he had been a prisoner in the Bastille for eighteen years, and that his son-in-law was now a prisoner in La Force. The Tribunal had agreed to keep Charles Darnay safe from the murdering crowds, but they would not let him leave the prison.</p>
+<p class="normaltext">Dr Manette seemed to become stronger as he lived through these terrible days, doing everything he could to save his daughter's husband. He was able to see Darnay regularly, but noblemen and emigrants were hated by the citizens of new France, and the Doctor could not set Darnay free. The Guillotine, that new machine of death, cut off the heads of many, many people—the powerful and the cruel, but also the beautiful, the innocent, and the good. Each day Lucie did not know if her husband would live or die. She lived every moment in great fear, but her father was sure that he could save his son-in-law.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">One year and three months passed and Darnay was still in prison. Dr Manette now had an official job as doctor to three prisons and was able to visit Darnay regularly. He became more and more loved by the rough people of the Revolution. But the Guillotine continued to kill.</p>
+<p class="normaltext">'Try not to worry,' he told Lucie. 'Nothing can happen to Charles. I know that I can save him.' But Lucie could not see him or visit him; she could not even write to him.</p>
+<p class="normaltext">On the day when Charles Darnay was at last called for his trial, Lucie and Dr Manette hurried to Tellson's Bank to tell Mr Lorry. As they arrived, a man got up and disappeared into another room. They did not see who it was, but in fact it was Sydney Carton, just arrived from London.</p>
+<p class="normaltext">There were five judges in the Tribunal, and the trials were short and simple. The voices of truth, honesty, and calm reason were never heard at these trials, and most of the prisoners were sent to the Guillotine, which pleased the noisy crowds. Fifteen prisoners were called before Darnay that day, and in no more than an hour and a half, all of them had been condemned to death.</p>
+<p class="normaltext">'Charles Evrémonde, who is called Darnay.'</p>
+<p class="normaltext">As Darnay walked in front of the judges, he tried to remember the careful advice that Dr Manette had given him.</p>
+<p class="normaltext">'Charles Evrémonde, you are an emigrant. All emigrants must die. That is the new law of France.'</p>
+<p class="normaltext">'Kill him!' shouted the people. 'Cut off his head! He's an enemy of the people!'</p>
+<p class="normaltext">The President of the judges asked Darnay, 'Is it true that you lived many years in England?'</p>
+<p class="normaltext">'Yes, that is true,' replied Darnay.</p>
+<p class="normaltext">'So you are an emigrant, surely.'</p>
+<p class="normaltext">'No, not in the meaning of the law,' replied Darnay. 'I earn my own living in England. I have never wanted or used the name of Marquis, and I did not want to live by the work of the poor people of France. So I went to live and work in England, long before the Revolution.'</p>
+<p class="normaltext">'And did you marry in England?'</p>
+<p class="normaltext">'Yes, I married a Frenchwoman. The daughter of Dr Manette, a prisoner of the Bastille and a well-known friend of all good citizens!'</p>
+<p class="normaltext">These words had a happy effect on the crowd. Those who had shouted for his death now shouted for his life. Then Monsieur Gabelle and Dr Manette spoke for Charles Darnay. The Doctor spoke well and clearly, and was very popular with the crowd. When he had finished, the judges decided that the prisoner should be set free, and the crowd shouted their agreement loudly. Soon they were carrying Darnay in a chair through the streets of Paris to Dr Manette's house. Lucie was waiting there, and when she ran out and fell into the arms of her husband, the men and women in the crowd kissed one another and danced for happiness. Darnay and Lucie were together again, safe and happy.</p>
+<p class="normaltext">'I told you that I would save him,' said Lucie's father proudly. 'Well, I have saved him, and you must not worry now.'</p>
+<p class="normaltext">But Lucie was still worried. So many innocent men and women had died, for no reason, and every day brought more deaths. A shadow of fear and hate lay over France, and no one knew what dangers the next day would bring.</p>
+<p class="normaltext3">*　*　*</p>
+<p class="normaltext0">It was not possible to leave Paris at once, as Charles did not have the necessary papers. They must live quietly, and hope to leave as soon as they could.</p>
+<p class="normaltext">But that night, when Dr Manette, Charles and Lucie were sitting together, they heard a loud knock at the door.</p>
+<p class="normaltext">'What can this be?' said Lucie, trembling. 'Hide Charles! Save him!'</p>
+<p class="normaltext">'My child,' said the Doctor, 'I have saved him. He is a free man!'</p>
+<p class="normaltext">But when he opened the door, four rough men pushed their way into the room.</p>
+<p class="normaltext">'The Citizen Evrémonde, where is he? He is again the prisoner of the people.'</p>
+<p class="normaltext">'I am here,' said Darnay. 'But why am I again a prisoner?'</p>
+<p class="normaltext">'You are accused by citizens of Saint Antoine.'</p>
+<p class="normaltext">Dr Manette had said nothing. He seemed to be made of stone, but suddenly he spoke.</p>
+<p class="normaltext">'Will you tell me who has accused my son-in-law?'</p>
+<p class="normaltext">'I shouldn't tell you this,' said one of the men, 'but Citizen Evrémonde, called Darnay, is accused by Monsieur and Madame Defarge, and by one other person.</p>
+<p class="normaltext">'What other?'</p>
+<p class="normaltext">'You will hear that tomorrow,' replied the man.</p>
+<hr/>
+<p class="normaltext0"><b>grindstone</b><em> n. stone shaped like a wheel, turned on an axle, used for sharpening tools.</em> 磨石。</p>
+<p class="normaltext0"><b>sharpen</b><em> v. make or become sharp.</em> 使尖锐。</p>
+<p class="normaltext0"><b>prisoner</b><em> n. person who kept in prison for crime or until tried in a law-court.</em> 犯人.</p>
+<p class="normaltext0"><b>bloody</b><em> adj. bleeding, covered with blood.</em> 流血的。</p>
+<p class="normaltext0"><b>guard</b><em> n. soldier or party soldiers keeping guard.</em> 哨兵。</p>
+<p class="normaltext0"><b>serious</b><em> adj. thoughtful, not given to pleasure seeking.</em> 严肃的，庄重的。</p>
+<p class="normaltext0"><b>join</b><em> v. become a member of.</em> 参加，加入。</p>
+<p class="normaltext0"><b>beg</b><em> v. ask earnestly, or with deep feeling.</em> 恳求。</p>
+<p class="normaltext0"><b>put in</b><em> cause to be in.</em> 使在内。</p>
+<p class="normaltext0"><b>among</b><em> prep.</em> 在……中。</p>
+<p class="normaltext0"><b>several</b><em> adj. some.</em> 几个的，数个的。</p>
+<p class="normaltext0"><b>judge</b> <em>n.</em> 法官。</p>
+<p class="normaltext0"><b>appoint</b><em> v. choose and name.</em> 任命。</p>
+<p class="normaltext0"><b>continue</b><em> v. go on doing.</em> 继续。</p>
+<p class="normaltext0"><b>disappear</b><em> v. be seen no more.</em> 消失。</p>
+<p class="normaltext0"><b>honesty</b><em> n. the quality of being honest, freedom from cheating.</em> 诚实。</p>
+<p class="normaltext0"><b>calm</b><em> adj. quiet</em> 平静的。</p>
+<p class="normaltext0"><b>condemn</b><em> v. sentence to (a punishment, esp. death).</em> 判罪。</p>
+<p class="normaltext0"><b>president</b><em> n. head of some government department.</em> 政府机构首长。</p>
+<p class="normaltext0"><b>earn</b><em> v. get in return for work or as a reward for one's qualities.</em> 挣得，赚。</p>
+<p class="normaltext0"><b>popular</b><em> adj. liked and admired.</em> 受爱慕的。</p>
+<p class="normaltext0"><b>accuse</b><em> v. say that sb. has done wrong, broken the law, is to be blamed.</em> 控告。</p>
+<p class="normaltext0"><b>knock</b><em> n. short, sharp sound of a blow.</em> 打，敲。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-19" class="chapter-section">
+                <h2 class="chapter-title">在公民们的手里</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>8</em>　在公民们的手里</h1>
+<p class="picture"><img src="../../../Images/image08646.jpeg" alt="alt"/></p>
+<p class="normaltext">巴黎的台尔森银行在河南岸的一座大楼里，接近市中心。劳里先生已先于查尔斯·代尔那几天到达巴黎，现在正住在银行楼上的几间房里。一天傍晚，他朝窗外看时，见到一块巨大的磨石被人扛到了楼下的场地上。一群疯狂、呼叫着的人正围着它。他们忙着磨刀、剑和斧子，这些利刃已经被血染红了。劳里先生颤抖着双手关上了窗户。</p>
+<p class="normaltext">他本来决定下楼去和银行卫兵谈谈的，却见房门被突然打开，路茜和她的父亲跑了进来。</p>
+<p class="normaltext">“路茜！马内特！发生了什么事？你们怎么来了？”劳里先生喊道。</p>
+<p class="normaltext">“查尔斯现在在巴黎，”路茜嚷道。“他来这儿是要营救一位老仆人的，可他现在已被关进了监狱。”</p>
+<p class="normaltext">这时候外面人群的喊声更大了。</p>
+<p class="normaltext">“那些声音是怎么回事？”医生问。</p>
+<p class="normaltext">“别往外看！”劳里先生大声说。</p>
+<p class="normaltext">“我的朋友，”医生说，“在巴黎我是安全的。我曾是巴士底狱的一个囚徒，所有的人都知道我以及我是怎么受苦的。人们愿意帮助我，他们给了我们有关查尔斯的消息。”</p>
+<p class="normaltext">“即便这样，也别往外看。查尔斯在哪儿？”</p>
+<p class="normaltext">“在拉弗尔斯监狱。”</p>
+<p class="normaltext">“拉弗尔斯监狱！亲爱的路茜，你今天晚上是无能为力的了，你得待在这儿的一间房子里等着，我必须马上和你父亲谈谈。”</p>
+<p class="normaltext">路茜吻了他后便离开了房间。</p>
+<p class="normaltext">“快，马内特，”劳里先生说，“外面的这些人正拿着血淋淋的刀子要去杀囚犯。如果你这么有名气，如果你有这个力量，就去和他们谈谈，告诉他们你是谁，然后去拉弗尔斯。快，趁现在还不晚！”</p>
+<p class="normaltext">马内特医生赶紧出去了。劳里先生从窗户看见医生对着人群讲话。他听到人们高喊“巴士底狱的囚犯万岁！要帮助他在拉弗尔斯里的朋友！”</p>
+<p class="normaltext">劳里先生去见路茜，发现她和她的女儿及普罗丝小姐在一起。他们在一起等了整整一夜的消息，可是什么也没有等到。</p>
+<p class="normaltext">早上劳里先生在银行附近一条安静的大街上为路茜和她的家人找到了房子。他留下杰里·克拉彻做保卫，然后焦急地回到了台尔森银行。白天快要过去时，来了一位强壮而严肃的人要见他。</p>
+<p class="normaltext">“我叫得法热，我从马内特医生那儿来，他给了我这个。”得法热给他一张纸条。</p>
+<p class="normaltext">医生写的是：查尔斯安全，但我还不能离开这儿。带得法热见路茜。</p>
+<p class="normaltext">“跟我来。”劳里先生高兴地说。他们下了楼并在前门见到了正在织着毛线活儿的得法热夫人。她没说什么便跟上他们。劳里先生便领他们来到路茜的房间。</p>
+<p class="normaltext">得法热在这儿给了路茜一张她丈夫写的纸条。</p>
+<p class="normaltext">“亲爱的——勇敢些。我很好，你父亲在这儿有一些影响。你不能回信，但要替我亲亲我们的孩子。”</p>
+<p class="normaltext">只是一封短信，但对路茜来说则意味着太多的东西。路茜感激地吻了得法热和他妻子的手。得法热夫人什么话也没说，她的手冰冷而沉重，路茜对她感到害怕。</p>
+<p class="normaltext">普罗丝小姐和小路茜一起走了进来。</p>
+<p class="normaltext">“那是他的孩子吗？”得法热夫人问，同时停下了编织的活儿，拿眼盯着小路茜。</p>
+<p class="normaltext">“是的，夫人，”劳里先生说，“那是我们可怜的囚犯的小女儿。”</p>
+<p class="normaltext">“这就够了，我的丈夫，”得法热夫人说，“我们现在可以走了。”她的声音像她的手一样冰冷。</p>
+<p class="normaltext">“您会善待我的丈夫吗？”路茜害怕地问，“我恳求您，以一个妻子和母亲的名义。”</p>
+<p class="normaltext">“我们知道很多的妻子和母亲，”得法热夫人说，“并且我们也见过很多的丈夫和父亲被送进监狱关押了好多年。有这么多的人，再多一个又算得了什么呢？”</p>
+<p class="normaltext">当得法热夫妇走后，路茜冲劳里先生转过身去。“在巴黎，没有比她更使我害怕的人了，”她小声说。劳里先生抓住她的手，什么也没说，但是也很担心。</p>
+<p class="normaltext">已有好几天了医生还没从拉弗尔斯回来。就在那段时间里有1100名囚犯被人杀死了。在监狱里马内特医生曾前去见一个审判团，一组由人民指定的法官。这些法官们制定了自己的法律，并把罪犯们扔到大街上让人们处死。马内特医生告诉审判团他曾经在巴士底狱当了18年的囚徒，而现在他的女婿在拉弗尔斯蹲监狱。审判团同意保护查尔斯·代尔那不受街上人群的伤害。但他们不准他离开监狱。</p>
+<p class="normaltext">在这些恐怖的日子里生活，马内特医生似乎变得更强健了，竭尽全力地去救他的女婿。他经常能看到代尔那，但贵族和流亡者是遭到新法兰西公民的痛恨的，医生无法救代尔那出来。那座断头台——那新的死亡机器，砍掉了许许多多权贵和暴虐者的人头。但也有美丽、无辜且善良的人被斩首。每天路茜都不知道她丈夫会活下来还是会死去，她每一刻钟都生活在恐惧中，可她的父亲相信他能救出女婿。</p>
+<p class="normaltext">一年零三个月过去了，代尔那仍然在监狱里。马内特医生现在有了一个官方工作，那就是做三个监狱的医生，于是他可以经常去看代尔那。他越来越被那些粗鲁的革命者所喜爱了，但是断头台仍旧在杀人。</p>
+<p class="normaltext">“尽量别去担心，”他告诉路茜说，“查尔斯不会有什么事的。我知道我能救他。”可路茜不能见他或去探望他，甚至不能给他写信。</p>
+<p class="normaltext">在查尔斯·代尔那最终被审讯的那天，路茜和马内特医生匆忙到台尔森银行告诉了劳里先生。他们到达时，有一个人站起身来消失在另一个房间里。他们没有看清那是谁，但实际上他是西得尼·卡登，他刚从伦敦来。</p>
+<p class="normaltext">审判团由5名法官组成，审判很简短。在这些审判中，真实、诚实、合理的申辩根本不被听取，因而大多数罪犯都被送上了断头台，以取悦那些吵吵嚷嚷的人们。那天在代尔那之前已有15个人被审讯，在不到一个半小时的时间中，他们便都被判处了死刑。</p>
+<p class="normaltext">“查尔斯·埃弗蒙，那个称作代尔那的人。”</p>
+<p class="normaltext">在走到法官面前时，代尔那尽力去回想马内特医生给他的周详的忠告。</p>
+<p class="normaltext">“查尔斯·埃弗蒙，你是个流亡者。所有的流亡者都得死，这是法兰西的新法律。”</p>
+<p class="normaltext">“杀了他！”人们喊着，“砍下他的头！他是人民的敌人！”</p>
+<p class="normaltext">首席法官问代尔那：“你在英国住了很多年，这属实吗？”</p>
+<p class="normaltext">“是的，属实。”代尔那答道。</p>
+<p class="normaltext">“那么你肯定是个流亡者啰。”</p>
+<p class="normaltext">“不，按法律规定不是的，”代尔那回答，“我在英国自谋生计，从来没有要过或用过侯爵的称号，我也不曾想过要靠可怜的法国人民的劳作而生活，所以我才去英国生活和工作的，这是革命之前很久的事了。”</p>
+<p class="normaltext">“那么你在英国结婚了吗？”</p>
+<p class="normaltext">“是的，我娶了一个法国女人，是马内特医生的女儿。他是巴士底狱的囚犯，是所有好公民的知名朋友！”</p>
+<p class="normaltext">这些话在人群中产生了好的影响，那些刚才还嚷着要他死的人现在又嚷着要他活下来。后来加贝尔先生和马内特医生也都为查尔斯·代尔那说话。医生说得很好又很清楚，而且他很受人们的欢迎。在他结束了讲话后，法官们决定释放囚犯。人们也大声喊着同意，很快他们便用椅子抬着代尔那穿过巴黎的街道去了马内特医生住的屋子。路茜正在那儿等着，当她冲出来投入她丈夫的怀抱时，人群中的男男女女互相亲吻并为他们的幸福而起舞。代尔那和路茜又安全幸福地待在了一起。</p>
+<p class="normaltext">“我告诉过你我会把他救出来的，”路茜的父亲骄傲地说，“好了，我已经救出了他，你就不用再担心了。”</p>
+<p class="normaltext">但是路茜仍旧担心。已有那么多无辜的男男女女毫无道理地死了，并且每天都有更多的人死亡。恐惧和仇恨的阴影笼罩着法国，没有人知道明天会带来什么危险。</p>
+<p class="normaltext">查尔斯不能马上离开法国，因为没有拿到必须的证件。他们必须静悄悄地生活，并寄希望于能尽快离开。</p>
+<p class="normaltext">但是那天晚上，当马内特医生、查尔斯和路茜正在一起坐着时，他们听到了很响的敲门声。</p>
+<p class="normaltext">“会是什么人呢？”路茜颤抖着说，“把查尔斯藏起来，救救他！”</p>
+<p class="normaltext">“我的孩子，”医生说，“我已经救回了他。他现在是个自由人！”</p>
+<p class="normaltext">但是当他打开门时，四个粗壮的人闯进了房间。</p>
+<p class="normaltext">“公民埃弗蒙，他在哪儿？他又成了人民的囚徒了。”</p>
+<p class="normaltext">“我在这儿，”代尔那说，“可是我为什么又成了犯人呢？”</p>
+<p class="normaltext">“圣安东尼的公民们指控你了。”</p>
+<p class="normaltext">马内特医生没有说什么。他仿佛成了一个木头人；但他突然说道：</p>
+<p class="normaltext">“你能告诉我谁指控我的女婿吗？”</p>
+<p class="normaltext">“我本不该告诉你的，”其中一个人说，“可是公民埃弗蒙，即所谓的代尔那是被得法热先生及夫人还有另外一个人指控的。”</p>
+<p class="normaltext">“另外那个人是谁？”</p>
+<p class="normaltext">“你明天就会听到了。”那个人说。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-20" class="chapter-section">
+                <h2 class="chapter-title">9 The spy</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">9</h1>
+<h1 class="title1">The spy</h1>
+<p class="normaltext">While this was happening, Miss Pross was out shopping for the family. Jerry Cruncher was with her, and they had just gone into a wine-shop when Miss Pross suddenly stopped, looked at one of the customers, and cried our in a loud voice,</p>
+<p class="normaltext">'Oh Solomon, dear Solomon! I've found you at last, dear brother! But whatever are you doing here in Paris?'</p>
+<p class="normaltext">'Don't call me Solomon. You'll get me killed. Pay for your wine, and come outside,' said the man in a low, frightened voice.</p>
+<p class="normaltext">They went outside. 'You mustn't recognize me here,' said the man. 'It's not safe. Go your way, and let me go mine.'</p>
+<p class="normaltext">Miss Pross began to cry at these unbrotherly words, and Jerry Cruncher stepped forward to stare in the man's face.</p>
+<p class="normaltext">'Wait a minute,' said Jerry. 'Is your name John Solomon, or Solomon John? Your sister calls you Solomon. I know that your name's John; I remember that. But your other name wasn't Pross at that old Bailey trial. What was your name then?'</p>
+<p class="normaltext">'<em>Barsad</em>!' said another voice.</p>
+<p class="normaltext">'Yes, Barsad, that's it,' cried Jerry. He turned round and saw Sydney Carton standing behind him.</p>
+<p class="normaltext">'Don't be alarmed, my dear Miss Pross,' said Carton, smiling at her. 'But I'm afraid I have to tell you that your brother is a spy, a spy for the French prisons.'</p>
+<p class="normaltext">Solomon Pross, also Barsad, went pale. 'That's not true!'</p>
+<p class="normaltext">'I saw you come out of the Conciergerie today. I followed you,' said Carton, 'and I found out what you do. And I've decided that you may be able to help me. Come with me to the office of Mr Lorry.'</p>
+<p class="normaltext">After a short argument, which Carton won, Barsad followed him to Mr Lorry's office.</p>
+<p class="normaltext">'I bring bad news,' Carton said to Mr Lorry. 'Darnay has been arrested again.'</p>
+<p class="normaltext">'But I was with him only two hours ago,' cried Mr Lorry. 'He was safe and free!'</p>
+<p class="normaltext">'Even so, he has been arrested and taken to the Conciergerie. And I'm not sure that Dr Manette's good name can save him this time. So we must have Mr Barsad's help.'</p>
+<p class="normaltext">'I will not help you,' said Solomon Pross, called John Barsad.</p>
+<p class="normaltext">'Oh, I think you will,' said Sydney Carton, 'when you hear what I could say about you. Let's think. Mr Barsad is a spy, and a prison guard, but he used to be a spy in England. Is he still paid by the English?'</p>
+<p class="normaltext">'No one will listen to you,' said Barsad.</p>
+<p class="normaltext">'But I can say more, Mr Barsad,' replied Carton.</p>
+<p class="normaltext">Barsad had more problems than Carton knew. He could not return to England because he was wanted by the police there. And in France, before he became a prison guard for the citizens' revolution, he had been a spy for the King's officers. He knew that Madame Defarge, that terrible woman, had knitted his name into her list of enemies of the people. Most of those on her list had already been killed by the Guillotine, and Barsad did not want to be next.</p>
+<p class="normaltext">'You seem worried, Mr Barsad,' said Carton calmly.</p>
+<p class="normaltext">The spy turned to Mr Lorry. 'Miss Pross is my sister, sir. Would you send her brother to his death, sir?'</p>
+<p class="normaltext">'The best thing for your sister, Mr Barsad,' said Carton smoothly, 'is not to have a brother like you. I think I will inform the Tribunal that I suspect you of spying for England. You will be condemned at once,I am sure.'</p>
+<p class="normaltext">'All right,' Barsad said slowly, 'I'll help you. But don't ask me to do anything that will put my life in danger, because I won't do it.'</p>
+<p class="normaltext">'You're a guard at the Conciergerie prison, where Darnay is, aren't you?' said Carton. 'Come, let us talk privately in the next room.'</p>
+<p class="normaltext">When Mr Carton returned alone, Mr Lorry asked what he had done.</p>
+<p class="normaltext">'Not much,' replied Carton, 'but if it goes badly for Darnay tomorrow, I can visit him once. It's all I could do.'</p>
+<p class="normaltext">'But that will not save him,' cried Mr Lorry sadly.</p>
+<p class="normaltext">'I never said it would.'</p>
+<p class="normaltext">Mr Lorry was an old man now, with a life of hard work behind him. Tears filled his eyes as he realized he could do nothing to help Lucie and her father now.</p>
+<p class="normaltext">Sydney Carton felt very sorry for Mr Lorry. 'You're a good friend of Dr Manette and his daughter, but don't tell them about me or this meeting. It can't help Lucie.' He paused. 'Will you go back to London soon?'</p>
+<p class="normaltext">'Yes, my work for Tellson's Bank here is finished. I have the necessary papers to leave Paris. I was ready to go tomorrow.'</p>
+<p class="normaltext">'Then don't change your plans,' said Carton, very seriously.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Later that night Sydney Carton visited a shop in a quiet corner of Paris. He wrote on a piece of paper the names of several powders and gave it to the shopkeeper.</p>
+<p class="normaltext">'For you, citizen?' asked the shopkeeper.</p>
+<p class="normaltext">'Yes, for me.'</p>
+<p class="normaltext">'You must be careful, citizen. Keep these things separate. You know what happens if you put them together.'</p>
+<p class="normaltext">'Perfectly,' replied Carton.</p>
+<p class="normaltext">He spent the rest of that night walking the streets of Paris. He watched the moon rise in the sky, he listened to the sounds of the River Seine flowing through the heart of the city, and he thought calmly about the past, and the future. He thought about all the deaths that the city had already seen... and he thought about Lucie's gentle, loving face and her sad, sad eyes.</p>
+<hr/>
+<p class="normaltext0"><b>recognize</b><em> v. know, identify again that one has seen, heard, etc.</em> 认识，认出。</p>
+<p class="normaltext0"><b>step</b><em> v. move the foot, or one foot after the other.</em> 走，跨步。</p>
+<p class="normaltext0"><b>argument</b><em> n. arguing, reasoning.</em> 争论。</p>
+<p class="normaltext0"><b>follow</b><em> v. come or go after.</em> 跟随。</p>
+<p class="normaltext0"><b>smoothly</b><em> adv. politely.</em> 有礼貌地，温和地。</p>
+<p class="normaltext0"><b>suspect</b><em> v. feel doubt about.</em> 怀疑。</p>
+<p class="normaltext0"><b>privately</b><em> adv. secretly.</em> 秘密地。</p>
+<p class="normaltext0"><b>fill</b><em> v. make or become full.</em> 充满。</p>
+<p class="normaltext0"><b>realize</b><em> v. be fully conscious of.</em> 认识，了解。</p>
+<p class="normaltext0"><b>pause</b><em> v. make a pause.</em> 暂停。</p>
+<p class="normaltext0"><b>powder</b><em> n.</em> 粉，粉末。</p>
+<p class="normaltext0"><b>future</b><em> n. time to come.</em> 将来。</p>
+<p class="normaltext0"><b>separate</b><em> adj. divided; not joined or united.</em> 分开的。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-21" class="chapter-section">
+                <h2 class="chapter-title">间谍</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>9</em>　间谍</h1>
+<p class="picture"><img src="../../../Images/image08647.jpeg" alt="alt"/></p>
+<p class="normaltext">发生这件事的时候，普罗斯小姐正出去为全家采购东西去了。杰里·克拉彻和她在一起，他们刚好进了一家酒店。普罗斯小姐突然站住，看着一位顾客大声喊道：</p>
+<p class="normaltext">“噢，所罗门，亲爱的所罗门！我终于找到你了，亲爱的弟弟！你怎么会在巴黎呢？”</p>
+<p class="normaltext">“别叫我所罗门，你会让我丧命的。把酒钱付了，然后出来。”那个男人因害怕而低声地说道。</p>
+<p class="normaltext">他们来到了外面。“你在这儿千万不要同我相认，”那个男人说，“这不安全。你走你的路，我也走我的路。”</p>
+<p class="normaltext">面对这毫无姐弟之情的话，普罗斯小姐哭了起来。杰里·克拉彻走上前来盯着这个男人的脸。</p>
+<p class="normaltext">“等一等，”杰里说，“你是叫约翰·所罗门，还是叫所罗门·约翰？你姐姐叫你所罗门，我知道你的名字是约翰。我还记得这一点。但你在旧巴勒的审判会上有另外一个名字，不是普罗斯，你那时叫什么来着？”</p>
+<p class="normaltext">“巴萨德！”另一个声音说道。</p>
+<p class="normaltext">“是的，巴萨德，就是这个。”杰里喊道。他转过身去看见西得尼·卡登正站在他身后。</p>
+<p class="normaltext">“别惊慌，亲爱的普罗斯小姐，”卡登对她微笑着说，“只是我得告诉你你弟弟是个间谍，是为法国监狱工作的间谍。”</p>
+<p class="normaltext">所罗门·普罗斯，也就是巴萨德的脸变得苍白。“那不是真的！”</p>
+<p class="normaltext">“我今天看见你从贡赛杰里<sup class="suptext"><a id="fhzs1" href="part2399.xhtml#zhushi1">①</a></sup>那儿出来。我跟踪你来着，”卡登说，“而且我发现了你是干什么的，我想你或许能帮我。跟我去劳里先生的办公室吧。”</p>
+<p class="normaltext">经过短暂的争执，卡登先生胜了，巴萨德跟着他到了劳里先生的办公室。</p>
+<p class="normaltext">“我带来了一个坏消息，”卡登对劳里先生说，“代尔那又被抓起来了。”</p>
+<p class="normaltext">“可两小时前我还和他在一起的。”劳里先生嚷道。“他当时既安全又自由。”</p>
+<p class="normaltext">“尽管这样，他还是已经被抓了起来并被带到了贡赛杰里。我也不知道这次马内特医生的好名声是否能救他。所以我必须得到巴萨德先生的帮助。”</p>
+<p class="normaltext">“我不会帮你们的。”所罗门·普罗斯，即所谓的约翰·巴萨德说。</p>
+<p class="normaltext">“哦，我想你会的。”西得尼·卡登说，“当你听我说了关于你的事后。让我们想一想，巴萨德先生是个间谍，也是一个监狱看守，但他在英国曾做过间谍。他现在是否还被英国人雇佣呢？”</p>
+<p class="normaltext">“没人会听你的。”巴萨德说。</p>
+<p class="normaltext">“但我还可以说更多的东西，巴萨德先生。”卡登回答。</p>
+<p class="normaltext">巴萨德的麻烦事比卡登知道的还多。他之所以回不了英国是因为他被那里的警察所追捕，而且在法国，在他成为公民们的监狱看守之前，他曾为国王的官员们做过间谍。他知道得法热夫人，那个可怕的女人，已把他的名字织进了人民敌人的名单上了。她名单上的大多数人都已经死在了断头台上，而他可不想成为下一个。</p>
+<p class="normaltext">“你似乎很担心，巴萨德先生。”卡登镇静地说。</p>
+<p class="normaltext">间谍转向劳里先生说道：“普罗斯小姐是我的姐姐，先生。您难道会送她弟弟去死吗，先生？”</p>
+<p class="normaltext">“对你姐姐来说最好的事情，巴萨德先生，”卡登平静地说，“就是没有了像你这样的弟弟。我想我得告知审判团，就说我怀疑你是英国的间谍。我相信你会被马上处决的。”</p>
+<p class="normaltext">“好吧。”巴萨德慢慢地说道，“我会帮助你们，可是别想让我做任何有生命危险的事，因为我不会做的。”</p>
+<p class="normaltext">“你是贡赛杰里监狱的看守，代尔那就在那里，是不是？”卡登说，“来，让我们在旁边的屋子里私下谈谈。”</p>
+<p class="normaltext">当卡登先生一个人回来时，劳里先生问他都干了些什么。</p>
+<p class="normaltext">“没干什么，”卡登回答，“只是如果明天代尔那的处境不妙的话，我就能再去看他一次。这就是我所能做的一切了。”</p>
+<p class="normaltext">“但是那也救不了他。”劳里先生伤心地哭道。</p>
+<p class="normaltext">“我从来没说那能救他。”</p>
+<p class="normaltext">劳里先生现已年迈，他一生工作勤勤恳恳，当他意识到他现在无论如何也帮不了路茜和她父亲时，眼中溢满了泪水。</p>
+<p class="normaltext">西得尼·卡登为劳里先生感到很难过。“您是马内特医生和他女儿的好朋友，但是别告诉他们有关我或这次会面的事。那帮不了路茜。”他停了停，说道：“你不久就要回伦敦吗？”</p>
+<p class="normaltext">“是的，我在这儿的台尔森银行的工作已经结束了，我有离开巴黎所必须的证件，我准备明天就动身。”</p>
+<p class="normaltext">“那么别改变计划。”卡登非常严肃地说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">那天晚上西得尼·卡登去了巴黎的一个寂静角落处的商店。他在一张纸上写下了几个药粉的名字并把它给了店主。</p>
+<p class="normaltext">“是你用吗，公民？”店主问。</p>
+<p class="normaltext">“是的，是我用。”</p>
+<p class="normaltext">“你得小心，公民。把这些东西分开着放。你清楚如果把它们放在一起会发生什么事情的。”</p>
+<p class="normaltext">“非常清楚。”卡登说道。</p>
+<p class="normaltext">那天晚上剩下的时间他都用于漫步巴黎的街道。他看见月亮升起在天空中，听见塞纳河流经这个城市中心时的声响，他平静地想到了过去，还有未来。他想到了这个城市所经历过的死亡……他也想到了路茜那温柔、可爱的脸庞以及她悲伤、忧郁的眼睛。</p>
+<p class="note">注释</p>
+<p class="note1"><a id="zhushi1" href="part2399.xhtml#fhzs1">①</a>　贡赛杰里：Conciergerie，巴黎裁判所附属监狱。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-22" class="chapter-section">
+                <h2 class="chapter-title">10 The secret paper</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">10</h1>
+<h1 class="title1">The secret paper</h1>
+<p class="normaltext">When Charles Darnay was led before the Tribunal the next morning, Dr Manette, Lucie and Mr Lorry were all there. The love in Lucie's eyes as she looked at her husband warmed Darnay's heart. It had the same effect on Sydney Carton, though no one saw him standing at the back of the room.</p>
+<p class="normaltext">It was the same Tribunal who had let Darnay go free on the day before. But Revolution Laws were not as powerful as the anger of the people.</p>
+<p class="normaltext">The President of the Tribunal asked, 'Who has accused Charles Evrémonde again?'</p>
+<p class="normaltext">'Three voices,' he was told. 'He is accused by Ernest Defarge, by Teresa Defarge his wife, and by Alexandre Manette, Doctor.'</p>
+<p class="normaltext">There was a great noise in the room when Dr Manette's name was heard. When the shouting stopped, Dr Manette stood, pale and trembling.</p>
+<p class="normaltext">'President, this cannot be true. You know that the man who is accused, Charles Darnay, is my daughter's husband. My daughter and those who are dear to her are far more important to me than my life. Where is the liar who says that I accuse my daughter's husband?'</p>
+<p class="normaltext">'Citizen Manette,' said the President, 'be calm. Nothing can be more important to a good citizen than the freedom of France.'</p>
+<p class="normaltext">Defarge came forward to answer questions. He told how he had been at the Bastille at the beginning of the Revolution, when that hated prison had been taken by the citizens.</p>
+<p class="normaltext">'I knew that Dr Manette had been kept in a room known as One Hundred and Five, North Tower. It was the only name he had when he came to me in 1775.I went to the room and, hidden in a hole, I found a written paper. It is in Dr Manette's writing.'</p>
+<p class="normaltext">'Read it to us,' said the President, and the crowd fell silent and listened.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>I, Alexandre Manette, write this in the Bastille in 1767. I have been here for ten long years and I write this in my secret moments, when I can.</b></p>
+<p class="normaltext"><b>One evening in December, 1757, I was walking by the River Seine and a coach stopped beside me. Two men got out and one asked me if I was Dr Manette. When I replied that I was, they asked me to go with them, and made it clear that I could not refuse.</b></p>
+<p class="normaltext"><b>The coach left Paris and stopped at a lonely house. I could hear cries coming from a room upstairs. When I went in, I saw a young woman lying on a bed. She was young and very beautiful. She was also very ill. She kept crying out, 'My husband, my father, and my brother!' Then she listened for a moment, and began once again, 'My husband, my father, and my brother...'</b></p>
+<p class="normaltext"><b>I gave the girl something to make her calmer, but her feverish screams continued. Then I turned to question the two men. They were clearly brothers, and their clothes and voices suggested that they were noblemen. But they took care to prevent me from learning their name.</b></p>
+<p class="normaltext"><b>Before I could speak, the older brother said carelessly, 'There is another patient.' In a different room, they showed me a boy of about seventeen. There was a sword wound in his chest and I could see at once that he was dying.</b></p>
+<p class="normaltext"><b>'How did this happen?' I asked.</b></p>
+<p class="normaltext"><b>'He's just a crazy young peasant. He came here shouting about revenge, and made my brother fight him.' The older brother's voice was cold and hard; he seemed to think the boy was less important than a horse or a dog.</b></p>
+<p class="normaltext"><b>The boy's eyes looked at me. 'Have you seen her... my sister?' It was hard for him to speak.</b></p>
+<p class="normaltext"><b>'I have seen her,' I replied.</b></p>
+<p class="normaltext"><b>'These rich nobles are cruel to us, Doctor. They destroy our land, they take our food, they steal our sisters. My sister loved a man in our village; he was sick, but she married him to take care of him. But my sister is beautiful, and that noble-man's brother saw her and wanted her. They made her husband work night and day without stopping, until he dropped dead where he stood. Then they took my sister away. When my father heard what had happened, the news was too much for his poor heart and he died suddenly. I took my younger sister to a place where she is safe, and came here to find this man. He threw some money at me, tried to buy me like a dog, but I made him pull his sword and fight me to save his life.'</b></p>
+<p class="normaltext"><b>The boy's life was going fast, but he cried, 'Lift me, Doctor.' He turned his face towards the older brother. 'Marquis,' he said loudly, 'I call for you and your brother, and all your family, now and in the future, to pay for what you have done.' Then he fell back, dead.</b></p>
+<p class="normaltext"><b>The young woman's fever continued, but I could not save her. She lived for several more days, and once the Marquis said to me, 'How long these peasants take to die!'</b></p>
+<p class="normaltext"><b>When she was dead, the brothers warned me to keep silent. They offered me money, but I refused it and was taken back to my home.</b></p>
+<p class="normaltext"><b>The next day I decided to write to the King's officials. I knew that nobles who did unlawful things were usually not punished, and I expected that nothing would happen. But I did not realize the danger for myself. Just as I had finished writing my letter, a lady came to see me. She said she was the wife of the Marquis of Evrémonde and she had discovered what her husband and his brother had done. She wanted to help the younger sister of the girl who had died, and asked me where she could find her. Sadly, I did not know and so could not tell her. But that was how I learnt the brothers' name.</b></p>
+<p class="normaltext"><b>The wife of the Marquis was a good, kind woman, deeply unhappy in her marriage. She had brought her son with her, a boy about three years old. 'If I cannot find this poor girl,' she said, 'I shall tell my son to continue the search after my death. You will remember that, little Charles, won't you?'</b></p>
+<p class="normaltext"><b>The child answered, 'Yes!'</b></p>
+<p class="normaltext"><b>Later that day I sent my letter to the King's officials and that night there was a knock at my door. My servant, a boy called Ernest Defarge, brought in a stranger, who asked me to come at once to visit a sick man in the next street.</b></p>
+<p class="normaltext"><b>As soon as I was outside the house, several men took hold of me violently. The Evrémonde brothers came out of the darkness and the Marquis took my letter out of his pocket, showed it to me, and burned it. Not a word was spoken. Then I was brought here to this prison, my living grave.</b></p>
+<p class="normaltext"><b>I have been here for ten long years. I do not know if my dear wife is alive or dead; these brothers have sent me no news of my family. There is no goodness in their cruel hearts. I, Alexandre Manette, in my pain and sadness, I condemn them in the face of God.</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">When Defarge had finished reading, a terrible sound rose from the crowd, a long wild cry of anger and revenge. Death for the hated Marquis of Evrémonde, enemy of the people! The trial was over, and in less than twenty-four hours Charles Darnay would go to the Guillotine.</p>
+<hr/>
+<p class="normaltext0"><b>effect</b><em> n. result.</em> 效果。</p>
+<p class="normaltext0"><b>liar</b><em> n. person who tells an untruth or who has told an untruth.</em> 说谎者。</p>
+<p class="normaltext0"><b>tribunal</b> <em>n.</em> 审判团</p>
+<p class="normaltext0"><b>forward</b><em> adv. onward so as to make progress.</em> 向前，前进。</p>
+<p class="normaltext0"><b>hide</b><em> v. put or keep out of sight.</em> 隐藏，藏起。</p>
+<p class="normaltext0"><b>refuse</b><em> v. say 'no' to, showing unwillingness to accept.</em> 拒绝。</p>
+<p class="normaltext0"><b>feverish</b><em> adj. having symptoms of fever.</em> 发烧的。</p>
+<p class="normaltext0"><b>suggest</b><em> v. bring into the mind.</em> 使想起，暗示。</p>
+<p class="normaltext0"><b>crazy</b><em> adj. suffering from mental disorder.</em> 疯狂的。</p>
+<p class="normaltext0"><b>drop</b><em> v. fall or sink to the ground.</em> 跌落。</p>
+<p class="normaltext0"><b>pay for</b><em> hand over the price of; bear the cost of.</em> 为…付出代价。</p>
+<p class="normaltext0"><b>warn</b><em> v. give notice of possible danger.</em> 警告。</p>
+<p class="normaltext0"><b>sadly</b><em> adv. unhappily.</em> 不幸地。</p>
+<p class="normaltext0"><b>fall back</b><em> move or turn back.</em> 后退。</p>
+<p class="normaltext0"><b>deeply</b><em> adv. in a deep manner.</em> 深入地，深刻地。</p>
+<p class="normaltext0"><b>stranger</b><em> n. person one does not know.</em> 陌生人。</p>
+<p class="normaltext0"><b>violently</b><em> adv. using, showing great force.</em> 用暴力地。</p>
+<p class="normaltext0"><b>grave</b><em> n. hole dug in the ground for a corpse.</em> 墓穴。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-23" class="chapter-section">
+                <h2 class="chapter-title">秘密纸条</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>10</em>　秘密纸条</h1>
+<p class="picture"><img src="../../../Images/image08648.jpeg" alt="alt"/></p>
+<p class="normaltext">在第二天早晨查尔斯·代尔那被带到审判团面前时，马内特医生、路茜和劳里先生都在那儿。路茜看着她丈夫，眼中充满了爱，这使代尔那心中充满了温暖。它对西得尼·卡登产生了同样的影响，虽然没有人看见他站在屋子的后面。</p>
+<p class="normaltext">这就是前一天释放代尔那的那同一个审判团，但是革命的法律的威力毕竟没有人民的愤怒那样强大。</p>
+<p class="normaltext">审判团首席法官问：“是谁又一次指控查尔斯·埃弗蒙？”</p>
+<p class="normaltext">“有3个人指控，”他被人告知说，“他被恩斯特·得法热、他的妻子特丽莎·得法热以及医生亚历山大·马内特所指控。”</p>
+<p class="normaltext">当马内特医生的名字被提到后，屋子里响起了一阵巨大的哄闹声。当这些声音停下来时，马内特医生站起身来，脸色煞白浑身发抖。</p>
+<p class="normaltext">“首席法官，这不可能是真的。你知道被指控的人查尔斯·代尔那是我女儿的丈夫。而我的女儿以及那些爱她的人对我来说远比我的生命都重要。那个说我指控我女儿丈夫的骗子在哪儿？”</p>
+<p class="normaltext">“马内特公民，”首席法官说，“冷静点。对一个好公民来说没有什么比法兰西的自由更重要的。”</p>
+<p class="normaltext">得法热走上前来回答问题。他告诉人们在革命开始时当那令人憎恶的巴士底监狱被公民们攻占时，他是如何到里面去的。</p>
+<p class="normaltext">“我那时知道马内特医生曾被关在北塔105号牢房，这是他在1775年见到我时的唯一的名字。我去了那个牢房，并在一个隐蔽的小洞里找到了一张写着字的纸，那是马内特医生的手迹。”</p>
+<p class="normaltext">“给我们念念。”首席法官说完，人们便坐下来静听。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextb">我，亚历山大·马内特，在1767年巴士底狱中写下这篇记录。我已经在这儿待了漫长的10年了，我是在我能够写作的秘密时刻写这封信的。</p>
+<p class="normaltextb">在1757年12月的一个晚上，我正沿着塞纳河散步，一辆马车停在了我身边。车上走下两个男人，其中一个问我是不是马内特医生。当我回答说是后，他们便要我跟他们一起走，而且明确告诉我，不能拒绝。</p>
+<p class="normaltextb">马车离开巴黎，在一座孤零零的房子前停了下来。我听到从楼上房间里传来了哭喊声。在我走进去时，我看见一个年轻女子躺在一张床上。她年轻而且很漂亮。她病得也很厉害，一直在哭喊着：“我丈夫、我父亲，还有我弟弟！”然后她倾听了一会儿，又开始哭喊起来，“我丈夫、我父亲，还有我弟弟……。”</p>
+<p class="normaltextb">我给那女孩服了一些可以使她平静下来的药。但她狂躁的叫声还是继续着。后来我转身去询问那两个男人，他们显然是兄弟俩，并且他们的穿着和说话腔调表明他们是贵族，可他们提防着不让我知道他们的名字。</p>
+<p class="normaltextb">我还没来得及说话，那个哥哥便不在乎地说：“这儿还有一个病人。”在另一个房间里，他们指给我看一个17岁左右的男孩。他的前胸有一道剑伤，我一眼就看出他快要死了。</p>
+<p class="normaltextb">“这是怎么回事？”我问道。</p>
+<p class="normaltextb">“他只是一个发了疯的小农民，他来这儿大喊大叫着报仇。于是迫使我弟弟和他打了起来。”那位哥哥的声音冷酷而生硬；他似乎觉得这个男孩还不如一匹马或一条狗。</p>
+<p class="normaltextb">那个男孩的眼睛看着我。“您见到她了吗……我姐姐？”他说话很吃力。</p>
+<p class="normaltextb">“我已经见到她了。”我答道。</p>
+<p class="normaltextb">“这些有钱的贵族们对我们很残忍，医生。他们毁坏我们的土地，拿走我们的食物，他们抢走了我的姐姐。我姐姐爱上了我们村子里的一个人；他生了病，但是她还是嫁给了他以便照料他。可因为我姐姐长得漂亮，那个贵族的弟弟见到了她便想占有她。他们强迫她的丈夫日夜工作，不得休息，直到在他站着的地方倒下去死了，然后他们就把我姐姐抢走了。在我父亲听到所发生的这些事后，他虚弱的心脏承受不住这一打击，也猝然死去了。我把我的小妹妹带到了一个安全的地方，然后来这儿找这个人。他扔给我一些钱，企图像买一只狗那样收买我，可我迫使他抽出了他的剑，他要活命，就要同我决斗。”</p>
+<p class="normaltextb">这个男孩的生命很快就要完结了，但他却喊道：“扶我起来，医生，”他把脸转向那个哥哥，“侯爵，”他大声说，“我诅咒你和你的弟弟以及你所有的家人，无论现在还是将来，都得为你们的所做所为受到惩罚。”然后他便倒地而死。</p>
+<p class="normaltextb">那个年轻女子还持续地发着烧，但我救不了她。她又活了几天，于是有一次侯爵对我说：“这些农民真难死啊！”</p>
+<p class="normaltextb">在她死后，这兄弟俩警告我要保持缄默。他们给了我钱但我没有要，于是我被送回了家。</p>
+<p class="normaltextb">第二天我决定给国王的官员们写信。我知道贵族们做了违法的事情常常得不到惩罚，而且我料到不会有什么结果的。但我没意识到自身的危险。就在我写完信后，一位女士来见我，她说她是埃弗蒙侯爵的妻子，并且已经发现了她丈夫和他弟弟所干的事情。她想要帮助那个已死的女孩子的小妹妹，于是问我她在哪儿能找到她。不幸的是，我不知道，因而也无法告诉她。但我却因此知道了那两个兄弟的名字。</p>
+<p class="normaltextb">侯爵的妻子是一个好心善良的女人，她对婚姻深感不幸。她还带来了她的儿子，一个大约3岁的男孩。“如果我找不到这个可怜的女孩儿，”她说，“我会告诉我的儿子在我死后继续找她。你要记住，小查尔斯，好吗？”</p>
+<p class="normaltextb">那个小孩回答说：“好的！”</p>
+<p class="normaltextb">那天的晚些时侯我把我的信寄给了国王的官员们，当晚就有人敲我家的门。我的仆人，一个叫恩斯特·得法热的男子带进来一个陌生人，叫我立刻去邻街看一个病人。</p>
+<p class="normaltextb">我刚走出房子，便有好几个人猛地抓住了我，埃弗蒙兄弟从黑暗中走出来，侯爵从他兜里拿出了我写的信，给我看了一眼便烧了。什么话也没说，然后我就被带到了这个监狱，我的活坟墓。</p>
+<p class="normaltextb">我已经在这里待了漫长的10年了。我不知道我心爱的妻子是死是活。这对兄弟没有给过我任何有关我家里的消息。他们残酷的心中没有一点仁慈。我，亚历山大·马内特在痛苦和悲伤之中，在上帝面前谴责他们。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">当得法热念完之后，一阵可怕的声音从人群中响起，那是愤怒和复仇的狂呼。人民痛恨的敌人埃弗蒙侯爵该死！审判结束了，在不到24小时之后，查尔斯·代尔那就要走上断头台了。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-24" class="chapter-section">
+                <h2 class="chapter-title">11 Madame Defarge's revenge</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">11</h1>
+<h1 class="title1">Madame Defarge's revenge</h1>
+<p class="normaltext">Lucie held out her arms to her husband. 'Let me kiss him, one last time.'</p>
+<p class="normaltext">Most of the citizens had gone out into the streets to shout how they hated the prisoners, but Barsad was still there.</p>
+<p class="normaltext">'Let her kiss her husband,' he said. 'It's just for a minute.'</p>
+<p class="normaltext">Lucie went over to her husband and he took her in his arms. Dr Manette followed his daughter and fell on his knees before them, but Darnay pulled him to his feet, saying,</p>
+<p class="normaltext">'No, no. Now we know how much you suffered, especially when you knew whose son I was. But you kept your feelings secret, because of your love for Lucie. We thank you, with all our hearts, for what you did. I tried so hard to do what my mother had wished, but I never found that poor girl. And how could that terrible story ever have a happy ending?'</p>
+<p class="normaltext">He turned to his wife. 'My dearest love, we shall meet again, in the place where there are no worries. God be with you both.'</p>
+<p class="normaltext">As Darnay was taken away, Lucie fell to the floor, unconscious. Sydney Carton came quickly forward to help Mr Lorry and Dr Manette. He carried Lucie to her coach and she was taken home. Then he carried her into the house where her daughter and Miss Pross waited, tears falling from their eyes.</p>
+<p class="normaltext">'Before I go,' said Sydney Carton, 'may I kiss her?' He touched Lucie's face lightly with his lips, whispered a few words, and went into the next room.</p>
+<p class="normaltext">'You are still very popular with the citizens, Doctor. You must try again to talk to the judges.'</p>
+<p class="normaltext">'I'll do everything I can. Everything,' Dr Manette said.</p>
+<p class="normaltext">Mr Lorry went with Carton to the door.</p>
+<p class="normaltext">'I have no hope,' whispered Mr Lorry sadly.</p>
+<p class="normaltext">'Nor have I,' replied Carton. 'After today, no judge in Paris would even try to save him. The people would be too angry. I will return here later, to see if there is any news, but there is no real hope.'</p>
+<p class="normaltext">He left the house and began to walk quickly towards Saint Antoine. His face was calm and serious; he looked like a man who had decided to do something. 'I must show myself to the people here,' he thought. 'They should know that there is a man like me in the city.'</p>
+<p class="normaltext">In Defarge's wine-shop the only customer was Jacques Three, who had been on the Tribunal that had decided Darnay should die. When Carton sat down and asked for a glass of wine, Madame Defarge looked at him carelessly at first. Then much more carefully. She went back to her husband and Jacques Three, who were talking. 'He is very much like Evrémonde,' she said softly.</p>
+<p class="normaltext">Defarge himself looked at Carton and said, 'Yes, but only a little,' and the three continued their conversation. Carton listened carefully, while pretending to read a newspaper.</p>
+<p class="normaltext">'Madame is right,' said Jacques Three. 'Why should we' stop at Evrémonde?'</p>
+<p class="normaltext">'We must stop somewhere,' said Defarge.</p>
+<p class="normaltext">'Not until they are all dead, every one of that family,' said his wife.</p>
+<p class="normaltext">'You're right, but think how much the Doctor has suffered. Perhaps he has suffered enough.'</p>
+<p class="normaltext">'Listen,' said Madame Defarge coldly. 'Don't forget that I was that younger sister. And it was <em> my</em> family that suffered so much from the Evrémonde brothers. It was<em> my</em> sister who died, and <em> my</em> sister's husband, and <em> my</em> father; it was <em> my</em> brother who was killed. Tell others to stop; don't tell me!'</p>
+<p class="normaltext">Carton paid for his wine and went out quickly on his way. He went back to Dr Manette's house, where more bad news was waiting for him. The Doctor's mind had returned to the past once again. He did not recognize his friends, and wanted only to find his old table and to make shoes.</p>
+<p class="normaltext">'Listen to me carefully,' Carton said to Mr Lorry. 'I believe that Lucie, her daughter, and perhaps even her father are in great danger. I heard Madame Defarge talking about them tonight. They must leave Paris tomorrow. They have the necessary papers, and so do you. Here are mine—take them and keep them safe with your own. You must leave by coach at two o'clock tomorrow. Keep a place for me in the coach, and don't leave without me. Promise that you will do exactly what I have said. Many lives will depend on it.'</p>
+<p class="normaltext">'I promise,' said Mr Lorry.</p>
+<hr/>
+<p class="normaltext0"><b>fell on one's knees</b> 跪下。</p>
+<p class="normaltext0"><b>suffer</b><em> v. feel or have pain, loss. etc.</em> 受苦。</p>
+<p class="normaltext0"><b>especially</b><em> adv. in particular.</em> 特殊地，尤其。</p>
+<p class="normaltext0"><b>unconscious</b><em> adj. not conscious.</em> 失去知觉的。</p>
+<p class="normaltext0"><b>lightly</b><em> adv. gently</em> 轻轻地。</p>
+<p class="normaltext0"><b>conversation</b><em> n. talking, talk.</em> 谈话。</p>
+<p class="normaltext0"><b>pretend</b><em> v. make oneself appear to be sth. or doing sth.</em> 假装。</p>
+<p class="normaltext0"><b>enough</b><em> adj. as great as is needed.</em> 足够的。</p>
+<p class="normaltext0"><b>own</b><em> pron.</em> 自己的。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-25" class="chapter-section">
+                <h2 class="chapter-title">得法热夫人的报复</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>11</em>　得法热夫人的报复</h1>
+<p class="picture"><img src="../../../Images/image08649.jpeg" alt="alt"/></p>
+<p class="normaltext">路茜向他的丈夫伸出双臂。“让我吻吻他，最后一次。”</p>
+<p class="normaltext">大多数公民已经走上街头，喊着他们是多么痛恨罪犯们，可巴萨德仍旧留在那儿。</p>
+<p class="normaltext">“让她吻一下她丈夫吧，”他说，“只须一分钟。”</p>
+<p class="normaltext">路茜走向她丈夫，他便把她搂在怀里。马内特医生跟着女儿并在他们面前跪了下来，但代尔那把他拉了起来，说道：</p>
+<p class="normaltext">“不，不，现在我们知道您受了多少苦，尤其是当您知道我是谁的儿子的时候。可您隐藏着您的感情，是为着您对路茜的爱。我们谢谢您所做的事情，由衷地谢谢您。我尽力去做了我母亲希望我做的事，可我一直没有找到那个可怜的女孩。况且那么一个可怕的故事怎么会有一个幸福的结局呢？”</p>
+<p class="normaltext">他转向他的妻子：“我最亲爱的，我们会再相见的。在无忧无虑的地方，上帝与你们两个人同在。”</p>
+<p class="normaltext">当代尔那被带走后，路茜倒在地上，不醒人事。西得尼·卡登快步走过来帮劳里先生和马内特医生的忙。他把路茜抱上了马车送她回家，然后他把她抱进了她女儿和普罗斯小姐等候着的房子，泪水从她们的眼中落下来。</p>
+<p class="normaltext">“我走之前，”西得尼·卡登说，“我能吻吻她吗？”他的嘴唇轻轻地吻了路茜的脸颊，小声地说了几句话，然后走进了旁边的一个房间。</p>
+<p class="normaltext">“您在公民中仍旧很受欢迎，医生。您必须尽力再同法官们谈谈。”</p>
+<p class="normaltext">“我会去做我所能做的一切事情的。一切事情。”马内特医生说。</p>
+<p class="normaltext">劳里先生和卡登一起走到了门口。</p>
+<p class="normaltext">“我不抱希望了。”劳里先生悲哀地低声说道。</p>
+<p class="normaltext">“我也不抱希望了。”卡登回答，“过了今天，巴黎甚至将不会有法官去救他了，人们会过于愤怒的。我过一会儿再来，看看是否有什么消息，但是不会有真正的指望了。”</p>
+<p class="normaltext">他离开了房子便快步向圣安东尼走去，他的脸平静而严肃，看上去像一个已下定决心要去做件大事的人。“我得向这里的人展示一下我自己。”他想，“他们得知道在这个城市里有一个像我这样的男人。”</p>
+<p class="normaltext">得法热的酒店里唯一的一名顾客是雅克三，他刚去参加了判处代尔那死刑的那个审判会。在卡登坐下要一杯酒时，得法热夫人起初不在意地看着他，接着便非常仔细地看起他来。她回到正在谈话的她丈夫和雅克三身边，轻声地说：“他可真像埃弗蒙。”</p>
+<p class="normaltext">得法热自己看着卡登说：“是的，可只有一点儿像。”然后他们三人接着聊天。卡登一边装着看报纸一边仔细听着。</p>
+<p class="normaltext">“夫人是对的，”雅克第三说，“我们为什么要在埃弗蒙这儿就打住呢？”</p>
+<p class="normaltext">“我们必须适可而止。”得法热说。</p>
+<p class="normaltext">“在他们，包括那个家族里的每一个人都死掉之前，我们不能就这样打住。”他妻子说。</p>
+<p class="normaltext">“你是对的，但是想一想医生受了多少苦，也许他已经受够了。”</p>
+<p class="normaltext">“听着，”得法热夫人冷酷地说，“别忘了我就是那个小妹妹，并且是我的家庭受了埃弗蒙兄弟那么多的苦难。是我的姐姐死去了，还有我姐姐的丈夫，以及我的父亲；是我的哥哥被杀死了。去让别人打住吧，别让我这么做！”</p>
+<p class="normaltext">卡登付了酒钱便匆匆出门上了路。他回到了马内特医生的住处。那里有更多的坏消息在等着他。医生的思维又一次回到了从前。他不认识他的朋友了，而只想着要找他的老桌子做鞋。</p>
+<p class="normaltext">“仔细听我说，”卡登对劳里先生说，“我确信路茜、她的女儿，也许还有她的父亲都处在极大的危险中。我今晚听到得法热夫人在谈论他们。他们明天必须离开巴黎。他们有必需的证件，你也有。这是我的证件——把它们拿去同你的放在一起妥善保管。你们必须在明天两点钟乘马车离开。在马车上给我留个位置，要等我来了再走。你一定要完全照我说的去做；保全许多人的生命就在此一举了。”</p>
+<p class="normaltext">“我答应你。”劳里先生说道。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-26" class="chapter-section">
+                <h2 class="chapter-title">12 A change of clothes</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">12</h1>
+<h1 class="title1">A change of clothes</h1>
+<p class="normaltext">Charles Darnay passed his last night alone in the prison. He had no hope. He knew he must die, not for anything he had done wrong, but for the crimes of his father and his uncle. He sat down to write to his wife:</p>
+<p class="normaltext2"><em> I knew nothing about the time your father spent in prison until he told me. Even then I did not know that it was my family that had been so cruel to him. I told your father that my real name was Evrémonde, and he made me promise not to tell you. I am sure that he had forgotten the paper he had written, but what has happened now is not his fault. Take care of him and our child , and one day we shall all meet again in the happier world that comes after death.</em></p>
+<p class="normaltext">Darnay did not sleep peacefully that night and in the morning he walked up and down his prison, waiting. He counted the hours—nine, gone for ever, ten, eleven, twelve gone for ever. At one o'clock he heard someone outside the door. The door opened and closed and there stood Sydney Carton, holding a warning finger to his lips.</p>
+<p class="normaltext">'Be quiet! I come from your wife. She begs you to do exactly what I say, and to ask no questions. There is no time. Take off your boots and put on mine.'</p>
+<p class="normaltext">'Carton, my dear friend,' said Darnay, 'it is impossible to escape from this place. You will only die with me.'</p>
+<p class="normaltext">'I'm not asking you to escape. Put on my shirt, and my coat.' He did not allow Darnay time to argue or refuse. 'Now sit down and write what I say,' he said. 'Quickly, my friend, quickly!'</p>
+<p class="normaltext">'<em>If you remember</em>,' he said, and Darnay wrote, '<em>the words we spoke so long ago, you will understand this when you see it.'</em> As he said this, Carton took his hand from his pocket.</p>
+<p class="normaltext">'What is that in your hand?' asked Darnay.</p>
+<p class="normaltext">'Nothing. Have you written "<em>see it</em>"? Good, now go on writing,' said Carton quietly. '<em>I am happy that I can prove them now. This is not a reason for sadness.</em>' Carton's hand was close to Darnay's face, and he gently pressed a cloth against Darnay's nose and mouth. A minute later Darnay lay unconscious on the ground. Carton quickly dressed himself in Darnay's clothes, and pushed the note that Darnay had written inside Darnay's pocket. Then he went to the door and called softly, 'Come in now.'</p>
+<p class="normaltext">The spy Barsad came in.</p>
+<p class="normaltext">'Quick, help me,' said Carton. 'You must help me to the coach.'</p>
+<p class="normaltext">'You?' asked the spy.</p>
+<p class="normaltext">'Him, man, I've changed places with him. You can say that it was too much for him, saying his last goodbye to his friend. That happens quite often, I believe.'</p>
+<p class="normaltext">'Yes, often,' replied Barsad. 'But do you promise to keep me out of danger, and go on with this plan to the end? The number must be right. Fifty-two prisoners must die today.'</p>
+<p class="normaltext">'Have I not already promised to be true to the death? Hurry, man! Take him to Mr Lorry, put him in the coach yourself, and tell Mr Lorry to leave at once!'</p>
+<p class="normaltext">Barsad called two men into the room, and told them to lift the unconscious man and carry him out.</p>
+<p class="normaltext">'The time is short, Evrémonde,' said Barsad, in a warning voice.</p>
+<p class="normaltext">'I know it well,' replied Carton. 'Be careful with my friend, and leave me.'</p>
+<p class="normaltext">The door closed and Carton was left alone. He listened carefully but there were only normal prison sounds. No shouts, no alarm bells. He waited calmly.</p>
+<p class="normaltext">Soon he heard the sound of doors opening. The door of his prison cell opened and a man said, 'Follow me, Evrémonde!' and Carton followed him into a large, dark room.</p>
+<p class="normaltext">There were many people there, some standing, some sitting, some walking about, some crying. Most of them stood, silent, looking at the ground. A young woman came up to him; she was thin and pale.</p>
+<p class="normaltext">'Citizen, Evrémonde,' she said. 'I was with you in La Force.'</p>
+<p class="normaltext">'True,' he said softly, 'but I forget what you were accused of.'</p>
+<p class="normaltext">'I am innocent. What could a poor little thing like me do? I am not afraid to die, Citizen Evrémonde, but I have done nothing.'</p>
+<p class="normaltext">Her sad smile as she said this touched Carton's heart.</p>
+<p class="normaltext">'They say that the Revolution will do so much good for the poor people,' said the girl. 'How can my death help the poor? If it is true, I am willing to die, but I do not know how that can be. I heard that you were set free, Citizen Evrémonde,' she went on. 'I hoped it was true.'</p>
+<p class="normaltext">'It was, but I was taken again, and condemned.'</p>
+<p class="normaltext">'When we go from here, Citizen Evrémonde, will you let me hold your hand? I am not afraid but I am little and weak, and it will help to make me brave.' The young girl looked into his face and he saw a sudden doubt come into her eyes, followed by surprise. He touched his lips with his finger.</p>
+<p class="normaltext">'Are you dying for him?' she whispered.</p>
+<p class="normaltext">'And his wife and child. Yes.'</p>
+<p class="normaltext">'Oh, will you let me hold your brave hand, stranger?'</p>
+<p class="normaltext">'Yes, my poor sister, to the last.'</p>
+<hr/>
+<p class="normaltext0"><b>alone</b><em> adv. without the company or help of others.</em> 独自地。</p>
+<p class="normaltext0"><b>peacefully</b><em> adv. calmly, quietly.</em> 安详地，宁静地。</p>
+<p class="normaltext0"><b>fault</b><em> n. responsibility for being wrong.</em> 过失，过错。</p>
+<p class="normaltext0"><b>exactly</b><em> adv. in an exact manner.</em> 正确地；完全地。</p>
+<p class="normaltext0"><b>press</b><em> v. push steadily against.</em> 按，压。</p>
+<p class="normaltext0"><b>lift</b><em> v. raise to a higher level or position.</em> 举起，抬起。</p>
+<p class="normaltext0"><b>normal</b><em> adj. in agreement with what is representative, usual, or regular.</em> 正常的。</p>
+<p class="normaltext0"><b>cell</b><em> n. a small room for one person.</em> 小囚房。</p>
+<p class="normaltext0"><b>touch</b><em> v. be in contact with.</em> 碰及，接触。</p>
+<p class="normaltext0"><b>set free</b> 释放。</p>
+<p class="normaltext0"><b>doubt</b><em> n. uncertainty of mind.</em> 怀疑。</p>
+<p class="normaltext0"><b>brave</b><em> adj. ready to face danger, pain, or suffering; having no fear.</em> 勇敢的，无畏的。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-27" class="chapter-section">
+                <h2 class="chapter-title">互换衣服</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>12</em>　互换衣服</h1>
+<p class="picture"><img src="../../../Images/image08650.jpeg" alt="alt"/></p>
+<p class="normaltext">查尔斯·代尔那独自一人在监狱里过着他最后的一个夜晚。他不抱什么希望了。他知道他必须得死，不是因为他做错了什么事，而是因为他父亲和叔叔所犯下的罪行。他坐下来给他的妻子写信：</p>
+<p class="normaltexta">在你父亲告诉我以前，我对他在监狱中度过的岁月一无所知。即便那时我也不知道是我的家庭曾那样残忍地对待过他。我当时告诉你父亲我的真实姓氏是埃弗蒙，但他让我发誓不要告诉你。我相信他那时已经忘了他曾在监狱里写的那份记录。但是现在发生的事不是他的过错。你要好好照顾他和我们的孩子。会有一天我们将重逢在一个更幸福的世界里的，人们死后就会到来的那个世界。</p>
+<p class="normaltext">代尔那那天晚上没有安睡过，凌晨他在囚室里走来走去地等待着。他数着时间——9点，永远过去了，10点、11点、12点，都永远消逝了。一点钟时他听见有人在门外。门开了又关上。西得尼·卡登走了进来。他伸出一只手指按在嘴上告诉他别出声。</p>
+<p class="normaltext">“我从你妻子那儿来；她求你完全按照我说的去做。什么也别问，没时间了。脱掉你的靴子换上我的。”</p>
+<p class="normaltext">“卡登，我亲爱的朋友，”代尔那说道，“从这个地方逃跑是不可能的，你只会和我一起去死的。”</p>
+<p class="normaltext">“我没让你逃跑。穿上我的衬衫。还有我的大衣。”</p>
+<p class="normaltext">他没有给代尔那争辩或拒绝的时间。“现在坐下写下我说的话。”他说，“快点儿，我的朋友，快一点儿。”</p>
+<p class="normaltext">“如果你还记得，”他说着，代尔那写着。“我们很久以前说过的话，那么在你看到它时就会明白这一点了。”当他说着这些话时，卡登从兜儿里伸出手来。“你手里是什么东西？”代尔那问。</p>
+<p class="normaltext">“没什么。你写完‘看到它’了吗？好的，现在接着写。”卡登平静地说，“我很高兴现在能够验证那些话了。没有理由伤心。”卡登的手靠近了代尔那的脸并轻轻地把一块布按在了代尔那的鼻子和嘴上。一分钟过后，代尔那便失去了知觉，躺在了地上。卡登迅速穿上了代尔那的衣服，并把代尔那刚写的纸条塞进了代尔那的口袋里，然后他走到门边轻声喊道：“现在进来吧。”</p>
+<p class="normaltext">那个间谍巴萨德走了进来。</p>
+<p class="normaltext">“快，帮帮我。”卡登说，“你必须帮助我上马车。”</p>
+<p class="normaltext">“你？”间谍问。</p>
+<p class="normaltext">“他，伙计。我已经和他换了位置。你可以声言说他承受不住和他的朋友诀别。这样的事经常发生，我相信。”</p>
+<p class="normaltext">“是的，经常发生。”巴萨德答道。“但你许诺过不让我有危险，并把计划坚持到底的呀？数字必须是对的，今天必须死52名囚犯的。”</p>
+<p class="normaltext">“我难道还没保证要真的去死吗？快点，伙计！带他去劳里先生那儿，你自己把他抬到马车里去，告诉他们马上就走。”</p>
+<p class="normaltext">巴萨德叫了两个人进了牢房；并让他们把那个失去知觉的人抬起来扛出去。</p>
+<p class="normaltext">“时间不多了，埃弗蒙。”巴萨德以警告的语气说。</p>
+<p class="normaltext">“我很清楚。”卡登回答说，“小心照顾我的朋友，留我一个人在这儿好了。”</p>
+<p class="normaltext">门关上了，卡登独自留了下来。他仔细地听着，只有正常的监狱里的声响。没有喊叫，没有警铃。他平静地等待着。</p>
+<p class="normaltext">不久他听到了开门的声音。他的囚室的门开了，一个人说道：“跟我走，埃弗蒙！”于是卡登便跟着他来到一个大而暗的房间里。</p>
+<p class="normaltext">那里面有很多人，有站着的，有坐着的，有来来回回走着的，有哭喊着的。他们大多数都默默地站着，看着地面。一个年轻女子向他走来，她又瘦又苍白。</p>
+<p class="normaltext">“埃弗蒙公民，”她说，“我曾在拉弗尔斯和你在一起待过。”</p>
+<p class="normaltext">“是的，”他柔声说，“只是我忘了你是为什么被指控的。”</p>
+<p class="normaltext">“我是无辜的。像我这么个可怜的小人物能干什么呢？我不怕死，埃弗蒙公民，只是我什么也没有做。”</p>
+<p class="normaltext">她说这话时悲伤的笑容触动了卡登的心。</p>
+<p class="normaltext">“他们说革命会给穷人们带来很多好处。”女孩说道。“我的死能帮穷人什么忙呢？如果能，那么我乐意去死。但我不明白这怎么可能呢？我曾听说你被释放了的，埃弗蒙公民。”她接着说。“我当时希望这是真的。”</p>
+<p class="normaltext">“是真的，但又被抓起来了，而且宣判了死刑。”</p>
+<p class="normaltext">“在我们从这儿走时，埃弗蒙公民，你能让我抓住你的手吗？我不怕死，可是我又小又弱，所以那样会让我勇敢起来的。”年轻的姑娘看着他的脸，他发现她眼中忽然露出一丝怀疑，跟着便是惊讶。他用手指碰了碰嘴唇。</p>
+<p class="normaltext">“你为他去死吗？”她低声问。</p>
+<p class="normaltext">“还有他的妻子和孩子。是的。”</p>
+<p class="normaltext">“噢，你能让我拉着你勇敢的手吗？陌生人？”</p>
+<p class="normaltext">“是的，我可怜的小妹妹，直到最后。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-28" class="chapter-section">
+                <h2 class="chapter-title">13 The last goodbyes</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">13</h1>
+<h1 class="title1">The last goodbyes</h1>
+<p class="normaltext">At that same hour in the early afternoon a coach going out of Paris drives up to the gates of the city.</p>
+<p class="normaltext">'Who goes there? Show us your papers!' The guard looks at the papers. 'Alexandre Manette, Doctor. Which is he?'</p>
+<p class="normaltext">This is Dr Manette; this helpless old man, whispering crazily to himself.</p>
+<p class="normaltext">'The last few days of the Revolution have been too much for him,' said the guard with a cruel laugh. 'Lucie his daughter. The wife of Evrémonde. Which is she?'</p>
+<p class="normaltext">This is she. With her child, little Lucie, beside her.</p>
+<p class="normaltext">'Hah, your husband has another meeting today. Sydney Carton. Lawyer, English. Which is he?'</p>
+<p class="normaltext">He is here, in the corner. He is not well.</p>
+<p class="normaltext">'And Jarvis Lorry. Banker, English. Which is he?'</p>
+<p class="normaltext">'I am he, and the last,' says Jarvis Lorry.</p>
+<p class="normaltext">'Here are your papers, Jarvis Lorry. You may go.'</p>
+<p class="normaltext">There are wildly beating hearts in the coach, and trembling hands; there is the heavy breathing of the unconscious traveller. But onwards the coach goes; the horses are fast, and there are no shouts behind them on the road.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Also that afternoon Madame Defarge was talking with her friends.</p>
+<p class="normaltext">'My husband is a good citizen, but he is not strong enough. He feels sorry for the Doctor. I say that all the Evrémonde people must go to the Guillotine. The wife and the child must follow the husband.'</p>
+<p class="normaltext">'They're both fine heads for the Guillotine,' said Jacques Three. 'Their heads will be a pretty sight when they are shown to the people. Yes, they too, must die.'</p>
+<p class="normaltext">'But I'm afraid that my husband may warn them and let them escape,' Madame Defarge went on, 'and I must do something myself. After the death of Evrémonde at three this afternoon we'll go to the Tribunal and accuse them.'</p>
+<p class="normaltext">The others agreed willingly. 'No one must escape. More heads must fall.'</p>
+<p class="normaltext">'Lucie Manette will be at home now, waiting for the moment of her husband's death,' said Madame Defarge. 'I will go to her. She will say things against the Revolution, and condemn herself. Here, take my knitting and keep my usual seat near the Guillotine.'</p>
+<p class="normaltext">'Don't be late,' said her friend.</p>
+<p class="normaltext">'To see the death of Evrémonde, I shall not be late,' replied the cruel voice of Madame Defarge.</p>
+<p class="normaltext">There were many women in Paris at that time who hated the nobles and wanted to see them die. But of all these women, Madame Defarge was the one most feared. All her life she had been filled with hate. It was nothing to her that an innocent man was going to die because of his father's and his uncle's crimes. She wanted more. Hidden in her clothes were a gun and a sharp knife, and with her usual confident step, she began to walk to Dr Manette's house.</p>
+<p class="normaltext">The house was not yet empty. Miss Pross and Jerry Cruncher were there, preparing to follow Mr Lorry's coach. Mr Lorry had decided that two coaches were better than one; with fewer passengers, each coach would travel faster. But Miss Pross was still worried. A second coach leaving from the house might suggest an escape.</p>
+<p class="normaltext">'Mr Cruncher,' she said, 'you must go and stop our coach coming here. Drive to the church instead, and I'll meet you there at three o'clock.'</p>
+<p class="normaltext">Jerry hurried away. It was twenty past two, and at once Miss Pross began to get herself ready to leave. She was washing her face when she suddenly looked up and saw a figure standing in the room.</p>
+<p class="normaltext">Madame Defarge looked at her coldly. 'The wife of Evrémonde; where is she?'</p>
+<p class="normaltext">Miss Pross quickly stood in front of the door to Lucie's room. 'You're a cruel, dangerous woman, but you won't frighten me,' she said, breathing hard.</p>
+<p class="normaltext">Each woman spoke in her own language, and neither understood the other's words. But Madame Defarge knew that Miss Pross was a true friend of the Doctor's family, and Miss Pross knew that Madame Defarge was the family's enemy.</p>
+<p class="normaltext">'I wish to see the wife of Evrémonde. Go and tell her. Do you hear me?' said Madame Defarge. She stared angrily at Miss Pross, but Miss Pross stared back just as angrily.</p>
+<p class="normaltext">'I am desperate,' said Miss Pross. 'I know that the longer I can keep you here, the greater hope there is for my darling girl. If you fight me, I'll fight back!'</p>
+<p class="normaltext">Madame Defarge stepped forward and called loudly, 'Citizen Doctor! Wife of Evrémonde! Answer me!'</p>
+<p class="normaltext">There was no answer and Madame Defarge quickly opened three of the doors and saw that the rooms were empty. One door was still closed.</p>
+<p class="normaltext">'If they are not in that room, they are gone. But they can be followed and brought back.' She went towards the door, but Miss Pross jumped forward and held her round the waist. Madame Defarge was used to the fighting in the streets and was strong, but love is stronger than hate and Miss Pross did not let go. Madame Defarge tried to pull out her knife.</p>
+<p class="normaltext">'No,' said Miss Pross, 'it's under my arm. You shall not have it.'</p>
+<p class="normaltext">Madame Defarge put her hand to the front of her dress and began to pull out the gun. Miss Pross looked down, saw what it was, and hit out at it wildly. There was a loud bang, and a cloud of smoke, and Miss Pross stood alone, trembling with terror.</p>
+<p class="normaltext">All this in a second. As the smoke cleared, Miss Pross saw the lifeless body of Madame Defarge on the ground. In horror, she opened her mouth to call for help, but then she thought of the dangers this would bring for her dear Lucie. With shaking hands, she got her hat and coat, locked the door of the room, and went downstairs. As she crossed the bridge on the way to the church, she dropped the key of the locked room in the river and hurried on to meet Jerry Cruncher.</p>
+<p class="normaltext3">*　*　*</p>
+<p class="normaltext0">As the death-carts carry the condemned prisoners through the streets of Paris, crowds watch to see the faces of those who are to die. In the chairs around the Guillotine, the friends of Madame Defarge are waiting for her. 'Teresa, Teresa Defarge! Who has seen her? She's never missed before!'</p>
+<p class="normaltext">But the death-carts have arrived, and the Guillotine has already begun its work. Crash! —A head is held up, and the women who sit knitting count One.</p>
+<p class="normaltext">The supposed Evrémonde helps the young girl down from the cart. He carefully places her with her back to the Guillotine, and she looks up gratefully into his face.</p>
+<p class="normaltext">'Because of you, dear stranger, I am calm. I think you were sent to me by God,' she whispers.</p>
+<p class="normaltext">'Or perhaps He sent you to me,' says Sydney Carton. 'Keep your eyes on me, dear child, and do not think of anything else.'</p>
+<p class="normaltext">'I do not mind while I hold your hand. I shall not mind when I let it go, if they are quick.'</p>
+<p class="normaltext">'They are quick. Fear not!'</p>
+<p class="normaltext">She kisses his lips; he kisses hers. Now the Guillotine is waiting. The young girl goes next, before him. The women count Twenty-Two, and Carton walks forward.</p>
+<p class="normaltext">Twenty-Three.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">They said of him that it was the most peaceful face ever seen there. What passed through Sydney Carton's mind as he walked those last steps to his death? Perhaps he saw into the future...</p>
+<p class="normaltext">'I see Barsad, Defarge, the judges, all dying under this terrible machine. I see a beautiful city being built in this terrible place. I see that new people will live here, in real freedom. I see the lives for whom I give my life, happy and peaceful in that England which I shall never see again. I see Lucie when she is old, crying for me on this day every year, and I know that she and her husband remember me until their deaths. I see their son, who has my name, now a man. I see him become a famous lawyer and make my name famous by his work. I hear him tell his son my story.</p>
+<p class="normaltext">'It is a far, far better thing that I do, than I have ever done; it is a far, far better rest that I go to, than I have ever known.'</p>
+<hr/>
+<p class="normaltext0"><b>helpless</b><em> adj. without help; not receiving help.</em> 无助的。</p>
+<p class="normaltext0"><b>lawyer</b><em> n. person who has studied law, esp. an attorney or solicitor.</em> 律师。</p>
+<p class="normaltext0"><b>wildly</b><em> adv. in a violent manner.</em> 狂野地，激动地。</p>
+<p class="normaltext0"><b>willingly</b><em> adv. done, given, etc. readily, without hesitation.</em> 甘愿地。</p>
+<p class="normaltext0"><b>fear</b><em> v. feel fear of, be afraid of.</em> 害怕，惧怕。</p>
+<p class="normaltext0"><b>confident</b><em> adj. feeling or showing confidence.</em> 有信心的。</p>
+<p class="normaltext0"><b>instead</b><em> adv. in place of.</em> 代替。</p>
+<p class="normaltext0"><b>true</b><em> adj. loyal, faithful.</em> 忠诚的，忠实的。</p>
+<p class="normaltext0"><b>desperate</b><em> adj. filled with despair and ready to do anything, regardless of danger.</em> 因绝望而不惜冒险的。</p>
+<p class="normaltext0"><b>be used to</b> 习惯于。</p>
+<p class="normaltext0"><b>terror</b><em> n. great fear.</em> 恐怖。</p>
+<p class="normaltext0"><b>horror</b><em> n. feeling of extreme fear or dislike.</em> 恐怖。</p>
+<p class="normaltext0"><b>miss</b><em> v. fail to see.</em> 未看见。</p>
+<p class="normaltext0"><b>count</b><em> v. say or name in order.</em> 按顺序数。</p>
+<p class="normaltext0"><b>suppose</b><em> v. let it be through that; take it as a fact that.</em> 认定；假定。</p>
+<p class="normaltext0"><b>gratefully</b><em> adv. feeling or showing gratitude.</em> 感激地。</p>
+<p class="normaltext0"><b>terrible</b><em> adj. causing great fear or horror.</em> 可怕的。</p>
+<p class="normaltext0"><b>famous</b><em> adj. known widely.</em> 著名的，出名的。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-29" class="chapter-section">
+                <h2 class="chapter-title">最后的道别</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1b"><em>13</em>　最后的道别</h1>
+<p class="picture"><img src="../../../Images/image08651.jpeg" alt="alt"/></p>
+<p class="normaltext">在那天午后不久的同一时刻，一辆出巴黎的马车正驶向城门。</p>
+<p class="normaltext">“谁在那儿？请出示你们的证件！”卫兵看着证件说，“亚历山大·马内特医生。哪个是他？”</p>
+<p class="normaltext">这是马内特医生，这个无助的老人，正发疯地对自己嘀咕着。</p>
+<p class="normaltext">“最近几天的革命让他受不了啦。”卫兵残忍地大笑着说，“路茜是他的女儿，埃弗蒙的妻子。哪个是她？”</p>
+<p class="normaltext">这就是她，还有她的孩子，小路茜在她身边。</p>
+<p class="normaltext">“哈，你丈夫今天可有另外一个聚会哟。西得尼·卡登律师，英国人。哪一位是他？”</p>
+<p class="normaltext">他在这儿，在角落里。他身体不舒服。</p>
+<p class="normaltext">“还有贾维斯·劳里，银行家，英国人。是哪一位？”</p>
+<p class="normaltext">“我就是，也是最后一位。”贾维斯·劳里说。</p>
+<p class="normaltext">“这是你们的证件，贾维斯·劳里，你们可以走了。”</p>
+<p class="normaltext">车里的人的心都狂跳着，手也在发抖，还有那个失去知觉的旅行者发出的沉重的呼吸声，但马车在前进，马匹跑得飞快，在他们身后的路上没有喊叫声。</p>
+<p class="normaltext">也就在那天下午，得法热夫人正在和她的朋友们谈话。</p>
+<p class="normaltext">“我的丈夫是个好公民，可他不够坚定。他可怜医生。我说要让埃弗蒙家的所有人都上断头台，妻子和孩子都得跟那个丈夫一起去。”</p>
+<p class="normaltext">“她们俩的头可是断头台上的好货色，”雅克三说，“把她们的头展示给人民将会是一个漂亮的景观。是的，她们也都得死。”</p>
+<p class="normaltext">“可我担心我丈夫会报警给她们让她们跑掉。”得法热夫人说，“所以我必须亲自做点什么。在今天下午3点钟埃弗蒙死后，我要去审判团指控她们。”</p>
+<p class="normaltext">其他人都欣然同意。“不许有任何人跑掉；必须有更多的人头落地。”</p>
+<p class="normaltext">“路茜·马内特现在应该正在家里等着她丈夫死的那一刻。”得法热夫人说，“我要去找她，她会说一些反对革命的话，因而招来罪名。好了，拿着我的毛线活儿，把断头台旁边我一向待的位子留着。”</p>
+<p class="normaltext">“别晚了。”她的朋友说。</p>
+<p class="normaltext">“去看埃弗蒙的死，我不会晚的。”得法热夫人用冷酷的声音回答道。</p>
+<p class="normaltext">那时的巴黎有很多妇女痛恨贵族并希望看到他们死。但在所有这些妇女中，得法热夫人是最可怕的一个。她的生命中充满了仇恨。一个无辜的男人正要因为他父亲或他叔叔的罪孽而死，这对她来说算不了什么。她所要的比这更多。她在衣服里藏了一支枪和一把尖刀，便迈着她一贯自信的步伐，开始朝马内特医生的住处走去。</p>
+<p class="normaltext">房子里的人尚未走空。普罗斯小姐和杰里·克拉彻还在里面，正准备着跟上劳里先生的马车。劳里先生已断定两辆马车比一辆要好。乘客少些马车可以走得更快些。可普罗斯小姐仍旧很担心，因为第二辆马车离开这座房子也许会显示出逃跑的迹象。</p>
+<p class="normaltext">“克拉彻先生，”她说，“你得去拦一下我们的马车别让它到这儿来，而是改去教堂。我会在3点钟时和你会合。”</p>
+<p class="normaltext">杰里赶紧走了。那是2点20分，普罗斯小姐立刻开始为离开而做准备。在她洗脸时，她突然抬头看到一个人正站在房间里。</p>
+<p class="normaltext">得法热夫人冷冷地看着她。“埃弗蒙的妻子，她在哪儿？”</p>
+<p class="normaltext">普罗斯小姐迅速站到了路茜的房门前。“你是一个残忍、危险的女人，可是你吓唬不了我。”她呼吸艰难地说。</p>
+<p class="normaltext">两个女人各自说着自己的语言，彼此都听不懂对方的话。而得法热夫人知道普罗斯小姐是医生家的一个真正的朋友；而普罗斯小姐知道得法热夫人是这个家的敌人。</p>
+<p class="normaltext">“我要见埃弗蒙的妻子，去告诉她，你听到了吗？”得法热夫人说道。她愤怒地盯着普罗斯小姐，而普罗斯小姐也同样愤怒地盯着她。</p>
+<p class="normaltext">“我豁出去了，”普罗斯小姐说，“我知道我在这儿把你拖得越久，我亲爱的姑娘的希望就越大。如果你打我，我也会反击你的。”</p>
+<p class="normaltext">得法热夫人走上前去大喊起来：“医生公民！埃弗蒙的妻子！回我的话！”</p>
+<p class="normaltext">得法热夫人没听到答话便迅速打开了其中的三扇房门，看到房间是空的。有一扇门还关着。</p>
+<p class="normaltext">“如果他们不在那间房里，那么就是已经走了。可他们会被追上并给抓回来的。”她向那扇门走去，可普罗斯小姐冲上前去抱住了她的腰。得法热夫人已经习惯了在街上打架而且她很壮实，但爱比恨的力量更强大，普罗斯小姐没有松手。得法热夫人企图拔出刀来。</p>
+<p class="normaltext">“不。”普罗斯小姐说，“刀在我胳膊底下，你是拿不到的。”</p>
+<p class="normaltext">得法热夫人把手伸到裙子前面开始拔枪。普罗斯小姐朝下一看，弄清了那是什么东西，就猛烈地朝外打它。一声巨响，接着又是一团烟。之后，普罗斯小姐便独自站在那儿，恐惧地颤抖着。</p>
+<p class="normaltext">这一切都发生在一秒钟内。烟雾消散之后，普罗斯小姐看见得法热夫人断了气的身体躺在地板上。由于恐惧，她张嘴喊着救命，但她又想到这会给她亲爱的路茜带来危险。她颤抖着双手，拿上帽子和外衣，锁上房门便下了楼。在去教堂的桥上，她把开房门的钥匙扔到了河里便匆匆赶去见杰里·克拉彻。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">当死囚车载着死刑犯们穿过巴黎的街道时，人们集中注意力看那些临死的人们的脸。得法热夫人的朋友们正坐在断头台周围的椅子上等着她。“特丽莎，特丽莎·得法热！谁见到她了？她以前从来没错过的！”</p>
+<p class="normaltext">可是死囚车已经到了，断头台已开始工作了。咔嚓！——一个人头被举了起来，坐在那儿编毛线活的女人们数着“一个。”</p>
+<p class="normaltext">那个被当做了埃弗蒙的人帮着那个小女孩下了囚车。他小心地让她背对着断头台，她感激地抬头望着他的脸。</p>
+<p class="normaltext">“因为您，亲爱的陌生人，我才这样平静。我想您是上帝送给我的。”她小声说道。</p>
+<p class="normaltext">“或许是上帝把你送给我的。”西得尼·卡登说，“眼睛看着我，亲爱的孩子，别的什么事都不要想。”</p>
+<p class="normaltext">“我拉着你手的时候就不害怕了，松开手后我也不害怕，如果他们能快点的话。”</p>
+<p class="normaltext">“他们很快。别怕。”</p>
+<p class="normaltext">她吻了他的嘴唇；他也吻了她的。断头台现在正在等着，下一个就是年轻的女孩子，在他之前。女人们数着二十二，接着卡登走上前去。</p>
+<p class="normaltext">二十三。</p>
+<p class="normaltext">人们谈论他说他的脸是在那种地方所能见到的最平静的脸。当西得尼·卡登迈着最后的步伐向死亡走去时，他的脑海中想到了什么呢？也许他看到了未来……</p>
+<p class="normaltext">“我看见巴萨德、得法热、法官们都在这个可怕的机器下面死去。我看到一个美丽的城市正在这片可怕的土地上建立起来。我看到新一代的人民将在真正的自由中生活。我看到我为之付出生命的人们，他们幸福安宁地生活在我再也见不到的英国。我看见路茜年老的时候，每一年的这一天都会为我哭泣，我知道她和她的丈夫会一直到死都记着我。我看见他们的儿子，有着和我一样的名字，现在长成了一个男人。我看见他成了一位著名的律师并通过他的工作而使我扬名四方。我听见他给他的儿子讲起我的故事。”</p>
+<p class="normaltext">“我做的是一件很好的事。它远远好过我所做的所有的事。它将是一个很好的长眠，远比我所知道的要好。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-30" class="chapter-section">
+                <h2 class="chapter-title">Exercises</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">Exercises</h1>
+<p class="normaltext6">A Checking your understanding</p>
+<p class="normaltext5"></p>
+<p class="normaltext5"><b>Chapters 1-4</b><em> Who in these chapters...</em></p>
+<p class="normaltext5">1 ... had brought Lucie Manette back to England as a small child?</p>
+<p class="normaltext5">2 ... thought his name was One Hundred and Five, North Tower?</p>
+<p class="normaltext5">3 ... was the prisoner at the trial at the Old Bailey?</p>
+<p class="normaltext5">4 ... looked very like the prisoner at the trial?</p>
+<p class="normaltext5">5 ... had a child who was killed by a coach in Saint Antoine?</p>
+<p class="normaltext5">6 ... was murdered in his bed?</p>
+<p class="normaltext7"><b>Chapters 5-7</b><em> Write answers to these questions.</em></p>
+<p class="normaltext5">1 What did Sydney Carton ask Lucie to remember always?</p>
+<p class="normaltext5">2 What did Darnay tell Dr Manette on the morning of his marriage?</p>
+<p class="normaltext5">3 What news did Jacques Five bring to Saint Antoine in Paris?</p>
+<p class="normaltext5">4 Why was Madame Defarge always knitting?</p>
+<p class="normaltext5">5 Why did Darnay decide that he had to go to Paris?</p>
+<p class="normaltext7"><b>Chapters 8-10</b><em> Are these sentences true (T) or false (F)?</em></p>
+<p class="normaltext5">1 Madame Defarge was kind to Lucie when she visited her.</p>
+<p class="normaltext5">2 Only guilty people were sent to the Guillotine.</p>
+<p class="normaltext5">3 John Barsad's real name was Solomon Pross.</p>
+<p class="normaltext5">4 Barsad refused to help Carton in any way.</p>
+<p class="normaltext5">5 Dr Manette was kept in prison for eighteen years because he knew too much about the crimes of the Evrémonde brothers.</p>
+<p class="normaltext7"><b>Chapters 11-13</b><em> Find answers to these questions in the text.</em></p>
+<p class="normaltext5">1 Why did Madame Defarge hate the Evrémonde family?</p>
+<p class="normaltext5">2 Why wasn't Dr Manette able to do anything to help Darnay?</p>
+<p class="normaltext5">3 How did Sydney Carton get a last message to Lucie?</p>
+<p class="normaltext5">4 Who was the unconscious traveller in the coach leaving Paris?</p>
+<p class="normaltext5">5 Why wasn't Madame Defarge at the Guillotine to see Evrémonde die?</p>
+<p class="normaltext5">6 Why was Sydney Carton happy to die?</p>
+<p class="normaltext6">B Working with language</p>
+<p class="normaltext5"><em>1 Put this summary of Gaspard's story into the right order, and make five sentences.</em></p>
+<p class="normaltext8">1 it knocked down and killed Gaspard's child.</p>
+<p class="normaltext8">2 The next morning the Marquis was found murdered,</p>
+<p class="normaltext8">3 taken back to the village near the castle and hanged.</p>
+<p class="normaltext8">4 After the accident the Marquis drove home to his castle,</p>
+<p class="normaltext8">5 When the Marquis's coach was driving through Saint Antoine,</p>
+<p class="normaltext8">6 lying in bed with a knife through his heart.</p>
+<p class="normaltext8">7 where the women went to fetch water and the children played.</p>
+<p class="normaltext8">8 but Gaspard travelled with him, holding on under the coach.</p>
+<p class="normaltext8">9 His body was left hanging in the village square,</p>
+<p class="normaltext08">10 A year later Gaspard was caught by the soldiers,</p>
+<p class="normaltext5"><em>2 Complete these sentences with information from Chapter 8.</em></p>
+<p class="normaltext8">1 Dr Manette was safe in Paris because...</p>
+<p class="normaltext8">2 Although Dr Manette was sure he could save Charles, Lucie...</p>
+<p class="normaltext8">3 Dr Manette had an official job as doctor to three prisons so...</p>
+<p class="normaltext8">4 When Darnay told the Tribunal that he had married Dr Manette's daughter, ...</p>
+<p class="normaltext8">5 Darnay was set free by the Tribunal, but...</p>
+<p class="normaltext6">C Activities</p>
+<p class="normaltext5">1 Which person in the story did you like most, and which did you like least? Why? Write a paragraph about each person, giving your opinions.</p>
+<p class="normaltext5">2 Do you think the title of the book, <em> A Tale of Two Cities</em>, is a good one? What other titles can you think of?</p>
+<p class="normaltext5">3 Imagine that you are Lucie or Charles, talking to their son, who was born after the end of the story. He is now old enough to hear the story of Sydney Carton, and how and why he died. Write down what you would say.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-31" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image08653.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

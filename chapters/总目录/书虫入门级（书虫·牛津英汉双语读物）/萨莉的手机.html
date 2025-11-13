@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>萨莉的手机 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '萨莉的手机';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>萨莉的手机</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">萨莉的手机</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">SALLY'S PHONE</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">1 Morning</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">2 Lunchtime</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">3 Afternoon</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">4 Evening</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-12" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="a1"><img src="../../../Images/image06740.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字：01-2013-7809</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2008</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">萨莉的手机：英汉对照／（新西兰）林多普（Lindop, C.）著；（英）里斯（Reece, G.）绘；赵路路译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Sally's phone</p>
+<p class="normaltext">ISBN 978-7-5135-3759-9</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①萨…　Ⅱ．①林…②里…③赵…　Ⅲ．①英语—汉语—对照读物②短篇小说—新西兰—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第271157号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">出版人　　蔡剑峰</p>
+<p class="normaltext3">责任编辑　陈海燕</p>
+<p class="normaltext3">封面设计　蔡　颖</p>
+<p class="normaltext3">出版发行　外语教学与研究出版社</p>
+<p class="normaltext3">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext3">网　　址　http://www.fltrp.com</p>
+<p class="normaltext3">版　　次　2013年12月第1版</p>
+<p class="normaltext3">书　　号　ISBN 978-7-5135-3759-9</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">制售盗版必究　举报查实奖励</p>
+<p class="normaltext3">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a1">内容简介</p>
+<p class="normaltext2">你有手机吗？你会用手机给谁打电话？谁会给你打电话？你的生活离得开手机吗？</p>
+<p class="normaltext2">生活忙碌的萨莉有一部手机。她会接到很多电话，大部分是她的男朋友安德鲁打来的。安德鲁喜欢指点萨莉该做什么，该穿什么。</p>
+<p class="normaltext2">萨莉和安德鲁今晚要参加一个派对。“穿上你的蓝裙子。”安德鲁说。但是萨莉不能穿蓝裙子，因为那条蓝裙子脏了，所以她不得不去买一条新的。</p>
+<p class="normaltext2">但是萨莉购物的时候，她不只是买到了一条新裙子——她还遇到了一件改变她人生轨迹的事。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">SALLY'S PHONE</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a1">SALLY'S PHONE</p>
+<p class="normaltext3">Do you have a phone? Who do you call? Who calls you? Can you live without your phone?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Sally has a phone, and a busy life. She gets many phone calls – mostly from her boyfriend, Andrew. Andrew likes telling Sally what to do – and what to wear.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Sally and Andrew are going to a party tonight. 'Wear your blue skirt', says Andrew. But Sally can't wear it – it's dirty, so she has to go shopping for a new one.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">But when Sally goes shopping she gets more than just a new skirt – she gets something that will change her life.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="mulu">CONTENTS<br/>目　录</div>
+  <div class="mulu1"><a href="part0223.xhtml#a1">内容简介</a></div>
+  <div class="mulu1"><a href="part0226.xhtml#a1">1 Morning</a></div>
+  <div class="mulu1"><a href="part0227.xhtml#a1">2 Lunchtime</a></div>
+  <div class="mulu1"><a href="part0228.xhtml#a1">3 Afternoon</a></div>
+  <div class="mulu1"><a href="part0229.xhtml#a1">4 Evening</a></div>
+<p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0230.xhtml#a1">GLOSSARY<br/>词汇表</a></div>
+  <div class="mulu1"><a href="part0231.xhtml#a1">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="mulu1"><a href="part0232.xhtml#a1">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">1 Morning</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a1"><span class="kk">1 Morning</span></p>
+<p class="normaltext3">It is Thursday morning. Sally is in bed. Suddenly – Ring ring! Her phone is ringing – but where is it?</p>
+<p class="normaltexty">Sally gets out of bed and looks in her bag. No phone. She looks under the bed. No phone. Then she looks behind the door. There is her phone. Sally picks up her phone and answers it.</p>
+<p class="picture"><img src="../../../Images/image06741.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Hello Sally, it's Andrew.'</p>
+<p class="normaltexty">Andrew is Sally's boyfriend. He has got a lot of money and a beautiful and expensive car.</p>
+<p class="normaltexty">'Andrew, it's only seven o'clock—'</p>
+<p class="normaltexty">'Don't forget, Sally – we're meeting Michael tonight. It's an important evening, because Michael's my new boss. Wear your blue skirt, Sally, I like that skirt. I must go now. See you at half past six. Bye.'</p>
+<p class="normaltexty">'But Andrew... Bye.'</p>
+<p class="normaltexty">'I can't wear the blue skirt,' Sally thinks. 'It's dirty. What can I wear?'</p>
+<p class="picture"><img src="../../../Images/image06742.jpeg" alt="alt"/></p>
+<p class="normaltext3">Sally is having breakfast with her mother and her brother Jack.</p>
+<p class="normaltexty">'I'm going out tonight,' Sally tells her mother. 'Andrew and I are meeting his new boss.'</p>
+<p class="normaltexty">'Andrew?' Jack says. 'Huh!'</p>
+<p class="normaltexty">'Oh be quiet, Jack,' Sally says. 'Andrew is very nice to me.'</p>
+<p class="normaltexty">'Nice?' Jack says. 'Huh! "Sally, I want a sandwich." "Yes, Andrew." "Sally, I don't like your hair." "No, Andrew, sorry Andrew." "Sally—"'</p>
+<p class="normaltexty">But then Sally stands up, and Jack runs out of the room.</p>
+<p class="picture"><img src="../../../Images/image06743.jpeg" alt="alt"/></p>
+<p class="normaltext3">Sally gets on the train. There are a lot of people on the train. Most of them are talking on their phones.</p>
+<p class="normaltexty">'John? John! Get up and go to work. It's late!'</p>
+<p class="normaltexty">'Have you got my money? I need it today. I must have it today.'</p>
+<p class="normaltexty">'Remember – go to the supermarket tonight. Don't forget!'</p>
+<p class="normaltexty">And Sally is listening to Andrew.</p>
+<p class="normaltexty">'Sally, meet me at six o'clock, not at half past six. OK?'</p>
+<p class="normaltexty">'OK Andrew – but my blue skirt—'</p>
+<p class="normaltexty">'I must go, Sally – bye.'</p>
+<p class="picture"><img src="../../../Images/image06744.jpeg" alt="alt"/></p>
+<p class="normaltext3">Then the train goes into a tunnel. The people on the train can not talk on their phones. They must talk to the other people on the train.</p>
+<p class="normaltexty">'Hello, Max! How are you?'</p>
+<p class="normaltexty">'Oh, hello Graham! I'm very well.'</p>
+<p class="normaltexty">'Where are you working now, Lucy?'</p>
+<p class="normaltexty">'I'm in a new office in Bank Street.'</p>
+<p class="normaltexty">'Those are nice shoes, Jane.'</p>
+<p class="normaltexty">'Thank you, Mary.'</p>
+<p class="normaltexty">After three minutes, the train comes out of the tunnel. Everyone talks on their phones again.</p>
+<p class="normaltexty">'Hello? John? Are you out of bed now?'</p>
+<p class="picture"><img src="../../../Images/image06745.jpeg" alt="alt"/></p>
+<p class="normaltext3">Now Sally is at work. She is talking to her friend Claire, and she tells her about Andrew, Michael, and the blue skirt.</p>
+<p class="normaltexty">'It's OK, Sally,' Claire says. 'Let's go out at lunchtime. We can find a new skirt. You can wear it tonight.'</p>
+<p class="normaltexty">Later, Claire and Sally are having coffee with Louise. She works with them.</p>
+<p class="normaltexty">Ring ring! It is Andrew again.</p>
+<p class="normaltexty">'Hi, Sally. Look, meet me at the Bar Bogart, not the Cosmo Bar – OK? The Bar Bogart is nearer. Bye.'</p>
+<p class="normaltexty">'Bar Bogart,' Claire says. 'Mmm – that's nice.'</p>
+<p class="normaltexty">'Huh!' Louise says. 'Forget him, Sally. Who needs men? "Do this, do that, go there, don't go there." Huh!'</p>
+<p class="picture"><img src="../../../Images/image06746.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">2 Lunchtime</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a1"><span class="kk">2 Lunchtime</span></p>
+<p class="normaltext3">It is one o'clock. Sally and Claire are looking at skirts.</p>
+<p class="normaltexty">'Do you like this one, Sally?' Claire says.</p>
+<p class="normaltexty">'Yes, it's beautiful, but I never wear red.'</p>
+<p class="normaltexty">'Do you like red?' Claire asks.</p>
+<p class="normaltexty">'Yes, I do – but Andrew doesn't.'</p>
+<p class="normaltexty">'Well,' Claire says, 'it's a beautiful skirt. You like red. What do you want to do?'</p>
+<p class="normaltexty">Sally buys the skirt.</p>
+<p class="picture"><img src="../../../Images/image06747.jpeg" alt="alt"/></p>
+<p class="normaltext3">Claire goes back to work, but Sally wants a coffee. She goes into a café. She buys a coffee and sits down. Then she phones her mother.</p>
+<p class="normaltexty">'Hi, Mum. I've got a new skirt – it's beautiful! I want to wear it tonight.'</p>
+<p class="normaltexty">'What colour is it?'</p>
+<p class="normaltexty">'It's red.'</p>
+<p class="normaltexty">'That's nice. Red is a good colour for you,' says her mother.</p>
+<p class="picture"><img src="../../../Images/image06748.jpeg" alt="alt"/></p>
+<p class="normaltext3">Next to Sally, Paul is finishing his coffee. He phones his friend and talks to him. Then he stands up. The bag with the red skirt falls on the floor.</p>
+<p class="normaltexty">'Oh! I'm sorry,' Paul says. He puts down his phone and picks up the bag. 'Here's your bag.'</p>
+<p class="normaltexty">'That's OK,' Sally says. 'Thank you.' She smiles.</p>
+<p class="normaltexty">'What a nice smile!' Paul thinks.</p>
+<p class="normaltexty">Paul picks up his phone and goes out of the café. Sally finishes her coffee. She picks up her bag and her phone, and goes back to work.</p>
+<p class="picture"><img src="../../../Images/image06749.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">3 Afternoon</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a1"><span class="kk">3 Afternoon</span></p>
+<p class="normaltext3">Paul is in his office.</p>
+<p class="normaltexty">Ring ring!</p>
+<p class="normaltexty">'What's that noise?' Paul thinks. He answers the phone. It is Andrew.</p>
+<p class="normaltexty">'Hello, Sally?'</p>
+<p class="normaltexty">'It's not Sally. It's Paul.'</p>
+<p class="normaltexty">'Paul? Paul who? Where's Sally?'</p>
+<p class="normaltexty">'Who's Sally? There's no Sally here.'</p>
+<p class="normaltexty">'Huh!'</p>
+<p class="normaltexty">Andrew finishes the call.</p>
+<p class="picture"><img src="../../../Images/image06750.jpeg" alt="alt"/></p>
+<p class="normaltext3">Paul wants to phone his mother. He finds 'Mum' on the phone, and presses the button.</p>
+<p class="normaltexty">'Hello, Mum. It's Paul.'</p>
+<p class="normaltexty">'Paul? Who's Paul? I'm not Paul's Mum. I'm Sally's Mum and Jack's Mum.'</p>
+<p class="normaltexty">'What's happening?' Paul thinks.</p>
+<p class="normaltexty">'What number is that?' he asks.</p>
+<p class="normaltexty">'It's 0783 491839.'</p>
+<p class="normaltexty">'I'm very sorry,' Paul says. 'It's the wrong number.'</p>
+<p class="normaltexty">'That's OK,' Sally's Mum says. 'What a nice voice!' she thinks.</p>
+<p class="picture"><img src="../../../Images/image06751.jpeg" alt="alt"/></p>
+<p class="normaltext3">Sally is at work.</p>
+<p class="normaltexty">Ring ring!</p>
+<p class="normaltexty">'What's that noise?' Sally thinks. She answers the phone.</p>
+<p class="normaltexty">'Hello, is Paul there?'</p>
+<p class="normaltexty">'No, I'm sorry, this—'</p>
+<p class="normaltexty">'Can you give a message to him? This is his sister Katharine. There's a party at my house tonight. It's my birthday.'</p>
+<p class="normaltexty">'But I—'</p>
+<p class="normaltexty">'8 o'clock – OK? Bye.'</p>
+<p class="picture"><img src="../../../Images/image06752.jpeg" alt="alt"/></p>
+<p class="normaltext3">Sally talks to Claire and Louise.</p>
+<p class="normaltexty">'I've got a message for Paul – but who's Paul? Do you know a Paul, Claire?' she asks.</p>
+<p class="normaltexty">'No. What's the message?' Claire asks.</p>
+<p class="normaltexty">'It's his sister Katharine's birthday, and she's having a party tonight. Do you think it's a wrong number?'</p>
+<p class="normaltexty">'Yes, I think it is,' Claire says.</p>
+<p class="normaltexty">'Hey, Sally!' Louise says. 'Put on your red skirt and go to the party. Forget Andrew!'</p>
+<p class="picture"><img src="../../../Images/image06753.jpeg" alt="alt"/></p>
+<p class="normaltext3">Paul talks to a friend at work.</p>
+<p class="normaltexty">'This is Sally's phone – and Sally's got my phone.'</p>
+<p class="normaltexty">'But who is Sally?'</p>
+<p class="normaltexty">'I don't know,' says Paul.</p>
+<p class="normaltexty">'Why don't you phone her?'</p>
+<p class="normaltexty">'What's my number?' Paul asks. 'I don't know my number.'</p>
+<p class="normaltexty">'Why not?'</p>
+<p class="normaltexty">'Because I never call my number!'</p>
+<p class="picture"><img src="../../../Images/image06754.jpeg" alt="alt"/></p>
+<p class="normaltext3">Paul phones his mother.</p>
+<p class="normaltexty">'Mum, what's the number of my phone?'</p>
+<p class="normaltexty">'Why do you want your phone number, Paul?'</p>
+<p class="normaltexty">'Because Sally's got my phone.'</p>
+<p class="normaltexty">'Who's Sally?' his mother asks.</p>
+<p class="normaltexty">'I don't know, but she's got my phone, and I've got her phone.'</p>
+<p class="normaltexty">'I don't understand.'</p>
+<p class="normaltexty">'I know,' says Paul. 'It doesn't matter. Have you got my number?'</p>
+<p class="normaltexty">'Here it is. 0781 644834.'</p>
+<p class="normaltexty">'Thanks, Mum.'</p>
+<p class="picture"><img src="../../../Images/image06755.jpeg" alt="alt"/></p>
+<p class="normaltext3">Paul phones Sally.</p>
+<p class="normaltexty">'Hello, Sally – this is Paul.'</p>
+<p class="normaltexty">'Paul – are you Katharine's brother?' Sally asks.</p>
+<p class="normaltexty">'Yes, that's right. And I've got your phone.'</p>
+<p class="normaltexty">'My phone? Oh – wait a minute. The Café Cuba at lunchtime? The bag on the floor?'</p>
+<p class="normaltexty">'Yes, that's right. Well, we need to change phones.'</p>
+<p class="picture"><img src="../../../Images/image06756.jpeg" alt="alt"/></p>
+<p class="normaltext3">'OK – where are you now, Paul?'</p>
+<p class="normaltexty">'In College Road. I work there.'</p>
+<p class="normaltexty">'I work in Manchester Street. Can we meet in Queen's Square?' Sally asks.</p>
+<p class="normaltexty">'OK. What time do you finish work?'</p>
+<p class="normaltexty">'At half past five.'</p>
+<p class="normaltexty">'Let's meet in Queen's Square at a quarter to six,' says Paul. 'Phone me then.'</p>
+<p class="normaltexty">'OK, Paul,' says Sally.</p>
+<p class="picture"><img src="../../../Images/image06757.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">4 Evening</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a1"><span class="kk">4 Evening</span></p>
+<p class="normaltext3">It is half past five. Sally puts on her new skirt.</p>
+<p class="normaltexty">'Do you like it, Louise?' she asks.</p>
+<p class="normaltexty">'Oh yes. It's very nice.'</p>
+<p class="normaltexty">It is twenty to six. Paul arrives in Queen's Square. He looks for Sally. Is that Sally? He can not remember. He phones Sally.</p>
+<p class="normaltexty">'Hello, Sally. It's Paul. I'm in Queen's Square.'</p>
+<p class="normaltexty">'Hello, Paul. I'm coming.'</p>
+<p class="picture"><img src="../../../Images/image06758.jpeg" alt="alt"/></p>
+<p class="normaltext3">There are lots of people in Queen's Square, and many of them are talking on phones.</p>
+<p class="normaltexty">Which is Paul? Sally can not remember. She phones Paul.</p>
+<p class="normaltexty">'Paul – have you got black hair?'</p>
+<p class="normaltexty">'No, I haven't.'</p>
+<p class="normaltexty">'Good!' Sally thinks.</p>
+<p class="normaltexty">'Have you got a book in your hand?' asks Sally.</p>
+<p class="normaltexty">'No, I haven't.'</p>
+<p class="normaltexty">'Good!' Sally thinks.</p>
+<p class="picture"><img src="../../../Images/image06759.jpeg" alt="alt"/></p>
+<p class="normaltext3">Sally cannot find Paul.</p>
+<p class="normaltexty">'Where are you, Paul?'</p>
+<p class="normaltexty">'I'm near the trees.'</p>
+<p class="normaltexty">Sally goes across the square to the trees.</p>
+<p class="normaltexty">'Are you Paul?' Sally says.</p>
+<p class="normaltexty">Paul looks at Sally. 'She's beautiful!' he thinks.</p>
+<p class="normaltexty">'Yes, I'm Paul.'</p>
+<p class="normaltexty">'He's nice!' Sally thinks.</p>
+<p class="normaltexty">'I'm Sally. So – we meet again.'</p>
+<p class="picture"><img src="../../../Images/image06760.jpeg" alt="alt"/></p>
+<p class="normaltexty">'I'm sorry about your phone, Sally. Here it is.'</p>
+<p class="normaltexty">'That's OK. Here's your phone, Paul.'</p>
+<p class="normaltexty">'Sally – would you like a drink? I want to say sorry.'</p>
+<p class="normaltexty">'OK, but I haven't got much time.'</p>
+<p class="normaltexty">Paul looks for a bar.</p>
+<p class="normaltexty">'Let's go to the Blue Moon. We can have a drink there.'</p>
+<p class="picture"><img src="../../../Images/image06761.jpeg" alt="alt"/></p>
+<p class="normaltext3">Paul and Sally are at the Blue Moon. Sally sits down at a table. Paul brings their drinks.</p>
+<p class="normaltexty">'Here's your drink, Sally. And I am sorry about your phone.'</p>
+<p class="normaltexty">'Forget it, Paul – it doesn't matter. Oh, I've got a message for you. It's from your sister Katharine.'</p>
+<p class="normaltexty">'From Katharine? What is it?'</p>
+<p class="normaltexty">'She says that it's her birthday today, and there's a party at her house.'</p>
+<p class="picture"><img src="../../../Images/image06762.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Oh no!' Paul says. 'I always forget birthdays. What can I do?'</p>
+<p class="normaltexty">Sally looks across the square. Near the trees a woman is selling flowers.</p>
+<p class="normaltexty">'Buy some flowers for your sister, and take them to the party,' she says to Paul.</p>
+<p class="normaltexty">'Of course! That's the answer. Look, Sally – do you want to come to the party with me? Katharine always has good parties.'</p>
+<p class="normaltexty">'Well, I...' Sally says.</p>
+<p class="picture"><img src="../../../Images/image06763.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Oh, I must tell you,' Paul says. 'I've got a message for you from Andrew. He says—'</p>
+<p class="normaltexty">'It doesn't matter, Paul,' says Sally. 'I don't want the message. I would like to go to the party with you. But I must do something before we go.'</p>
+<p class="normaltexty">Sally takes her phone out of her bag and turns it off.</p>
+<p class="normaltexty">In the Bar Bogart, Andrew phones Sally. Sally does not answer. 'Sally?' says Andrew. 'Sally? Answer me!'</p>
+<p class="normaltexty">Sally and Paul leave the Blue Moon.</p>
+<p class="normaltexty">'That's a nice skirt,' says Paul. 'I like red.'</p>
+<p class="normaltexty">Sally smiles at him.</p>
+<p class="picture"><img src="../../../Images/image06764.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="a1">GLOSSARY<br/>词汇表</p>
+<p class="normaltexta"><b>bar</b> <em>n.</em> a place where people can buy and have drinks　<span class="Kai">酒吧</span></p>
+<p class="normaltexta"><b>birthday</b> <em>n.</em> the day when your age changes　<span class="Kai">生日</span></p>
+<p class="normaltexta"><b>boss</b> <em>n.</em> the person that you work for　<span class="Kai">上司，老板</span></p>
+<p class="normaltexta"><b>boyfriend</b> <em>n.</em> a man or boy that a girl likes and goes out with　<span class="Kai">男朋友</span></p>
+<p class="normaltexta"><b>button</b> <em>n.</em> a phone has buttons with numbers on　<span class="Kai">键，按钮</span></p>
+<p class="normaltexta"><b>lunchtime</b> <em>n.</em> the time (usually between 12 o'clock and 2 o'clock) when people stop work to have something to eat　<span class="Kai">午餐时间</span></p>
+<p class="normaltexta"><b>message</b> <em>n.</em> something you want to tell somebody　<span class="Kai">消息，留言</span></p>
+<p class="normaltexta"><b>party</b> <em>n.</em> a meeting of friends to eat, drink, talk, dance etc　<span class="Kai">聚会，派对</span></p>
+<p class="normaltexta"><b>press</b> <em>v.</em> push with your finger　<span class="Kai">按，压</span></p>
+<p class="normaltexta"><b>ring</b> <em>v.</em> make a sound like a bell (a telephone rings)　<span class="Kai">（电话）响铃，鸣响</span></p>
+<p class="normaltexta"><b>turn off</b> stop something working　<span class="Kai">关掉，关上</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01">Sally's Phone</p>
+<p class="sx1"></p>
+<p class="title1" id="a1">ACTIVITIES<br/>阅读练习</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>Before Reading</em></h2>
+<p class="normaltextb1">1 Look at the front and <a href="part0234.xhtml">back</a> covers of the book and choose the correct ending for these sentences.</p>
+<p class="normaltextb02">1) The story happens...</p>
+<p class="normaltextb3">a □ in the country.</p>
+<p class="normaltextb3">b □ in the city.</p>
+<p class="normaltextb3">c □ at sea.</p>
+<p class="normaltextb02">2) The story happens...</p>
+<p class="normaltextb3">a □ in 1950.</p>
+<p class="normaltextb3">b □ in 2100.</p>
+<p class="normaltextb3">c □ today.</p>
+<p class="normaltextb1">2 Guess what happens.</p>
+<p class="normaltextb02">At the end of the story Sally has got...</p>
+<p class="normaltextb2">1) a new phone.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">2) her old phone.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">3) a new boyfriend.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">4) a new brother.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">5) a new car.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">6) a new skirt.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>While Reading</em></h2>
+<p class="normaltextb1">1 Read Chapter 1. Are these sentences true (T) or false (F)?</p>
+<p class="normaltextb2">1) In the morning, Sally's phone is behind the door.</p>
+<p class="normaltextb2">2) Sally is meeting Jack tonight.</p>
+<p class="normaltextb2">3) Michael is Andrew's boss.</p>
+<p class="normaltextb2">4) Jack does not like Andrew.</p>
+<p class="normaltextb2">5) Lucy is working in High Street.</p>
+<p class="normaltextb2">6) Mary likes Jane's shoes.</p>
+<p class="normaltextb1">2 Read Chapter 2 and answer the questions.</p>
+<p class="normaltextb2">Where...</p>
+<p class="normaltextb2">1) ... is Sally meeting Andrew?</p>
+<p class="normaltextb2">2) ... does Sally go for a coffee?</p>
+<p class="normaltextb2">Who ...</p>
+<p class="normaltextb2">3) ... does not like red?</p>
+<p class="normaltextb2">4) ... picks up Sally's bag?</p>
+<p class="normaltextb1">3 Read the first half of Chapter 3. Who says or thinks these words?</p>
+<p class="normaltextb2">1) 'Who's Sally? There's no Sally here.'</p>
+<p class="normaltextb2">2) 'What a nice voice!'</p>
+<p class="normaltextb2">3) 'It's my birthday.'</p>
+<p class="normaltextb2">4) 'Put on your red skirt and go to the party.'</p>
+<p class="normaltextb1">4 Read the second half of Chapter 3. Now answer these questions.</p>
+<p class="normaltextb2">1) Why does Paul not know his phone number?</p>
+<p class="normaltextb2">2) Who does Paul phone first?</p>
+<p class="normaltextb2">3) What is the name of Paul's sister?</p>
+<p class="normaltextb2">4) What do Paul and Sally need to do?</p>
+<p class="normaltextb2">5) Where does Sally work?</p>
+<p class="normaltextb1">5 Read the first half of Chapter 4. Are these sentences true (T) or false (F)?</p>
+<p class="normaltextb2">1) Louise likes Sally's skirt.</p>
+<p class="normaltextb2">2) Paul has got black hair.</p>
+<p class="normaltextb2">3) Paul is waiting near the trees.</p>
+<p class="normaltextb2">4) They go to the Bar Bogart for a drink.</p>
+<p class="normaltextb1">6 Read the second half of Chapter 4, can you guess what happens?</p>
+<p class="normaltextb2">1) Paul and Sally meet Andrew.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">2) Andrew and Sally go to the Bar Bogart.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">3) Paul and Sally go to Katharine's party.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">4) Andrew phones Sally.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">5) Sally phones Andrew.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">6) Paul buys flowers for Katharine.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb2">7) Paul buys flowers for Sally.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h2 class="title2">ACTIVITIES</h2>
+<p class="sx"></p>
+<h2 class="title2"><em>After Reading</em></h2>
+<p class="normaltextb1">1 Put these sentences in the correct order. Number them 1-10.</p>
+<p class="normaltextb002">a □ Paul finishes his coffee.</p>
+<p class="normaltextb002">b □ Paul says 'I'm sorry,' and he gives the bag to Sally.</p>
+<p class="normaltextb002">c □ She buys a coffee and sits down.</p>
+<p class="normaltextb002">d □ She finishes her coffee and picks up her bag and phone.</p>
+<p class="normaltextb002">e □ Then she goes to the café.</p>
+<p class="normaltextb002">f □ When he stands up, Sally's bag falls on the floor.</p>
+<p class="normaltextb002">g □ Sally goes to the shops with Claire and buys a skirt.</p>
+<p class="normaltextb002">h □ Then he picks up a phone and goes out of the café.</p>
+<p class="normaltextb002">i □ She goes back to work.</p>
+<p class="normaltextb002">j □ She phones her mother and tells her about the new skirt.</p>
+<p class="normaltextb1">2 What do you know about Sally? Write a description using these words.</p>
+<p class="normaltext0"><em>live/mother/brother</em></p>
+<p class="normaltext0"><em>go to work/train</em></p>
+<p class="normaltext0"><em>work/friends/Claire and Louise</em></p>
+<p class="normaltext0"><em>like/red</em></p>
+<p class="normaltext0"><em>has got/boyfriend/Andrew</em></p>
+<p class="normaltextb1">3 Who says this? Who do they say it to?</p>
+<p class="normaltextb2">1) 'Sally, I don't like your hair.'</p>
+<p class="normaltextb2">2) 'Bar Bogart. Mmm – that's nice.'</p>
+<p class="normaltextb2">3) 'It's beautiful, but I never wear red.'</p>
+<p class="normaltextb2">4) 'Red is a good colour for you.'</p>
+<p class="normaltextb2">5) 'What's my number?'</p>
+<p class="normaltextb1">4 Complete this summary of the story. Use these words:</p>
+<p class="normaltext0"><em>Square　buys　party　lunchtime　afternoon　picks up　birthday　boyfriend　answer　coffee</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Sally's _________ Andrew phones her early in the morning. He wants to meet her that evening. At _________ Sally buys a new skirt with her friend Claire. Then Sally has a _________ in a café. When Sally's bag falls to the floor, Sally meets Paul. He _________ her bag, but he takes her phone – and Sally takes his phone. That _________, Andrew phones Sally – but he talks to Paul. Paul's sister wants to tell him about her _________ party – but she speaks to Sally. In the end, Paul phones Sally, and they meet after work in Queen's _________. Paul _________ some flowers for his sister, and he and Sally go to her _________. Andrew phones Sally, but she does not _________.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle" id="a1">TRANSLATION　参考译文</p>
+<p class="title2">Sally's Phone<br/><span class="Kai">萨莉的手机</span></p>
+<p class="subtitle1"><span class="k1">1</span>　<a href="part0226.xhtml#a1">清晨</a></p>
+<p class="normaltext2">一个星期四的清晨，萨莉还在床上睡觉。忽然，丁零零！她的手机响了。可是手机在哪里呢？</p>
+<p class="normaltext2">萨莉起床看看自己的包，没有手机。她看了看床底下，还是没有。然后她又看了看门后面，才见到手机。萨莉捡起手机接电话。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“喂，萨莉，我是安德鲁。”</p>
+<p class="normaltext2">安德鲁是萨莉的男朋友。他很有钱，还有一辆漂亮昂贵的汽车。</p>
+<p class="normaltext2">“安德鲁，现在才7点钟……”</p>
+<p class="normaltext2">“别忘了，萨莉，我们今晚要见迈克尔。今天晚上很重要，因为迈克尔是我的新上司。穿上你的蓝裙子，萨莉，我喜欢那条裙子。我现在得挂电话了。6点半见。再见！”</p>
+<p class="normaltext2">“可是安德鲁……再见！”</p>
+<p class="normaltext2">“我不能穿那条蓝裙子，”萨莉心想，“它脏了。我应该穿什么呢？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">萨莉正和她妈妈、弟弟杰克一起吃早餐。</p>
+<p class="normaltext2">“我今晚要出去，”萨莉对妈妈说，“我和安德鲁要见他的新上司。”</p>
+<p class="normaltext2">“安德鲁？”杰克说，“哼！”</p>
+<p class="normaltext2">“不要这样，杰克，”萨莉说，“安德鲁对我很好。”</p>
+<p class="normaltext2">“好？”杰克说，“哼！‘萨莉，我要个三明治。’‘好的，安德鲁。’‘萨莉，我不喜欢你的发型。’‘是的，安德鲁，对不起，安德鲁。’‘萨莉……’”</p>
+<p class="normaltext2">这时萨莉站了起来，于是杰克溜出了房间。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">萨莉上了地铁。车厢里的人很多，许多人都在打电话。</p>
+<p class="normaltext2">“约翰？约翰！起床去上班。时间不早了！”</p>
+<p class="normaltext2">“你拿到我的钱了吗？我今天需要钱。今天我必须得拿到钱。”</p>
+<p class="normaltext2">“记着今晚去趟超市。别忘了！”</p>
+<p class="normaltext2">萨莉正在接听安德鲁的电话。</p>
+<p class="normaltext2">“萨莉，我们改为6点见，不是6点半了。好吧？”</p>
+<p class="normaltext2">“好的，安德鲁，不过我的蓝裙子……”</p>
+<p class="normaltext2">“我得挂了，萨莉。再见！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">这时地铁开进了隧道。车厢里的人打不了电话了，只能跟周围的人聊天。</p>
+<p class="normaltext2">“嗨，马克斯！你好吗？”</p>
+<p class="normaltext2">“哦，你好，格雷厄姆！我很好。”</p>
+<p class="normaltext2">“你现在在哪里工作，露西？”</p>
+<p class="normaltext2">“我刚到银行街的一家新单位上班。”</p>
+<p class="normaltext2">“鞋子不错，简。”</p>
+<p class="normaltext2">“谢谢，玛丽。”</p>
+<p class="normaltext2">三分钟后，地铁开出了隧道。大家又开始打电话。</p>
+<p class="normaltext2">“喂？约翰？你现在起床了吗？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">现在萨莉在上班。她正在跟她的朋友克莱尔聊天，说到了安德鲁、迈克尔和蓝裙子的事儿。</p>
+<p class="normaltext2">“没事儿的，萨莉，”克莱尔说，“我们午餐时间出去逛逛，找一条新裙子吧。这样你晚上就可以穿了。”</p>
+<p class="normaltext2">过了一会儿，克莱尔和萨莉跟路易丝一起喝咖啡。路易丝是她俩的同事。</p>
+<p class="normaltext2">丁零零！又是安德鲁。</p>
+<p class="normaltext2">“喂，萨莉。听我说，今晚我们在博加特酒吧见面，不去科斯莫酒吧了——好吧？博加特酒吧更近一些。再见！”</p>
+<p class="normaltext2">“博加特酒吧，”克莱尔说，“嗯，那儿不错。”</p>
+<p class="normaltext2">“哼！”路易丝说，“别想他了，萨莉。谁需要男人？整天说‘干这，干那，去那儿，别去那儿。’呸！”</p>
+<p class="subtitle1"><span class="k1">2</span>　<a href="part0227.xhtml#a1">午餐时间</a></p>
+<p class="normaltext2">现在是下午1点钟。萨莉和克莱尔正在逛服装店看裙子。</p>
+<p class="normaltext2">“你喜欢这条吗，萨莉？”克莱尔问。</p>
+<p class="normaltext2">“喜欢，很漂亮，不过我从来不穿红色的。”</p>
+<p class="normaltext2">“你喜欢红色吗？”克莱尔问。</p>
+<p class="normaltext2">“喜欢，可安德鲁不喜欢。”</p>
+<p class="normaltext2">“唔，”克莱尔说，“这条裙子很漂亮，你又喜欢红色。你该怎么办呢？”</p>
+<p class="normaltext2">萨莉买下了这条裙子。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">克莱尔回去上班了，但是萨莉想喝杯咖啡。她走进一家咖啡馆，要了一杯咖啡，坐了下来。然后她给妈妈打电话。</p>
+<p class="normaltext2">“喂，妈妈。我买了一条新裙子——很漂亮！我想今天晚上就穿这条。”</p>
+<p class="normaltext2">“是什么颜色的？”</p>
+<p class="normaltext2">“红色。”</p>
+<p class="normaltext2">“挺好的。红色很适合你。”她妈妈说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">在萨莉的旁边，是快要喝完咖啡的保罗。他给朋友打了个电话聊了一会儿，然后站起来。这时，装着红裙子的袋子掉在了地上。</p>
+<p class="normaltext2">“呀！对不起。”保罗说。他把手机放在桌子上，把袋子捡了起来。“给你袋子。”</p>
+<p class="normaltext2">“没关系，”萨莉说，“谢谢你。”她莞尔一笑。</p>
+<p class="normaltext2">“多美的笑容啊！”保罗心想。</p>
+<p class="normaltext2">保罗从桌子上拿起手机走出了咖啡馆。萨莉喝完咖啡，拿起她的袋子和手机，回去上班了。</p>
+<p class="subtitle1"><span class="k1">3</span>　<a href="part0228.xhtml#a1">下午</a></p>
+<p class="normaltext2">保罗在办公室里。</p>
+<p class="normaltext2">丁零零！</p>
+<p class="normaltext2">“什么声音？”保罗心想。他接起电话。是安德鲁。</p>
+<p class="normaltext2">“喂，萨莉？”</p>
+<p class="normaltext2">“我不是萨莉，我是保罗。”</p>
+<p class="normaltext2">“保罗？哪个保罗？萨莉呢？”</p>
+<p class="normaltext2">“谁是萨莉？这儿没有叫萨莉的。”</p>
+<p class="normaltext2">“哼！”</p>
+<p class="normaltext2">安德鲁挂断了电话。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">保罗想给妈妈打个电话。他在手机通讯录里找到“妈妈”，然后按了通话键。</p>
+<p class="normaltext2">“喂，妈妈。我是保罗。”</p>
+<p class="normaltext2">“保罗？谁是保罗？我不是保罗的妈妈。我是萨莉和杰克的妈妈。”</p>
+<p class="normaltext2">“这是怎么回事？”保罗心想。</p>
+<p class="normaltext2">“您那边电话号码是多少？”他问。</p>
+<p class="normaltext2">“我这里电话是0783 491839。”</p>
+<p class="normaltext2">“真不好意思，”保罗说，“我打错了。”</p>
+<p class="normaltext2">“没关系。”萨莉的妈妈说。“多好听的声音啊！”她心想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">萨莉在上班。</p>
+<p class="normaltext2">丁零零！</p>
+<p class="normaltext2">“什么声音？”萨莉想。她接起电话。</p>
+<p class="normaltext2">“喂，是保罗吗？”</p>
+<p class="normaltext2">“不是，不好意思，我……”</p>
+<p class="normaltext2">“你能给他捎个信儿吗？我是他妹妹凯瑟琳。今晚在我家有个派对。今天是我的生日。”</p>
+<p class="normaltext2">“不过我……”</p>
+<p class="normaltext2">“今晚8点。告诉他好吗？再见！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">萨莉跟克莱尔和路易丝说起这件事。</p>
+<p class="normaltext2">“有人让我捎口信给保罗——可是谁是保罗？克莱尔，你认识一个叫保罗的人吗？”萨莉问。</p>
+<p class="normaltext2">“不认识。是什么口信啊？”克莱尔问。</p>
+<p class="normaltext2">“今天是他妹妹凯瑟琳的生日，今晚她要举办一个派对。你觉得是不是打错电话了？”</p>
+<p class="normaltext2">“是的，我想是打错了。”克莱尔说。</p>
+<p class="normaltext2">“嘿，萨莉！”路易丝说，“穿上你的红裙子去参加派对吧。别管安德鲁了！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">保罗与单位同事聊起这件事。</p>
+<p class="normaltext2">“这是萨莉的手机，而萨莉拿了我的手机。”</p>
+<p class="normaltext2">“可谁是萨莉？”</p>
+<p class="normaltext2">“我不知道。”保罗说。</p>
+<p class="normaltext2">“为什么不打电话给她呢？”</p>
+<p class="normaltext2">“我的手机号码是多少？”保罗问，“我不知道我的号码。”</p>
+<p class="normaltext2">“怎么会不知道？”</p>
+<p class="normaltext2">“因为我从来不给自己打电话！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">保罗给他妈妈打电话。</p>
+<p class="normaltext2">“妈妈，我的手机号码是多少？”</p>
+<p class="normaltext2">“你为什么想要自己的电话号码呢，保罗?”</p>
+<p class="normaltext2">“因为萨莉拿了我的手机。”</p>
+<p class="normaltext2">“萨莉是谁？”他的妈妈问。</p>
+<p class="normaltext2">“我不知道，不过她拿了我的手机，而我拿了她的手机。”</p>
+<p class="normaltext2">“我没听明白你在说什么。”</p>
+<p class="normaltext2">“我知道，”保罗说，“没关系。你有我的手机号码吗？”</p>
+<p class="normaltext2">“有。0781 644834。”</p>
+<p class="normaltext2">“谢谢妈妈。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">保罗给萨莉打电话。</p>
+<p class="normaltext2">“你好，萨莉，我是保罗。”</p>
+<p class="normaltext2">“保罗，你是凯瑟琳的哥哥吗？”萨莉问。</p>
+<p class="normaltext2">“是的，没错。我拿走了你的手机。”</p>
+<p class="normaltext2">“我的手机？噢——等等。午餐时间在古巴咖啡馆？掉在地上的袋子？”</p>
+<p class="normaltext2">“是的，没错。好了，我们需要交换手机。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“好的，你现在在哪儿，保罗？”</p>
+<p class="normaltext2">“在学院路。我在这儿上班。”</p>
+<p class="normaltext2">“我在曼彻斯特大街上班。我们在王后广场见面好吗？”萨莉问。</p>
+<p class="normaltext2">“好的。你几点下班？”</p>
+<p class="normaltext2">“5点半。”</p>
+<p class="normaltext2">“那我们5点45分在王后广场见吧，”保罗说，“到了给我打电话。”</p>
+<p class="normaltext2">“好的，保罗。”萨莉说。</p>
+<p class="subtitle1"><span class="k1">4</span>　<a href="part0229.xhtml#a1">傍晚</a></p>
+<p class="normaltext2">5点半，萨莉穿上了她的新裙子。</p>
+<p class="normaltext2">“你喜欢这条裙子吗，路易丝？”她问。</p>
+<p class="normaltext2">“哦，喜欢。非常好看。”</p>
+<p class="normaltext2">5点40分，保罗到了王后广场。他在找萨莉。那是萨莉吗？他不记得她的模样了，于是他给萨莉打电话。</p>
+<p class="normaltext2">“喂，萨莉。我是保罗。我到王后广场了。”</p>
+<p class="normaltext2">“喂，保罗。我快到了。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">王后广场上人头攒动，许多人都在打电话。</p>
+<p class="normaltext2">哪个是保罗呢？萨莉想不起他的长相。她给保罗打电话。</p>
+<p class="normaltext2">“保罗，你的头发是黑色的吗？”</p>
+<p class="normaltext2">“不，不是。”</p>
+<p class="normaltext2">“那就好！”萨莉心想。</p>
+<p class="normaltext2">“你手里是不是拿着一本书？”萨莉问。</p>
+<p class="normaltext2">“不，没有。”</p>
+<p class="normaltext2">“那就好！”萨莉心想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">萨莉找不到保罗。</p>
+<p class="normaltext2">“你在哪儿，保罗？”</p>
+<p class="normaltext2">“我在小树林附近。”</p>
+<p class="normaltext2">萨莉穿过广场向小树林走去。</p>
+<p class="normaltext2">“你是保罗吗？”萨莉问。</p>
+<p class="normaltext2">保罗看着萨莉，心想：“她真漂亮！”</p>
+<p class="normaltext2">“是的，我是保罗。”</p>
+<p class="normaltext2">“他真不错！”萨莉暗自想。</p>
+<p class="normaltext2">“我是萨莉。我们又见面了。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“手机的事儿真抱歉，萨莉。给你。”</p>
+<p class="normaltext2">“没关系。这是你的手机，保罗。”</p>
+<p class="normaltext2">“萨莉，你想喝一杯吗？我想向你道歉。”</p>
+<p class="normaltext2">“可以，不过我的时间不多。”</p>
+<p class="normaltext2">保罗在找酒吧。</p>
+<p class="normaltext2">“我们去蓝月亮吧。我们可以在那儿喝一杯。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">保罗和萨莉在蓝月亮酒吧。萨莉坐在一张桌子前，保罗把喝的端过来。</p>
+<p class="normaltext2">“这是你的，萨莉。手机的事儿真不好意思。”</p>
+<p class="normaltext2">“不提这事了，保罗，没关系的。噢，我有个口信要转告你，是你妹妹凯瑟琳的口信。”</p>
+<p class="normaltext2">“凯瑟琳的口信？什么事?”</p>
+<p class="normaltext2">“她说今天是她的生日，她在家搞了个派对。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“啊，糟了！”保罗说。“我经常忘记别人的生日。我该怎么办呢？”</p>
+<p class="normaltext2">萨莉向广场另一边望去，她看见小树林附近有个女人在卖花。</p>
+<p class="normaltext2">“给你妹妹买些花，然后带着花去参加派对吧。”她对保罗说。</p>
+<p class="normaltext2">“对，就这么办。哎，萨莉，你愿意和我一起去参加派对吗？凯瑟琳的派对总是很棒的。”</p>
+<p class="normaltext2">“嗯，我……”萨莉说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2">“噢，我得告诉你，”保罗说，“有个叫安德鲁的人给你留了口信。他说……”</p>
+<p class="normaltext2">“别管了，保罗，”萨莉说，“我不想知道。我愿意和你一起去参加派对，不过去之前我必须先做一件事。”</p>
+<p class="normaltext2">萨莉从包里掏出手机，把它关了。</p>
+<p class="normaltext2">在博加特酒吧，安德鲁给萨莉打电话。萨莉没有接。“萨莉？”安德鲁说，“萨莉？接电话！”</p>
+<p class="normaltext2">萨莉和保罗离开了蓝月亮酒吧。</p>
+<p class="normaltext2">“你的裙子真漂亮，”保罗说，“我喜欢红色。”</p>
+<p class="normaltext2">萨莉冲他嫣然一笑。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-12" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="a1"><img src="../../../Images/image06766.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

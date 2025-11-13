@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>越狱 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '越狱';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>越狱</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">越狱</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">ESCAPE</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">Escape</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP1"><img src="../../../Images/image06553.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2" id="CHP2">京权图字：01-2013-7798</p>
+<p class="normaltext0">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext0">© Oxford University Press 2008</p>
+<p class="normaltext0">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">越狱：英汉对照／（英）伯罗斯（Burrows, P.），（英）福斯特（Foster, M.）著．祁佳译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Escape</p>
+<p class="normaltext">ISBN 978-7-5135-3761-2</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①越…　Ⅱ．①伯…　②福…　③祁…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第271147号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">出版人　　蔡剑峰</p>
+<p class="normaltext0">责任编辑　徐　宁</p>
+<p class="normaltext0">执行编辑　张紫薇</p>
+<p class="normaltext0">封面设计　蔡　颖</p>
+<p class="normaltext0">出版发行　外语教学与研究出版社</p>
+<p class="normaltext0">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext0">网　　址　http://www.fltrp.com</p>
+<p class="normaltext0">版　　次　2013年12月第1版</p>
+<p class="normaltext0">书　　号　ISBN 978-7-5135-3761-2</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">制售盗版必究　举报查实奖励</p>
+<p class="normaltext0">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP3">内容简介</p>
+<p class="normaltextx">“天气真好。哦，我忘了——你出不去。哈哈哈！”监狱看守说。布朗正在坐牢——坐五年牢！他能做的只有看书。监狱看守讨厌他，给他糟糕的食物。“这不是生活。我必须从这儿逃出去。”他想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">后来有一天，他从那扇很小的窗户往外看，看到了一只鸟。“那只鸟是自由的。”他想。突然，他有了一个主意：“我可以像那只鸟一样……”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">布朗有了什么主意？他怎么才能像鸟一样？他能逃出监狱吗？</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">ESCAPE</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP4">ESCAPE</p>
+<p class="normaltext0">'It's a very beautiful day. Oh, I forget – you can't go out. Ha, ha, ha!' says the prison guard. Brown is in prison – for five years! All he can do is read. The prison guard hates him and gives him bad food. 'This is no life. I must get out of here,' he thinks.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Then one day, he looks out of his very small window and he sees a bird. 'That bird is free,' he thinks. Suddenly he has an idea: 'I can be like that bird,' he thinks...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">What is Brown's idea? How can he be like a bird? Can he escape from prison?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">CONTENTS<br/>目　录</div>
+<div class="contents1"><a href="part0145.xhtml#CHP3">内容简介</a></div>
+<div class="contents1"><a href="part0148.xhtml#CHP5">Escape</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0149.xhtml#CHP6">GLOSSARY<br/>词汇表</a></div>
+<div class="contents1"><a href="part0150.xhtml#CHP7">ACTIVITIES<br/>阅读练习</a></div>
+<div class="contents1"><a href="part0151.xhtml#CHP8">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">Escape</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP5"><span class="xt">ESCAPE</span></p>
+<p class="picture"><a href="part0151.xhtml#a1"><img src="../../../Images/image06554.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a2"><img src="../../../Images/image06555.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a3"><img src="../../../Images/image06556.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a4"><img src="../../../Images/image06557.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a5"><img src="../../../Images/image06558.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a6"><img src="../../../Images/image06559.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a7"><img src="../../../Images/image06560.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a8"><img src="../../../Images/image06561.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a9"><img src="../../../Images/image06562.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a10"><img src="../../../Images/image06563.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a11"><img src="../../../Images/image06564.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a12"><img src="../../../Images/image06565.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a13"><img src="../../../Images/image06566.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a14"><img src="../../../Images/image06567.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a15"><img src="../../../Images/image06568.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a16"><img src="../../../Images/image06569.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a17"><img src="../../../Images/image06570.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a18"><img src="../../../Images/image06571.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a19"><img src="../../../Images/image06572.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a20"><img src="../../../Images/image06573.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a21"><img src="../../../Images/image06574.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a22"><img src="../../../Images/image06575.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a23"><img src="../../../Images/image06576.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0151.xhtml#a24"><img src="../../../Images/image06577.jpeg" alt="alt"/></a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP6">GLOSSARY<br/>词汇表</p>
+<p class="normaltext3"><b>believe</b> <em>v</em>. think someone is telling the truth　<span class="normaltext0x">相信</span></p>
+<p class="normaltext3"><b>electric</b> <em>adj</em>. an electric fence works by using electricity　<span class="normaltext0x">带电的</span></p>
+<p class="normaltext3"><b>escape</b> <em>v</em>. run away from prison　<span class="normaltext0x">（从监狱等）逃走，逃离</span></p>
+<p class="normaltext3"><b>free </b><em>adj</em>. not in prison　<span class="normaltext0x">自由的，无拘束的</span></p>
+<p class="normaltext3"><b>hate</b> <em>v</em>. strongly dislike　<span class="normaltext0x">憎恨，仇恨</span></p>
+<p class="normaltext3"><b>hide</b> <em>v</em>. go to a place where no one can see you　<span class="normaltext0x">躲藏，藏身</span></p>
+<p class="normaltext3"><b>hurt</b> <em>v</em>. a broken leg hurts　<span class="normaltext0x">感到疼痛</span></p>
+<p class="normaltext3"><b>idea</b> <em>n</em>. a clever thought　<span class="normaltext0x">想法，主意</span></p>
+<p class="normaltext3"><b>innocent</b> <em>adj</em>. doing no wrong　<span class="normaltext0x">无罪的，清白的</span></p>
+<p class="normaltext3"><b>lie</b> <em>v</em>. you lie on your back when you sleep　<span class="normaltext0x">躺，平卧</span></p>
+<p class="normaltext3"><b>ouch</b> <em>interj.</em> a noise you make when you hurt yourself　<span class="normaltext0x">哎哟（突</span><span class="normaltext0x">然感到疼痛时的叫声）</span></p>
+<p class="normaltext3"><b>safe</b> <em>adj</em>. you are safe when no one can hurt you　<span class="normaltext0x">安全的</span></p>
+<p class="normaltext3"><b>shush</b> <em>n</em>. a noise you say to make someone quiet　<span class="normaltext0x">嘘声（让别人</span><span class="normaltext0x">安静所发出的声音）</span></p>
+<p class="normaltext3"><b>snore</b> <em>n</em>. a noise some people make when they sleep　<span class="normaltext0x">鼾声</span></p>
+<p class="normaltext3a"><em>v</em>. when someone who is sleeping snores, they make a noise through their nose and mouth　<span class="normaltext0x">打鼾，打呼噜</span></p>
+<p class="normaltext3"><b>stomach</b> <em>n</em>. the part of your body where food goes　<span class="normaltext0x">胃，腹部</span></p>
+<p class="normaltext3"><b>thief</b> <em>n</em>. someone who takes something that is not theirs　<span class="normaltext0x">小偷，贼</span></p>
+<p class="normaltext3"><b>turn</b> <em>v</em>. move something　<span class="normaltext0x">使转向；对准</span></p>
+<p class="normaltext3"><b>way</b> <em>n</em>. a direction or path　<span class="normaltext0x">方向；道路</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">Escape</p>
+<hr/>
+<p class="subtitle1" id="CHP7">ACTIVITIES<br/>阅读练习</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1"><span class="underline">ACTIVITIES</span><br/><em>Before Reading</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Look at the front and <a href="part0153.xhtml">back covers</a> of the book and answer these questions.</p>
+<p class="normaltexta">1) Who is Brown?</p>
+<p class="normaltexta2">a □ A cross-country runner.</p>
+<p class="normaltexta2">b □ A prisoner.</p>
+<p class="normaltexta2">c □ A farmer.</p>
+<p class="normaltexta">2) What do you think happens to Brown?</p>
+<p class="normaltexta2">a □ Someone catches Brown.</p>
+<p class="normaltexta2">b □ Brown escapes.</p>
+<p class="normaltexta2">c □ Someone shoots Brown.</p>
+<p class="normaltexta">3) Do you think Brown is</p>
+<p class="normaltexta2">a □ ... a thief?</p>
+<p class="normaltexta2">b □ ... a murderer?</p>
+<p class="normaltexta2">c □ ... an innocent man?</p>
+<p class="normaltext04">2 Read the story introduction on the front of the book and answer these questions.</p>
+<p class="normaltextaa">1) Does the prison guard like Brown?</p>
+<p class="normaltextaa">2) Brown has an idea. What is it, do you think?</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1"><span class="underline">ACTIVITIES</span><br/><em>While Reading</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Match the words with the pictures.</p>
+<p class="picture"><img src="../../../Images/image06578.jpeg" alt="alt"/></p>
+<p class="normaltextaa">a □ 'Good, I'm safe. The farmer's going away.'</p>
+<p class="normaltextaa">b □ 'Be careful, Brown. Don't fall now.'</p>
+<p class="normaltextaa">c □ 'Ow!'</p>
+<p class="normaltextaa">d □ 'I'm not hungry!'</p>
+<p class="normaltext04">2 Are the following true (T) or false (F)?</p>
+<p class="normaltextaa">1) Brown must stay in prison for ten years.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">2) Someone sees Brown escape.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">3) The guard brings Brown his dinner.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">4) Brown sees a dog out of the window.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">5) The guard hides from Brown.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">6) Brown hides in a ditch.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext04">3 Answer the following questions.</p>
+<p class="normaltextaa">Who</p>
+<p class="normaltextaa">1) ... hides in the river?</p>
+<p class="normaltextaa">2) ... is sitting by the side of the road?</p>
+<p class="normaltextaa">3) ... says: 'He does snore!'?</p>
+<p class="normaltextaa">4) ... wants her clothes back?</p>
+<p class="normaltextaa">5) ... wants three big pizzas?</p>
+<p class="normaltextaa">6) ... says: 'Nobody escapes from me'?</p>
+<p class="normaltextaa">7) ... is digging a tunnel?</p>
+<p class="normaltextaa">Why</p>
+<p class="normaltextaa">8) ... does Brown stop cycling?</p>
+<p class="normaltextaa">9) ... does Brown change his clothes?</p>
+<p class="normaltextaa1">10) ... can't Brown climb the fence?</p>
+<p class="normaltextaa1">11) ... is Brown's box not on the plane?</p>
+<p class="normaltextaa">What</p>
+<p class="normaltextaa1">12) ... does Brown take from the camper?</p>
+<p class="normaltextaa1">13) ... does Brown say to the chickens?</p>
+<p class="normaltextaa1">14) ... does the woman pilot want to eat?</p>
+<p class="normaltextaa1">15) ... does Brown do when he is back in his cell?</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Use these words to join the sentences together.</p>
+<p class="normaltextaa0"><em>but　　and　　when　　so</em></p>
+<p class="normaltextaa">1) Brown is in prison. He says he is innocent.</p>
+<p class="normaltextaa">2) Brown jumps in the ditch. The guards shine the light.</p>
+<p class="normaltextaa">3) The dogs chase Brown. He hides in the water.</p>
+<p class="normaltextaa">4) One pilot wants one pizza. The other pilot wants three.</p>
+<p class="normaltextaa">5) Brown cannot escape by plane. He has another idea.</p>
+<p class="normaltext04">2 Write a short letter to a friend. Tell them what the story is about. Include these words in your letter:</p>
+<p class="normaltextaa0"><em>escape　prison　guard　farmer　plane　box　light　fence　catch　fly　dogs　book</em></p>
+<p class="normaltext4">_______________________________________________________________________________________________________________________________________________________________________</p>
+<p class="normaltext04">3 Write a different ending by filling in the box and bubbles.</p>
+<p class="picture"><img src="../../../Images/image06579.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle" id="CHP8">TRANSLATION　参考译文</p>
+<p class="title1">Escape<br/>越狱</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x" id="a1">I'm innocent! Why don't they believe me?</p>
+<p class="normaltext0x">Five years! I must stay in this prison for five years! All I do is read. This is no life. I must get out of here.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">我是无辜的！他们为什么不相信我？</p>
+<p class="normaltext0x">五年！我得在这座监狱里呆五年！我能做的只有看书。这不是生活。我必须从这儿逃出去。</p>
+<hr/>
+<p class="normaltext0x" id="a2"><b>Suddenly the door opens.</b></p>
+<p class="normaltext0x">Ah, Brown. How are you today? You like your book, I see.</p>
+<p class="normaltext0x">It's a very beautiful day. Oh, I forget – you can't go out. Ha, ha, ha!</p>
+<p class="normaltext0x">Why do you hate me? You don't know me. Why do you say these things?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext000"><b>突然，门开了。</b></p>
+<p class="normaltext0x">啊，布朗。你今天怎么样？看来你喜欢你的书。</p>
+<p class="normaltext0x">今天天气真好啊。哦，我忘了——</p>
+<p class="normaltext0x">你出不去。哈哈哈！</p>
+<p class="normaltext0x">你为什么讨厌我？你都不认识我，为什么说这些话？</p>
+<hr/>
+<p class="normaltext0x" id="a3">You're a thief. Everybody hates thieves.</p>
+<p class="normaltext0x">I'm not a thief. I'm an innocent man.</p>
+<p class="normaltext0x">You're not innocent. Why are you in prison? Can you answer that? Now, eat and be quiet.</p>
+<p class="normaltext0x">I'm not hungry!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">你是个贼。大家都讨厌贼。</p>
+<p class="normaltext0x">我不是贼。我是无辜的。</p>
+<p class="normaltext0x">你才不无辜呢。你为什么会进监狱？你能回答吗？现在给我吃饭，闭嘴。</p>
+<p class="normaltext0x">我不饿！</p>
+<hr/>
+<p class="normaltext0x" id="a4">Now, don't get angry, Brown.</p>
+<p class="normaltext0x">The guard's right – it <b>is</b> a beautiful day. I must escape. But how?</p>
+<p class="normaltext0x">I want to be like that bird. He's free. He does what he likes.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">好了，别生气，布朗。</p>
+<p class="normaltext0x">看守说得对——确实是好天气。我必须逃出去。可怎么做呢？</p>
+<p class="normaltext0x">我想像那只鸟一样。它是自由的，它可以做它想做的事。</p>
+<hr/>
+<p class="normaltext0x" id="a5">Wait a minute. I've got an idea. I can be like that bird.</p>
+<p class="normaltext0x">There's a photograph. It's in one of these books, and it shows the country near the prison. Where is it?</p>
+<p class="normaltext0x">Yes! It's here. Here's the prison. And over here...</p>
+<p class="normaltext0x">OK. Tomorrow I'm leaving.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">等等，我有主意了。我可以像那只鸟一样。</p>
+<p class="normaltext0x">有张照片，在某本书里，照片上是监狱附近的乡村。它在哪儿呢？</p>
+<p class="normaltext0x">对！就在这儿。这儿是监狱，那儿是……</p>
+<p class="normaltext0x">好。明天我就离开。</p>
+<hr/>
+<p class="normaltext000" id="a6">The next day.</p>
+<p class="normaltext0x">Good morning, Brown. It's another beautiful day. But you're in here. Ha, ha, ha!</p>
+<p class="normaltext000"><b>The guard does not believe his eyes.</b></p>
+<p class="normaltext0x">No! It can't be! Quick – sound the alarm. It's Brown...</p>
+<p class="normaltext0x">... he's not here!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext000">第二天。</p>
+<p class="normaltext0x">早上好，布朗。今天的天气也很好，可你却在这儿。哈哈哈！</p>
+<p class="normaltext000"><b>看守不敢相信自己的眼睛。</b></p>
+<p class="normaltext0x">不！不可能！快——拉警报。是布朗……</p>
+<p class="normaltext0x">……他不见了！</p>
+<hr/>
+<p class="normaltext0x" id="a7">Look everywhere. You must catch Brown. Find him and bring him to me. Do you hear?</p>
+<p class="normaltext0x">Yes, sir. Right away, sir.</p>
+<p class="normaltext0x">This is Brown's cell. I want someone in it tonight. You or Brown. Do you understand?</p>
+<p class="normaltext0x">Yes, sir.</p>
+<p class="normaltext0x">He's not happy and I'm in trouble.</p>
+<p class="normaltext0x">I'm not happy and he's in trouble.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">把每个地方都搜一遍。你必须抓住布朗。把他找出来，带到我这儿。听到了吗？</p>
+<p class="normaltext0x">是的，长官。马上去办，长官。</p>
+<p class="normaltext0x">这是布朗的牢房。我要这里今晚有人，要么是你，要么是布朗。明白吗？</p>
+<p class="normaltext0x">明白，长官。</p>
+<p class="normaltext0x">他不高兴了，我有麻烦了。</p>
+<p class="normaltext0x">我不高兴了，他有麻烦了。</p>
+<hr/>
+<p class="normaltext000" id="a8">But Brown is not free.</p>
+<p class="normaltext0x">The guard never looks up here.</p>
+<p class="normaltext0x">Now I must get out of here.</p>
+<p class="normaltext0x">After him!</p>
+<p class="normaltext0x">I must be quick. I'm not going back to prison. They must kill me first.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext000">但是布朗仍在牢房中。</p>
+<p class="normaltext0x">看守自始至终没有抬头看这儿。</p>
+<p class="normaltext0x">现在我必须逃出去。</p>
+<p class="normaltext0x">追！</p>
+<p class="normaltext0x">我必须快点。我可不想再回监狱了。他们肯定会先杀了我。</p>
+<hr/>
+<p class="normaltext0x" id="a9">Be careful, Brown. Don't fall now.</p>
+<p class="normaltext0x">I'm nearly there. But this isn't easy.</p>
+<p class="normaltext0x">Don't be afraid, Brown... OK, here I go.</p>
+<p class="normaltext000"><b>Brown is high above the guards. He runs and jumps.</b></p>
+<p class="normaltext0x">We must stop him.</p>
+<p class="normaltext0x">Where is he?</p>
+<p class="normaltext0x">Can you see him?</p>
+<p class="normaltext0x">Look everywhere and find him –fast.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">小心，布朗。可别现在掉下去。</p>
+<p class="normaltext0x">我差不多到了。不过这可不容易啊。</p>
+<p class="normaltext0x">别怕，布朗……好，我跳了。</p>
+<p class="normaltext000"><b>布朗在看守们的头顶上方奔跑、跳跃。</b></p>
+<p class="normaltext0x">我们必须截住他。</p>
+<p class="normaltext0x">他在哪儿？</p>
+<p class="normaltext0x">你能看到他吗？</p>
+<p class="normaltext0x">所有地方都要搜，找到他——要快。</p>
+<hr/>
+<p class="normaltext0x" id="a10">Oh, it's a long way down.</p>
+<p class="normaltext0x">Help!</p>
+<p class="normaltext0x">Ouch! That hurts.</p>
+<p class="normaltext0x">There's a ditch. I can get there.</p>
+<p class="normaltext0x">What's that? Is it him? Turn your light that way.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">啊，好高啊。</p>
+<p class="normaltext0x">救命啊！</p>
+<p class="normaltext0x">哎哟！好疼。</p>
+<p class="normaltext0x">那儿有道沟。我可以到那儿去。</p>
+<p class="normaltext0x">那是什么？是他吗？把灯打向那边。</p>
+<hr/>
+<p class="normaltext0x" id="a11">Can they see me? Am I safe?</p>
+<p class="normaltext000"><b>The guards do not see Brown. He is safe – for now.</b></p>
+<p class="normaltext0x">Perhaps it's an animal. I don't think it's Brown.</p>
+<p class="normaltext0x">My foot hurts. I've got water in my shoes. I'm tired. But I'm not going back to prison.</p>
+<p class="normaltext0x">The wood isn't far. It's safe there. They can't catch me now.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">他们能看到我吗？我安全吗？</p>
+<p class="normaltext000"><b>看守没有看到布朗。他安全了——目前是这样。</b></p>
+<p class="normaltext0x">那或许是个动物吧，我觉得不是布朗。</p>
+<p class="normaltext0x">我的脚很疼，鞋子进水了，我好累，可我不要回监狱。</p>
+<p class="normaltext0x">树林离这儿不远了，那儿安全。他们现在抓不到我了。</p>
+<hr/>
+<p class="normaltext0x" id="a12"><b>Brown runs and runs until...</b></p>
+<p class="normaltext000"><b>... he can't run anymore.</b></p>
+<p class="normaltext000"><b>Suddenly...</b></p>
+<p class="normaltext0x">Dogs. I can hear dogs.</p>
+<p class="normaltext0x">Go on!</p>
+<p class="normaltext0x">Where's Brown?</p>
+<p class="normaltext0x">Get him!</p>
+<p class="normaltext0x">Oh, no. The dogs are looking for me!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext000"><b>布朗跑啊跑啊，直到……</b></p>
+<p class="normaltext000"><b>……他再也跑不动了。</b></p>
+<p class="normaltext000"><b>突然……</b></p>
+<p class="normaltext0x">狗。我听到狗叫了。</p>
+<p class="normaltext0x">接着搜！</p>
+<p class="normaltext0x">布朗在哪儿？</p>
+<p class="normaltext0x">抓住他！</p>
+<p class="normaltext0x">啊，不好。那些狗在找我！</p>
+<hr/>
+<p class="normaltext0x" id="a13">How can I hide? Perhaps...</p>
+<p class="normaltext000"><b>A minute later.</b></p>
+<p class="normaltext0x">Where is he? The dogs don't know. Perhaps he's this way. Come with me.</p>
+<p class="normaltext000"><b>Brown is very tired.</b></p>
+<p class="normaltext0x">I want to sleep, but I can't now. I must go on.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">我怎么躲起来呢？或许……</p>
+<p class="normaltext000"><b>一分钟后。</b></p>
+<p class="normaltext0x">他在哪儿？狗也不知道。或许他往这边跑了。跟我来。</p>
+<p class="normaltext000"><b>布朗疲惫不堪。</b></p>
+<p class="normaltext0x">我想睡觉，但现在还不行。我必须继续逃。</p>
+<hr/>
+<p class="normaltext0x" id="a14">It's getting dark. I can stop soon.</p>
+<p class="normaltext0x">Ah, this is nice.</p>
+<p class="normaltext0x">I need that bicycle. I am not a thief but...</p>
+<p class="normaltext0x">Stop! That's my bicycle.</p>
+<p class="normaltext0x">Sorry. I need it. Bye!</p>
+<p class="normaltext000"><b>Brown cycles for hours.</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">天越来越黑了。我很快就可以停下来了。</p>
+<p class="normaltext0x">啊，真好。</p>
+<p class="normaltext0x">我需要那辆自行车。我不是贼，可是……</p>
+<p class="normaltext0x">站住！那是我的自行车。</p>
+<p class="normaltext0x">对不起，我需要它。再见！</p>
+<p class="normaltext000"><b>布朗骑了几个小时。</b></p>
+<hr/>
+<p class="normaltext0x" id="a15">Watch out! You...!</p>
+<p class="normaltext0x">The bicycle doesn't work now. I must stop. Where can I find somewhere to sleep?</p>
+<p class="normaltext0x">Shush. I'm not going to hurt you. I only need to sleep. Can I sleep here, please? I don't snore.</p>
+<p class="normaltext000"><b>Brown shuts his eyes – and sleeps.</b></p>
+<p class="normaltext0x">He does snore!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">小心！你……！</p>
+<p class="normaltext0x">这辆自行车现在不能用了。我必须停下来。我到哪儿找个地方睡觉呢？</p>
+<p class="normaltext0x">嘘，我不会伤害你们，我只想睡一觉。请问我能睡在这儿吗？我不打呼噜的。</p>
+<p class="normaltext000"><b>布朗闭上眼睛——睡着了。</b></p>
+<p class="normaltext0x">他打呼噜！</p>
+<hr/>
+<p class="normaltext0x" id="a16"><b>There is a noise. Brown opens his eyes.</b></p>
+<p class="normaltext0x">What's that?</p>
+<p class="normaltext0x">Come on then, Daisy. On your feet, Clover.</p>
+<p class="normaltext0x">Good, I'm safe. The farmer's going away.</p>
+<p class="normaltext0x">These are prison clothes. I need some different clothes.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x"><b>一阵响声传来，布朗睁开了眼睛。</b></p>
+<p class="normaltext0x">那是什么声音？</p>
+<p class="normaltext0x">过来，黛西。起来，克洛弗。</p>
+<p class="normaltext0x">好，我安全了。那个农夫走了。</p>
+<p class="normaltext0x">这些是囚衣，我需要些别的衣服。</p>
+<hr/>
+<p class="normaltext0x" id="a17">Hey! What are you doing? Those aren't your clothes!</p>
+<p class="normaltext0x">Come back here. Thief! Stop!</p>
+<p class="normaltext0x">Get out of my way.</p>
+<p class="normaltext0x">Guards, dogs, and now farmers' wives. What next?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">嘿！你在干什么？那些不是你的衣服！</p>
+<p class="normaltext0x">回来。小偷！站住！</p>
+<p class="normaltext0x">别挡道。</p>
+<p class="normaltext0x">看守、警犬，现在是农夫们的妻子。还会发生什么？</p>
+<hr/>
+<p class="normaltext0x" id="a18">I hear something. Yes! I'm very close now.</p>
+<p class="normaltext0x">That plane's coming in to land. The airport's over there.</p>
+<p class="normaltext000"><b>Brown arrives at the airport.</b></p>
+<p class="normaltext0x">The fence is high, but I can climb it.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">我听到了什么声音。是的！现在离我很近了。</p>
+<p class="normaltext0x">那架飞机要着陆。机场就在那边。</p>
+<p class="normaltext000"><b>布朗来到机场。</b></p>
+<p class="normaltext0x">围栏很高，不过我能爬上去。</p>
+<hr/>
+<p class="normaltext0x" id="a19">Ow!</p>
+<p class="normaltext0x">An electric fence. I can't climb it. What do I do now?</p>
+<p class="normaltext0x">I can climb this tree and get over that fence. But I must be careful.</p>
+<p class="normaltext0x">Ten more minutes and I'm free. All I need is a big plane.</p>
+<p class="normaltext0x">There are a lot of planes. Which one do I want?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">哎哟！</p>
+<p class="normaltext0x">这是电网，我没法爬了。现在我该怎么办？</p>
+<p class="normaltext0x">我可以爬上这棵树，然后翻过围栏。但我必须小心。</p>
+<p class="normaltext0x">再过十分钟我就自由了。我只需要一架大飞机。</p>
+<p class="normaltext0x">那儿有很多飞机，我上哪一架好呢？</p>
+<hr/>
+<p class="normaltext0x" id="a20">That's the one. There's lots of room for me.</p>
+<p class="normaltext0x">I need to eat. Pizza, I think! And some milk. Are you hungry?</p>
+<p class="normaltext0x">Of course I am. I need three big pizzas. It's five hours before we land again, you know.</p>
+<p class="normaltext0x">Quick, we've only got half an hour. What's that noise?</p>
+<p class="normaltext0x">My stomach, I think. I'm very hungry.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">就是那架。那架飞机上会有很多地方让我藏身。</p>
+<p class="normaltext0x">我得吃点东西。我觉得来点比萨饼吧！再来些牛奶。你饿吗？</p>
+<p class="normaltext0x">当然饿了。我要三个大比萨饼。要知道，我们还要再飞五个小时才能再次着陆。</p>
+<p class="normaltext0x">快，我们只有半小时的时间。</p>
+<p class="normaltext0x">什么声音？</p>
+<p class="normaltext0x">我想是我的肚子在叫吧。我太饿了。</p>
+<hr/>
+<p class="normaltext0x" id="a21">I can get in here.</p>
+<p class="normaltext0x">What a lot of boxes! They can't all go in that plane.</p>
+<p class="normaltext0x">I'm free. I'm like that bird now.</p>
+<p class="normaltext0x">Wait!</p>
+<p class="normaltext0x">He's in there!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">我可以藏在这里面。</p>
+<p class="normaltext0x">好多箱子啊！那架飞机也装不下。</p>
+<p class="normaltext0x">我自由了。现在我像那只鸟一样了。</p>
+<p class="normaltext0x">等等！</p>
+<p class="normaltext0x">他在那里面！</p>
+<hr/>
+<p class="normaltext0x" id="a22"><b>Some time later.</b></p>
+<p class="normaltext0x">Another beautiful day, Brown. But not for you. Ha, ha, ha!</p>
+<p class="normaltext0x">You can't escape, Brown. Nobody escapes from me.</p>
+<p class="normaltext000"><b>Brown lies on the cold floor. He is hurt.</b></p>
+<p class="normaltext0x">The guard's wrong. I must escape. I can't stay in here.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext000"><b>一段时间后。</b></p>
+<p class="normaltext0x">又是天气好的一天，布朗。但你享受不到，哈哈哈！</p>
+<p class="normaltext0x">你逃不掉的，布朗。没人能从我手里逃走。</p>
+<p class="normaltext000"><b>布朗躺在冰冷的地板上，他受了点伤。</b></p>
+<p class="normaltext0x">看守错了。我必须逃出去，我不能呆在这儿。</p>
+<hr/>
+<p class="normaltext0x" id="a23">You can't keep me in here. I'm innocent. You wait and see...</p>
+<p class="normaltext0x">Perhaps things aren't all bad. I'm alive. The sun shines. I hear the birds sing. I have my books. Other people have a worse life than I have...</p>
+<p class="normaltext000"><b>Brown looks out of his window for a long time.</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">你不能把我关在这儿。我是无辜的。你等着瞧……</p>
+<p class="normaltext0x">或许事情并不那么糟。我还活着，阳光明媚。我听到鸟儿歌唱，我有书看。其他人过得还不如我……</p>
+<p class="normaltext000"><b>布朗久久地望着窗外。</b></p>
+<hr/>
+<p class="normaltext0x" id="a24"><b>Brown sees something move. It is a mole.</b></p>
+<p class="normaltext0x">Wait a minute!</p>
+<p class="normaltext0x">That mole's making a tunnel.</p>
+<p class="normaltext0x">I've got an idea.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext000"><b>布朗看到有东西在动。那是只鼹鼠。</b></p>
+<p class="normaltext0x">等一下！</p>
+<p class="normaltext0x">那只鼹鼠在挖地道。</p>
+<p class="normaltext0x">我有主意了。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP9"><img src="../../../Images/image06581.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

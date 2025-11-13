@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>白色巨石 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '白色巨石';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>白色巨石</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">白色巨石</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">Copyright</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">The White Stones</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">ACTIVITIES Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP1"></p>
+<p class="picture"><img src="../../../Images/image06428.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">Copyright</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP2"></p>
+<p class="normaltext">Copyright © Foreign Language Teaching and Research Press 2006</p>
+<p class="normaltext">All rights reserved. No part of this publication may be reproduced or distributed by any means, or stored in a database or retrieval system, without the prior written permission of Foreign Language Teaching and Research Press.</p>
+<p class="normaltext">本书版权由外语教学与研究出版社独家所有。如未获得该社书面同意，书中任何部分之文字及图片，不得用任何方式抄袭、节录、翻印或存储利用于任何数据库及检索系统等。</p>
+<p class="normaltext">Published by Foreign Language Teaching and Research Press</p>
+<p class="normaltext">No. 19 Xisanhuan Beilu</p>
+<p class="normaltext">Beijing, China 100089</p>
+<p class="normaltext">http://www.fltrp.com</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2B" id="CHP3">京权图字　01-2006-2803</p>
+<p class="normaltext00">Originally published by Oxford University Press, Great Clarendon Street, Oxford. ©2000</p>
+<p class="normaltext00">This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext00">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="normaltext00">只限中华人民共和国境内销售，不包括香港、澳门特别行政区及台湾省。不得出口。</p>
+<p class="subtitle2B">图书在版编目（CIP）数据</p>
+<p class="normaltext">白色巨石＝The White Stones／（英）沃恩（Vaughan, L.）著．—北京：外语教学与研究出版社，2006.5（2007.3重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">ISBN 978-7-5600-5450-6</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．白…　Ⅱ．沃…　Ⅲ．①英语—语言读物　②故事—英国—现代　Ⅳ．H319.4:I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2006）第023531号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext00"><b>出版人：</b>于春迟</p>
+<p class="normaltext00"><b>责任编辑：</b>田娜</p>
+<p class="normaltext00"><b>封面设计：</b>孙莉明</p>
+<p class="normaltext00"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltext00"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltext00"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltext00"><b>书　　号：</b>ISBN 978-7-5600-5450-6</p>
+<p class="normaltext00">*　　*　　*</p>
+<p class="normaltext00">制售盗版必究　举报查实奖励</p>
+<p class="normaltext00">版权保护办公室举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <p class="mulu">目　录</p>
+<p class="mulu1"><a href="part0096.xhtml#CHP4">The White Stones</a></p>
+<p class="mulu1"><a href="part0097.xhtml#CHP5">ACTIVITIES Before Reading</a></p>
+<p class="mulu1"><a href="part0098.xhtml#CHP6">ACTIVITIES While Reading</a></p>
+<p class="mulu1"><a href="part0099.xhtml#CHP7">ACTIVITIES After Reading</a></p>
+<p class="mulu1"><a href="part0100.xhtml#CHP8">参考译文</a></p>
+<p class="normaltext"><br/></p>
+<p class="mulu1"><a href="part0001.xhtml">返回总目录</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">The White Stones</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP4">The White Stones</p>
+<p class="normaltext"><a id="b1" href="part0100.xhtml#a1">1</a>　Your name is Chris Ellison and you are from London in England. You are on a ferry. The ferry is going to the island of Skaran in Ireland. You are sitting next to a woman. She smiles.</p>
+<p class="normaltext">'Are you on holiday?' she asks.</p>
+<p class="normaltext">'No,' you say. 'I'm an archaeologist. I want to study the megalithic stones on Skaran. The stones are very interesting. They're very old. But we don't know much about them.'</p>
+<p class="normaltext">The woman stops smiling. 'The people on the island don't like archaeologists,' she says.</p>
+<p class="normaltext3">■<em><em>Go to <a href="part0096.xhtml#b11">11</a>.</em></em></p>
+<p class="picture"><img src="../../../Images/image06429.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b2" href="part0100.xhtml#a2">2</a>　You walk to the stones. There are nine big stones and one small stone. Two of the stones are very big and have another stone on top.</p>
+<p class="normaltext">You look at the small stone. It is red on top.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b34">34</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06430.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b3" href="part0100.xhtml#a3">3</a>　You try to hit the man but the man hits you first.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b24">24</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b4" href="part0100.xhtml#a4">4</a>　You walk around the hill. You see a red car behind the hill. There are some boxes in the car.</p>
+<p class="normaltext3">■<em>You go to the old house. Go to <a href="part0096.xhtml#b18">18</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06431.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b5" href="part0100.xhtml#a5">5</a>　You see that the liquid is coming out of a hole under the car.</p>
+<p class="normaltext3">■<em>You phone a garage. Go to <a href="part0096.xhtml#b32">32</a>.</em></p>
+<p class="normaltext3">■<em>You drive the car to your home. Go to <a href="part0096.xhtml#b19">19</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b6" href="part0100.xhtml#a6">6</a>　You get in your car. You look at more megalithic stones and tombs in the north of the island. They are beautiful in the evening. There are always tombs near the megalithic stones. It is late when you arrive home.</p>
+<p class="normaltext">The next day you go to the town of Langrun. You go to some shops and buy some things. What do you do next?</p>
+<p class="normaltext3">■<em>You go home. Go to <a href="part0096.xhtml#b16">16</a>.</em></p>
+<p class="normaltext3">■<em>You go to the Stones of Clayonag. Go to <a href="part0096.xhtml#b20">20</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06432.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b7" href="part0100.xhtml#a7">7</a>　You drive slowly down the hill. Ten minutes later you look behind you. You cannot see the red car.</p>
+<p class="normaltext">You go past a village. Then you go down a hill to Clayonag. You see a lot of megalithic stones near the sea. It is very beautiful. You stop your car and get out.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b34">34</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06433.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b8" href="part0100.xhtml#a8">8</a>　You go to the village and you ask some people about the megalithic stones. Nobody wants to talk about them.</p>
+<p class="normaltext3">■<em>You go home. Go to <a href="part0096.xhtml#b28">28</a>.</em></p>
+<p class="normaltext3">■<em>You go back to Clayonag. Go to <a href="part0096.xhtml#b34">34</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b9" href="part0100.xhtml#a9">9</a>　You look through the door of the tomb. At the back of the tomb there is a stone table. The sun is shining on the table.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b27">27</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06434.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b10" href="part0100.xhtml#a10">10</a>　You go to the village and find a policeman. You tell him about the things that are happening to you.</p>
+<p class="normaltext">He says, 'People in the village don't like archaeologists because they take our treasures. Perhaps you need to go home to London.'</p>
+<p class="normaltext3">■<em>You go to the old house. Go to <a href="part0096.xhtml#b16">16</a>.</em></p>
+<p class="normaltext3">■<em>You look at more stones on the island. Go to <a href="part0096.xhtml#b6">6</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06435.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b11" href="part0100.xhtml#a11">11</a>　Half an hour later, the ferry stops at the island.</p>
+<p class="normaltext">You get in your car and drive off the ferry. You drive the car down a small road. In front of you, there are some trees next to the road. One of the trees begins to move. You stop your car quickly. The tree falls in front of your car.</p>
+<p class="normaltext">You get out of your car.</p>
+<p class="normaltext">'Is there somebody behind the trees?' you ask. What do you do?</p>
+<p class="normaltext3">■<em>You go to the trees and look for somebody. Go to <a href="part0096.xhtml#b23">23</a>.</em></p>
+<p class="normaltext3">■<em>You move the tree from the road. Go to <a href="part0096.xhtml#b33">33</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b12" href="part0100.xhtml#a12">12</a>　You drive very fast but the road is not very good.</p>
+<p class="normaltext">Your car leaves the road. Then everything goes black.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b24">24</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b13" href="part0100.xhtml#a13">13</a>　You go into the tomb. You see some pictures of knives on the wall. You hear a noise. Everything goes dark. You go to the door. You cannot open it.</p>
+<p class="normaltext">'Open the door!' you shout, but nobody comes.</p>
+<p class="normaltext">You are afraid. You wait for a very long time but nobody comes.</p>
+<p class="normaltext3">■<em>You go to the back of the tomb. Go to <a href="part0096.xhtml#b17">17</a>.</em></p>
+<p class="normaltext3">■<em>You stay near the door. Go to <a href="part0096.xhtml#b26">26</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06436.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../../../Images/image06437.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b14" href="part0100.xhtml#a14">14</a>　The American woman walks nearer to you.</p>
+<p class="normaltext">Suddenly a megalithic stone begins to move. The stone is behind the woman. She does not see that the stone is moving.</p>
+<p class="normaltext">'Look!' you say. 'The stone is falling!'</p>
+<p class="normaltext">She smiles. 'I'm not stupid, you know,' she says.</p>
+<p class="normaltext">She does not look behind her. The megalithic stone makes a lot of noise. It falls on the woman.</p>
+<p class="normaltext">You see the man with the long black hair. He is coming down the road. When he sees the woman under the stone, he runs away.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b29">29</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b15" href="part0100.xhtml#a15">15</a>　You drive to your house and get out of your car.</p>
+<p class="normaltext">The American woman is standing near your house. She is smiling.</p>
+<p class="normaltext">'Would you like to go to the Stones of Clayonag tomorrow?' she asks. 'I can't go with you but it's an interesting and important day. It's June 21. It's the longest day of the year. A lot of people go to Clayonag every year. You must go there early in the morning.'</p>
+<p class="normaltext">'Thank you,' you say. You go into your house.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b21">21</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06438.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b16" href="part0100.xhtml#a16">16</a>　You drive home. When you are near your house, a big stone hits the windscreen of your car. You stop quickly. You get out. Behind you there is a tall man with long black hair. He is running towards you.</p>
+<p class="normaltext3">■<em>You run away. Go to <a href="part0096.xhtml#b31">31</a>.</em></p>
+<p class="normaltext3">■<em>You hit the man. Go to <a href="part0096.xhtml#b3">3</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06439.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b17" href="part0100.xhtml#a17">17</a>　You go to the back of the tomb. There is a stone table there. Near the table is a big stone. You take the stone and you go back to the door. You hit the door with the stone. You break the door and you get out of the tomb.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b28">28</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06440.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b18" href="part0100.xhtml#a18">18</a>　When you are near the old house, you meet a woman with blond hair. 'Hello,' she says. 'Are you staying at the old house?'</p>
+<p class="normaltext">'Yes,' you say. 'I'm renting it for six weeks.'</p>
+<p class="normaltext">'My name's Sarah. I'm staying at the new house,' she says. 'I'm on holiday here. I'm from Los Angeles in America. Are you on holiday?'</p>
+<p class="normaltext">'No,' you say, 'I'm an archaeologist. I want to study the megalithic stones on the island.'</p>
+<p class="normaltext">'How interesting! I don't know anything about those things,' she says.</p>
+<p class="normaltext3">■<em>You go to the old house. Go to <a href="part0096.xhtml#b30">30</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b19" href="part0100.xhtml#a19">19</a>　You drive the car. When you are going down a hill, you cannot stop the car. Your car hits a tree.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b24">24</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06441.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b20" href="part0100.xhtml#a20">20</a>　You go to the Stones of Clayonag. You look at the stones and wait but nothing happens. You go home late.</p>
+<p class="normaltext">For the next two weeks you go around the island and look at the megalithic stones. Nothing more happens to you. You do not find the answer to the mystery.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b1">1</a> and try again.</em></p>
+<p class="picture"><img src="../../../Images/image06442.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b21" href="part0100.xhtml#a21">21</a>　The next day you get up very early. You drive to the Stones of Clayonag. When you arrive, you see a lot of cars. You get out of your car and walk to the tomb. There are a lot of people near the tomb. They are looking at the sun, and waiting.</p>
+<p class="normaltext">Slowly the sun comes up. The sun shines between the two big stones. It shines into the door of the tomb. When this happens, the people begin to sing.</p>
+<p class="normaltext3">■<em>You look through the door of the tomb. Go to <a href="part0096.xhtml#b9">9</a>.</em></p>
+<p class="normaltext3">■<em>You do not look through the door. Go to <a href="part0096.xhtml#b27">27</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b22" href="part0100.xhtml#a22">22</a>　You go to the sea. It is beautiful but you do not see any people or megalithic stones.</p>
+<p class="normaltext">You go back to the tomb. You think you see a man. He is behind one of the megalithic stones.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b34">34</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b23" href="part0100.xhtml#a23">23</a>　You run into the trees. You see a tall man with long black hair. He runs away. You go back to your car.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b33">33</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06443.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b24" href="part0100.xhtml#a24">24</a>　When you open your eyes, you are in a bed in a white room. A woman is looking at you. 'Hello,'she says. 'I'm Doctor O'Connor. Everything is all right. You're in hospital.'</p>
+<p class="normaltext">A week later you leave the hospital. You do not know the answer to the mystery.</p>
+<p class="normaltext3">■<em>Go back to 1 and start again!</em></p>
+<p class="picture"><img src="../../../Images/image06444.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b25" href="part0100.xhtml#a25">25</a>　You stop your car. You look behind you. The red car stops too.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b7">7</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b26" href="part0100.xhtml#a26">26</a>　You stay next to the door. Four hours later the door opens. You go out of the tomb. It is dark. There is nobody near the tomb. You think you see a man. He is running towards the road.</p>
+<p class="normaltext3">■<em>You get in your car and drive home. Go to <a href="part0096.xhtml#b15">15</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b27" href="part0100.xhtml#a27">27</a>　An hour later everybody gets in their cars and leaves Clayonag. You go to your car. There is some liquid on the road under the car.</p>
+<p class="normaltext3">■<em>You look under the car. Go to <a href="part0096.xhtml#b5">5</a>.</em></p>
+<p class="normaltext3">■<em>You drive the car to your home. Go to <a href="part0096.xhtml#b19">19</a>.</em></p>
+<p class="normaltext3">■<em>You phone a garage. Go to <a href="part0096.xhtml#b32">32</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06445.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b28" href="part0100.xhtml#a28">28</a>　You go home. When you are near the old house, you see a red car. There is a man near the car. He is tall with long black hair. He is with the old American woman. When he sees you, he gets into his car. He drives away.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b15">15</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b29" href="part0100.xhtml#a29">29</a>　You phone the police. They arrive ten minutes later. The police look at the stone. 'After all these years, why does the stone fall now?' says a policeman.</p>
+<p class="normaltext">'It's a mystery,' you say.</p>
+<p class="normaltext">The police move the stone and take the woman to hospital. The police arrest the man with the long hair and the woman from the ferry.</p>
+<p class="normaltext">Thanks to you the treasures of the island are now safe and the archaeologists can study the old tombs.</p>
+<p class="picture"><img src="../../../Images/image06446.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../../../Images/image06447.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b30" href="part0100.xhtml#a30">30</a>　You go to the old house. There is some writing on the door of the house. It says, 'Go back to London, Ellison! We don't want you on our island.'</p>
+<p class="normaltext">The next day you drive to Clayonag in the north of the island. There are a lot of megalithic stones in Clayonag. You drive up a small road. The road is bad. You look behind you and you see a red car. You drive fast. The red car goes fast. You go down a hill.</p>
+<p class="normaltext3">■<em>You drive slower. Go to <a href="part0096.xhtml#b7">7</a>.</em></p>
+<p class="normaltext3">■<em>You drive very fast. Go to <a href="part0096.xhtml#b12">12</a>.</em></p>
+<p class="normaltext3">■<em>You stop your car. Go to <a href="part0096.xhtml#b25">25</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b31" href="part0100.xhtml#a31">31</a>　You run through some trees. You come to a small road. You run down the road and you see your house and the megalithic stone. There are some boxes in a car near the stone. You go to a box and look into it. There are cups and knives in the box. They are very old. You think they are about 4,000 years old. Now you see a hole in the hill. The hill is a megalithic tomb. Somebody is taking things from the tomb.</p>
+<p class="normaltext">You hear a noise and you see Sarah, the American woman. She is coming out of the tomb with a knife in her hand.</p>
+<p class="normaltext3">■<em>You do not move. Go to <a href="part0096.xhtml#b14">14</a>.</em></p>
+<p class="normaltext3">■<em>You run away. Go to <a href="part0096.xhtml#b35">35</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06448.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b32" href="part0100.xhtml#a32">32</a>　You walk to a village and phone a garage. Three hours later a man comes. He works on the car for a long time. At four o'clock the car is ready.</p>
+<p class="normaltext3">■<em>You find a policeman. Go to <a href="part0096.xhtml#b10">10</a>.</em></p>
+<p class="normaltext3">■<em>You drive home. Go to <a href="part0096.xhtml#b16">16</a>.</em></p>
+<p class="normaltext3">■<em>You look at more megalithic stones and tombs. Go to <a href="part0096.xhtml#b6">6</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06449.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../../../Images/image06450.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b33" href="part0100.xhtml#a33">33</a>　You move the tree from the road. You get in your car and continue down the road. Five minutes later, you see two houses. There is an old house and a new house. You are renting the old house.</p>
+<p class="normaltext">There is a small hill near the houses. There are megalithic stones around the hill.</p>
+<p class="normaltext">'This is a nice place to live,' you think.</p>
+<p class="normaltext">You get out of your car. You look at the stone. You think it is about 4,000 years old.</p>
+<p class="normaltext3">■<em>You walk around the hill. Go to <a href="part0096.xhtml#b4">4</a>.</em></p>
+<p class="normaltext3">■<em>You go to the old house. Go to <a href="part0096.xhtml#b18">18</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b34" href="part0100.xhtml#a34">34</a>　Near the megalithic stones is a hill. You walk to the hill. There is a door in the hill. On the door there is some writing. It says, 'Megalithic Tomb. 4,500 Years Old.'The door is open. You look in the tomb. It is very dark.</p>
+<p class="normaltext3">■<em>You walk to the stones. Go to <a href="part0096.xhtml#b2">2</a>.</em></p>
+<p class="normaltext3">■<em>You go to the village and ask about the stones. Go to <a href="part0096.xhtml#b8">8</a>.</em></p>
+<p class="normaltext3">■<em>You go into the tomb. Go to <a href="part0096.xhtml#b13">13</a>.</em></p>
+<p class="normaltext3">■<em>You go to the sea. Go to <a href="part0096.xhtml#b22">22</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06451.jpeg" alt="alt"/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><a id="b35" href="part0100.xhtml#a35">35</a>　You run away but you fall on the boxes.</p>
+<p class="normaltext3">■<em>Go to <a href="part0096.xhtml#b14">14</a>.</em></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP5"><span class="underline">ACTIVITIES</span><br/><em>Before Reading</em></p>
+<p class="normaltext0">1. Look at the front and back cover of the book. Choose the correct answers to these questions.</p>
+<p class="normaltext">1) Where can you find these megalithic stones?</p>
+<p class="normaltext">　a　Mexico.</p>
+<p class="normaltext">　b　Ireland.</p>
+<p class="normaltext">　c　Japan.</p>
+<p class="normaltext">2) How old are the stones?</p>
+<p class="normaltext">　a　1,500 years old.</p>
+<p class="normaltext">　b　2,500 years old.</p>
+<p class="normaltext">　c　4,500 years old.</p>
+<p class="normaltext">3) What are the stones for?</p>
+<p class="normaltext">　a　Nobody knows.</p>
+<p class="normaltext">　b　They are the walls of an old building.</p>
+<p class="normaltext">　c　A place for dead people.</p>
+<p class="normaltext0">2. Guess what happens in the story.</p>
+<p class="normaltext">a　Somebody doesn't want Chris to study the stones.</p>
+<p class="normaltextAA">YES/NO</p>
+<p class="normaltext">b　Somebody wants to take the stones to America.</p>
+<p class="normaltextAA">YES/NO</p>
+<p class="normaltext">c　Somebody on the island is killing people.</p>
+<p class="normaltextAA">YES/NO</p>
+<p class="normaltext">d　The stones can kill people.</p>
+<p class="normaltextAA">YES/NO</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP6"><span class="underline">ACTIVITIES</span><br/><em>While Reading</em></p>
+<p class="normaltext0">1. Read the first parts of the story (1, 11 and 33). Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) Chris Ellison is from America.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) The megalithic stones are in England.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) Chris Ellison goes to the island by plane.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) Chris thinks he sees somebody behind the trees.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">5) There is a small hill near the megalithic stone.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">6) The American woman says she is working on the island.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">7) The American woman is friendly.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">8) Chris does not like where he lives.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext0">2. Why do these things happen?</p>
+<p class="normaltext">1) The people on the island do not like archaeologists. Why? Choose one answer.</p>
+<p class="normaltext">　a　Because archaeologists take things from tombs.</p>
+<p class="normaltext">　b　Because the megalithic stones are very important for them.</p>
+<p class="normaltext">　c　Because the people on the island are doing something bad with the stones.</p>
+<p class="normaltext">2) A tree falls in front of the car. Why? Choose one answer.</p>
+<p class="normaltext">　a　Because the tree is very old.</p>
+<p class="normaltext">　b　Because somebody wants to kill Chris.</p>
+<p class="normaltext">　c　Because somebody does not want Chris to go to his house.</p>
+<p class="normaltext0">3. What happens next? Complete the sentences.</p>
+<p class="normaltext">1) The next day . . .</p>
+<p class="normaltext">　a　Chris studies some megalithic stones.</p>
+<p class="normaltext">　b　he stays at home.</p>
+<p class="normaltext">　c　he talks to people in the town.</p>
+<p class="normaltext">2) Somebody . . .</p>
+<p class="normaltext">　a　tells Chris a lot of things about the megalithic stones.</p>
+<p class="normaltext">　b　tries to kill Chris.</p>
+<p class="normaltext">　c　helps Chris find a tomb.</p>
+<p class="normaltext">3) The American woman . . .</p>
+<p class="normaltext">　a　wants to help Chris.</p>
+<p class="normaltext">　b　wants Chris to go home to England.</p>
+<p class="normaltext">4) The people on the island . . .</p>
+<p class="normaltext">　a　help Chris.</p>
+<p class="normaltext">　b　don't help Chris.</p>
+<p class="normaltext">5) Later near the megalithic stones Chris finds . . .</p>
+<p class="normaltext">　a　a tomb.</p>
+<p class="normaltext">　b　a dead person.</p>
+<p class="normaltext">　c　a very old knife.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP7"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext0">1. Answer these questions.</p>
+<p class="normaltext">1) Who does Chris meet on the ferry?</p>
+<p class="normaltext">2) Where is the American woman's house?</p>
+<p class="normaltext">3) What does Chris see on the door of his house?</p>
+<p class="normaltext">4) When Chris is driving to Clayonag he sees something behind him. What is it?</p>
+<p class="normaltext">5) Chris sees something under the car. What is it?</p>
+<p class="normaltext">6) There are some boxes near the stones. What does Chris see in the boxes?</p>
+<p class="normaltext">7) Who do the police arrest?</p>
+<p class="normaltext0">2. A policeman is asking Chris some questions. Put the words in the correct order. Then write the answers to the questions.</p>
+<p class="normaltext">1) are where from you?</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">2) do what do you?</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">3) you why on are the island?</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">4) staying are where you?</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">5) is who tall the man?</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext">____________________________</p>
+<p class="normaltext0">3. Match the sentence halves to make eight complete sentences.</p>
+<p class="normaltext">1) The American woman wants Chris to ...</p>
+<p class="normaltext">2) The American woman does not want Chris to ...</p>
+<p class="normaltext">3) The tall man is helping ...</p>
+<p class="normaltext">4) The tall man hits Chris's car with a stone because ...</p>
+<p class="normaltext">5) Clayonag is ...</p>
+<p class="normaltext">6) When the sun shines into the door, the people ...</p>
+<p class="normaltext">7) The man works on the car for a ...</p>
+<p class="normaltext">8) The American woman does not see that ...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">a　begin to sing.</p>
+<p class="normaltext">b　long time.</p>
+<p class="normaltext">c　near the sea.</p>
+<p class="normaltext">d　the American woman.</p>
+<p class="normaltext">e　go to Clayonag.</p>
+<p class="normaltext">f　the stone is falling.</p>
+<p class="normaltext">g　see the treasure.</p>
+<p class="normaltext">h　Chris is coming home early.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP8">参考译文</p>
+<p class="title1">The White Stones<br/>白色巨石</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a1">1　你叫克丽丝·埃利森，来自英国伦敦。你在摆渡船上。摆渡船开向爱尔兰的斯卡兰岛。你坐在一位女士旁边。她微笑着。</p>
+<p class="normaltext">“你是在度假吗？”她问。</p>
+<p class="normaltext">“不是，”你说，“我是考古学家。我想研究一下斯卡兰岛的巨石。这些石头很有意思。它们很古老，可我们对它们了解并不多。”</p>
+<p class="normaltext">这位女士收起笑容。“岛上的人不喜欢考古学家，”她说。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a11">11</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a2">2　你走向巨石。有九块大石头和一块小石头。其中两块十分巨大，顶部还有另一块。</p>
+<p class="normaltext">你看着那块小石头。石头的顶部是红色的。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a34">34</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a3">3　你想打这个人，但他先打了你。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a24">24</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a4">4　你围着小山走。你看到山后有一辆红色的车。车里有几个箱子。</p>
+<p class="normaltext4">■ 你去旧房子。看第<a href="part0100.xhtml#a18">18</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a5">5　你看到有液体从车底部的一个洞流出来。</p>
+<p class="normaltext4">■ 你给一家修车厂打电话。看第<a href="part0100.xhtml#a32">32</a>节。</p>
+<p class="normaltext4">■ 你开车回家。看第<a href="part0100.xhtml#a19">19</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a6">6　你上车。你看了岛北部其他的巨石和坟墓。它们在晚上看起来很漂亮。巨石的附近总会有坟墓。你很晚才回家。</p>
+<p class="normaltext">第二天，你去了朗格鲁城。你去几家商店买了些东西。接下来你做什么？</p>
+<p class="normaltext4">■ 你回家。看第<a href="part0100.xhtml#a16">16</a>节。</p>
+<p class="normaltext4">■ 你去克劳纳格巨石阵。看第<a href="part0100.xhtml#a20">20</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a7">7　你慢慢地开车下山。10分钟后，你看看后面。你看不到那辆红色的车了。你经过一个村庄，然后开车下山去克劳纳格。你看到海边有很多巨石。非常漂亮。你停下，下了车。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a34">34</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a8">8　你去村子里，问人们有关巨石的事。没人想谈论巨石。</p>
+<p class="normaltext4">■ 你回家。看第<a href="part0100.xhtml#a28">28</a>节。</p>
+<p class="normaltext4">■ 你回到克劳纳格。看第<a href="part0100.xhtml#a34">34</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a9">9　你朝坟墓的门里看去。坟墓的后部有一张石桌，太阳照得桌子闪闪发光。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a27">27</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a10">10　你去村子里，找到一名警察。你告诉他发生在你身上的事。</p>
+<p class="normaltext">他说：“村子里的人不喜欢考古学家，因为他们拿走我们的财宝。也许你应该回伦敦去。”</p>
+<p class="normaltext4">■ 你回到旧房子。看第<a href="part0100.xhtml#a16">16</a>节。</p>
+<p class="normaltext4">■ 你去看岛上其他的巨石。看第<a href="part0100.xhtml#a6">6</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a11">11　半个小时后，摆渡船停在了岛的岸边。你上了车，驶离摆渡船。你沿着一条小路开车。你前方的路旁有几棵树。其中一棵树在晃动。你赶紧停车。这棵树在你眼前倒下了。</p>
+<p class="normaltext">你下了车。</p>
+<p class="normaltext">“树后面有人吗？”你问道。你要做什么？</p>
+<p class="normaltext4">■ 你去树林那里找找是否有人。看第<a href="part0100.xhtml#a23">23</a>节。</p>
+<p class="normaltext4">■ 你把树从路上移开。看第<a href="part0100.xhtml#a33">33</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a12">12　你开得很快，但路况不好。你的车驶离道路。随后一切都陷入黑暗了。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a24">24</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a13">13　你进入坟墓。你看到墙上有几幅刀子的画。你听到有动静。一切都在黑暗中。你走到门口。你打不开门。</p>
+<p class="normaltext">“开门！”你喊道，但没有人来。</p>
+<p class="normaltext">你害怕了。你等了很长时间，但没有人来。</p>
+<p class="normaltext4">■ 你去坟墓的后部。看第<a href="part0100.xhtml#a17">17</a>节。</p>
+<p class="normaltext4">■ 你呆在门附近。看第<a href="part0100.xhtml#a26">26</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a14">14　这个美国女人向你走近一些。突然，一块巨石开始动起来。石头在这个女人的后面。她没看到石头在动。</p>
+<p class="normaltext">“看！”你说，“石头要倒了！”</p>
+<p class="normaltext">她笑了。“要知道，我可不傻，”她说。</p>
+<p class="normaltext">她没有向后看。巨石发出巨响，倒在了这个女人身上。</p>
+<p class="normaltext">你看到了那个留着黑色长发的男人。他正沿着路走来。当看到石头下的女人时，他跑了。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a29">29</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a15">15　你开车到你的住处，下了车。那个美国女人正站在你房子的附近。她笑着。</p>
+<p class="normaltext">“你明天想去克劳纳格巨石阵吗？”她问。“我不能和你去，但那会是既有趣又重要的一天。6月21号。一年中最长的一天。每年这个时候很多人都去克劳纳格巨石阵。你必须一早就去。”</p>
+<p class="normaltext">“谢谢你，”你说。你进了房子。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a21">21</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a16">16　你开车回家。到了房子附近时，一块大石头打中了车的挡风玻璃。你马上停车。你下车。你身后是一个高个子男人，留着长长的黑发。他向你跑来。</p>
+<p class="normaltext4">■ 你逃跑。看第<a href="part0100.xhtml#a31">31</a>节。</p>
+<p class="normaltext4">■ 你打这个男人。看第<a href="part0100.xhtml#a3">3</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a17">17　你去坟墓的后部。那里有张石桌。桌子旁有一块大石头。你拿起石头，回到门口。你用石头砸门。你砸开门，从坟墓出来。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a28">28</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a18">18　你在旧房子附近遇到一个金发女人。“你好，”她说，“你住在这所旧房子里吗？”</p>
+<p class="normaltext">“是的，”你说，“我租了六个星期。”</p>
+<p class="normaltext">“我叫萨拉。我住在新房子里，”她说，“我来这儿度假，从美国洛杉矶来。你是来度假的吗？”</p>
+<p class="normaltext">“不是，”我说，“我是考古学家。我想研究一下岛上的巨石。”</p>
+<p class="normaltext">“真有意思！我对那些东西一无所知，”她说道。</p>
+<p class="normaltext4">■ 你走向旧房子。看第<a href="part0100.xhtml#a30">30</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a19">19 你开着车。下山时你刹不住车了。你的车撞上了一棵树。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a24">24</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a20">20 你去看克劳纳格的巨石阵。你看着石头，等待着，但什么也没发生。你很晚才回家。</p>
+<p class="normaltext">接下来的两个星期，你去看岛上各处的巨石。没再发生什么事。你没有找出谜团的答案。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a1">1</a>节，再试一遍。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a21">21 第二天，你起得很早。你开车去看克劳纳格的巨石阵。赶到时，你看到很多车。你下车朝坟墓走去。坟墓附近有很多人。他们看着太阳，等待着。</p>
+<p class="normaltext">太阳慢慢升起，阳光射入两块巨石之间。阳光照进墓门时，人们开始唱歌。</p>
+<p class="normaltext4">■ 你朝墓门里看去。看第<a href="part0100.xhtml#a9">9</a>节。</p>
+<p class="normaltext4">■ 你没有朝墓门里看。看第<a href="part0100.xhtml#a27">27</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a22">22 你去了海边。那里很美，可你没有看到任何人，也没看到巨石。</p>
+<p class="normaltext">你回到坟墓旁。你觉得看到了一个人。他藏在某块巨石后面。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a34">34</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a23">23 你跑进树林。你看到一个留着黑色长发的高个子男人。他跑掉了。你回到车里。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a33">33</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a24">24 你睁开眼时，发现自己躺在一个白色房间的床上。一个女人看着你。“你好，”她说，“我是奥康纳医生。现在你没事了。你在医院里。”</p>
+<p class="normaltext">一个星期后，你出院了。你没有找到谜团的答案。</p>
+<p class="normaltext4">■ 回到第1节，重新开始！</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a25">25 你停下车，向后看。红色的车也停了。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a7">7</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a26">26 你呆在门附近。四个小时后，门开了。你出了坟墓。天已经黑了。坟墓附近一个人也没有。你觉得你看到了一个男人。他正朝公路跑去。</p>
+<p class="normaltext4">■ 你上了车，开车回家。看第<a href="part0100.xhtml#a15">15</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a27">27 一个小时后，人们纷纷上车，离开了克劳纳格。你回到自己的车旁。车下方的路上有一些液体。</p>
+<p class="normaltext4">■ 你查看车下方。看第<a href="part0100.xhtml#a5">5</a>节。</p>
+<p class="normaltext4">■ 你开车回家。看第<a href="part0100.xhtml#a19">19</a>节。</p>
+<p class="normaltext4">■ 你给修理厂打电话。看第<a href="part0100.xhtml#a32">32</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a28">28 你回家去。到老房子附近时，你看到一辆红色的车。车旁有个男人。他个子很高，留着黑色长发。他和那个上了年纪的美国女人在一起。他一看见你，就上了车，开车走了。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a15">15</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a29">29 你打电话报警。警察10分钟后到了。警察看着石头。“都这么多年了，石头怎么现在倒了？”一名警察说道。</p>
+<p class="normaltext">“这是个谜，”你说。</p>
+<p class="normaltext">警察移开石头，把那个女人送进医院。警察逮捕了长发男人和摆渡船上的女人。</p>
+<p class="normaltext">多亏了你，现在岛上的财宝安全了，考古学家们可以研究古墓了。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a30">30 你回到老房子前。门上写着字：“回伦敦去，埃利森！我们不希望你在我们的岛上。”</p>
+<p class="normaltext">第二天，你开车去岛北部的克劳纳格。克劳纳格有很多巨石。你开上一条小路。路况很糟。你向后看，看到一辆红色的车。你加快车速，红车也加快了车速。你开下小山。</p>
+<p class="normaltext4">■ 你减慢车速。看第<a href="part0100.xhtml#a7">7</a>节。</p>
+<p class="normaltext4">■ 你开得很快。看第<a href="part0100.xhtml#a12">12</a>节。</p>
+<p class="normaltext4">■ 你停下车。看第<a href="part0100.xhtml#a25">25</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a31">31 你跑着穿过树林。你来到一条小路旁。你沿着路跑，看到了你的房子和巨石。巨石附近有一辆车，车上有几个箱子。你走到一个箱子旁，向里看。箱子里有一些杯子和刀。它们都很古老。你估计它们有大约4,000年的历史了。这时你看到小山上有个洞。这座小山是一座巨石墓。有人正在从坟墓里往外拿东西。</p>
+<p class="normaltext">你听到有动静，然后看到了那个美国女人萨拉。她正从坟墓里出来，手里拿着一把刀。</p>
+<p class="normaltext4">■ 你没有动。看第<a href="part0100.xhtml#a14">14</a>节。</p>
+<p class="normaltext4">■ 你跑开了。看第<a href="part0100.xhtml#a35">35</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a32">32 你走到一个村子，给一家修理厂打电话。三个小时后，来了一个男人。他花了很长时间修车。四点钟时，车修好了。</p>
+<p class="normaltext4">■ 你找到一个警察。看第<a href="part0100.xhtml#a10">10</a>节。</p>
+<p class="normaltext4">■ 你开车回家。看第<a href="part0100.xhtml#a16">16</a>节。</p>
+<p class="normaltext4">■ 你去看其他巨石和坟墓。看第<a href="part0100.xhtml#a6">6</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a33">33 你把树从路上移开。你回到车上，继续向前开。五分钟后，你看到两座房子：一座老房子和一座新房子。你租了老房子。</p>
+<p class="normaltext">两座房子附近有座小山，山的周围有几块巨石。</p>
+<p class="normaltext">“住在这里很不错，”你想。</p>
+<p class="normaltext">你下了车，看着巨石。你估计它大约有4,000年的历史。</p>
+<p class="normaltext4">■ 你绕着山走。看第<a href="part0100.xhtml#a4">4</a>节。</p>
+<p class="normaltext4">■ 你走向老房子。看第<a href="part0100.xhtml#a18">18</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a34">34 巨石附近有一座小山。你走向小山，山上有扇门，门上写着字：“巨石墓，有4,500年历史。”门开着。你朝墓里看去。里面很黑。</p>
+<p class="normaltext4">■ 你走向巨石。看第<a href="part0100.xhtml#a2">2</a>节。</p>
+<p class="normaltext4">■ 你去村里打听巨石的情况。看第<a href="part0100.xhtml#a8">8</a>节。</p>
+<p class="normaltext4">■ 你走进坟墓。看第<a href="part0100.xhtml#a13">13</a>节。</p>
+<p class="normaltext4">■ 你去海边。看第<a href="part0100.xhtml#a22">22</a>节。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext" id="a35">35 你想跑开，但却绊倒在箱子上。</p>
+<p class="normaltext4">■ 看第<a href="part0100.xhtml#a14">14</a>节。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP9"><img src="../../../Images/image06452.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红发姑娘 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '红发姑娘';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>红发姑娘</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">红发姑娘</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">THE GIRL WITH RED HAIR</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">1 Wow!</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">2 Boohoo</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">3 Yay!!</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="mllj0"><img src="../../../Images/image06836.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext8">京权图字：01-2013-7802</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2009</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="normaltext8">图书在版编目（CIP）数据</p>
+<p class="normaltext">红发姑娘：英汉对照／（新西兰）林多普（Lindop, C.）著；（英）文森特（Vincent, M.）绘；文雪琴译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：The girl with red hair</p>
+<p class="normaltext">ISBN 978-7-5135-3780-3</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①红…　Ⅱ．①林…②文…③文…　Ⅲ．①英语—汉语—对照读物②短篇小说—新西兰—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第271153号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">出版人　　蔡剑峰</p>
+<p class="normaltext3">责任编辑　杨雅琼</p>
+<p class="normaltext3">封面设计　蔡　颖</p>
+<p class="normaltext3">出版发行　外语教学与研究出版社</p>
+<p class="normaltext3">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext3">网　　址　http://www.fltrp.com</p>
+<p class="normaltext3">版　　次　2013年12月第1版</p>
+<p class="normaltext3">书　　号　ISBN 978-7-5135-3780-3</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">制售盗版必究　举报查实奖励</p>
+<p class="normaltext3">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">内容简介</h1>
+<p class="normaltext02">马克非常喜欢他在梅森百货商店的工作。他观察众人，并提出问题。那个男人把什么放进了自己的包里？为什么那个女人穿了两件外套？那两个男孩为何总是东张西望？马克提出问题，接着找出答案。</p>
+<p class="normaltext02">然后有一天，马克看见了一位红发姑娘，从此无法忘怀。现在他有几个不同的问题了：这个红发姑娘是谁？那个小男孩是她的孩子吗？那个穿着黑色夹克的英俊男人是谁？问题有很多，而马克不是每次都能找到正确的答案。</p>
+<p class="normaltext02">但是他想再次看到那双美丽的绿眼睛……</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">THE GIRL WITH RED HAIR</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">THE GIRL WITH RED HAIR</h1>
+<p class="normaltext3">Mark likes his work in Mason's store. He watches people, and he asks questions. What is that man putting into his bag? Why is that woman wearing two coats? Why are those two boys looking around all the time? Mark asks questions, and then he finds the answers.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Then one day Mark sees a girl with red hair, and he can't forget her. Now he's got some different questions. Who is the girl with red hair? Is the little boy her baby? Who is the man in the black jacket – the good-looking man? There are a lot of questions, and Mark doesn't always find the right answers.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">But he wants to look into those beautiful green eyes again...</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="mulu">CONTENTS<br/>目　录</div>
+  <div class="mulu1"><a href="part0276.xhtml">内容简介</a></div>
+  <div class="mulu1"><a href="part0279.xhtml">1 Wow!</a></div>
+  <div class="mulu1"><a href="part0280.xhtml">2 Boohoo</a></div>
+  <div class="mulu1"><a href="part0281.xhtml">3 Yay!!</a></div>
+  <p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0282.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="mulu1"><a href="part0283.xhtml#a1">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="mulu1"><a href="part0284.xhtml">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">1 Wow!</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">1<br/>Wow!</h1>
+<p class="normaltext3">My name is Mark Sellers. I'm twenty-two years old, and I work in security in Mason's store. You can get everything here – books, TVs, hats, flowers, sandwiches, beds, bicycles... It's interesting work, and I like it. Sometimes I walk around in the store, and sometimes I work in the office.</p>
+<p class="picture"><img src="../../../Images/image06837.jpeg" alt="alt"/></p>
+<p class="normaltext3">Leon and Shami work in security too. I like working with them.</p>
+<p class="normaltexty">'Look at this woman,' Leon says. 'Which hat is best for her – blue or black?'</p>
+<p class="normaltexty">I look at the woman on the screen.</p>
+<p class="normaltexty">'Oh – the black hat,' I say.</p>
+<p class="normaltexty">'No!' says Shami. 'The blue hat is nicer.'</p>
+<p class="normaltexty">We watch and wait. In the end the woman takes the blue hat.</p>
+<p class="normaltexty">'Hurray!' says Shami. 'You two know nothing about hats.'</p>
+<p class="normaltexty">Yes, it's interesting work.</p>
+<p class="picture"><img src="../../../Images/image06838.jpeg" alt="alt"/></p>
+<p class="normaltext3">Today I'm watching the screens. I'm looking at a man with a big bag. He's got a clock in his hand. He looks around slowly. Now he's got a clock in his bag. The man walks to the door. I talk on my radio. Shami walks quietly behind the man. When he gets to the door, she puts her hand on his arm.</p>
+<p class="normaltexty">'Please come with me,' she says.</p>
+<p class="normaltexty">Good. I go back to the screens.</p>
+<p class="picture"><img src="../../../Images/image06839.jpeg" alt="alt"/></p>
+<p class="normaltext3">And then I see her.</p>
+<p class="normaltexty">'Wow! Who's that girl?'</p>
+<p class="normaltexty">'What girl? I can see lots of girls,' Leon says.</p>
+<p class="normaltexty">Now the picture on the screen is bigger.</p>
+<p class="normaltexty">'That girl there – with red hair.'</p>
+<p class="normaltexty">Leon looks at the screen.</p>
+<p class="normaltexty">'Hmm – yes, she's OK. But who is she? I don't know. Why don't you go and ask her, Mark?'</p>
+<p class="picture"><img src="../../../Images/image06840.jpeg" alt="alt"/></p>
+<p class="normaltext3">He laughs and walks away, but I can't stop looking at the screen. Who is that beautiful girl? What is her name? I want to meet her.</p>
+<p class="picture"><img src="../../../Images/image06841.jpeg" alt="alt"/></p>
+<p class="normaltext3">Every day I look for the girl with red hair, but I do not see her. </p>
+<p class="normaltexty">'Where is she?' Leon says every day. 'Where's the girl with red hair, Mark? What's her name?'</p>
+<p class="normaltexty">'Oh stop it, Leon,' says Shami. 'Mark can dream, can't he?'</p>
+<p class="normaltexty">I laugh at first, but after three days, I want to hit Leon. Then, suddenly, I see her again.</p>
+<p class="normaltexty">I am watching a woman with a big bag. And then, there she is – the girl with red hair. She's got green eyes too. But there is a baby with her, a little boy. They are looking at a book about trains.</p>
+<p class="picture"><img src="../../../Images/image06842.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Look, Greg,' she says. 'Look at the big train.'</p>
+<p class="normaltexty">The little boy smiles. He's got red hair and green eyes too. <em>Her</em> baby. So – has she got a husband? A boyfriend? I look at her beautiful green eyes again, and then I go back to work. But there are lots of questions in my head.</p>
+<p class="picture"><img src="../../../Images/image06843.jpeg" alt="alt"/></p>
+<p class="normaltext3">She comes to the store on Wednesday mornings. She usually arrives at about eleven o'clock. </p>
+<p class="normaltexty">'How's your girl?' asks Leon.</p>
+<p class="normaltexty">'She's not my girl,' I say. 'I don't know her name. Her little boy's name is Greg, but she's – the girl with red hair.'</p>
+<p class="normaltexty">'Well, let's give her a name,' says Leon. 'What do you think, Shami?'</p>
+<p class="normaltexty">'Hmm – Scarlet! Her name is Scarlet,' says Shami. </p>
+<p class="normaltexty">'Apples are red,' says Leon. 'Apple is a nice name—'</p>
+<p class="normaltexty">Then he looks at my face, and runs out the door.</p>
+<p class="picture"><img src="../../../Images/image06844.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">2 Boohoo</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a2">2<br/>Boohoo</h1>
+<p class="normaltext3">Next Wednesday I am in the store when the girl with red hair comes in with Greg. She stops and looks at a picture. Greg takes his hat off and drops it. I pick up the hat and go over to her.</p>
+<p class="normaltexty">'Excuse me,' I say. 'Is this your little boy's hat?'</p>
+<p class="normaltexty">She smiles at me.</p>
+<p class="normaltexty">'Oh, thank you,' she says. 'Greg, look, it's your hat.'</p>
+<p class="normaltexty">Greg laughs. She puts out her hand and takes the hat from me. Is she wearing a ring? No, there is no ring on her hand.</p>
+<p class="normaltexty">Wednesday is the best day of the week, I think.</p>
+<p class="picture"><img src="../../../Images/image06845.jpeg" alt="alt"/></p>
+<p class="normaltext3">Ten minutes later, I am near the flowers when Leon speaks to me on my radio.</p>
+<p class="normaltexty">'Mark, go to the door!' he says. 'You must stop her – the girl with red hair.'</p>
+<p class="normaltexty">'What? What's happening?' I say.</p>
+<p class="normaltexty">'Go quickly – now. It's the little boy – he's got one of the red planes.'</p>
+<p class="normaltexty">Those red planes! Children take them all the time, because they like the colour. Then they get to the door and the alarm rings. Children cry, and their mothers get angry. I hate those planes!</p>
+<p class="picture"><img src="../../../Images/image06846.jpeg" alt="alt"/></p>
+<p class="normaltext3">When I get to the door, the alarm is ringing. The girl with red hair is standing there, and her face is red.</p>
+<p class="normaltexty">'What's happening?' she says. </p>
+<p class="normaltexty">'Please come back into the store for a minute,' I say. </p>
+<p class="normaltexty">We go back into the store, and the alarm stops.</p>
+<p class="normaltexty">'This young man has got the answer, I think. Where's the plane?' I say to Greg.</p>
+<p class="normaltexty">'Plane,' says Greg, and he waves a little red plane at us.</p>
+<p class="normaltexty">'Oh, I <em>am</em> sorry!' she says.</p>
+<p class="normaltexty">'It's all right,' I say. 'It happens all the time. Can I have the plane? Good boy!'</p>
+<p class="normaltexty">'Thank you very much,' says the girl with red hair. But the alarm is ringing again. I must go.</p>
+<p class="picture"><img src="../../../Images/image06847.jpeg" alt="alt"/></p>
+<p class="normaltext3">I walk into the office upstairs. Shami is watching the screens. She stops and looks at my face.</p>
+<p class="normaltexty">She says nothing, but she smiles. Then she goes back to work.</p>
+<p class="normaltexty">I look at the screens too – but I am dreaming.</p>
+<p class="picture"><img src="../../../Images/image06848.jpeg" alt="alt"/></p>
+<p class="normaltext3">I'm happy. I'm really happy. But how can I meet her again? I think about this for the next six days, but I can't find any answers. Then it's Wednesday again.</p>
+<p class="normaltexty">I'm sitting in the office watching the screens. Ten o'clock comes and goes, then eleven o'clock. I can't see her.</p>
+<p class="picture"><img src="../../../Images/image06849.jpeg" alt="alt"/></p>
+<p class="normaltext3">I look on every screen in the store. In the end I see her near the door. She's looking at her watch, and talking to Greg. Is she waiting for somebody?</p>
+<p class="normaltexty">Perhaps she's meeting somebody. Perhaps she's late. Perhaps her mother is coming. Perhaps—</p>
+<p class="normaltexty">But now she's waving at somebody.</p>
+<p class="picture"><img src="../../../Images/image06850.jpeg" alt="alt"/></p>
+<p class="normaltext3">A good-looking man in a black jacket walks up to the girl with red hair and kisses her. Greg laughs, and the man picks him up and kisses him too. Is he the baby's father? Of course he is. Anybody can see that.</p>
+<p class="normaltexty">I don't want to look, but I can't take my eyes away from the screen. Then they all go down the road, away from the store.</p>
+<p class="normaltexty">I look around the room. Leon and Shami are in the store, and the room is very quiet. It feels cold.</p>
+<p class="picture"><img src="../../../Images/image06851.jpeg" alt="alt"/></p>
+<p class="normaltext3">Then Leon and Shami come in. 'Now that's not a happy face,' Shami says. 'What's the matter?'</p>
+<p class="normaltexty">I tell them. I tell them about the girl with red hair, and Greg, and the good-looking man – and the kiss.</p>
+<p class="normaltexty">Leon looks at my face and thinks for a minute.</p>
+<p class="normaltexty">'Look, Mark,' he says. 'It's a dream, that's all. You see a nice girl, you think about her, you talk to her – and one day her boyfriend arrives. Boohoo. You stop dreaming. But there are always more girls.'</p>
+<p class="picture"><img src="../../../Images/image06852.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Yes, but—' I say, and then I stop.</p>
+<p class="normaltexty">'But they're not the girl with red hair, right?' says Leon. 'But she's got a boyfriend. You need a different girl, Mark – a girl without a boyfriend. Why don't you come out with us tonight? We're going to Ocean Blue. It's a wonderful club, and there are lots of nice girls there.'</p>
+<p class="normaltexty">I don't really want to go, but I don't want to stay at home and do nothing.</p>
+<p class="normaltexty">'OK, then,' I say.</p>
+<p class="normaltexty">'Good man,' says Leon. 'See you there at nine.'</p>
+<p class="picture"><img src="../../../Images/image06853.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">3 Yay!!</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a3">3<br/>Yay!!</h1>
+<p class="normaltexty">The club is dark. There's a lot of noise, and a lot of people, but the music is good.</p>
+<p class="normaltexty">Leon is there with his girlfriend Ellie. I talk to them and their friends. I'm feeling good. Perhaps tonight I can forget about everything. Leon and Ellie are dancing, so I go to get a drink.</p>
+<p class="picture"><img src="../../../Images/image06854.jpeg" alt="alt"/></p>
+<p class="normaltext3">Leon is right about one thing – there are a lot of nice girls at Ocean Blue. Tall girls, interesting girls, girls with black hair, blue hair – and red hair.</p>
+<p class="normaltexty">Red hair? I'm waiting for my drink, and I'm standing next to the girl with red hair. No, two girls with red hair. Is this really happening?</p>
+<p class="picture"><img src="../../../Images/image06855.jpeg" alt="alt"/></p>
+<p class="normaltext3">The girl with red hair looks at me and smiles. 'Just a minute,' she says. 'Don't I know you?'</p>
+<p class="normaltexty">She's talking to me! Why can't I say anything?</p>
+<p class="normaltexty">'In the store,' I say at last. 'In Mason's store. With your little boy. And the red plane.'</p>
+<p class="normaltexty">The girl with red hair laughs.</p>
+<p class="normaltexty">'Oh, with Greg!' she says. 'I remember. But he isn't my baby – he's Claire's. This is my sister Claire – she's his mother.' The second girl with red hair waves at me.</p>
+<p class="picture"><img src="../../../Images/image06856.jpeg" alt="alt"/></p>
+<p class="normaltext3">'But I always see you with him,' I say.</p>
+<p class="normaltexty">'I look after Greg on Wednesday mornings, and we always go to Mason's,' she says. 'Then I meet Claire. Well, usually, that is. But not this week.'</p>
+<p class="normaltexty">Just then a good-looking man in a black jacket arrives. 'Sorry I'm late,' he says, and kisses Claire. 'Hi, Kate.'</p>
+<p class="normaltexty">Claire smiles at him, and the girl with red hair says hello. I'm starting to understand. This is Claire's husband, and Greg's father. And the girl with red hair is called Kate.</p>
+<p class="picture"><img src="../../../Images/image06857.jpeg" alt="alt"/></p>
+<p class="normaltext3">My face is red. </p>
+<p class="normaltexty">'Hey, I'm sorry,' I say to Kate. 'It's – well, Greg's got your hair and your eyes. But I can see now. He's got <em>Claire's</em> hair and eyes. Of course.'</p>
+<p class="normaltexty">'It's OK,' Kate says. 'It happens all the time. People say, "Isn't your little boy happy!" And sometimes I just say, "Yes, he is." '</p>
+<p class="picture"><img src="../../../Images/image06858.jpeg" alt="alt"/></p>
+<p class="normaltext3">Claire and her husband go off to dance, and I get Kate a drink.</p>
+<p class="normaltexty">'Here you are, Kate. My name's Mark.'</p>
+<p class="normaltexty">'Thanks, Mark,' she says. 'So you work in Mason's.'</p>
+<p class="normaltexty">'Yes,' I say. 'I work in security. I look for little boys with red planes, and girls with red hair.'</p>
+<p class="normaltexty">'And do you find them?'</p>
+<p class="normaltexty">'I find lots of little boys with red planes.'</p>
+<p class="picture"><img src="../../../Images/image06859.jpeg" alt="alt"/></p>
+<p class="normaltext3">'And the girls?'</p>
+<p class="normaltexty">'Just one.'</p>
+<p class="normaltexty">Now I have the answers to my questions. The girl with red hair is Kate. She hasn't got a husband, and she hasn't got a baby. And those green eyes are smiling at me. Yes, Wednesday really is the best day of the week.</p>
+<p class="picture"><img src="../../../Images/image06860.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">GLOSSARY<br/>词汇表</h1>
+<p class="normaltext4b"><b>alarm</b> <em>n.</em> something that makes a loud noise when something is wrong　<span class="CN_Kindle_Kai">报警器</span></p>
+<p class="normaltext4b"><b>around</b> <em>adv.</em> in different places　<span class="CN_Kindle_Kai">四处，到处</span></p>
+<p class="normaltext4b"><b>baby</b> <em>n.</em> a very young child　<span class="CN_Kindle_Kai">婴儿，小宝宝</span></p>
+<p class="normaltext4b"><b>boyfriend/girlfriend</b> <em>n.</em> a boy/girl you like and go out with　<span class="CN_Kindle_Kai">男朋友/女朋友</span></p>
+<p class="normaltext4b"><b>club</b> <em>n.</em> a place where you go to dance, listen to music, etc.　<span class="CN_Kindle_Kai">夜总会，俱乐部</span></p>
+<p class="normaltext4b"><b>dream</b> <em>v.</em> to hope for something nice in the future　<span class="CN_Kindle_Kai">梦想，渴望</span></p>
+<p class="normaltext4b"><b>drop</b> <em>v.</em> to let something fall　<span class="CN_Kindle_Kai">使掉下，投下</span></p>
+<p class="normaltext4b"><b>good-looking</b> <em>adj.</em> nice to look at　<span class="CN_Kindle_Kai">好看的，（男人）英俊的</span></p>
+<p class="normaltext4b"><b>husband</b> <em>n.</em> the man that a woman is married to　<span class="CN_Kindle_Kai">丈夫</span></p>
+<p class="normaltext4b"><b>jacket</b> <em>n.</em> a short coat　<span class="CN_Kindle_Kai">夹克，短上衣</span></p>
+<p class="normaltext4b"><b>kiss</b> <em>v.</em> to touch someone lovingly with your lips　<span class="CN_Kindle_Kai">吻，亲吻</span></p>
+<p class="normaltext4b"><b>look after</b> to take care of somebody　<span class="CN_Kindle_Kai">照看，照料</span></p>
+<p class="normaltext4b"><b>music</b> <em>n.</em> what you make when you sing, play the piano, etc.　<span class="CN_Kindle_Kai">音乐</span></p>
+<p class="normaltext4b"><b>pick up</b> to take something with your hand　<span class="CN_Kindle_Kai">拾起，捡起</span></p>
+<p class="normaltext4b"><b>radio</b> <em>n.</em> a machine that lets you hear somebody's voice from far away　<span class="CN_Kindle_Kai">无线电设备</span></p>
+<p class="normaltext4b"><b>ring</b> <em>v.</em> make a sound like a bell (a telephone rings)　<span class="CN_Kindle_Kai">响铃</span> <em>n.</em> a circle of metal that you wear on your finger　<span class="CN_Kindle_Kai">戒指</span></p>
+<p class="normaltext4b"><b>screen</b> <em>n.</em> the flat part of a TV where you see pictures　<span class="CN_Kindle_Kai">（电视机）屏幕</span></p>
+<p class="normaltext4b"><b>security</b> <em>n.</em> the people who keep things safe　<span class="CN_Kindle_Kai">保安，保安人员</span></p>
+<p class="normaltext4b"><b>store</b> <em>n.</em> a big shop that sells a lot of different things　<span class="CN_Kindle_Kai">（百货）商店，商场</span></p>
+<p class="normaltext4b"><b>wave</b> <em>v.</em> to move your hand to say hello or goodbye to somebody　<span class="CN_Kindle_Kai">挥手（以示意）</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">The Girl with Red Hair</h1>
+<hr/>
+<h1 class="title1" id="a1">ACTIVITIES<br/>阅读练习</h1>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em>Before Reading</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">1 Look at the front and <a href="part0286.xhtml">back covers</a> of the book and choose the correct endings for these sentences.</p>
+<p class="normaltextb">1）This story is about...</p>
+<p class="normaltext6b">a □ work and friends.</p>
+<p class="normaltext6b">b □ love and work.</p>
+<p class="normaltext6b">c □ friends and children.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextb">2）Mark sees the girl...</p>
+<p class="normaltext6b">a □ on TV.</p>
+<p class="normaltext6b">b □ in a house.</p>
+<p class="normaltext6b">c □ in a store.</p>
+<p class="normaltext4">2 Guess what happens. In the story...</p>
+<p class="normaltextb">1）Mark's friends talk to the girl.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">2）Mark's friends help him.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">3）the girl does not speak to Mark.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">4）Mark meets the girl at a club.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">5）the girl has got a boyfriend.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">6）the girl starts work in the store.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em>While Reading</em></p>
+<p class="normaltext4">1 Read the first half of Chapter 1, then answer these questions.</p>
+<p class="normaltextb">1）Where does Mark work?</p>
+<p class="normaltextb">2）Who knows most about hats?</p>
+<p class="normaltextb">3）How does Mark talk to Shami?</p>
+<p class="normaltextb">4）Who does Mark see on the screen?</p>
+<p class="normaltext4">2 Read the second half of Chapter 1. Are these sentences true (T) or false (F)?</p>
+<p class="normaltextb">1）Mark wants to meet the girl with red hair.</p>
+<p class="normaltextb">2）Shami wants to hit Leon.</p>
+<p class="normaltextb">3）The girl and the baby have got blue eyes.</p>
+<p class="normaltextb">4）The girl comes to the store on Wednesdays.</p>
+<p class="normaltextb">5）Leon knows the girl's name.</p>
+<p class="normaltext4">3 Read the first half of Chapter 2 and answer the questions. </p>
+<p class="normaltextb">Who...</p>
+<p class="normaltextb">1）... drops his hat?</p>
+<p class="normaltextb">2）... likes Wednesdays?</p>
+<p class="normaltextb">3）... tells Mark about the plane?</p>
+<p class="normaltextb">4）... has got a red face?</p>
+<p class="normaltextb">5）... is watching the screens in the office?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">4 Read the second half of Chapter 2. Now answer these questions.</p>
+<p class="normaltextb">1）Where is Mark on Wednesday morning?</p>
+<p class="normaltextb">2）What is the girl looking at?</p>
+<p class="normaltextb">3）Who is the man in the black jacket?</p>
+<p class="normaltextb">4）Who tells Mark, 'It's a dream'?</p>
+<p class="normaltext4">5 Read the first half of Chapter 3, then match the sentence halves to make four complete sentences.</p>
+<p class="normaltextb">1）Ocean Blue is a wonderful club...</p>
+<p class="normaltextb">2）Mark doesn't want to go out...</p>
+<p class="normaltextb">3）Mark is feeling good...</p>
+<p class="normaltextb">4）Mark wants to forget about everything...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextb">a but he doesn't want to stay at home and do nothing.</p>
+<p class="normaltextb">b but then he sees two girls with red hair.</p>
+<p class="normaltextb">c because he likes the music and the people at the club.</p>
+<p class="normaltextb">d and there are lots of nice girls there.</p>
+<p class="normaltext4">6 Guess what happens next in the story.</p>
+<p class="normaltextb">1）The two girls are sisters.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">2）The girl is the baby's mother.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">3）The girl's sister is the baby's mother.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">4）The man in the black jacket is the girl's husband.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">5）The girl hasn't got a husband.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<p class="normaltextb">6）Mark gives the girl some flowers.</p>
+<p class="normaltext1"><em>Yes</em> □／<em>No</em> □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em>After Reading</em></p>
+<p class="normaltext4">1 What do you know about Kate and Mark? Choose the right words for each person, and then write a description.</p>
+<p class="normaltext10"><em>work/Mason's store</em></p>
+<p class="normaltext10"><em>red hair/green eyes</em></p>
+<p class="normaltext10"><em>twenty-two years old</em></p>
+<p class="normaltext10"><em>sister Claire/little boy Greg</em></p>
+<p class="normaltext10"><em>work/Leon and Shami</em></p>
+<p class="normaltext10"><em>like working/security</em></p>
+<p class="normaltext10"><em>look after Greg/Wednesdays</em></p>
+<p class="normaltext4">2 Put these sentences in the correct order. Number them 1-10.</p>
+<p class="normaltextb">a □ The girl leaves with the man and Greg.</p>
+<p class="normaltextb">b □ The good-looking man (Claire's husband) arrives.</p>
+<p class="normaltextb">c □ Leon says, 'Come with us to Ocean Blue.'</p>
+<p class="normaltextb">d □ Mark meets her sister Claire.</p>
+<p class="normaltextb">e □ Mark tells his friends about the boyfriend.</p>
+<p class="normaltextb">f □ At the club, Mark sees two girls with red hair.</p>
+<p class="normaltextb">g □ Mark gets Kate a drink, and she smiles at him.</p>
+<p class="normaltextb">h □ A good-looking man meets her and kisses her.</p>
+<p class="normaltextb">i □ The girl with red hair tells Mark about her family.</p>
+<p class="normaltextb">j □ The girl is waiting by the door of the store.</p>
+<p class="normaltext4">3 Who says this? Who do they say it to?</p>
+<p class="normaltextb">1）'You two know nothing about hats.'</p>
+<p class="normaltextb">2）'Look at the big train.'</p>
+<p class="normaltextb">3）'Apple is a nice name—'</p>
+<p class="normaltextb">4）'Oh, I <em>am</em> sorry!'</p>
+<p class="normaltextb">5）'Sorry I'm late.'</p>
+<p class="normaltextb">6）'Just one.'</p>
+<p class="normaltext4">4 Complete this summary of the story. Use these words:</p>
+<p class="normaltext10"><em>club　door　every　feels　good-looking　husband　kisses　plane　sorry　stops</em></p>
+<p class="normaltext11">Mark sees a beautiful girl with red hair in Mason's store. She comes to the store ________ Wednesday with a little boy called Greg. One day Greg takes a little________, and Mark ________ the girl and Greg near the door. Her face is red and she is very ________. The next Wednesday a ________ man meets her and Greg at the ________ of the store and ________ them. Mark is not happy. That night he goes to the Ocean Blue ________. There he meets the girl with red hair, Kate, and her sister Claire. Greg is Claire's baby, and the good-looking man is her ________. Kate hasn't got a boyfriend. Mark ________ very good. </p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="subtitle">TRANSLATION<br/>参考译文</h1>
+<h1 class="title1">The Girl with Red Hair<br/>红发姑娘</h1>
+<p class="subtitle1"><a href="part0279.xhtml#a1">1　哇！</a></p>
+<p class="normaltext02">我叫马克·塞勒斯，22岁，在梅森百货商店做安保工作。你能在梅森百货买到所有的东西——书、电视机、帽子、花、三明治、床、自行车……这份工作很有意思，我很喜欢。有时候我会在店里四处巡视，有时候则在办公室里工作。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">利昂和沙米也在保卫处工作。我喜欢和他们共事。</p>
+<p class="normaltext02">“看这个女人，”利昂说，“哪顶帽子最适合她——蓝色的还是黑色的？”</p>
+<p class="normaltext02">我看了看屏幕上的女人。</p>
+<p class="normaltext02">“嗯——黑色的帽子。”我说。</p>
+<p class="normaltext02">“不！”沙米说，“那顶蓝色的帽子更好看。”</p>
+<p class="normaltext02">我们注视着屏幕，等着瞧。最后那个女人选择了蓝色的帽子。</p>
+<p class="normaltext02">“万岁！”沙米说，“你俩对帽子一窍不通。”</p>
+<p class="normaltext02">没说错吧，这是一份有意思的工作。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">今天由我负责监视屏幕。我注意到一个拎着大包的男人。他拿了一个时钟在手里。他慢慢地望了望四周，之后钟就在他的包里了。这个男人向门口走去。我通过无线电说了几句。沙米悄悄走在这个男人后面。当他走到门口时，她一把抓住了他的胳膊。</p>
+<p class="normaltext02">“请跟我来。”她说。</p>
+<p class="normaltext02">好。我继续监视屏幕。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">然后我就看见了她。</p>
+<p class="normaltext02">“哇！那个姑娘是谁？”</p>
+<p class="normaltext02">“什么姑娘？我能看到许多姑娘。”利昂说。</p>
+<p class="normaltext02">现在屏幕上的画面放大了。</p>
+<p class="normaltext02">“那边的那个姑娘——一头红发的。”</p>
+<p class="normaltext02">利昂看了看屏幕。</p>
+<p class="normaltext02">“嗯——是的，她还行。不过她是谁？我不知道。马克，你为什么不去问问她呢？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">他笑着走开了，但我却忍不住一直盯着屏幕看。那个美丽的姑娘是谁？她叫什么名字？我想结识她。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">我每天都在寻找那个红发姑娘的身影，却总看不到她。</p>
+<p class="normaltext02">“她在哪儿？”利昂每天都在念叨，“那个红发姑娘在哪儿，马克？她叫什么名字？”</p>
+<p class="normaltext02">“哎，别说了，利昂，”沙米说，“马克总能做做梦吧，不是吗？”</p>
+<p class="normaltext02">开始时我会笑笑，但三天过后，我就想揍利昂一顿。之后，我突然再次看到了她。</p>
+<p class="normaltext02">我正盯着一个拿着大包的女人，然后就看到了她——那个一头红发的姑娘。她还有着一双绿色的眼睛。但她身旁有个小宝宝，是个小男孩。他们正在看一本关于火车的书。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">“看，格雷格，”她说，“看这列大火车。”</p>
+<p class="normaltext02">小男孩笑了。他也有着红色的头发和绿色的眼睛。<span class="xx">她的</span>宝宝。那么——她有丈夫吗？或者有男朋友？我再次看了看她那双美丽的绿眼睛，然后继续工作。但我的脑子里有很多疑问。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">她总是在周三上午来百货商店，通常在11点左右到。</p>
+<p class="normaltext02">“你那个姑娘怎么样了？”利昂问。</p>
+<p class="normaltext02">“她不是我的姑娘。”我说，“我不知道她的名字。她的儿子叫格雷格，但她是——红发姑娘。”</p>
+<p class="normaltext02">“哦，我们来给她取个名儿吧。”利昂说，“你觉得呢，沙米？”</p>
+<p class="normaltext"><span class="CN_Kindle_Kai">“嗯——斯卡莉特！叫她斯卡莉特吧</span>（译注：“斯卡莉特”[Scarlet]意为“鲜红的”）。”<span class="CN_Kindle_Kai">沙米说。</span></p>
+<p class="normaltext"><span class="CN_Kindle_Kai">“苹果是红色的，”利昂说，“阿普尔</span>（译注：Apple作人名时译为阿普尔，此处取其双关含义）<span class="CN_Kindle_Kai">是个不错的名字——”</span></p>
+<p class="normaltext02">他看了看我的脸色，然后跑出门去。</p>
+<p class="subtitle1"><a href="part0280.xhtml#a2">2　呜呜</a></p>
+<p class="normaltext02">接下来的周三，当那个红发姑娘带着格雷格出现时，我正在店里巡视。她停下来看一幅画。格雷格脱下自己的帽子，丢在了地上。我捡起帽子，向她走去。</p>
+<p class="normaltext02">“打扰了，”我说，“这是你儿子的帽子吗？”</p>
+<p class="normaltext02">她对我微笑。</p>
+<p class="normaltext02">“嗯，谢谢你。”她说，“格雷格，看，这是你的帽子。”</p>
+<p class="normaltext02">格雷格笑了。她伸出手从我这儿接过帽子。她戴着戒指吗？没有，她手上没有戒指。</p>
+<p class="normaltext02">周三是一周中最美妙的一天，我想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">十分钟后，我来到花摊旁边，这时利昂通过无线电跟我说话。</p>
+<p class="normaltext02">“马克，到门口去！”他说，“你必须拦住她——那个红发姑娘。”</p>
+<p class="normaltext02">“什么？发生了什么事？”我问。</p>
+<p class="normaltext02">“快去——马上。是那个小男孩——他拿了一架红色飞机。”</p>
+<p class="normaltext02">那些红色的飞机！孩子们总喜欢拿这些飞机，因为他们喜欢这个颜色。然后他们走到门口时，警报器就会响起来。孩子们会哭，妈妈们则会发脾气。我讨厌这些飞机！</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">当我赶到门口时，警报器正在响。红发姑娘站在那里，脸红红的。</p>
+<p class="normaltext02">“发生了什么事？”她问。</p>
+<p class="normaltext02">“请先暂时回到店里。”我说。</p>
+<p class="normaltext02">我们返回商店后，警报器就停止了鸣响。</p>
+<p class="normaltext02">“我觉得这小家伙知道是怎么回事儿。飞机在哪儿呢？”我对格雷格说。</p>
+<p class="normaltext02">“飞机。”格雷格说着，朝我们挥了挥手中的红色飞机。</p>
+<p class="normaltext02">“呀，我真是抱歉！”她说。</p>
+<p class="normaltext02">“没关系。”我说，“这是常有的事儿。能把飞机给我吗？真是个好孩子！”</p>
+<p class="normaltext02">“太感谢你了。”红发姑娘说。但这时警报器又响了。我必须走了。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">我走进楼上的办公室。沙米正观察着屏幕。她停下来，看了看我的脸。</p>
+<p class="normaltext02">她没说什么，但她笑了。然后她又重新投入工作。</p>
+<p class="normaltext02">我也看着屏幕——但我在做着美梦。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">我很高兴，真的很高兴。但我怎么才能再见到她呢？接下来的六天我都在想着这个问题，但我没能找到任何答案。然后就又到周三了。</p>
+<p class="normaltext02">我坐在办公室里注视着屏幕。10点钟到了，又过了。然后11点了。我没能看见她。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">我看了店里所有的屏幕，最后看见她在大门附近。她一边看手表，一边同格雷格说话。她是在等谁吗？</p>
+<p class="normaltext02">也许她要和某人会面。也许她迟到了。也许她妈妈要来。也许——</p>
+<p class="normaltext02">但现在她正朝某个人挥手。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">一个穿着黑色夹克的英俊男人走向红发姑娘，亲了她一下。格雷格笑了，男人把他抱起来也亲了亲。他是这个宝宝的父亲吗？当然他是。任谁都能看出来。</p>
+<p class="normaltext02">我不想看了，但我无法把视线从屏幕上移开。接着他们一起离开商店，走远了。</p>
+<p class="normaltext02">我环顾房间。利昂和沙米都在商店里巡视。房间里很安静，感觉好冷。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">这时利昂和沙米走了进来。“你看上去可不太高兴。”沙米说，“怎么了？”</p>
+<p class="normaltext02">我告诉了他们。我说了那个红发姑娘，还有格雷格，还有那个英俊男人——还有那个亲吻。</p>
+<p class="normaltext02">利昂看了看我的脸，想了一会儿。</p>
+<p class="normaltext02">“瞧，马克，”他说，“这是一场梦，仅此而已。你看见了一个好姑娘，你成天想着她，你跟她说了话——然后有一天她男朋友来了。呜呜。虽然你的梦做不成，但总会有其他姑娘的。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">“是的，不过——”我欲言又止。</p>
+<p class="normaltext02">“不过她们都不是那个红发姑娘，对不对？”利昂说，“但她已经有男朋友了。你需要找个别的姑娘，马克——一个没有男朋友的姑娘。不如你今天晚上跟我们一起出去玩吧？我们要去‘蓝色海洋’。那是个很棒的夜总会，里面有很多不错的姑娘。”</p>
+<p class="normaltext02">我不太想去，但我又不想呆在家里无所事事。</p>
+<p class="normaltext02">“那好吧。”我说。</p>
+<p class="normaltext02">“好兄弟，”利昂说，“9点我们在那里碰头。”</p>
+<p class="subtitle1"><a href="part0281.xhtml#a3">3　耶！！</a></p>
+<p class="normaltext02">夜总会里很昏暗。很吵，而且人很多，但音乐不错。</p>
+<p class="normaltext02">利昂和他的女友埃莉在那里。我同他们以及他们的朋友聊天。我感觉很好。也许今晚我能忘掉一切。利昂和埃莉在跳舞，于是我去要一杯酒。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">利昂说对了一件事——“蓝色海洋”里确实有很多不错的姑娘，高挑的、有趣的、黑发的、蓝发的——还有红发的。</p>
+<p class="normaltext02">红发？我在等我的酒，旁边就有一个红发姑娘。不，是两个。这是真的吗？</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">红发姑娘看着我，笑了。“等等，”她说，“我不是见过你吧？”</p>
+<p class="normaltext02">她在跟我说话！我怎么一句话都说不出来？</p>
+<p class="normaltext02">“在百货商店里，”我终于开了口，“梅森百货商店，跟你儿子一起，还有那架红色飞机。”</p>
+<p class="normaltext02">红发姑娘笑了。</p>
+<p class="normaltext02">“哦，同格雷格一起！”她说，“我想起来了。不过他不是<span class="xx">我的</span>宝宝——他是克莱尔的。这位是我姐姐克莱尔——她才是格雷格的妈妈。”另一个红发姑娘朝我招了招手。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">“但我总是看见你跟格雷格在一起。”我说。</p>
+<p class="normaltext02">“周三的上午都由我来照顾他，而且我们总是去梅森百货。”她说，“然后我同克莱尔碰头。嗯，大多数时候是这样。不过这礼拜不是。”</p>
+<p class="normaltext02">这时来了一个穿着黑色夹克的英俊男人。“对不起，我迟到了。”他说着，吻了吻克莱尔，“嗨，凯特。”</p>
+<p class="normaltext02">克莱尔对他微笑，红发姑娘则同他打了个招呼。我开始明白过来了。这是克莱尔的丈夫，格雷格的父亲。而红发姑娘名叫凯特。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">我脸红了。</p>
+<p class="normaltext02">“嘿，我很抱歉，”我对凯特说，“这个——唉，格雷格的头发和眼睛跟你一样。但我现在能看出来了。他的头发和眼睛是跟<span class="xx">克莱尔</span>一样。理所当然。”</p>
+<p class="normaltext02">“没关系，”凯特说，“这是常有的事。人们总说，‘你儿子真开心！’有时候我只是回答，‘是啊，他是很开心。’”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">克莱尔和她丈夫去跳舞了，我给凯特要了一杯酒。</p>
+<p class="normaltext02">“给，凯特。我叫马克。”</p>
+<p class="normaltext02">“谢谢，马克，”她说，“那么你在梅森百货工作。”</p>
+<p class="normaltext02">“是的，”我说，“我在保卫处工作。我总是寻找那些拿着红色飞机的小男孩，还有红头发的姑娘们。”</p>
+<p class="normaltext02">“那你找到他们了吗？”</p>
+<p class="normaltext02">“我找到了很多拿着红色飞机的小男孩。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">“姑娘们呢？”</p>
+<p class="normaltext02">“只找到了一个。”</p>
+<p class="normaltext02">现在我的问题都有了答案。红发姑娘叫凯特。她没有丈夫，也没有孩子。而且她正用她那双带笑的绿眼睛看着我。没说错吧，周三真是一周中最美妙的一天。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06862.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雪中的柑橘 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '雪中的柑橘';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>雪中的柑橘</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">雪中的柑橘</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">ORANGES IN THE SNOW</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">Oranges in the Snow</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="a0"><img src="../../../Images/image06650.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字：01-2013-7805</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2008</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">雪中的柑橘：英汉对照／（英）伯罗斯（Burrows, P.），（英）福斯特（Foster, M.）著；刘艺姝译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Oranges in the snow</p>
+<p class="normaltext">ISBN 978-7-5135-3762-9</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①雪…　Ⅱ．①伯…②福…③刘…　Ⅲ．①英语—汉语—对照读物②侦探小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272369号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">出版人　　蔡剑峰</p>
+<p class="normaltext3">责任编辑　金　辉</p>
+<p class="normaltext3">封面设计　蔡　颖</p>
+<p class="normaltext3">出版发行　外语教学与研究出版社</p>
+<p class="normaltext3">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext3">网　　址　http://www.fltrp.com</p>
+<p class="normaltext3">版　　次　2013年12月第1版</p>
+<p class="normaltext3">书　　号　ISBN 978-7-5135-3762-9</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">制售盗版必究　举报查实奖励</p>
+<p class="normaltext3">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">内容简介</p>
+<p class="normaltext2">你是一位著名的科学家，正在和你的助手乔一起在实验室工作。你在对一朵小花进行实验。这朵花很特别，它可以帮助人们在黑暗中看到东西。</p>
+<p class="normaltext2">但是有人拿走了这朵特别的花，你也找不到乔了。他就是小偷吗，还是另有其人？你接下来会怎么做呢？你会去乔的房间，还是在实验室里寻找，又或者打电话给你的老板呢？注意——只有一种方法可以重新找回这朵特别的花。但是你要迅速行动——时间不多了。</p>
+<p class="normaltext2">这是一个互动故事，你可以选择接下来读故事的哪一部分，只要跟随每一部分结尾数字的指示便行。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">ORANGES IN THE SNOW</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">ORANGES IN THE SNOW</p>
+<p class="normaltext3">You are a famous scientist, and you are working in a laboratory with your assistant Joe. You are doing an experiment on a small flower. It is a very special flower because it can help people to see in the dark.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">But then somebody takes the special flower, and you can't find Joe. Is he the thief, or is it another person? What do you do next? Do you go to Joe's room, or do you look in the laboratory, or do you telephone your boss? Be careful – there is only one way to find the special flower again. But move quickly – there is not much time.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">This is an interactive story. You can choose what part of the story to read next. Follow the numbers at the end of each section.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="mulu">CONTENTS<br/>目　录</div>
+  <div class="mulu1"><a href="part0181.xhtml">内容简介</a></div>
+  <div class="mulu1"><a href="part0184.xhtml">Oranges in the Snow</a></div>
+<p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0185.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="mulu1"><a href="part0186.xhtml#a0">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="mulu1"><a href="part0187.xhtml">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">Oranges in the Snow</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">Oranges in the Snow</p>
+<p class="normaltext3" id="b1"><span class="big"><a href="part0187.xhtml#a1">1</a></span>　The night is cold and windy. Outside the laboratory a dog howls. You are Mary Durie, the famous scientist. In your hand is a small flower. It grows in Alaska and it is very special. It can help people to see in the dark, you think.</p>
+<p class="normaltext">Joe, your assistant, tells you, 'Everything's ready now. We can do the experiment.' He points to the flower.</p>
+<p class="normaltext">You are a little afraid but you say, 'OK, let's start.'</p>
+<p class="normaltext4">■<em>　You begin the experiment. Go to <a href="part0184.xhtml#b18">18</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06651.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b2"><span class="big"><a href="part0187.xhtml#a2">2</a></span>　You go to the red plane. It is full of fish. A man with a beard gets on the plane. Is he the man you want?</p>
+<p class="normaltext4">■<em>　You talk to the man on the plane. Go to <a href="part0184.xhtml#b29">29</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06652.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b3"><span class="big"><a href="part0187.xhtml#a3">3</a></span>　You telephone your boss. She is not there – she is playing tennis.</p>
+<p class="normaltext4">■<em>　Go back to <a href="part0184.xhtml#b10">10</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b4"><span class="big"><a href="part0187.xhtml#a4">4</a></span>　You go to talk to the man. 'What are you doing here? This is private.' He runs away but he drops something. It is a ticket. 'Stop,' you say. But he runs faster.</p>
+<p class="normaltext4">■<em>　You run after the man. Go to <a href="part0184.xhtml#b12">12</a>.</em></p>
+<p class="normaltext4">■<em>　You look at the ticket. Go to <a href="part0184.xhtml#b20">20</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06653.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b5"><span class="big"><a href="part0187.xhtml#a5">5</a></span>　You drink the liquid and go out of the laboratory. You can see in the dark! You walk away from the building and see a dog running after a seal. There is a man behind a car. 'What is he doing there?' you think.</p>
+<p class="normaltext4">■<em>　You telephone your boss and tell her about the flower. Go to <a href="part0184.xhtml#b22">22</a>.</em></p>
+<p class="normaltext4">■<em>　You go back to the laboratory and talk to Joe. Go to <a href="part0184.xhtml#b10">10</a>.</em></p>
+<p class="normaltext4">■<em>　You talk to the man behind the car. Go to <a href="part0184.xhtml#b4">4</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06654.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b6"><span class="big"><a href="part0187.xhtml#a6">6</a></span>　You go to Joe's room. He is not there. You hear someone outside. 'Joe! Is that you?' Suddenly, the door closes and you can't get out.</p>
+<p class="normaltext4">■<em>　Go to <a href="part0184.xhtml#b1">1</a> and start again.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b7"><span class="big"><a href="part0187.xhtml#a7">7</a></span>　The dog drinks the liquid. After a minute, he smiles and runs away.</p>
+<p class="normaltext4">■<em>　Go back to <a href="part0184.xhtml#b18">18</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b8"><span class="big"><a href="part0187.xhtml#a8">8</a></span>　You talk to the man with the long hair. 'We're looking for a passenger with a beard,' you say to him.</p>
+<p class="normaltext">'Sorry, I can't help you. Are you looking for a watch? I have lots of watches. They are not expensive. ￡3? ￡2?'</p>
+<p class="normaltext">'No, thank you. I have a watch.'</p>
+<p class="normaltext">'I want a watch,' says Joe.</p>
+<p class="normaltext">'We haven't time, Joe!' you say.</p>
+<p class="normaltext4">■<em>　You talk to the pilot. Go to <a href="part0184.xhtml#b30">30</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06655.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b9"><span class="big"><a href="part0187.xhtml#a9">9</a></span>　You go to the men's table. Just then, they see you. 'Run!' says the man with the hat. 'Let's go.'</p>
+<p class="normaltext">The thieves leave the restaurant fast. You and Joe run after them.</p>
+<p class="normaltext">The police arrive. 'Where are they?' says a policewoman. 'It's dark and we can't see them.'</p>
+<p class="normaltext">But you can see in the dark. 'They are over there,' you tell the police.</p>
+<p class="normaltext4">■<em>　Go to <a href="part0184.xhtml#b24">24</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06656.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b10"><span class="big"><a href="part0187.xhtml#a10">10</a></span>　You go back into the laboratory. Something is very, very wrong. There is liquid on the table and floor. The table is usually next to the window. Now it is next to the door. And where is Joe? You cannot see him. His white coat is not there – and where is the bottle?</p>
+<p class="normaltext4">■<em>　You go to Joe's room. Go to <a href="part0184.xhtml#b6">6</a>.</em></p>
+<p class="normaltext4">■<em>　You look in this room. Go to <a href="part0184.xhtml#b33">33</a>.</em></p>
+<p class="normaltext4">■<em>　You telephone your boss. Go to <a href="part0184.xhtml#b3">3</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b11"><span class="big"><a href="part0187.xhtml#a11">11</a></span>　You go up to him. 'Can we talk to you?' Joe says. 'Of course. Do you want some oranges?' the man asks. You see his face. He hasn't got a beard – but he smells of oranges.</p>
+<p class="normaltext">You say, 'No. I'm sorry. You are not the right man.'</p>
+<p class="normaltext4">■<em>　You ask him some more questions. Go to <a href="part0184.xhtml#b15">15</a>.</em></p>
+<p class="normaltext4">■<em>　You go back and follow the tracks on the right. Go to <a href="part0184.xhtml#b37">37</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="picture"><img src="../../../Images/image06657.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b12"><span class="big"><a href="part0187.xhtml#a12">12</a></span>　You run after the man. It is not easy to run in the snow. He runs faster than you run. In front of him is a Jet-sled. 'Come back here!' you cry. 'Stop him, someone!' But the man gets on the Jet-sled – and drives away.</p>
+<p class="normaltext">You walk slowly back to the laboratory. You want to talk to Joe but you cannot see him.</p>
+<p class="normaltext4">■<em>　You go back to the laboratory. Go to <a href="part0184.xhtml#b10">10</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06658.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b13"><span class="big"><a href="part0187.xhtml#a13">13</a></span>　You follow the tracks on the left. In front of you is a delivery man. He has a box of oranges.</p>
+<p class="normaltext">'Look, Joe – oranges. Is that the man?' you ask.</p>
+<p class="normaltext">'I don't know,' says Joe. 'Has he got a beard?'</p>
+<p class="normaltext4">■<em>　You go up to him. Go to <a href="part0184.xhtml#b11">11</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06659.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b14"><span class="big"><a href="part0187.xhtml#a14">14</a></span>　There is nobody in the waiting room, but there are two more doors.</p>
+<p class="normaltext4">■<em>　You go to the shop door. Go to <a href="part0184.xhtml#b35">35</a>.</em></p>
+<p class="normaltext4">■<em>　You go to the restaurant door. Go to <a href="part0184.xhtml#b23">23</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b15"><span class="big"><a href="part0187.xhtml#a15">15</a></span>　You ask him some more questions.</p>
+<p class="normaltext">'Where do your oranges come from?' you ask.</p>
+<p class="normaltext">He says, 'There is a plane at the airport. It is full of oranges from Spain.'</p>
+<p class="normaltext">'Is the plane there now?' asks Joe.</p>
+<p class="normaltext">'Yes – but it goes soon,' the man says.</p>
+<p class="normaltext">'Are you driving back to the airport?' you ask.</p>
+<p class="normaltext">'Yes. Do you want to come?'</p>
+<p class="normaltext4">■<em>　You get in his lorry. Go to <a href="part0184.xhtml#b19">19</a>.</em></p>
+<p class="normaltext4">■<em>　You run to the airport. Go to <a href="part0184.xhtml#b27">27</a>.</em></p>
+<p class="normaltext4">■<em>　You follow different tracks. Go to <a href="part0184.xhtml#b34">34</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06660.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b16"><span class="big"><a href="part0187.xhtml#a16">16</a></span>　Joe takes the small bottle and drinks the liquid. 'Something is happening,' he says. 'I feel different. My legs and my hands hurt, but...' Joe goes to the window and opens the curtains. 'Mary! What's the time?'</p>
+<p class="normaltext">'7 o'clock at night,' you tell him.</p>
+<p class="normaltext">'It's daytime for me!' he says. Joe opens the door and looks outside.</p>
+<p class="normaltext4">■<em>　You drink the liquid too. Go to <a href="part0184.xhtml#b5">5</a>.</em></p>
+<p class="normaltext4">■<em>　You look outside with Joe. Go to <a href="part0184.xhtml#b25">25</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b17"><span class="big"><a href="part0187.xhtml#a17">17</a></span>　You look under the table and see the dog. He is eating a shoe. 'Get out!' you say. The dog goes outside with the shoe.</p>
+<p class="normaltext4">■<em>　You look in the cupboard. Go to <a href="part0184.xhtml#b31">31</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06661.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b18"><span class="big"><a href="part0187.xhtml#a18">18</a></span>　You walk to the window. 'What are you doing?' Joe asks.</p>
+<p class="normaltext">'We must be careful,' you say, and you hold up the flower. 'This is very valuable.' You look out of the window, then close the curtains. Joe locks the door.</p>
+<p class="normaltext">You put the flower in a little bottle. 'OK. We are ready.'</p>
+<p class="normaltext">Joe gives you a bigger bottle. It has liquid in it. You pour some liquid on the flower. It turns green. You heat the little bottle. Slowly, the liquid turns yellow. You see some red smoke. You write in your notebook, fast. Then you smile and say, 'That's it!'</p>
+<p class="normaltext4">■<em>　You give the small bottle to Joe. Go to <a href="part0184.xhtml#b16">16</a>.</em></p>
+<p class="normaltext4">■<em>　You drink the yellow liquid. Go to <a href="part0184.xhtml#b5">5</a>.</em></p>
+<p class="normaltext4">■<em>　You drop the liquid and the dog drinks it. Go to <a href="part0184.xhtml#b7">7</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06662.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b19"><span class="big"><a href="part0187.xhtml#a19">19</a></span>　You get in his lorry. He talks a lot. He talks about his mother... about football... about his new trousers...</p>
+<p class="normaltext">'Please,' you say. 'We must get to the airport fast.'</p>
+<p class="normaltext">'Oh dear!' he says. 'I can't find my keys.'</p>
+<p class="normaltext4">■<em>　You are very slow. The thief gets away.</em></p>
+<p class="normaltext"><em>Go to <a href="part0184.xhtml#b1">1</a> and start again.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b20"><span class="big"><a href="part0187.xhtml#a20">20</a></span>　You look at the ticket. It is a plane ticket to Alaska. 'Very interesting,' you think.</p>
+<p class="normaltext4">■<em>　You go back to the laboratory. Go to <a href="part0184.xhtml#b10">10</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06663.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b21"><span class="big"><a href="part0187.xhtml#a21">21</a></span>　You go to the yellow plane. It begins to move. A minute later the plane is in the air. Is the thief on it? Perhaps he is getting away.</p>
+<p class="normaltext4">■<em>　Go to <a href="part0184.xhtml#b26">26</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06664.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b22"><span class="big"><a href="part0187.xhtml#a22">22</a></span>　You use your mobile phone and call your boss. She says, 'Good. This can help lots of people – but don't tell anyone. Remember, there are bad men out there. Be very careful, Mary.'</p>
+<p class="normaltext4">■<em>　You go back into the building. Go to <a href="part0184.xhtml#b10">10</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b23"><span class="big"><a href="part0187.xhtml#a23">23</a></span>　You go into the restaurant. There are lots of people there. One is wearing a white coat. Joe says, 'That's my coat!'</p>
+<p class="normaltext4">■<em>　You walk across the restaurant. Go to <a href="part0184.xhtml#b28">28</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06665.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b24"><span class="big"><a href="part0187.xhtml#a24">24</a></span>　The police arrest the men and give the notebook, the flower and the small bottle to Joe. You and Joe can now help lots of people with the liquid.</p>
+<p class="normaltext">'Why are these important?' the policewoman asks.</p>
+<p class="normaltext">'Wait – and see!' you say. You look at Joe and laugh.</p>
+<p class="picture"><img src="../../../Images/image06666.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b25"><span class="big"><a href="part0187.xhtml#a25">25</a></span>　You look outside with Joe. He says, 'I can see a dog looking in the dustbins. A seal eating a fish. There's a man driving a car with no lights. This is very exciting!'</p>
+<p class="normaltext4">■<em>　You drink the liquid. Go to <a href="part0184.xhtml#b5">5</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b26"><span class="big"><a href="part0187.xhtml#a26">26</a></span>　There are only two planes left. Is the thief on the red or the blue one? You want to go to the blue plane. Joe wants to go to the red plane.</p>
+<p class="normaltext4">■<em>　You go to the blue plane. Go to <a href="part0184.xhtml#b36">36</a>.</em></p>
+<p class="normaltext4">■<em>　You go to the red plane. Go to <a href="part0184.xhtml#b2">2</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06667.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b27"><span class="big"><a href="part0187.xhtml#a27">27</a></span>　You run to the airport and see three planes. They are all different colours – blue, yellow and red. 'Which one?' you ask Joe.</p>
+<p class="normaltext">'I don't know. Can you see a man with a beard?'</p>
+<p class="normaltext">'No. We haven't got much time. Let's go.'</p>
+<p class="normaltext4">■<em>　You go to the yellow plane. Go to <a href="part0184.xhtml#b21">21</a>.</em></p>
+<p class="normaltext4">■<em>　You go to the blue plane. Go to <a href="part0184.xhtml#b36">36</a>.</em></p>
+<p class="normaltext4">■<em>　You go to the red plane. Go to <a href="part0184.xhtml#b2">2</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06668.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b28"><span class="big"><a href="part0187.xhtml#a28">28</a></span>　You and Joe walk across the restaurant. The man in the white coat has a beard. You can see it now. He is wearing only one shoe. The man with the beard talks to a man with a hat. 'I have it,' he says and puts a notebook on the table. You look and see it is your notebook! </p>
+<p class="normaltext">The man with the hat says, 'Good! Now we can make lots of money.'</p>
+<p class="normaltext4">■<em>　You go to the men's table. Go to <a href="part0184.xhtml#b9">9</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06669.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b29"><span class="big"><a href="part0187.xhtml#a29">29</a></span>　You talk to the man. He does not want to talk to you. He says, 'Go away. I must work.'</p>
+<p class="normaltext4">■<em>　He is the thief, you think. You get the police. Go to <a href="part0184.xhtml#b32">32</a>.</em></p>
+<p class="normaltext4">■<em>　You leave him and go to the blue plane. Go to <a href="part0184.xhtml#b36">36</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b30"><span class="big"><a href="part0187.xhtml#a30">30</a></span>　You talk to the pilot. 'I am looking for someone,' you say. 'A man with a beard who smells of oranges.'</p>
+<p class="normaltext">The pilot says, 'Everyone on my plane smells of oranges. There is a man with a beard. He is in that building.' The pilot points to a building with three doors. 'Why do you want him?'</p>
+<p class="normaltext">'He is a thief, I think. Can you phone the police?' you ask. Then you and Joe run to the building.</p>
+<p class="normaltext4">■<em>　You go in the restaurant door. Go to <a href="part0184.xhtml#b23">23</a>.</em></p>
+<p class="normaltext4">■<em>　You go in the waiting room door. Go to <a href="part0184.xhtml#b14">14</a>.</em></p>
+<p class="normaltext4">■<em>　You go in the shop door. Go to <a href="part0184.xhtml#b35">35</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06670.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b31"><span class="big"><a href="part0187.xhtml#a31">31</a></span>　You look in the cupboard and you find Joe. There is a scarf over his mouth and sticky tape on his hands. 'Are you OK?' you ask, and take the scarf away.</p>
+<p class="normaltext">'Yes, I'm OK,' he says.</p>
+<p class="normaltext">'What can you remember?' you ask.</p>
+<p class="normaltext">'A man... with a beard. A smell of... oranges. A fight. His shoe in my hand...'</p>
+<p class="normaltext">'Where is the thief?' you ask.</p>
+<p class="normaltext">Joe looks at the sticky tape and says, 'The airport, perhaps?'</p>
+<p class="normaltext">You go outside. 'Look!'</p>
+<p class="normaltext">There are three tracks in the snow.</p>
+<p class="normaltext4">■<em>　You follow the tracks on the left. Go to <a href="part0184.xhtml#b13">13</a>.</em></p>
+<p class="normaltext4">■<em>　You follow the tracks on the right. Go to <a href="part0184.xhtml#b37">37</a>.</em></p>
+<p class="normaltext4">■<em>　You follow the tracks straight on. Go to <a href="part0184.xhtml#b34">34</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06671.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b32"><span class="big"><a href="part0187.xhtml#a32">32</a></span>　You get the police. They ask the man lots of questions. After a long time they tell you, 'He works on the plane and he is not the man you want.' It is now very late – the thief is far away.</p>
+<p class="normaltext4">■<em>　You must begin again. Go back to <a href="part0184.xhtml#b1">1</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06672.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b33"><span class="big"><a href="part0187.xhtml#a33">33</a></span>　You look in the room. You can't see your notebook. Or the flower. Or the small bottle with the liquid in. This is very bad. And where is Joe? Can he be a thief?</p>
+<p class="normaltext">Just then you hear a noise. At first you think it is the wind.</p>
+<p class="normaltext">You hear it again. It is not the wind. Where is the noise coming from?</p>
+<p class="normaltext4">■<em>　You look under the table. Go to <a href="part0184.xhtml#b17">17</a>.</em></p>
+<p class="normaltext4">■<em>　You look in the cupboard. Go to <a href="part0184.xhtml#b31">31</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b34"><span class="big"><a href="part0187.xhtml#a34">34</a></span>　You follow the tracks straight on. These tracks are yours. They take you back to the building, so you follow the tracks on the right.</p>
+<p class="normaltext4">■<em>　Go to <a href="part0184.xhtml#b37">37</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b35"><span class="big"><a href="part0187.xhtml#a35">35</a></span>　You go to the shop door but the shop is closed.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4">■<em>　You go to the restaurant. Go to <a href="part0184.xhtml#b23">23</a>.</em></p>
+<p class="normaltext4">■<em>　You go to the waiting room. Go to <a href="part0184.xhtml#b14">14</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06673.jpeg" alt="alt"/></p>
+<p class="normaltext3" id="b36"><span class="big"><a href="part0187.xhtml#a36">36</a></span>　You go to the blue plane. There are lots of boxes of oranges. A man with long hair is putting the boxes in a lorry. Next to him is the pilot. Some passengers are next to the plane, but nobody has a beard.</p>
+<p class="normaltext">'Do we talk to the man with the long hair or the pilot?' you ask Joe.</p>
+<p class="normaltext4">■<em>　You talk to the pilot. Go to <a href="part0184.xhtml#b30">30</a>.</em></p>
+<p class="normaltext4">■<em>　You talk to the man with long hair. Go to <a href="part0184.xhtml#b8">8</a>.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="b37"><span class="big"><a href="part0187.xhtml#a37">37</a></span>　These tracks go to the airport.</p>
+<p class="normaltext4">■<em>　Go to <a href="part0184.xhtml#b27">27</a>.</em></p>
+<p class="picture"><img src="../../../Images/image06674.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">GLOSSARY<br/>词汇表</p>
+<p class="normaltexta"><b>cupboard</b> <em>n.</em> a box or space in a building; you put things in it　<span class="Kai">橱柜，衣柜</span></p>
+<p class="normaltexta"><b>curtain</b> <em>n.</em> cloth that covers a window　<span class="Kai">窗帘</span></p>
+<p class="normaltexta"><b>delivery man</b> if you buy something, he brings it to your home or work　<span class="Kai">送货员</span></p>
+<p class="normaltexta"><b>drop</b> <em>v.</em> let fall to the ground　<span class="Kai">掉落，使落下</span></p>
+<p class="normaltexta"><b>experiment</b> <em>n.</em> you try an experiment to see if something works　<span class="Kai">实验</span></p>
+<p class="normaltexta"><b>famous</b> <em>adj.</em> you are famous if many people know you　<span class="Kai">著名的，出名的</span></p>
+<p class="normaltexta"><b>heat</b> <em>v.</em> when you heat something it gets hot　<span class="Kai">加热，使变热</span></p>
+<p class="normaltexta"><b>howl</b> <em>v.</em> to make a long, loud cry　<span class="Kai">（狗、狼等）嗥叫，长嚎</span></p>
+<p class="normaltexta"><b>key</b> <em>n.</em> you open and lock doors with this　<span class="Kai">钥匙</span></p>
+<p class="normaltexta"><b>liquid</b> <em>n.</em> something that isn't hard, like water　<span class="Kai">液体，液态物</span></p>
+<p class="normaltexta"><b>lock</b> <em>v.</em> close with a key　<span class="Kai">锁上</span></p>
+<p class="normaltexta"><b>orange</b> <em>n.</em> fruit you eat; it grows on trees　<span class="Kai">柑橘</span></p>
+<p class="normaltexta"><b>private</b> <em>n.</em> a place where some people are not allowed　<span class="Kai">私人地方</span></p>
+<p class="normaltexta"><b>scientist</b> <em>n.</em> someone who finds out things about the world　<span class="Kai">科学家</span></p>
+<p class="normaltexta"><b>smile</b> <em>v.</em> you smile when you are happy　<span class="Kai">微笑</span></p>
+<p class="normaltexta"><b>special</b> <em>adj.</em> very good or unusual　<span class="Kai">特殊的，特别的</span></p>
+<p class="normaltexta"><b>thief</b> <em>n.</em> someone who takes something that is not theirs　<span class="Kai">小偷，贼</span></p>
+<p class="normaltexta"><b>valuable</b> <em>adj.</em> worth a lot of money　<span class="Kai">值钱的，贵重的</span></p>
+<p class="normaltexta"><b>windy</b> <em>adj.</em> a type of weather; it makes trees and washing move　<span class="Kai">多风的，风大的</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <p class="title01">Oranges in the Snow</p>
+<p class="sx1"></p>
+<p class="title2" id="a0">ACTIVITIES<br/>阅读练习</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title3">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="title3"><em>Before Reading</em></p>
+<p class="normaltextb1">1 Look at the front cover of the book. Are the following sentences true (T) or false (F)?</p>
+<p class="normaltextb2">1) The story happens in a cold place.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb2">2) Someone is flying a plane.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb2">3) The story is about apples on a beach.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb1">2 Look at the <a href="part0189.xhtml">back cover</a>. Complete the following sentences.</p>
+<p class="normaltextb2">1) Mary Durie is a famous......</p>
+<p class="normaltextb2">2) Her laboratory is in......</p>
+<p class="normaltextb2">3) She has an assistant called......</p>
+<p class="normaltextb2">4) Some people steal her......</p>
+<p class="normaltextb1">3 Look at the front and back cover. Guess the correct answer for each question.</p>
+<p class="normaltextb2">1) The story is...</p>
+<p class="normaltextb3">a □ exciting.</p>
+<p class="normaltextb3">b □ funny.</p>
+<p class="normaltextb3">c □ a love story.</p>
+<p class="normaltextb2">2) The oranges are...</p>
+<p class="normaltextb3">a □ on the plane.</p>
+<p class="normaltextb3">b □ in the laboratory.</p>
+<p class="normaltextb3">c □ valuable.</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title3">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="title3"><em>While Reading</em></p>
+<p class="normaltextb1">1 Read the first parts of the story (1 &amp; 18). Are these sentences true (T) or false (F)?</p>
+<p class="normaltextb2">1) Mary Durie holds a small flower.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb2">2) Red smoke comes from the little bottle.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb2">3) Joe drops some liquid on the dog.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb2">4) Someone comes in the door.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb2">5) A man eats the flower.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb2">6) Mary Durie writes in her notebook.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextb1">2 Read section 31. Who does what? Choose an answer.</p>
+<p class="normaltextb2">1) Who is looking for Joe?</p>
+<p class="normaltextb3">a □ Mary.</p>
+<p class="normaltextb3">b □ The man with the hat.</p>
+<p class="normaltextb3">c □ The delivery man.</p>
+<p class="normaltextb2">2) Who is in the cupboard?</p>
+<p class="normaltextb3">a □ The pilot.</p>
+<p class="normaltextb3">b □ Joe.</p>
+<p class="normaltextb3">c □ The policeman.</p>
+<p class="normaltextb2">3) Who is wearing only one shoe?</p>
+<p class="normaltextb3">a □ The thief.</p>
+<p class="normaltextb3">b □ The dog.</p>
+<p class="normaltextb3">c □ The delivery man.</p>
+<p class="normaltextb2">4) Who says 'Where is the thief?'</p>
+<p class="normaltextb3">a □ Mary.</p>
+<p class="normaltextb3">b □ The man with long hair.</p>
+<p class="normaltextb3">c □ The policeman.</p>
+<p class="normaltextb1">3 Read sections 5, 12, 18, 30, and 36. Some words are in the wrong sentences. Can you put them in the right places?</p>
+<p class="normaltextb2">1) The pilot points to the building at the <span class="underline"><b>hat</b></span>.</p>
+<p class="normaltextb2">2) There are boxes of oranges near the blue <span class="underline"><b>airport</b></span>.</p>
+<p class="normaltextb2">3) Mary sees a dog running after a <span class="underline"><b>plane</b></span>.</p>
+<p class="normaltextb2">4) The man on the Jet-sled wears a funny <span class="underline"><b>liquid</b></span>.</p>
+<p class="normaltextb2">5) The <span class="underline"><b>seal</b></span> with the long hair is putting boxes in the lorry.</p>
+<p class="normaltextb2">6) The <span class="underline"><b>man</b></span> in the little bottle turns yellow.</p>
+<p class="normaltextb1">4 Read sections 23, 28, 9, and 24. In this description, there are six mistakes. Which are they?</p>
+<p class="normaltext0">Two men come in and sit at a table. One wears a red coat. The other one wears a funny hat. The man in the coat gives the other man a watch. Joe and Mary come into the restaurant. Mary points to the man in the coat. The two men run away. One of them wears only one glove. Mary and Joe catch them.</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title3">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="title3"><em>After Reading</em></p>
+<p class="normaltextb1">1 Put these words in the right places.</p>
+<p class="normaltext0"><em>experiment　airport　sticky tape　coat　oranges　flower　restaurant　run </em></p>
+<p class="normaltext0">Mary Durie and Joe are doing an _________ using a special _________ They make a liquid that can help people see in the dark. A man who smells of _________ attacks Joe. The man takes the special liquid and Joe's _________ Mary finds Joe with _________ round his hands. Joe and Mary follow the thief to the _________ They go into a _________ and see two men with the liquid. '_________!' shouts one of the men and they both leave the restaurant fast. The police arrest the men and Mary and Joe get their special liquid back.</p>
+<p class="normaltextb1">2 In the story, what do people use these things for?</p>
+<p class="normaltextb2">1) The sticky tape.</p>
+<p class="normaltextb2">2) The special liquid.</p>
+<p class="normaltextb2">3) The notebook.</p>
+<p class="normaltextb1">3 Answer these questions.</p>
+<p class="normaltextb2">1) Someone steals four things from the laboratory. What are they?</p>
+<p class="normaltextb2">2) Where does the small flower grow?</p>
+<p class="normaltextb2">3) Why can't the police see the thieves in the dark?</p>
+<p class="normaltextb2">4) Why does the man with a beard smell of oranges?</p>
+<p class="normaltextb2">5) Who phones the police?</p>
+<p class="normaltextb2">6) Where do the tracks in the snow go?</p>
+<p class="normaltextb1">4 Put these sentences in the correct order.</p>
+<p class="normaltextb03">1) □ The police arrest the two men.</p>
+<p class="normaltextb03">2) □ Mary drinks the liquid.</p>
+<p class="normaltextb03">3) □ Someone steals the bottle.</p>
+<p class="normaltextb03">4) □ The thieves are in the restaurant.</p>
+<p class="normaltextb03">5) □ Mary talks to the pilot.</p>
+<p class="normaltextb03">6) □ Joe is in the cupboard.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle">TRANSLATION　参考译文</p>
+<p class="title2">Oranges in the Snow<br/><span class="Kai">雪中的柑橘</span></p>
+<p class="normaltext3" id="a1"><span class="big">1</span>　这是个寒冷、刮着风的夜晚，实验室外有只狗在嚎叫。你是著名的科学家玛丽·迪里。你手中拿着一朵小花。它长在阿拉斯加州，十分特别。你认为它可以帮助人们在黑暗中看到东西。</p>
+<p class="normaltext">你的助手乔告诉你：“一切都准备好了，我们可以做实验了。”他指了指花。</p>
+<p class="normaltext">你有一点害怕，但你说：“好，我们开始吧。”</p>
+<p class="normaltext2">■　你开始做实验。跳到<a href="part0187.xhtml#a18"><em>18</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a2"><span class="big">2</span>　你走向红色的飞机。飞机里装满了鱼。一个有胡子的男人上了飞机。他是你要找的人吗？</p>
+<p class="normaltext2">■　你和飞机上的男人交谈。跳到<a href="part0187.xhtml#a29"><em>29</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a3"><span class="big">3</span>　你给你的老板打电话，她不在——她在打网球。</p>
+<p class="normaltext2">■　回到<a href="part0187.xhtml#a10"><em>10</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a4"><span class="big">4</span>　你走过去和那个男人交谈。“你在这里做什么？这里是私人地方。”他逃跑了，但掉了一件东西。那是一张票。“站住。”你说。但是他跑得更快了。</p>
+<p class="normaltext2">■　你去追那个人。跳到<a href="part0187.xhtml#a12"><em>12</em></a>。</p>
+<p class="normaltext2">■　你查看那张票。跳到<a href="part0187.xhtml#a20"><em>20</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a5"><span class="big">5</span>　你喝下液体，走出实验室。你可以在黑暗中看见东西了！你离开了房子，看到一只狗正在追一只海豹。一辆车后面有个人。“他在那里干什么呢？”你想。</p>
+<p class="normaltext2">■　你给你的老板打电话，告诉她关于这朵花的事情。跳到<a href="part0187.xhtml#a22"><em>22</em></a>。</p>
+<p class="normaltext2">■　你回到实验室，和乔交谈。跳到<a href="part0187.xhtml#a10"><em>10</em></a>。</p>
+<p class="normaltext2">■　你和车后面的男人交谈。跳到<a href="part0187.xhtml#a4"><em>4</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a6"><span class="big">6</span>　你去乔的房间。他不在。你听到外面有人。“乔！是你吗？”突然，房门关上了，你出不去了。</p>
+<p class="normaltext2">■　回到<a href="part0187.xhtml#a1"><em>1</em></a>，重新开始。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a7"><span class="big">7</span>　狗喝下液体。一分钟后，它笑着跑开了。</p>
+<p class="normaltext2">■　回到<a href="part0187.xhtml#a18"><em>18</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a8"><span class="big">8</span>　你们和长发男人交谈。“我们在找一个有胡子的乘客。”你对他说。</p>
+<p class="normaltext">“对不起，我帮不了你们。你们想要手表吗？我有许多手表，都不贵。三英镑？两英镑？”</p>
+<p class="normaltext">“不用了，谢谢。我有手表。”</p>
+<p class="normaltext">“我想要一块手表。”乔说。</p>
+<p class="normaltext">“我们没时间了，乔！”你说。</p>
+<p class="normaltext2">■　你和飞行员交谈。跳到<a href="part0187.xhtml#a30"><em>30</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a9"><span class="big">9</span>　你们朝他们的桌子走去。就在这时，他们看到了你们。“快跑！”戴帽子的男人说。“我们走！”</p>
+<p class="normaltext">小偷们迅速离开了餐馆。你和乔紧追其后。</p>
+<p class="normaltext">警察到了。“他们在哪儿？”一位女警察问。“天太黑了，我们看不到他们。”</p>
+<p class="normaltext">但是你可以在黑暗中看清东西。“他们在那边。”你告诉警察。</p>
+<p class="normaltext2">■　跳到<a href="part0187.xhtml#a24"><em>24</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a10"><span class="big">10</span>　你回到实验室，情况非常不对劲儿。桌子和地板上洒着液体。桌子通常是靠窗而放，现在它被挪到了门边。乔在哪里呢？你没看到他。他的白色外套也不在——而且，瓶子在哪里？</p>
+<p class="normaltext2">■　你去乔的房间。跳到<a href="part0187.xhtml#a6"><em>6</em></a>。</p>
+<p class="normaltext2">■　你在这个房间搜索。跳到<a href="part0187.xhtml#a33"><em>33</em></a>。</p>
+<p class="normaltext2">■　你给你的老板打电话。跳到<a href="part0187.xhtml#a3"><em>3</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a11"><span class="big">11</span>　你们朝那个人走去。“我们可以和你谈谈吗？”乔说。“当然可以。你们想要柑橘吗？”那个男人问。你看到了他的脸。他没有胡子，但是身上有柑橘味。</p>
+<p class="normaltext">你说：“不需要。不好意思，你不是我们要找的人。”</p>
+<p class="normaltext2">■　你们又问了他一些问题。跳到<a href="part0187.xhtml#a15"><em>15</em></a>。</p>
+<p class="normaltext2">■　你们回去重新沿着右边的脚印追寻。跳到<a href="part0187.xhtml#a37"><em>37</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a12"><span class="big">12</span>　你追赶那个人。在雪地中奔跑并不是件轻松的事。他跑得比你快。他前面有一架喷水滑橇。“回来！”你喊道。“谁来拦住他！”但是这个人上了滑橇开走了。</p>
+<p class="normaltext">你慢慢走回实验室。你想要和乔谈谈，但是没有看到他。</p>
+<p class="normaltext2">■　你回到实验室。跳到<a href="part0187.xhtml#a10"><em>10</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a13"><span class="big">13</span>　你们沿着左边的脚印追寻。你们面前出现一个送货员，他抱着一箱柑橘。</p>
+<p class="normaltext">“看，乔——柑橘。会是那个人吗？”你问。</p>
+<p class="normaltext">“我不知道。”乔说。“他有胡子吗？”</p>
+<p class="normaltext2">■　你们走上前去。跳到<a href="part0187.xhtml#a11"><em>11</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a14"><span class="big">14</span>　等候室里没有人，不过还有两扇门。</p>
+<p class="normaltext2">■　你走向商店的门。跳到<a href="part0187.xhtml#a35"><em>35</em></a>。</p>
+<p class="normaltext2">■　你走向餐馆的门。跳到<a href="part0187.xhtml#a23"><em>23</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a15"><span class="big">15</span>　你们又问了他几个问题。</p>
+<p class="normaltext">“你的柑橘从哪里来的？”你问。</p>
+<p class="normaltext">他说：“机场有一架飞机，装满了从西班牙来的柑橘。”</p>
+<p class="normaltext">“飞机现在还在那里吗？”乔问。</p>
+<p class="normaltext">“在，不过它很快就要离开了。”那个男人回答。</p>
+<p class="normaltext">“你要开车回机场吗？”你问。</p>
+<p class="normaltext">“是的。你们要一起来吗？”</p>
+<p class="normaltext2">■　你们上了他的卡车。跳到<a href="part0187.xhtml#a19"><em>19</em></a>。</p>
+<p class="normaltext2">■　你们跑到机场。跳到<a href="part0187.xhtml#a27"><em>27</em></a>。</p>
+<p class="normaltext2">■　你们追踪另一行脚印。跳到<a href="part0187.xhtml#a34"><em>34</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a16"><span class="big">16</span>　乔拿过小瓶，喝了里面的液体。“有什么在变，”他说，“我觉得不一样了。我的腿和手很疼，但是……”他走向窗户，拉开了窗帘。“玛丽！几点了？”</p>
+<p class="normaltext">“晚上七点。”你告诉他。</p>
+<p class="normaltext">“对我来说就像白天！”他说。乔打开了门，向外望去。</p>
+<p class="normaltext2">■　你也喝下了液体。跳到<a href="part0187.xhtml#a5"><em>5</em></a>。</p>
+<p class="normaltext2">■　你和乔一起向外望。跳到<a href="part0187.xhtml#a25"><em>25</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a17"><span class="big">17</span>　你往桌下看，看到了一只狗，它正在啃一只鞋。“出去！”你说。狗叼着鞋子出去了。</p>
+<p class="normaltext2">■　你查看橱柜。跳到<a href="part0187.xhtml#a31"><em>31</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a18"><span class="big">18</span>　你走到窗前。“你在做什么？”乔问。</p>
+<p class="normaltext">“我们可得小心点儿。”你一边举起花一边说道，“它十分珍贵。”你向窗外看看，然后拉上了窗帘。乔锁上了门。</p>
+<p class="normaltext">你把花放进一个小瓶。“好了，我们可以开始了。”</p>
+<p class="normaltext">乔递给你一个大一点儿的瓶子，里面装有液体。你往花上倒了一点儿液体。它变成了绿色。你给小瓶加热，慢慢地，液体变成了黄色。你看到一些红色的烟。你快速地在笔记本上做记录。然后笑了，说：“就是它了！”</p>
+<p class="normaltext2">■　你把小瓶递给乔。跳到<a href="part0187.xhtml#a16"><em>16</em></a>。</p>
+<p class="normaltext2">■　你喝下黄色液体。跳到<a href="part0187.xhtml#a5"><em>5</em></a>。</p>
+<p class="normaltext2">■　你打翻了液体，狗喝了它。跳到<a href="part0187.xhtml#a7"><em>7</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a19"><span class="big">19</span>　你们上了他的卡车。他很能说，说他的妈妈……说足球……说他的新裤子……</p>
+<p class="normaltext">“拜托，”你说，“我们必须尽快赶到机场。”</p>
+<p class="normaltext">“天哪！”他说，“我找不到钥匙了。”</p>
+<p class="normaltext2">■　你们行动太缓慢，小偷跑了。</p>
+<p class="normaltext2">　　返回<a href="part0187.xhtml#a1"><em>1</em></a>，重新开始。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a20"><span class="big">20</span>　你看着票。这是一张去阿拉斯加州的机票。“有意思。”你想。</p>
+<p class="normaltext2">■　你回到实验室。跳到<a href="part0187.xhtml#a10"><em>10</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a21"><span class="big">21</span>　你走向黄色的飞机，它开始移动。一分钟后，飞机飞上了天。小偷在上面吗？可能他成功逃脱了。</p>
+<p class="normaltext2">■　跳到<a href="part0187.xhtml#a26"><em>26</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a22"><span class="big">22</span>　你用手机给老板打电话。她说：“很好。这可以帮助很多人——但不要告诉任何人。记住，外头有坏人，要万分小心，玛丽。”</p>
+<p class="normaltext2">■　你走回房子。跳到<a href="part0187.xhtml#a10"><em>10</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a23"><span class="big">23</span>　你们走进餐馆。餐馆里有很多人，其中一个穿着一件白色外套。乔说：“那是我的外套！”</p>
+<p class="normaltext2">■　你们向餐馆里头走去。跳到<a href="part0187.xhtml#a28"><em>28</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a24"><span class="big">24</span>　警察逮捕了这两个人，把笔记本、花和小瓶交给乔。现在你和乔可以用这种液体帮助很多人了。</p>
+<p class="normaltext">“它们为什么会这么重要呢？”女警察问。</p>
+<p class="normaltext">“等着——看吧！”你说。你看着乔，大笑起来。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a25"><span class="big">25</span>　你和乔一起向外望。他说：“我看到一只狗在翻垃圾箱，一只海豹在吃鱼，还有一个男人在开车，但没开车灯。这太让人激动了！”</p>
+<p class="normaltext2">■　你喝下液体。跳到<a href="part0187.xhtml#a5"><em>5</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a26"><span class="big">26</span>　只剩下两架飞机了。小偷是在红色飞机上还是蓝色飞机上？你想要去蓝色飞机，乔想要去红色飞机。</p>
+<p class="normaltext2">■　你们走向蓝色飞机。跳到<a href="part0187.xhtml#a36"><em>36</em></a>。</p>
+<p class="normaltext2">■　你们走向红色飞机。跳到<a href="part0187.xhtml#a2"><em>2</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a27"><span class="big">27</span>　你们跑到机场，看到三架飞机。每架飞机的颜色都不同，有蓝色、黄色和红色。“是哪一架？”你问乔。</p>
+<p class="normaltext">“不知道。你看到留胡子的男人了吗？”</p>
+<p class="normaltext">“没有。我们时间不多，走吧！”</p>
+<p class="normaltext2">■　你们走向黄色飞机。跳到<a href="part0187.xhtml#a21"><em>21</em></a>。</p>
+<p class="normaltext2">■　你们走向蓝色飞机。跳到<a href="part0187.xhtml#a36"><em>36</em></a>。</p>
+<p class="normaltext2">■　你们走向红色飞机。跳到<a href="part0187.xhtml#a2"><em>2</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a28"><span class="big">28</span>　你和乔向餐馆里头走去。你现在可以看到，穿白色外套的男人长着胡子，他只穿着一只鞋。长胡子的男人在和一个戴帽子的男人交谈。“我拿到了。”他说着，把一个笔记本放到桌上。你看到那是你的笔记本！</p>
+<p class="normaltext">戴帽子的男人说：“太好了！现在我们可以赚很多钱了！”</p>
+<p class="normaltext2">■　你走向他们的桌子。跳到<a href="part0187.xhtml#a9"><em>9</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a29"><span class="big">29</span>　你和那个男人说话，他却不想和你说话。他说：“走开，我必须工作。”</p>
+<p class="normaltext2">■　你认为他就是那个小偷。你叫来警察。跳到<a href="part0187.xhtml#a32"><em>32</em></a>。</p>
+<p class="normaltext2">■　你撇下他，走向蓝色飞机。跳到<a href="part0187.xhtml#a36"><em>36</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a30"><span class="big">30</span>　你和飞行员交谈。“我正在找人，”你说，“这个人长着胡子，身上有柑橘味。”</p>
+<p class="normaltext">飞行员说：“我飞机上人人身上都有柑橘味。不过长着胡子的男人倒有一个。他在那栋房子里。”飞行员指着一栋有三个门的房子。“你们为什么找他？”</p>
+<p class="normaltext">“我觉得他是小偷。你可以报警吗？”你问。然后你和乔跑向那栋房子。</p>
+<p class="normaltext2">■　你们走进餐馆的门。跳到<a href="part0187.xhtml#a23"><em>23</em></a>。</p>
+<p class="normaltext2">■　你们走进等候室的门。跳到<a href="part0187.xhtml#a14"><em>14</em></a>。</p>
+<p class="normaltext2">■　你们走进商店的门。跳到<a href="part0187.xhtml#a35"><em>35</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a31"><span class="big">31</span>　你查看橱柜里面，发现了乔。他的嘴上给围巾勒着，手上缠着胶带。“你还好吗？”你问，并取下围巾。</p>
+<p class="normaltext">“我没事。”乔说。</p>
+<p class="normaltext">“你记得发生了什么事吗？”你问。</p>
+<p class="normaltext">“一个男人……长着胡子，还有……柑橘味。我们打了起来。我抓住了他的鞋子……”</p>
+<p class="normaltext">“小偷在哪里？”你问。</p>
+<p class="normaltext">乔看着胶带，说：“大概在机场？”</p>
+<p class="normaltext">你走出门。“看！”</p>
+<p class="normaltext">雪地上有三行脚印。</p>
+<p class="normaltext2">■　你沿着左边的脚印追寻。跳到<a href="part0187.xhtml#a13"><em>13</em></a>。</p>
+<p class="normaltext2">■　你沿着右边的脚印追寻。跳到<a href="part0187.xhtml#a37"><em>37</em></a>。</p>
+<p class="normaltext2">■　你沿着直行的脚印追寻。跳到<a href="part0187.xhtml#a34"><em>34</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a32"><span class="big">32</span>　你叫来警察。他们问了这个男人许多问题。过了很长时间之后，他们告诉你：“他在飞机上工作，并不是你们要找的人。”现在为时已晚——小偷已经逃得远远的了。</p>
+<p class="normaltext2">■　你必须重新开始。回到<a href="part0187.xhtml#a1"><em>1</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a33"><span class="big">33</span>　你在房间里找。你没有看到你的笔记本，也没看到那朵花，连装着液体的小瓶子也不见了。这太糟了。乔去哪儿了？他会是小偷吗？</p>
+<p class="normaltext">就在这时，你听到有声音。一开始你以为是风声。</p>
+<p class="normaltext">你又听到了声音。这声音不是风声，它是哪里发出来的？</p>
+<p class="normaltext2">■　你查看桌子底下。跳到<a href="part0187.xhtml#a17"><em>17</em></a>。</p>
+<p class="normaltext2">■　你查看橱柜里。跳到<a href="part0187.xhtml#a31"><em>31</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a34"><span class="big">34</span>　你沿着直行的脚印追寻。这行脚印是你自己的，它们带你回到了屋子，所以你又沿着右边的脚印追寻。</p>
+<p class="normaltext2">■　跳到<a href="part0187.xhtml#a37"><em>37</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a35"><span class="big">35</span>　你走向商店，但是商店关门了。</p>
+<p class="normaltext2">■　你走向餐馆。跳到<a href="part0187.xhtml#a23"><em>23</em></a>。</p>
+<p class="normaltext2">■　你走向等候室。跳到<a href="part0187.xhtml#a14"><em>14</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a36"><span class="big">36</span>　你们走向蓝色飞机，上面有许多箱柑橘。一个长发男人正在把柑橘搬进一辆卡车，他旁边是飞行员。一些乘客站在飞机旁，但是没有人有胡子。</p>
+<p class="normaltext">“我们是跟长发男人谈谈，还是要跟飞行员谈谈？”你问乔。</p>
+<p class="normaltext2">■　你们和飞行员交谈。跳到<a href="part0187.xhtml#a30"><em>30</em></a>。</p>
+<p class="normaltext2">■　你们和长发男人交谈。跳到<a href="part0187.xhtml#a8"><em>8</em></a>。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3" id="a37"><span class="big">37</span>　这行脚印通向机场。</p>
+<p class="normaltext2">■　跳到<a href="part0187.xhtml#a27"><em>27</em></a>。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06676.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

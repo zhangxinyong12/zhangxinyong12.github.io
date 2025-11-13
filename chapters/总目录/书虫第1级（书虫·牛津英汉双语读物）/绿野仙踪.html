@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绿野仙踪 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '绿野仙踪';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>绿野仙踪</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫第1级（书虫·牛津英汉双语读物）/index.html">书虫第1级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">绿野仙踪</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">THE WIZARD OF OZ</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">1．The cyclone</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">龙卷风</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">2．The yellow brick road</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">黄砖路</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">3．The Emerald City</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">绿宝石城</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">4．The witch and the monkeys</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-12" class="toc-link">女巫和魔猴</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-13" class="toc-link">5．The old man from Kansas</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-14" class="toc-link">堪萨斯来的老头儿</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-15" class="toc-link">6．'East, west—home's best!'</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-16" class="toc-link">“无论身在何方——家是最好的地方！”</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-17" class="toc-link">ACTIVITIES: Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-18" class="toc-link">ACTIVITIES: While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-19" class="toc-link">ACTIVITIES: After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-20" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="m0"><img src="../../../Images/image07224.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltexta">京权图字：01-2002-6583</p>
+<p class="normaltextb">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 2000</p>
+<p class="normaltextb">This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltextb">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="normaltextb">只限中华人民共和国境内销售，不包括香港特别行政区、澳门特别行政区及台湾省。不得出口。</p>
+<p class="normaltexta">图书在版编目（CIP）数据</p>
+<p class="normaltext">绿野仙踪：英汉对照 ／（美）鲍姆（Baum, L. F.）著；（英）博德（Border, R.）改写；肖月译．— 北京：外语教学与研究出版社，2003.9（2014.7 重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：The Wizard of Oz</p>
+<p class="normaltext">ISBN 978-7-5600-3613-7</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．绿…　Ⅱ．①鲍…　②博…　③肖…　Ⅲ．英语—对照读物，童话—英、汉　Ⅳ．H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2003）第065550号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltextc"><b>出版人：</b>　蔡剑峰</p>
+<p class="normaltextc"><b>责任编辑：</b>易　璐</p>
+<p class="normaltextc"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltextc"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltextc"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltextc"><b>版　　次：</b>2003年9月第1版</p>
+<p class="normaltextc"><b>书　　号：</b>ISBN 978-7-5600-3613-7</p>
+<p class="normaltext0">*　　*　　*</p>
+<p class="normaltextb"><b>凡侵权、盗版书籍线索，请联系我社法律事务部</b></p>
+<p class="normaltextb"><b>举报电话：（010）88817519　　电子邮箱：banquan@fltrp.com</b></p>
+<p class="normaltextb"><b>法律顾问：立方律师事务所　刘旭东律师</b></p>
+<p class="normaltextb"><b>　　　　　中咨律师事务所　殷　斌律师</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">内容简介</p>
+<p class="normaltext">在美国的堪萨斯州，没有巫婆或巫师，可是那里<span class="xx">有</span>龙卷风。有一天，一阵龙卷风把多萝西和她的狗托托连同她的房子一起卷到了一个叫奥兹的国度。在奥兹住着四个巫婆和一个非常有名的巫师——奥兹魔法师。</p>
+<p class="normaltext">多萝西想重新回到家乡堪萨斯，但是她不知怎样才能回去。她需要帮助。北方巫婆对她说：“去绿宝石城吧，请求奥兹魔法师帮助你。”</p>
+<p class="normaltext">其后多萝西先后遇见了稻草人、锡人和胆小鬼狮子，而他们也都需要帮助。因此，多萝西和他们一起踏上了通向绿宝石城的黄砖路。可是他们去那里找什么呢？这个大名鼎鼎的奥兹魔法师是谁？他<span class="xx">是</span>怎样一个人呢？</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">THE WIZARD OF OZ</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">THE WIZARD OF OZ</p>
+<p class="normaltext0">In Kansas, USA, there are no witches or wizards. But there <em>are</em> cyclones, and one day a cyclone blows Dorothy's house, with Dorothy and her dog Toto in it, to a country called Oz. And in Oz there are four witches, and a very famous wizard—the Wizard of Oz.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Dorothy wants to go home to Kansas, but she doesn't know how to get there. She needs help. 'Go to the Emerald City,' the Witch of the North tells her, 'and ask the Wizard of Oz to help you.'</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Then Dorothy meets the Scarecrow, the Tin Man, and the Cowardly Lion, but they need help too. So they all take the yellow brick road to the Emerald City. But what are they going to find there? Who—or what—<em>is</em> the famous Wizard of Oz?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents">Contents<br/>目　录</div>
+  <div class="mulu1"><a href="part0692.xhtml">内容简介</a></div>
+  <div class="mulu1"><a href="part0695.xhtml">1．The cyclone</a></div>
+    <div class="mulu2"><a href="part0695.xhtml#mllj1">龙卷风</a></div>
+  <div class="mulu1"><a href="part0696.xhtml">2．The yellow brick road</a></div>
+    <div class="mulu2"><a href="part0696.xhtml#mllj1">黄砖路</a></div>
+  <div class="mulu1"><a href="part0697.xhtml">3．The Emerald City</a></div>
+    <div class="mulu2"><a href="part0697.xhtml#mllj1">绿宝石城</a></div>
+  <div class="mulu1"><a href="part0698.xhtml">4．The witch and the monkeys</a></div>
+    <div class="mulu2"><a href="part0698.xhtml#mllj1">女巫和魔猴</a></div>
+  <div class="mulu1"><a href="part0699.xhtml">5．The old man from Kansas</a></div>
+    <div class="mulu2"><a href="part0699.xhtml#mllj1">堪萨斯来的老头儿</a></div>
+  <div class="mulu1"><a href="part0700.xhtml">6．'East, west—home's best!'</a></div>
+    <div class="mulu2"><a href="part0700.xhtml#mllj1">“无论身在何方——家是最好的地方！”</a></div>
+    <div class="normaltext"><br/></div>
+  <div class="mulu1"><a href="part0701.xhtml">ACTIVITIES: Before Reading</a></div>
+  <div class="mulu1"><a href="part0702.xhtml">ACTIVITIES: While Reading</a></div>
+  <div class="mulu1"><a href="part0703.xhtml">ACTIVITIES: After Reading</a></div>
+<div class="normaltext"><br/></div>
+<div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">1．The cyclone</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">1</span></p>
+<p class="title01">The cyclone</p>
+<p class="normaltext">Dorothy lived in a small house in Kansas, with Uncle Henry, Aunt Em, and a little black dog called Toto.</p>
+<p class="normaltext">There were no trees and no hills in Kansas, and it was often very windy. Sometimes the wind came very fast and very suddenly. That was a cyclone, and it could blow trees and people and buildings away. There were cellars under all the houses. And when a cyclone came, people went down into their cellars and stayed there.</p>
+<p class="normaltext">One day Uncle Henry came out and looked up at the sky. Then he ran quickly back into the house.</p>
+<p class="normaltext">'There's a cyclone coming,' he called to Aunt Em and Dorothy. 'We must go down into the cellar!'</p>
+<p class="normaltext">They ran to the door of the cellar, but Toto was afraid, and he ran under the bed. Dorothy ran after him.</p>
+<p class="normaltext">'Quick!' shouted Aunt Em from the cellar. 'Leave the dog and come down into the cellar!'</p>
+<p class="normaltext">Dorothy picked up Toto and ran to the cellar door. But before she got there, the cyclone hit the house.</p>
+<p class="normaltext">And then a very strange thing happened.</p>
+<p class="normaltext">The house moved, and then it went slowly up, up, up into the sky. Aunt Em and Uncle Henry were down in the cellar under the ground, but the house, Dorothy, and Toto went up to the top of the cyclone. Dorothy looked through the open cellar door and saw hills and houses, a long way down. She closed the cellar door quickly.</p>
+<p class="picture"><img src="../../../Images/image07225.jpeg" alt="alt"/></p>
+<p class="normaltext">The wind blew the house along for many hours. At first Dorothy was afraid.</p>
+<p class="normaltext">'But we can't do anything about it,' she said to Toto. 'So let's wait and see.' And after two or three hours, she and Toto went to sleep.</p>
+<p class="normaltext">When Dorothy opened her eyes again, the house was on the ground and everything was quiet. She picked up Toto, opened the door, and went out. They saw tall trees and beautiful flowers, and little houses with blue doors.</p>
+<p class="normaltext">Dorothy gave a little cry. 'This isn't Kansas, Toto! And who are these people?'</p>
+<p class="normaltext">There were three very short men in blue hats, coats and trousers, and a little old woman in a beautiful white dress. The woman walked up to Dorothy and said, 'Thank you, thank you! Now the people are free!'</p>
+<p class="normaltext">'Why are you thanking me?' Dorothy asked.</p>
+<p class="normaltext"> 'You killed the Witch of the East,' said the woman. 'She was a bad witch, and her people, the Munchkins, were very afraid of her. Now she is dead, and we and the Munchkins want to thank you.'</p>
+<p class="normaltext">The little old woman and the three little men all smiled happily at Dorothy, but Dorothy did not understand.</p>
+<p class="normaltext">'But I didn't kill anybody!' she said.</p>
+<p class="picture"><img src="../../../Images/image07226.jpeg" alt="alt"/></p>
+<p class="normaltext">'Your house fell on the Witch,' laughed the little woman. 'Look! You can see her feet!'</p>
+<p class="normaltext">Dorothy looked, and saw two feet, with red shoes, under the house. Suddenly, one of the Munchkins gave a shout. 'Look! Her feet are disappearing in the hot sun.'</p>
+<p class="normaltext">A second later, there were only the red shoes.</p>
+<p class="normaltext">'Good,' said the little woman. She picked up the shoes and gave them to Dorothy. 'They're your shoes now. You must wear them, because a witch's shoes can sometimes do wonderful things.'</p>
+<p class="normaltext">'Thank you,' said Dorothy. 'But who are you? Are you a Munchkin?'</p>
+<p class="normaltext">'No, but I'm their friend. I'm the Witch of the North, and I came to see the dead Witch of the East. But don't be afraid—I'm a good witch.'</p>
+<p class="normaltext">'But Aunt Em says there aren't any witches.'</p>
+<p class="normaltext">'Oh yes, there are!' said the Witch. 'Here in the country of Oz we have four witches. The witches of the North and the South are good witches, but those of the East and the West are bad witches. Now the Witch of the East is dead, so there is only one bad witch. We have a famous wizard, too. We call him the Wizard of Oz, and he lives in the Emerald City. How many witches and wizards do you have in your country?'</p>
+<p class="normaltext">'We don't have any,' said Dorothy. Suddenly she remembered Aunt Em and Uncle Henry. 'How can I get back home to Kansas?' she asked.</p>
+<p class="normaltext">'Where is Kansas?' asked the good Witch. 'I don't know a country called Kansas, so I can't tell you the way.'</p>
+<p class="normaltext">Dorothy began to cry. 'Oh dear! What can I do?'</p>
+<p class="normaltext">'Please don't cry!' said the Witch. 'Go and see the Wizard of Oz. He's a good wizard, and perhaps he can help you. It's a long way, and you must walk there. I can't go with you, but I can give you my kiss.'</p>
+<p class="normaltext">She gave Dorothy a little kiss. It looked like a small red flower on Dorothy's face.</p>
+<p class="normaltext">'Now nothing can hurt you,' she said. 'Look—there is the road to the Emerald City. It is made of yellow bricks, so you cannot lose your way... Goodbye.'</p>
+<p class="normaltext">'Goodbye!' said the three little Munchkins.</p>
+<p class="normaltext">In the house Dorothy found some bread and some apples, and she put them all in a bag. Then she put on her blue and white dress. 'Now I look nice,' she said. She looked down at her old shoes. Then she remembered the bad Witch's red shoes, and put them on.</p>
+<p class="normaltext">She picked up her bag of food. 'Come on, Toto!' she called. 'We're going to find the Wizard of Oz.'</p>
+<p class="picture"><img src="../../../Images/image07227.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>windy</b> <em>adj. with much wind.</em> 多风的。</p>
+<p class="normaltext0"><b>cyclone</b> <em>n. violent destructive windstorm.</em> 暴风；龙卷风。</p>
+<p class="normaltext0"><b>cellar</b> <em>n. underground room for storing things.</em> （储藏东西用的）地下室，地窖。</p>
+<p class="normaltext0"><b>pick up</b> <em>take hold of and lift sb./sth.</em> 举起或抬起某人或某物；拿起；拾起。</p>
+<p class="normaltext0"><b>walk up (to sb./sth.)</b> <em>approach sb./sth.</em> 走近某人或某物。</p>
+<p class="normaltext0"><b>be afraid (of sb./sth.)</b> <em>frightened.</em> 畏惧；害怕。</p>
+<p class="normaltext0"><b>dead</b> <em>adj. no longer alive.</em> 死的。</p>
+<p class="normaltext0"><b>kill</b> <em>v.</em> cause death or cause the death of (sb./sth.) 致死；杀死；扼杀某人或某物。</p>
+<p class="normaltext0"><b>disappear</b> <em>v. no longer be visible, vanish.</em> 消失；失踪。</p>
+<p class="normaltext0"><b>wear</b> <em>v. have (sth.) on one's body, esp. as clothing, as an ornament. etc.</em> 穿戴，配戴（衣物等）；留，蓄（毛发等）。</p>
+<p class="normaltext0"><b>hurt</b> <em>v. cause physical injury or pain to (sb./oneself, a part of the body, an animal, etc.).</em> 使（某人[自己]、身体某个部位、动物等）受伤或肉体疼痛。</p>
+<p class="normaltext0"><b>remember</b> <em>v. have or keep sth. in memory; recall to one's memory.</em> 记着或记住（某事物）；回想起。</p>
+<p class="normaltext0"><b>be going to do sth.</b> <em>used to show what sb. is intending or planing to do in the future.</em> 用以表示某人打算做某事。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>1</em>．龙卷风</p>
+<p class="normaltext">多萝西和她的舅舅亨利、舅妈埃姆以及小黑狗托托住在堪萨斯州的一幢小房子里。</p>
+<p class="normaltext">堪萨斯没有树也没有山，却常常刮风。有时候会突然刮起风速极大的风，这就是龙卷风，它能将树木和人甚至房屋卷走，因而每幢房屋都有地下室。当龙卷风刮起时，人们就钻进地下室躲起来。</p>
+<p class="normaltext">一天，亨利舅舅走出房子，抬头看了看天空。然后他飞快地跑进屋去。</p>
+<p class="normaltext">“龙卷风就要来了，”他冲埃姆舅妈和多萝西喊道，“我们得进地下室！”</p>
+<p class="normaltext">他们跑向地下室的门口，可托托受了惊吓，钻到了床底下。于是多萝西追了过去。</p>
+<p class="normaltext">“快点儿！”埃姆舅妈在地下室里大喊，“别管狗了，下地下室来！”</p>
+<p class="normaltext">多萝西抱起托托，跑向地下室的门口。可还没有跑到跟前，龙卷风就刮来了。</p>
+<p class="normaltext">接着，一件非常奇怪的事发生了。</p>
+<p class="normaltext">房子开始移动，然后慢慢升高，升高，升高，一直升到了半空中。埃姆舅妈和亨利舅舅在地底下的地下室里，但房子、多萝西和托托却升到了龙卷风的顶端。透过地板上那敞开的地下室门口，多萝西远远地看到了地面上的山峦和房屋，她迅速地关上了地下室的门。</p>
+<p class="normaltext">龙卷风卷着房子刮了好几个小时。一开始多萝西很害怕。</p>
+<p class="normaltext">“可是我们也无能为力呀，”她对托托说，“我们只有等着瞧了。”两三个钟头过去了，她和托托都睡着了。</p>
+<p class="normaltext">当多萝西再次睁开眼睛时，房子已经落在地面上了，四周静悄悄的。她抱起托托，推开房门走了出去。她们看到高大的树木、美丽的花朵以及一些有着蓝色屋门的小房子。</p>
+<p class="normaltext">多萝西轻声惊叫：“托托，这儿不是堪萨斯！这些人是谁呀？”</p>
+<p class="normaltext">这里有三个非常矮小的男子，穿着蓝色的外套和裤子，戴着蓝帽子。还有一个矮小的老婆婆，穿着漂亮的白色衣裙。老婆婆向多萝西走来，对她说：“谢谢你，谢谢！现在我们的人民自由了。”</p>
+<p class="normaltext">“你为什么要感谢我呢？”多萝西问道。</p>
+<p class="normaltext">“因为你杀死了东方女巫，”老婆婆回答，“她是个坏巫婆，而她的人民——芒奇金人——以前都很怕她。现在她死了，我们和芒奇金人都要感谢你。”</p>
+<p class="normaltext">矮小的老婆婆和三个小矮人一起朝多萝西快乐地微笑着，可多萝西还是不明白。</p>
+<p class="normaltext">“我可没有杀任何人！”她说。</p>
+<p class="normaltext">“你的房子落在了那巫婆身上，”老婆婆大笑起来，“瞧！你还能看见她的两只脚呢！”</p>
+<p class="normaltext">多萝西看见了房子下面两只穿着红鞋的脚。突然，一个芒奇金人大叫起来：“看呐！她的脚在烈日下正慢慢消失。”</p>
+<p class="normaltext">一眨眼的工夫，地上只剩下红鞋子了。</p>
+<p class="normaltext">“很好，”老婆婆说。她拾起鞋子，把它们递给多萝西，说：“从现在起，这就是你的了。你必须穿着它们，因为一双女巫的鞋子有时会做出神奇的事来。”</p>
+<p class="normaltext">“谢谢，”多萝西说，“可你是谁？是芒奇金人吗？”</p>
+<p class="normaltext">“不，但我是他们的朋友。我是北方女巫，到这儿来看东方女巫的尸体。别害怕，我是个好巫婆。”</p>
+<p class="normaltext">“可埃姆舅妈说世上没有巫婆。”</p>
+<p class="normaltext">“哦，不！有巫婆。”女巫说，“在奥兹国共有四个女巫，其中南方和北方的女巫是好的，而东方和西方的女巫是坏的。现在东方女巫已死，所以就剩下一个坏巫婆了。这里还有一个著名的魔法师，我们叫他奥兹魔法师，他住在绿宝石城。你们那里有多少巫婆和魔法师？”</p>
+<p class="normaltext">“我们那儿可没有，”多萝西回答。她忽然想起了埃姆舅妈和亨利舅舅。“我怎样才能返回堪萨斯呢？”她问。</p>
+<p class="normaltext">“堪萨斯是什么地方？”好心的巫婆问她，“我从不知道一个叫堪萨斯的国家，因此我没法给你指路。”</p>
+<p class="normaltext">多萝西哭了起来，“天哪，我该怎么办？”</p>
+<p class="normaltext">“别哭，”女巫说，“去见奥兹魔法师吧，他是个好法师，或许能帮你。路途遥远，但你必须走着去。我不能陪你去，不过我可以给你一个吻。”</p>
+<p class="normaltext">她轻轻吻了多萝西一下，那个吻就像贴在多萝西脸颊上的一朵小红花。</p>
+<p class="normaltext">“从现在起没有什么能伤害你了，”女巫说，“看，这就是通向绿宝石城的路。它是用黄砖铺成的，所以你不会迷路……再见。”</p>
+<p class="normaltext">“再见了！”三个矮小的芒奇金人齐声说。</p>
+<p class="normaltext">多萝西在房子里找到了一些面包和几个苹果，她把它们装进了一个包里。然后她换上了她那条蓝白花色的裙子。“现在我可漂亮了。”她自言自语道。看了看自己的旧鞋子，她想起坏女巫的那双红鞋，于是就换上了。</p>
+<p class="normaltext">她拿起装食物的包。“走，托托！”她喊道，“我们去找奥兹魔法师。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">龙卷风</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">1</span></p>
+<p class="title01">The cyclone</p>
+<p class="normaltext">Dorothy lived in a small house in Kansas, with Uncle Henry, Aunt Em, and a little black dog called Toto.</p>
+<p class="normaltext">There were no trees and no hills in Kansas, and it was often very windy. Sometimes the wind came very fast and very suddenly. That was a cyclone, and it could blow trees and people and buildings away. There were cellars under all the houses. And when a cyclone came, people went down into their cellars and stayed there.</p>
+<p class="normaltext">One day Uncle Henry came out and looked up at the sky. Then he ran quickly back into the house.</p>
+<p class="normaltext">'There's a cyclone coming,' he called to Aunt Em and Dorothy. 'We must go down into the cellar!'</p>
+<p class="normaltext">They ran to the door of the cellar, but Toto was afraid, and he ran under the bed. Dorothy ran after him.</p>
+<p class="normaltext">'Quick!' shouted Aunt Em from the cellar. 'Leave the dog and come down into the cellar!'</p>
+<p class="normaltext">Dorothy picked up Toto and ran to the cellar door. But before she got there, the cyclone hit the house.</p>
+<p class="normaltext">And then a very strange thing happened.</p>
+<p class="normaltext">The house moved, and then it went slowly up, up, up into the sky. Aunt Em and Uncle Henry were down in the cellar under the ground, but the house, Dorothy, and Toto went up to the top of the cyclone. Dorothy looked through the open cellar door and saw hills and houses, a long way down. She closed the cellar door quickly.</p>
+<p class="picture"><img src="../../../Images/image07225.jpeg" alt="alt"/></p>
+<p class="normaltext">The wind blew the house along for many hours. At first Dorothy was afraid.</p>
+<p class="normaltext">'But we can't do anything about it,' she said to Toto. 'So let's wait and see.' And after two or three hours, she and Toto went to sleep.</p>
+<p class="normaltext">When Dorothy opened her eyes again, the house was on the ground and everything was quiet. She picked up Toto, opened the door, and went out. They saw tall trees and beautiful flowers, and little houses with blue doors.</p>
+<p class="normaltext">Dorothy gave a little cry. 'This isn't Kansas, Toto! And who are these people?'</p>
+<p class="normaltext">There were three very short men in blue hats, coats and trousers, and a little old woman in a beautiful white dress. The woman walked up to Dorothy and said, 'Thank you, thank you! Now the people are free!'</p>
+<p class="normaltext">'Why are you thanking me?' Dorothy asked.</p>
+<p class="normaltext"> 'You killed the Witch of the East,' said the woman. 'She was a bad witch, and her people, the Munchkins, were very afraid of her. Now she is dead, and we and the Munchkins want to thank you.'</p>
+<p class="normaltext">The little old woman and the three little men all smiled happily at Dorothy, but Dorothy did not understand.</p>
+<p class="normaltext">'But I didn't kill anybody!' she said.</p>
+<p class="picture"><img src="../../../Images/image07226.jpeg" alt="alt"/></p>
+<p class="normaltext">'Your house fell on the Witch,' laughed the little woman. 'Look! You can see her feet!'</p>
+<p class="normaltext">Dorothy looked, and saw two feet, with red shoes, under the house. Suddenly, one of the Munchkins gave a shout. 'Look! Her feet are disappearing in the hot sun.'</p>
+<p class="normaltext">A second later, there were only the red shoes.</p>
+<p class="normaltext">'Good,' said the little woman. She picked up the shoes and gave them to Dorothy. 'They're your shoes now. You must wear them, because a witch's shoes can sometimes do wonderful things.'</p>
+<p class="normaltext">'Thank you,' said Dorothy. 'But who are you? Are you a Munchkin?'</p>
+<p class="normaltext">'No, but I'm their friend. I'm the Witch of the North, and I came to see the dead Witch of the East. But don't be afraid—I'm a good witch.'</p>
+<p class="normaltext">'But Aunt Em says there aren't any witches.'</p>
+<p class="normaltext">'Oh yes, there are!' said the Witch. 'Here in the country of Oz we have four witches. The witches of the North and the South are good witches, but those of the East and the West are bad witches. Now the Witch of the East is dead, so there is only one bad witch. We have a famous wizard, too. We call him the Wizard of Oz, and he lives in the Emerald City. How many witches and wizards do you have in your country?'</p>
+<p class="normaltext">'We don't have any,' said Dorothy. Suddenly she remembered Aunt Em and Uncle Henry. 'How can I get back home to Kansas?' she asked.</p>
+<p class="normaltext">'Where is Kansas?' asked the good Witch. 'I don't know a country called Kansas, so I can't tell you the way.'</p>
+<p class="normaltext">Dorothy began to cry. 'Oh dear! What can I do?'</p>
+<p class="normaltext">'Please don't cry!' said the Witch. 'Go and see the Wizard of Oz. He's a good wizard, and perhaps he can help you. It's a long way, and you must walk there. I can't go with you, but I can give you my kiss.'</p>
+<p class="normaltext">She gave Dorothy a little kiss. It looked like a small red flower on Dorothy's face.</p>
+<p class="normaltext">'Now nothing can hurt you,' she said. 'Look—there is the road to the Emerald City. It is made of yellow bricks, so you cannot lose your way... Goodbye.'</p>
+<p class="normaltext">'Goodbye!' said the three little Munchkins.</p>
+<p class="normaltext">In the house Dorothy found some bread and some apples, and she put them all in a bag. Then she put on her blue and white dress. 'Now I look nice,' she said. She looked down at her old shoes. Then she remembered the bad Witch's red shoes, and put them on.</p>
+<p class="normaltext">She picked up her bag of food. 'Come on, Toto!' she called. 'We're going to find the Wizard of Oz.'</p>
+<p class="picture"><img src="../../../Images/image07227.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>windy</b> <em>adj. with much wind.</em> 多风的。</p>
+<p class="normaltext0"><b>cyclone</b> <em>n. violent destructive windstorm.</em> 暴风；龙卷风。</p>
+<p class="normaltext0"><b>cellar</b> <em>n. underground room for storing things.</em> （储藏东西用的）地下室，地窖。</p>
+<p class="normaltext0"><b>pick up</b> <em>take hold of and lift sb./sth.</em> 举起或抬起某人或某物；拿起；拾起。</p>
+<p class="normaltext0"><b>walk up (to sb./sth.)</b> <em>approach sb./sth.</em> 走近某人或某物。</p>
+<p class="normaltext0"><b>be afraid (of sb./sth.)</b> <em>frightened.</em> 畏惧；害怕。</p>
+<p class="normaltext0"><b>dead</b> <em>adj. no longer alive.</em> 死的。</p>
+<p class="normaltext0"><b>kill</b> <em>v.</em> cause death or cause the death of (sb./sth.) 致死；杀死；扼杀某人或某物。</p>
+<p class="normaltext0"><b>disappear</b> <em>v. no longer be visible, vanish.</em> 消失；失踪。</p>
+<p class="normaltext0"><b>wear</b> <em>v. have (sth.) on one's body, esp. as clothing, as an ornament. etc.</em> 穿戴，配戴（衣物等）；留，蓄（毛发等）。</p>
+<p class="normaltext0"><b>hurt</b> <em>v. cause physical injury or pain to (sb./oneself, a part of the body, an animal, etc.).</em> 使（某人[自己]、身体某个部位、动物等）受伤或肉体疼痛。</p>
+<p class="normaltext0"><b>remember</b> <em>v. have or keep sth. in memory; recall to one's memory.</em> 记着或记住（某事物）；回想起。</p>
+<p class="normaltext0"><b>be going to do sth.</b> <em>used to show what sb. is intending or planing to do in the future.</em> 用以表示某人打算做某事。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>1</em>．龙卷风</p>
+<p class="normaltext">多萝西和她的舅舅亨利、舅妈埃姆以及小黑狗托托住在堪萨斯州的一幢小房子里。</p>
+<p class="normaltext">堪萨斯没有树也没有山，却常常刮风。有时候会突然刮起风速极大的风，这就是龙卷风，它能将树木和人甚至房屋卷走，因而每幢房屋都有地下室。当龙卷风刮起时，人们就钻进地下室躲起来。</p>
+<p class="normaltext">一天，亨利舅舅走出房子，抬头看了看天空。然后他飞快地跑进屋去。</p>
+<p class="normaltext">“龙卷风就要来了，”他冲埃姆舅妈和多萝西喊道，“我们得进地下室！”</p>
+<p class="normaltext">他们跑向地下室的门口，可托托受了惊吓，钻到了床底下。于是多萝西追了过去。</p>
+<p class="normaltext">“快点儿！”埃姆舅妈在地下室里大喊，“别管狗了，下地下室来！”</p>
+<p class="normaltext">多萝西抱起托托，跑向地下室的门口。可还没有跑到跟前，龙卷风就刮来了。</p>
+<p class="normaltext">接着，一件非常奇怪的事发生了。</p>
+<p class="normaltext">房子开始移动，然后慢慢升高，升高，升高，一直升到了半空中。埃姆舅妈和亨利舅舅在地底下的地下室里，但房子、多萝西和托托却升到了龙卷风的顶端。透过地板上那敞开的地下室门口，多萝西远远地看到了地面上的山峦和房屋，她迅速地关上了地下室的门。</p>
+<p class="normaltext">龙卷风卷着房子刮了好几个小时。一开始多萝西很害怕。</p>
+<p class="normaltext">“可是我们也无能为力呀，”她对托托说，“我们只有等着瞧了。”两三个钟头过去了，她和托托都睡着了。</p>
+<p class="normaltext">当多萝西再次睁开眼睛时，房子已经落在地面上了，四周静悄悄的。她抱起托托，推开房门走了出去。她们看到高大的树木、美丽的花朵以及一些有着蓝色屋门的小房子。</p>
+<p class="normaltext">多萝西轻声惊叫：“托托，这儿不是堪萨斯！这些人是谁呀？”</p>
+<p class="normaltext">这里有三个非常矮小的男子，穿着蓝色的外套和裤子，戴着蓝帽子。还有一个矮小的老婆婆，穿着漂亮的白色衣裙。老婆婆向多萝西走来，对她说：“谢谢你，谢谢！现在我们的人民自由了。”</p>
+<p class="normaltext">“你为什么要感谢我呢？”多萝西问道。</p>
+<p class="normaltext">“因为你杀死了东方女巫，”老婆婆回答，“她是个坏巫婆，而她的人民——芒奇金人——以前都很怕她。现在她死了，我们和芒奇金人都要感谢你。”</p>
+<p class="normaltext">矮小的老婆婆和三个小矮人一起朝多萝西快乐地微笑着，可多萝西还是不明白。</p>
+<p class="normaltext">“我可没有杀任何人！”她说。</p>
+<p class="normaltext">“你的房子落在了那巫婆身上，”老婆婆大笑起来，“瞧！你还能看见她的两只脚呢！”</p>
+<p class="normaltext">多萝西看见了房子下面两只穿着红鞋的脚。突然，一个芒奇金人大叫起来：“看呐！她的脚在烈日下正慢慢消失。”</p>
+<p class="normaltext">一眨眼的工夫，地上只剩下红鞋子了。</p>
+<p class="normaltext">“很好，”老婆婆说。她拾起鞋子，把它们递给多萝西，说：“从现在起，这就是你的了。你必须穿着它们，因为一双女巫的鞋子有时会做出神奇的事来。”</p>
+<p class="normaltext">“谢谢，”多萝西说，“可你是谁？是芒奇金人吗？”</p>
+<p class="normaltext">“不，但我是他们的朋友。我是北方女巫，到这儿来看东方女巫的尸体。别害怕，我是个好巫婆。”</p>
+<p class="normaltext">“可埃姆舅妈说世上没有巫婆。”</p>
+<p class="normaltext">“哦，不！有巫婆。”女巫说，“在奥兹国共有四个女巫，其中南方和北方的女巫是好的，而东方和西方的女巫是坏的。现在东方女巫已死，所以就剩下一个坏巫婆了。这里还有一个著名的魔法师，我们叫他奥兹魔法师，他住在绿宝石城。你们那里有多少巫婆和魔法师？”</p>
+<p class="normaltext">“我们那儿可没有，”多萝西回答。她忽然想起了埃姆舅妈和亨利舅舅。“我怎样才能返回堪萨斯呢？”她问。</p>
+<p class="normaltext">“堪萨斯是什么地方？”好心的巫婆问她，“我从不知道一个叫堪萨斯的国家，因此我没法给你指路。”</p>
+<p class="normaltext">多萝西哭了起来，“天哪，我该怎么办？”</p>
+<p class="normaltext">“别哭，”女巫说，“去见奥兹魔法师吧，他是个好法师，或许能帮你。路途遥远，但你必须走着去。我不能陪你去，不过我可以给你一个吻。”</p>
+<p class="normaltext">她轻轻吻了多萝西一下，那个吻就像贴在多萝西脸颊上的一朵小红花。</p>
+<p class="normaltext">“从现在起没有什么能伤害你了，”女巫说，“看，这就是通向绿宝石城的路。它是用黄砖铺成的，所以你不会迷路……再见。”</p>
+<p class="normaltext">“再见了！”三个矮小的芒奇金人齐声说。</p>
+<p class="normaltext">多萝西在房子里找到了一些面包和几个苹果，她把它们装进了一个包里。然后她换上了她那条蓝白花色的裙子。“现在我可漂亮了。”她自言自语道。看了看自己的旧鞋子，她想起坏女巫的那双红鞋，于是就换上了。</p>
+<p class="normaltext">她拿起装食物的包。“走，托托！”她喊道，“我们去找奥兹魔法师。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">2．The yellow brick road</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">2</span></p>
+<p class="title01">The yellow brick road</p>
+<p class="normaltext">Dorothy and Toto walked along the yellow brick road for a long time. When they were tired, they stopped in a field by the road. Not far away, there was a scarecrow, and Dorothy and Toto walked across to look at it.</p>
+<p class="normaltext">'Good day,' said the Scarecrow.</p>
+<p class="normaltext">'Oh!' said Dorothy. 'You can speak!'</p>
+<p class="normaltext">'Of course I can speak,' said the Scarecrow. 'But I can't move, up here on this pole... I'd like to get down. Can you help me?'</p>
+<p class="normaltext">Carefully, Dorothy took the Scarecrow off his pole.</p>
+<p class="normaltext">'Thank you very much,' said the Scarecrow. He moved his arms and legs, and straw went everywhere. 'Who are you?' he asked. 'And where are you going?'</p>
+<p class="normaltext">'I'm Dorothy, and I'm going to the Emerald City. I want to go home to Kansas, but I don't know the way. I'm going to ask the Wizard of Oz for help.'</p>
+<p class="normaltext">'Where is the Emerald City?' asked the Scarecrow. 'And who is the Wizard of Oz? I don't know anything, you see, because I have no brains in my head—only straw.'</p>
+<p class="normaltext">'Oh dear!' said Dorothy. 'I'm very sorry.'</p>
+<p class="normaltext">'I would very much like to have some brains,' the Scarecrow said. 'Can I go to the Emerald City with you? Perhaps the Wizard of Oz can give me some brains. What do you think?'</p>
+<p class="picture"><img src="../../../Images/image07228.jpeg" alt="alt"/></p>
+<p class="normaltext">'I don't know,' said Dorothy. 'But yes, please come with me. He's a famous wizard, so perhaps he can help you.' She felt very sorry for the Scarecrow. 'Don't be afraid of Toto,' she said. 'He never hurts people.'</p>
+<p class="normaltext">'Nothing can hurt me,' said the Scarecrow. 'I'm not afraid of anything... Well, that's not true. I <em>am</em> afraid of fire, of course.'</p>
+<p class="normaltext">Dorothy walked along the road with her new friend. Soon she began to feel hungry, so she sat down and she and Toto ate some bread and apples. 'Would you like some, Scarecrow?' said Dorothy.</p>
+<p class="normaltext">'No, thank you,' said the Scarecrow. 'I don't need to eat or drink. You can't eat when you're made of straw... Now, tell me about your home.'</p>
+<p class="normaltext">So Dorothy told him about Kansas, and Uncle Henry and Aunt Em, and the cyclone.</p>
+<p class="normaltext">'But why do you want to leave this beautiful country?' asked the Scarecrow. 'Kansas, you say, has no trees, no green hills, no gardens. I don't understand.'</p>
+<p class="normaltext">'That's because you have no brains,' said Dorothy. 'Kansas is my home. We say, "East, west—home's best", and it's true. I want to go home.'</p>
+<p class="normaltext">They walked along the road for some hours, and then it got dark. Dorothy was tired, and soon the Scarecrow saw a little house behind some trees. There was nobody there, so they went in. Dorothy and Toto slept, but the Scarecrow just stood all night with his eyes open.</p>
+<p class="normaltext">'Scarecrows don't sleep,' he said.</p>
+<p class="normaltext2">*　　*　　*</p>
+<p class="normaltext0">In the morning Dorothy looked for water.</p>
+<p class="normaltext">'Why do you want water?' asked the Scarecrow.</p>
+<p class="normaltext">'Toto and I are thirsty. And I need to wash.'</p>
+<p class="normaltext">'I'm sorry for you,' said the Scarecrow. 'You need a lot of things! But <em>you</em> have brains, and <em>you</em> can think, and that's wonderful.'</p>
+<p class="normaltext">They found some water, and Dorothy washed. Then she and Toto ate some bread. Suddenly, they heard a shout from the trees near the house, and they all ran out of the house to look.</p>
+<p class="normaltext">They saw a man by a big tree, with an axe in his hand. He was made of tin. He stood very still and shouted 'Help!' again and again.</p>
+<p class="normaltext">'What can I do for you?' asked Dorothy.</p>
+<p class="normaltext">'I can't move,' said the Tin Man. 'Please oil me. There's an oil-can in my house.'</p>
+<p class="normaltext">At once Dorothy ran back to the house and found the oil-can. Then she came back and, with the Scarecrow's help, she carefully oiled the Tin Man. Slowly, he began to move, first his head, and then his arms and legs.</p>
+<p class="normaltext">'Thank you,' he said. 'I feel better now.' He put down his axe. 'I went out in the rain, you see, and water is very bad for a tin body. I was there for a long time, and nobody came to help me.'</p>
+<p class="picture"><img src="../../../Images/image07229.jpeg" alt="alt"/></p>
+<p class="normaltext">'We stopped at your house for the night,' Dorothy said, 'and we heard your shout this morning.'</p>
+<p class="normaltext">'Where are you going?' asked the Tin Man.</p>
+<p class="normaltext">So Dorothy told him about the Wizard of Oz. 'I want to go back to Kansas, and the Scarecrow wants some brains,' she said.</p>
+<p class="normaltext">The Tin Man was very interested. 'Can the Wizard give me a heart, do you think? I have no heart, so I can't love, or feel... I would very much like to have a heart.'</p>
+<p class="normaltext">'Come with us,' said the Scarecrow.</p>
+<p class="normaltext">'Yes,' said Dorothy. 'And then you can ask the Wizard for help, too.'</p>
+<p class="normaltext">So they all walked along the yellow brick road. There were many tall trees next to the road, and sometimes the three friends heard noises from animals behind the trees. Dorothy did not like these noises very much.</p>
+<p class="normaltext">'How far is it to the Emerald City?' she asked the Tin Man. 'Do you know?'</p>
+<p class="normaltext">'It's a long way, I think,' said the Tin Man. 'And we must be careful because—'</p>
+<p class="normaltext">But just then a big lion suddenly ran out from the trees, into the road. It opened its mouth—it had long yellow teeth—and began to run after Toto.</p>
+<p class="picture"><img src="../../../Images/image07230.jpeg" alt="alt"/></p>
+<p class="normaltext">Dorothy was afraid for Toto. She ran up to the lion and hit it on the nose with her bag. 'Don't hurt my dog!' she cried angrily. 'He's smaller than you!'</p>
+<p class="normaltext">'I didn't hurt him,' said the Lion. 'Don't hit me again— please!'</p>
+<p class="normaltext">'Why—you're afraid!' said Dorothy. 'Be quiet, Toto, he isn't going to hurt you. He's more afraid than you are. He's just a big coward.'</p>
+<p class="normaltext">'It's true,' said the Lion. 'I <em>am</em> a coward. Everyone thinks lions are brave. I make a lot of noise, but I'm not brave. I'm just a coward.' And the Cowardly Lion began to cry.</p>
+<p class="normaltext">Then Dorothy told him about the Wizard of Oz. 'Come with us to the Emerald City,' she said. 'I want to go back to Kansas, the Scarecrow wants some brains, and the Tin Man wants a heart. Perhaps the Wizard of Oz can make you brave.'</p>
+<p class="normaltext">'Oh, thank you!' said the Lion. 'I would very much like to be brave.'</p>
+<p class="normaltext">And so the Cowardly Lion came with them. At first Toto was afraid of him, but very soon he and the Lion were good friends.</p>
+<p class="normaltext">That night Dorothy and Toto slept under a big tree, next to the Cowardly Lion's big, warm body. In the morning they ate the last of their bread.</p>
+<p class="normaltext">'Oh dear!' said Dorothy. 'What are we going to eat for dinner?'</p>
+<p class="picture"><img src="../../../Images/image07231.jpeg" alt="alt"/></p>
+<p class="normaltext">'I can kill an animal for you,' said the Cowardly Lion.</p>
+<p class="normaltext">'Oh no—please don't kill anything!' the Tin Man said. He began to cry. 'We don't want to hurt any animals. I haven't got a heart, but I feel sorry for them.'</p>
+<p class="normaltext">Dorothy quickly got out the oil-can and oiled his face.</p>
+<p class="normaltext">'Don't cry,' she said. 'You know water is bad for you.'</p>
+<p class="normaltext">They walked along the yellow road, and after an hour or two they came to a big river.</p>
+<p class="normaltext">'Oh no!' said Dorothy. 'How can we get across?'</p>
+<p class="normaltext">The Lion looked down at the river. 'I'm very afraid of falling,' he said, 'but I think I can jump across.'</p>
+<p class="normaltext">'Good!' said the Scarecrow at once. 'You can carry us on your back, one at a time.'</p>
+<p class="normaltext">So the Cowardly Lion jumped across the river, first with the Scarecrow on his back, then with Dorothy and Toto, and last with the Tin Man.</p>
+<p class="normaltext">But soon they came to a second river. This one was very big, and the Lion could not jump across it. The Scarecrow thought for a minute.</p>
+<p class="normaltext">'Look,' he said. 'There's a tall tree next to the river. The Tin Man can cut it down with his axe. And when the tree falls across the river, we can walk across the tree.'</p>
+<p class="normaltext">'Very good,' said the Lion. 'For somebody with straw in their head, and not brains.'</p>
+<p class="normaltext">So the Tin Man cut down the tree with his axe, and soon they were all across that river, too.</p>
+<p class="picture"><img src="../../../Images/image07232.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>scarecrow</b> <em>n. figure resembling a person that is dressed in old clothes and set up in a field to frighten away birds.</em> 稻草人。</p>
+<p class="normaltext0"><b>brains</b> <em>n. mind or intellect; intelligence.</em> 头脑；智力。</p>
+<p class="normaltext0"><b>straw</b> <em>n. cut and dried stalks of grain plants.</em> 麦杆；稻草。</p>
+<p class="normaltext0"><b>tired</b> <em>adj. feel that one Would like to sleep or rest.</em> 困倦的；疲倦的。</p>
+<p class="normaltext0"><b>famous</b> <em>adj. known to very many people; celebrated.</em> 出名的；著名的。</p>
+<p class="normaltext0"><b>wash</b> <em>v. act of cleaning or being cleaned with water.</em> 洗；洗涤。</p>
+<p class="normaltext0"><b>thirsty</b> <em>adj. feel thirst.</em> 渴的。</p>
+<p class="normaltext0"><b>oil</b> <em>v. put oil on or into (sth.) (e. g. , to make part of a machine run smoothly), lubricate.</em> 给（某物）加润滑油；用油润滑。</p>
+<p class="normaltext0"><b>carefully</b> <em>adv. painstakingly; cautiously.</em> 仔细地；细心地；谨慎地。</p>
+<p class="normaltext0"><b>interested</b> <em>adj. showing curiosity or concern (about sb. or sth. ).</em> （对某人或某事）感兴趣的；关心的。</p>
+<p class="normaltext0"><b>ask sb. for help</b> 向某人求助。</p>
+<p class="normaltext0"><b>coward</b> <em>n. person who lacks courage; person who runs away from danger.</em> 胆小鬼；懦夫。</p>
+<p class="normaltext0"><b>angrily</b> <em>adv. in an angry way.</em> 生气地；愤怒地。</p>
+<p class="normaltext0"><b>at once</b> <em>immediately; without delay.</em> 立刻；马上；立即。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>2</em>．黄砖路</p>
+<p class="normaltext">多萝西和托托沿着黄砖路走了很久。累了，她们便停在路边的一片稻田里。不远处有一个稻草人。多萝西和托托穿过田地去看他。</p>
+<p class="normaltext">“你好啊。”稻草人说。</p>
+<p class="normaltext">“哦！”多萝西惊叫，“你居然会说话！”</p>
+<p class="normaltext">“我当然会说话了，”稻草人回答道，“不过我不会动，只能待在这根杆上……我想下来。你能帮我一下吗？”</p>
+<p class="normaltext">多萝西小心翼翼地将稻草人从杆上取下来。</p>
+<p class="normaltext">“非常感谢，”稻草人说。他动动胳膊，又动动腿，稻草掉了一地。“你是谁？”他问道，“到哪里去？”</p>
+<p class="normaltext">“我是多萝西，要去绿宝石城。我想回家乡堪萨斯，但不知该怎么走，所以我得去找奥兹魔法师帮忙。”</p>
+<p class="normaltext">“绿宝石城在哪里？”稻草人问，“奥兹魔法师又是谁？你瞧，我什么都不知道，因为我的脑袋里没有大脑——只有稻草。”</p>
+<p class="normaltext">“哦，天哪！”多萝西回答，“太遗憾了。”</p>
+<p class="normaltext">“我很想长点脑子，”稻草人说，“我能和你一起去绿宝石城吗？或许奥兹魔法师能给我点脑子。你觉得怎么样？”</p>
+<p class="normaltext">“我也不知道。”多萝西回答道，“好的，你和我们一起去吧。他是个伟大的魔法师，或许可以帮你。”她十分同情稻草人。“别怕托托，”她说，“它从不伤人。”</p>
+<p class="normaltext">“没人可以伤害我，”稻草人说，“我什么也不怕……嗯，不对，当然我<span class="xx">是</span>怕火的。”</p>
+<p class="normaltext">多萝西和她的新朋友沿着路走，没过多久她就感到饿了。她坐下来，和托托一起吃了些面包和苹果。“稻草人，你想吃点吗？”多萝西问。</p>
+<p class="normaltext">“不了，谢谢，”稻草人回答，“我既不需要吃也不需要喝。如果你是稻草做的，你也不用吃东西……现在，给我讲讲你的家吧。”</p>
+<p class="normaltext">于是，多萝西就给他讲起了堪萨斯，讲起了亨利舅舅和埃姆舅妈，讲起了龙卷风。</p>
+<p class="normaltext">“那你为什么还要离开这个美丽的国度呢？”稻草人问她，“你说了，堪萨斯没有树木，没有青山，没有花园。我不明白。”</p>
+<p class="normaltext">“问这个问题说明你没有脑子。”多萝西说，“堪萨斯是我的家乡呀，我们常说：‘无论身在何方——家是最好的地方。’的确是这样的，我就是想回家。”</p>
+<p class="normaltext">他们又沿着路走了几个小时。天色渐黑，多萝西累了，很快稻草人看见树丛后有一幢小屋。屋里没人，他们就进去了。多萝西和托托睡觉了，而稻草人却睁着眼站了一夜。</p>
+<p class="normaltext">“稻草人才不睡觉呢。”他说。</p>
+<p class="normaltext2">*　　*　　*</p>
+<p class="normaltext">早上，多萝西找水喝。</p>
+<p class="normaltext">“你为什么要喝水？”稻草人问她。</p>
+<p class="normaltext">“我和托托都渴了。我还需要洗脸。”</p>
+<p class="normaltext">“我真同情你。”稻草人说，“你有这么多的需要！但<span class="xx">你</span>有大脑，<span class="xx">你</span>还能思考，真好！”</p>
+<p class="normaltext">他们找到一些水。多萝西洗漱完毕，和托托一起吃了些面包。突然，屋旁的树林里传来一声叫喊，于是他们都从屋里跑出去看。</p>
+<p class="normaltext">他们看见一个锡做的人，手持一把斧头，站在一棵大树边。他一动不动，一遍又一遍地喊“救命”。</p>
+<p class="normaltext">“我怎么帮你呢？”多萝西问。</p>
+<p class="normaltext">“我动不了了，”锡人回答，“请给我上点油，我的屋里有油罐。”</p>
+<p class="normaltext">多萝西立刻跑进房里，找到了油罐。然后她又跑回来，在稻草人的帮助下仔仔细细地给锡人加上油。慢慢地，锡人开始动了，先是头，接着是胳膊和腿。</p>
+<p class="normaltext">“谢谢你，”锡人说，“现在我感觉好多了。”他放下斧子。“我在下雨时出来了，瞧，水对一个锡做的身体是非常有害的。我已经在那儿待了很久了，却没人来帮我。”</p>
+<p class="normaltext">“我们在你的屋里过夜了，”多萝西说，“早上听见了你的叫声。”</p>
+<p class="normaltext">“你们去哪儿？”锡人问。</p>
+<p class="normaltext">于是，多萝西给他讲了奥兹魔法师的事。“我想回堪萨斯，而稻草人想要大脑。”她说。</p>
+<p class="normaltext">锡人很感兴趣。“魔法师能给我一颗心吗？我没有心，所以我不能去爱或感觉……我非常想要一颗心。”</p>
+<p class="normaltext">“跟我们走吧。”稻草人说。</p>
+<p class="normaltext">“对，”多萝西说，“你也可以让奥兹魔法师帮你。”</p>
+<p class="normaltext">就这样，他们一起沿着黄砖铺成的路往前走。路两旁有许多高大的树木，有时他们三人会听见树林里传来的动物的叫声。多萝西并不想听见这些声音。</p>
+<p class="normaltext">“我们离绿宝石城还有多远？”她问锡人，“你知道吗？”</p>
+<p class="normaltext">“我想，还很远呢。”锡人说，“而且我们必须小心点儿，因为——”</p>
+<p class="normaltext">正在那时，一只巨大的狮子突然从树林里跑出来，跑到了路上。它张着嘴——露出一嘴黄黄的长牙齿——然后开始追托托。</p>
+<p class="normaltext">多萝西担心托托，于是她冲向狮子，用她的包砸狮子的鼻子。“不许伤害我的狗！”她生气地大喊，“它比你个头小！”</p>
+<p class="normaltext">“我没有伤害它，”狮子说，“别打我——求你了！”</p>
+<p class="normaltext">“什么——你居然害怕了！”多萝西说，“安静，托托，他不会伤害你的。他比你更害怕。他只不过是一个身体巨大的胆小鬼。”</p>
+<p class="normaltext">“说得对，”狮子说，“我<span class="xx">是</span>个胆小鬼。人人都以为狮子勇敢，虽然我经常叫嚣，但我并不勇敢。我只是个懦夫。”接着，胆小鬼狮子哭了起来。</p>
+<p class="normaltext">多萝西告诉他有关奥兹魔法师的事。“和我们一起去绿宝石城吧。”她说，“我想回堪萨斯，稻草人想要大脑，锡人想要颗心。也许奥兹魔法师会让你勇敢起来。”</p>
+<p class="normaltext">“哦，谢谢你！”狮子说，“我真的很想变得勇敢起来。”</p>
+<p class="normaltext">这样，胆小鬼狮子就和他们一起上路了。一开始，托托还害怕他，但很快就和他成了好朋友。</p>
+<p class="normaltext">当晚，多萝西和托托挨着胆小鬼狮子庞大、温暖的身体，睡在了一棵大树下。第二天早上，她们吃光了剩下的面包。</p>
+<p class="normaltext">“哦，天呀！”多萝西说，“我们晚饭吃什么呢？”</p>
+<p class="normaltext">“我能为你杀个动物。”胆小鬼狮子说。</p>
+<p class="normaltext">“喔，不——别杀任何东西！”锡人说着，哭了起来，“我们不想伤害任何动物。虽然我没有心，但我同情它们。”</p>
+<p class="normaltext">多萝西急忙取出油罐，给他的脸上涂上油。</p>
+<p class="normaltext">“别哭了，”她说，“你知道水对你伤害大。”</p>
+<p class="normaltext">他们顺着黄色的路走了一两个小时后，来到了一条大河前。</p>
+<p class="normaltext">“哦，不！”多萝西说，“我们可怎么过去呢？”</p>
+<p class="normaltext">狮子低头望了望河水。“虽然我很怕掉下去，”他说，“可我想我是可以跳过去的。”</p>
+<p class="normaltext">“好啊！”稻草人马上说道，“你可以一个一个地驮我们过河。”</p>
+<p class="normaltext">第一次，胆小鬼狮子驮稻草人跳过河去，接着是多萝西和托托，最后是锡人。</p>
+<p class="normaltext">但不久他们又遇到了第二条河。这条河太宽了，狮子跳不过去。稻草人想了一下。</p>
+<p class="normaltext">“看！”他说，“河边有一棵大树。锡人可以用斧子将它砍倒。树倒在河上，我们就能踩着树过河了。”</p>
+<p class="normaltext">“太好了，”狮子说，“一个满脑袋稻草却没有大脑的人能想出这样一条妙计，真是太好了。”</p>
+<p class="normaltext">于是锡人用斧子砍倒了树，很快他们都过了河。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">黄砖路</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">2</span></p>
+<p class="title01">The yellow brick road</p>
+<p class="normaltext">Dorothy and Toto walked along the yellow brick road for a long time. When they were tired, they stopped in a field by the road. Not far away, there was a scarecrow, and Dorothy and Toto walked across to look at it.</p>
+<p class="normaltext">'Good day,' said the Scarecrow.</p>
+<p class="normaltext">'Oh!' said Dorothy. 'You can speak!'</p>
+<p class="normaltext">'Of course I can speak,' said the Scarecrow. 'But I can't move, up here on this pole... I'd like to get down. Can you help me?'</p>
+<p class="normaltext">Carefully, Dorothy took the Scarecrow off his pole.</p>
+<p class="normaltext">'Thank you very much,' said the Scarecrow. He moved his arms and legs, and straw went everywhere. 'Who are you?' he asked. 'And where are you going?'</p>
+<p class="normaltext">'I'm Dorothy, and I'm going to the Emerald City. I want to go home to Kansas, but I don't know the way. I'm going to ask the Wizard of Oz for help.'</p>
+<p class="normaltext">'Where is the Emerald City?' asked the Scarecrow. 'And who is the Wizard of Oz? I don't know anything, you see, because I have no brains in my head—only straw.'</p>
+<p class="normaltext">'Oh dear!' said Dorothy. 'I'm very sorry.'</p>
+<p class="normaltext">'I would very much like to have some brains,' the Scarecrow said. 'Can I go to the Emerald City with you? Perhaps the Wizard of Oz can give me some brains. What do you think?'</p>
+<p class="picture"><img src="../../../Images/image07228.jpeg" alt="alt"/></p>
+<p class="normaltext">'I don't know,' said Dorothy. 'But yes, please come with me. He's a famous wizard, so perhaps he can help you.' She felt very sorry for the Scarecrow. 'Don't be afraid of Toto,' she said. 'He never hurts people.'</p>
+<p class="normaltext">'Nothing can hurt me,' said the Scarecrow. 'I'm not afraid of anything... Well, that's not true. I <em>am</em> afraid of fire, of course.'</p>
+<p class="normaltext">Dorothy walked along the road with her new friend. Soon she began to feel hungry, so she sat down and she and Toto ate some bread and apples. 'Would you like some, Scarecrow?' said Dorothy.</p>
+<p class="normaltext">'No, thank you,' said the Scarecrow. 'I don't need to eat or drink. You can't eat when you're made of straw... Now, tell me about your home.'</p>
+<p class="normaltext">So Dorothy told him about Kansas, and Uncle Henry and Aunt Em, and the cyclone.</p>
+<p class="normaltext">'But why do you want to leave this beautiful country?' asked the Scarecrow. 'Kansas, you say, has no trees, no green hills, no gardens. I don't understand.'</p>
+<p class="normaltext">'That's because you have no brains,' said Dorothy. 'Kansas is my home. We say, "East, west—home's best", and it's true. I want to go home.'</p>
+<p class="normaltext">They walked along the road for some hours, and then it got dark. Dorothy was tired, and soon the Scarecrow saw a little house behind some trees. There was nobody there, so they went in. Dorothy and Toto slept, but the Scarecrow just stood all night with his eyes open.</p>
+<p class="normaltext">'Scarecrows don't sleep,' he said.</p>
+<p class="normaltext2">*　　*　　*</p>
+<p class="normaltext0">In the morning Dorothy looked for water.</p>
+<p class="normaltext">'Why do you want water?' asked the Scarecrow.</p>
+<p class="normaltext">'Toto and I are thirsty. And I need to wash.'</p>
+<p class="normaltext">'I'm sorry for you,' said the Scarecrow. 'You need a lot of things! But <em>you</em> have brains, and <em>you</em> can think, and that's wonderful.'</p>
+<p class="normaltext">They found some water, and Dorothy washed. Then she and Toto ate some bread. Suddenly, they heard a shout from the trees near the house, and they all ran out of the house to look.</p>
+<p class="normaltext">They saw a man by a big tree, with an axe in his hand. He was made of tin. He stood very still and shouted 'Help!' again and again.</p>
+<p class="normaltext">'What can I do for you?' asked Dorothy.</p>
+<p class="normaltext">'I can't move,' said the Tin Man. 'Please oil me. There's an oil-can in my house.'</p>
+<p class="normaltext">At once Dorothy ran back to the house and found the oil-can. Then she came back and, with the Scarecrow's help, she carefully oiled the Tin Man. Slowly, he began to move, first his head, and then his arms and legs.</p>
+<p class="normaltext">'Thank you,' he said. 'I feel better now.' He put down his axe. 'I went out in the rain, you see, and water is very bad for a tin body. I was there for a long time, and nobody came to help me.'</p>
+<p class="picture"><img src="../../../Images/image07229.jpeg" alt="alt"/></p>
+<p class="normaltext">'We stopped at your house for the night,' Dorothy said, 'and we heard your shout this morning.'</p>
+<p class="normaltext">'Where are you going?' asked the Tin Man.</p>
+<p class="normaltext">So Dorothy told him about the Wizard of Oz. 'I want to go back to Kansas, and the Scarecrow wants some brains,' she said.</p>
+<p class="normaltext">The Tin Man was very interested. 'Can the Wizard give me a heart, do you think? I have no heart, so I can't love, or feel... I would very much like to have a heart.'</p>
+<p class="normaltext">'Come with us,' said the Scarecrow.</p>
+<p class="normaltext">'Yes,' said Dorothy. 'And then you can ask the Wizard for help, too.'</p>
+<p class="normaltext">So they all walked along the yellow brick road. There were many tall trees next to the road, and sometimes the three friends heard noises from animals behind the trees. Dorothy did not like these noises very much.</p>
+<p class="normaltext">'How far is it to the Emerald City?' she asked the Tin Man. 'Do you know?'</p>
+<p class="normaltext">'It's a long way, I think,' said the Tin Man. 'And we must be careful because—'</p>
+<p class="normaltext">But just then a big lion suddenly ran out from the trees, into the road. It opened its mouth—it had long yellow teeth—and began to run after Toto.</p>
+<p class="picture"><img src="../../../Images/image07230.jpeg" alt="alt"/></p>
+<p class="normaltext">Dorothy was afraid for Toto. She ran up to the lion and hit it on the nose with her bag. 'Don't hurt my dog!' she cried angrily. 'He's smaller than you!'</p>
+<p class="normaltext">'I didn't hurt him,' said the Lion. 'Don't hit me again— please!'</p>
+<p class="normaltext">'Why—you're afraid!' said Dorothy. 'Be quiet, Toto, he isn't going to hurt you. He's more afraid than you are. He's just a big coward.'</p>
+<p class="normaltext">'It's true,' said the Lion. 'I <em>am</em> a coward. Everyone thinks lions are brave. I make a lot of noise, but I'm not brave. I'm just a coward.' And the Cowardly Lion began to cry.</p>
+<p class="normaltext">Then Dorothy told him about the Wizard of Oz. 'Come with us to the Emerald City,' she said. 'I want to go back to Kansas, the Scarecrow wants some brains, and the Tin Man wants a heart. Perhaps the Wizard of Oz can make you brave.'</p>
+<p class="normaltext">'Oh, thank you!' said the Lion. 'I would very much like to be brave.'</p>
+<p class="normaltext">And so the Cowardly Lion came with them. At first Toto was afraid of him, but very soon he and the Lion were good friends.</p>
+<p class="normaltext">That night Dorothy and Toto slept under a big tree, next to the Cowardly Lion's big, warm body. In the morning they ate the last of their bread.</p>
+<p class="normaltext">'Oh dear!' said Dorothy. 'What are we going to eat for dinner?'</p>
+<p class="picture"><img src="../../../Images/image07231.jpeg" alt="alt"/></p>
+<p class="normaltext">'I can kill an animal for you,' said the Cowardly Lion.</p>
+<p class="normaltext">'Oh no—please don't kill anything!' the Tin Man said. He began to cry. 'We don't want to hurt any animals. I haven't got a heart, but I feel sorry for them.'</p>
+<p class="normaltext">Dorothy quickly got out the oil-can and oiled his face.</p>
+<p class="normaltext">'Don't cry,' she said. 'You know water is bad for you.'</p>
+<p class="normaltext">They walked along the yellow road, and after an hour or two they came to a big river.</p>
+<p class="normaltext">'Oh no!' said Dorothy. 'How can we get across?'</p>
+<p class="normaltext">The Lion looked down at the river. 'I'm very afraid of falling,' he said, 'but I think I can jump across.'</p>
+<p class="normaltext">'Good!' said the Scarecrow at once. 'You can carry us on your back, one at a time.'</p>
+<p class="normaltext">So the Cowardly Lion jumped across the river, first with the Scarecrow on his back, then with Dorothy and Toto, and last with the Tin Man.</p>
+<p class="normaltext">But soon they came to a second river. This one was very big, and the Lion could not jump across it. The Scarecrow thought for a minute.</p>
+<p class="normaltext">'Look,' he said. 'There's a tall tree next to the river. The Tin Man can cut it down with his axe. And when the tree falls across the river, we can walk across the tree.'</p>
+<p class="normaltext">'Very good,' said the Lion. 'For somebody with straw in their head, and not brains.'</p>
+<p class="normaltext">So the Tin Man cut down the tree with his axe, and soon they were all across that river, too.</p>
+<p class="picture"><img src="../../../Images/image07232.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>scarecrow</b> <em>n. figure resembling a person that is dressed in old clothes and set up in a field to frighten away birds.</em> 稻草人。</p>
+<p class="normaltext0"><b>brains</b> <em>n. mind or intellect; intelligence.</em> 头脑；智力。</p>
+<p class="normaltext0"><b>straw</b> <em>n. cut and dried stalks of grain plants.</em> 麦杆；稻草。</p>
+<p class="normaltext0"><b>tired</b> <em>adj. feel that one Would like to sleep or rest.</em> 困倦的；疲倦的。</p>
+<p class="normaltext0"><b>famous</b> <em>adj. known to very many people; celebrated.</em> 出名的；著名的。</p>
+<p class="normaltext0"><b>wash</b> <em>v. act of cleaning or being cleaned with water.</em> 洗；洗涤。</p>
+<p class="normaltext0"><b>thirsty</b> <em>adj. feel thirst.</em> 渴的。</p>
+<p class="normaltext0"><b>oil</b> <em>v. put oil on or into (sth.) (e. g. , to make part of a machine run smoothly), lubricate.</em> 给（某物）加润滑油；用油润滑。</p>
+<p class="normaltext0"><b>carefully</b> <em>adv. painstakingly; cautiously.</em> 仔细地；细心地；谨慎地。</p>
+<p class="normaltext0"><b>interested</b> <em>adj. showing curiosity or concern (about sb. or sth. ).</em> （对某人或某事）感兴趣的；关心的。</p>
+<p class="normaltext0"><b>ask sb. for help</b> 向某人求助。</p>
+<p class="normaltext0"><b>coward</b> <em>n. person who lacks courage; person who runs away from danger.</em> 胆小鬼；懦夫。</p>
+<p class="normaltext0"><b>angrily</b> <em>adv. in an angry way.</em> 生气地；愤怒地。</p>
+<p class="normaltext0"><b>at once</b> <em>immediately; without delay.</em> 立刻；马上；立即。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>2</em>．黄砖路</p>
+<p class="normaltext">多萝西和托托沿着黄砖路走了很久。累了，她们便停在路边的一片稻田里。不远处有一个稻草人。多萝西和托托穿过田地去看他。</p>
+<p class="normaltext">“你好啊。”稻草人说。</p>
+<p class="normaltext">“哦！”多萝西惊叫，“你居然会说话！”</p>
+<p class="normaltext">“我当然会说话了，”稻草人回答道，“不过我不会动，只能待在这根杆上……我想下来。你能帮我一下吗？”</p>
+<p class="normaltext">多萝西小心翼翼地将稻草人从杆上取下来。</p>
+<p class="normaltext">“非常感谢，”稻草人说。他动动胳膊，又动动腿，稻草掉了一地。“你是谁？”他问道，“到哪里去？”</p>
+<p class="normaltext">“我是多萝西，要去绿宝石城。我想回家乡堪萨斯，但不知该怎么走，所以我得去找奥兹魔法师帮忙。”</p>
+<p class="normaltext">“绿宝石城在哪里？”稻草人问，“奥兹魔法师又是谁？你瞧，我什么都不知道，因为我的脑袋里没有大脑——只有稻草。”</p>
+<p class="normaltext">“哦，天哪！”多萝西回答，“太遗憾了。”</p>
+<p class="normaltext">“我很想长点脑子，”稻草人说，“我能和你一起去绿宝石城吗？或许奥兹魔法师能给我点脑子。你觉得怎么样？”</p>
+<p class="normaltext">“我也不知道。”多萝西回答道，“好的，你和我们一起去吧。他是个伟大的魔法师，或许可以帮你。”她十分同情稻草人。“别怕托托，”她说，“它从不伤人。”</p>
+<p class="normaltext">“没人可以伤害我，”稻草人说，“我什么也不怕……嗯，不对，当然我<span class="xx">是</span>怕火的。”</p>
+<p class="normaltext">多萝西和她的新朋友沿着路走，没过多久她就感到饿了。她坐下来，和托托一起吃了些面包和苹果。“稻草人，你想吃点吗？”多萝西问。</p>
+<p class="normaltext">“不了，谢谢，”稻草人回答，“我既不需要吃也不需要喝。如果你是稻草做的，你也不用吃东西……现在，给我讲讲你的家吧。”</p>
+<p class="normaltext">于是，多萝西就给他讲起了堪萨斯，讲起了亨利舅舅和埃姆舅妈，讲起了龙卷风。</p>
+<p class="normaltext">“那你为什么还要离开这个美丽的国度呢？”稻草人问她，“你说了，堪萨斯没有树木，没有青山，没有花园。我不明白。”</p>
+<p class="normaltext">“问这个问题说明你没有脑子。”多萝西说，“堪萨斯是我的家乡呀，我们常说：‘无论身在何方——家是最好的地方。’的确是这样的，我就是想回家。”</p>
+<p class="normaltext">他们又沿着路走了几个小时。天色渐黑，多萝西累了，很快稻草人看见树丛后有一幢小屋。屋里没人，他们就进去了。多萝西和托托睡觉了，而稻草人却睁着眼站了一夜。</p>
+<p class="normaltext">“稻草人才不睡觉呢。”他说。</p>
+<p class="normaltext2">*　　*　　*</p>
+<p class="normaltext">早上，多萝西找水喝。</p>
+<p class="normaltext">“你为什么要喝水？”稻草人问她。</p>
+<p class="normaltext">“我和托托都渴了。我还需要洗脸。”</p>
+<p class="normaltext">“我真同情你。”稻草人说，“你有这么多的需要！但<span class="xx">你</span>有大脑，<span class="xx">你</span>还能思考，真好！”</p>
+<p class="normaltext">他们找到一些水。多萝西洗漱完毕，和托托一起吃了些面包。突然，屋旁的树林里传来一声叫喊，于是他们都从屋里跑出去看。</p>
+<p class="normaltext">他们看见一个锡做的人，手持一把斧头，站在一棵大树边。他一动不动，一遍又一遍地喊“救命”。</p>
+<p class="normaltext">“我怎么帮你呢？”多萝西问。</p>
+<p class="normaltext">“我动不了了，”锡人回答，“请给我上点油，我的屋里有油罐。”</p>
+<p class="normaltext">多萝西立刻跑进房里，找到了油罐。然后她又跑回来，在稻草人的帮助下仔仔细细地给锡人加上油。慢慢地，锡人开始动了，先是头，接着是胳膊和腿。</p>
+<p class="normaltext">“谢谢你，”锡人说，“现在我感觉好多了。”他放下斧子。“我在下雨时出来了，瞧，水对一个锡做的身体是非常有害的。我已经在那儿待了很久了，却没人来帮我。”</p>
+<p class="normaltext">“我们在你的屋里过夜了，”多萝西说，“早上听见了你的叫声。”</p>
+<p class="normaltext">“你们去哪儿？”锡人问。</p>
+<p class="normaltext">于是，多萝西给他讲了奥兹魔法师的事。“我想回堪萨斯，而稻草人想要大脑。”她说。</p>
+<p class="normaltext">锡人很感兴趣。“魔法师能给我一颗心吗？我没有心，所以我不能去爱或感觉……我非常想要一颗心。”</p>
+<p class="normaltext">“跟我们走吧。”稻草人说。</p>
+<p class="normaltext">“对，”多萝西说，“你也可以让奥兹魔法师帮你。”</p>
+<p class="normaltext">就这样，他们一起沿着黄砖铺成的路往前走。路两旁有许多高大的树木，有时他们三人会听见树林里传来的动物的叫声。多萝西并不想听见这些声音。</p>
+<p class="normaltext">“我们离绿宝石城还有多远？”她问锡人，“你知道吗？”</p>
+<p class="normaltext">“我想，还很远呢。”锡人说，“而且我们必须小心点儿，因为——”</p>
+<p class="normaltext">正在那时，一只巨大的狮子突然从树林里跑出来，跑到了路上。它张着嘴——露出一嘴黄黄的长牙齿——然后开始追托托。</p>
+<p class="normaltext">多萝西担心托托，于是她冲向狮子，用她的包砸狮子的鼻子。“不许伤害我的狗！”她生气地大喊，“它比你个头小！”</p>
+<p class="normaltext">“我没有伤害它，”狮子说，“别打我——求你了！”</p>
+<p class="normaltext">“什么——你居然害怕了！”多萝西说，“安静，托托，他不会伤害你的。他比你更害怕。他只不过是一个身体巨大的胆小鬼。”</p>
+<p class="normaltext">“说得对，”狮子说，“我<span class="xx">是</span>个胆小鬼。人人都以为狮子勇敢，虽然我经常叫嚣，但我并不勇敢。我只是个懦夫。”接着，胆小鬼狮子哭了起来。</p>
+<p class="normaltext">多萝西告诉他有关奥兹魔法师的事。“和我们一起去绿宝石城吧。”她说，“我想回堪萨斯，稻草人想要大脑，锡人想要颗心。也许奥兹魔法师会让你勇敢起来。”</p>
+<p class="normaltext">“哦，谢谢你！”狮子说，“我真的很想变得勇敢起来。”</p>
+<p class="normaltext">这样，胆小鬼狮子就和他们一起上路了。一开始，托托还害怕他，但很快就和他成了好朋友。</p>
+<p class="normaltext">当晚，多萝西和托托挨着胆小鬼狮子庞大、温暖的身体，睡在了一棵大树下。第二天早上，她们吃光了剩下的面包。</p>
+<p class="normaltext">“哦，天呀！”多萝西说，“我们晚饭吃什么呢？”</p>
+<p class="normaltext">“我能为你杀个动物。”胆小鬼狮子说。</p>
+<p class="normaltext">“喔，不——别杀任何东西！”锡人说着，哭了起来，“我们不想伤害任何动物。虽然我没有心，但我同情它们。”</p>
+<p class="normaltext">多萝西急忙取出油罐，给他的脸上涂上油。</p>
+<p class="normaltext">“别哭了，”她说，“你知道水对你伤害大。”</p>
+<p class="normaltext">他们顺着黄色的路走了一两个小时后，来到了一条大河前。</p>
+<p class="normaltext">“哦，不！”多萝西说，“我们可怎么过去呢？”</p>
+<p class="normaltext">狮子低头望了望河水。“虽然我很怕掉下去，”他说，“可我想我是可以跳过去的。”</p>
+<p class="normaltext">“好啊！”稻草人马上说道，“你可以一个一个地驮我们过河。”</p>
+<p class="normaltext">第一次，胆小鬼狮子驮稻草人跳过河去，接着是多萝西和托托，最后是锡人。</p>
+<p class="normaltext">但不久他们又遇到了第二条河。这条河太宽了，狮子跳不过去。稻草人想了一下。</p>
+<p class="normaltext">“看！”他说，“河边有一棵大树。锡人可以用斧子将它砍倒。树倒在河上，我们就能踩着树过河了。”</p>
+<p class="normaltext">“太好了，”狮子说，“一个满脑袋稻草却没有大脑的人能想出这样一条妙计，真是太好了。”</p>
+<p class="normaltext">于是锡人用斧子砍倒了树，很快他们都过了河。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">3．The Emerald City</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">3</span></p>
+<p class="title01">The Emerald City</p>
+<p class="normaltext">It was a long day. The yellow brick road went past fields and through trees, up hills and down hills. In the evening they began to see small green houses by the road. Sometimes little people in green clothes came out and looked at the friends. But they did not come near them, because they were afraid of the Cowardly Lion.</p>
+<p class="normaltext">'Everything here is green. Perhaps we're near the Emerald City,' said Dorothy. 'Toto and I are hungry. Let's stop at the next house.'</p>
+<p class="normaltext">A little woman opened the door, and Dorothy said, 'Please can we stay the night in your house?' The little woman looked at the Lion, and Dorothy said quickly, 'The Lion is my friend, and he never hurts anybody.'</p>
+<p class="normaltext">'All right,' the little woman said. 'You can all come in.'</p>
+<p class="normaltext">She put a wonderful dinner on the table. Dorothy and Toto ate a lot of it, and the Lion ate some of it. But the Scarecrow and the Tin Man ate nothing.</p>
+<p class="normaltext">'Where are you all going?' asked the little woman.</p>
+<p class="normaltext">'To the Emerald City,' said Dorothy. 'We want to see the Wizard of Oz.'</p>
+<p class="normaltext">'That's not easy,' said the woman. 'The Wizard never goes out of his house, and nobody sees his face.'</p>
+<p class="normaltext">'Is the Wizard a man?' asked the Scarecrow.</p>
+<p class="picture"><img src="../../../Images/image07233.jpeg" alt="alt"/></p>
+<p class="normaltext">'Nobody knows,' said the woman. 'He's a wizard, so he can be a man, or an animal—or anything!'</p>
+<p class="normaltext">'How strange!' said Dorothy. 'But we need his help, so we <em>must</em> see him.'</p>
+<p class="normaltext">The next day they thanked the woman, left the house, and began walking again. Soon they saw a beautiful city in front of them—it was the Emerald City at last.</p>
+<p class="normaltext">The friends went up the yellow brick road to a big green door, and stopped. Slowly, the door opened, and a little man in green clothes stood there.</p>
+<p class="normaltext">'We want to see the Wizard, please,' said Dorothy.</p>
+<p class="normaltext">'Nobody sees the Wizard,' he said. 'He is a very good and very famous Wizard, but nobody can see him.'</p>
+<p class="normaltext">'We <em>must</em> see him,' said Dorothy. 'Please ask him.'</p>
+<p class="normaltext">'All right,' said the green man. 'I can take you to his house. But first, you must all put glasses on.' He opened a big box. In it were lots of glasses. 'You must wear your glasses all the time,' he said. 'Everybody in the city must wear glasses. The Wizard says this.'</p>
+<p class="normaltext">So they all put on glasses. The green man put on some glasses too, and then he took them through the Emerald City. Everything in the city was green—men, women, children, houses, shops, streets...</p>
+<p class="normaltext">The green man took them to a very big house, and they went into a long green room. 'Wait here,' he said. After a short time he came back.</p>
+<p class="picture"><img src="../../../Images/image07234.jpeg" alt="alt"/></p>
+<p class="normaltext">'You can see the Wizard,' he said. 'But you must go to him one by one. He wants to see the little girl first.'</p>
+<p class="normaltext">Then he went away, and a green girl came in. She took Dorothy to a tall green door.</p>
+<p class="normaltext">'The Wizard is in there,' said the green girl. 'He's waiting for you.' Dorothy went in. On a green chair was a very, very big head. There was no body, or arms, or legs—only a head. Its mouth opened and the Head said: 'I am Oz. Who are you, and what do you want?'</p>
+<p class="normaltext">'I am Dorothy,' said the child bravely.</p>
+<p class="normaltext">'Where did you get those red shoes?'</p>
+<p class="normaltext">'From the bad Witch of the East,' said Dorothy. 'My house fell on her and killed her.'</p>
+<p class="normaltext">'What is that thing on your face?'</p>
+<p class="normaltext">'A kiss. The good Witch of the North kissed me,' said Dorothy. 'I need help, and she told me about you.'</p>
+<p class="normaltext">'And what do you want?'</p>
+<p class="normaltext">'I want to go home to Kansas,' answered Dorothy, 'but I don't know the way. Please help me to get home.'</p>
+<p class="normaltext">The big eyes opened and closed, opened and closed. Then the mouth opened and the Head spoke again. 'Well,' it said. 'Perhaps I can help you. But first, <em>you</em> must do something for <em>me</em>.'</p>
+<p class="normaltext">'What do you want me to do?' asked Dorothy.</p>
+<p class="normaltext">'Kill the bad Witch of the West.'</p>
+<p class="picture"><img src="../../../Images/image07235.jpeg" alt="alt"/></p>
+<p class="normaltext">'But I don't want to kill anybody!' said Dorothy.</p>
+<p class="normaltext">'You killed her sister. And you are wearing her shoes. Go now, and kill the Witch of the West.'</p>
+<p class="normaltext">The little girl began to cry. 'But how can I kill the Witch?' she said. The big eyes opened and looked at her, but the Head did not answer. Dorothy went away, and then her friends went into the Wizard's room—first the Scarecrow, then the Tin Man, and last the Lion.</p>
+<p class="normaltext">Later, they all met in the long green room and talked. Dorothy told her friends about the Head.</p>
+<p class="normaltext">'That's interesting,' said the Scarecrow. 'I didn't see a Head; I saw a beautiful woman. I asked her for some brains and she said, "Yes, but first you must help Dorothy to kill the Witch of the West." '</p>
+<p class="normaltext">'I saw a big animal with two heads,' said the Tin Man. 'I asked for a heart. The animal said, "I can give you a heart; but first you must help Dorothy to kill the Witch of the West." What did you see, Lion?'</p>
+<p class="normaltext">'I saw a ball of fire,' said the Cowardly Lion. 'I said, "I'm a coward; please make me brave." And the fire said, "When the Witch of the West is dead, I can help you. But not before." I was angry then,' said the Lion, 'but the ball of fire got bigger and bigger, so I ran away.'</p>
+<p class="normaltext">'Oh, what are we going to do?' said Dorothy.</p>
+<p class="normaltext">'Well,' said the Scarecrow. 'We must find the Witch of the West, and then we must kill her.'</p>
+<p class="picture"><img src="../../../Images/image07236.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>wonderful</b> <em>adj. causing wonder; very surprising.</em> 令人惊奇的；意想不到的。</p>
+<p class="normaltext0"><b>sometimes</b> <em>adv. at some times but not all the time; occasionally.</em> 有时候；间或；偶尔。</p>
+<p class="normaltext0"><b>strange</b> <em>adj. not previously known, seen, felt, heard of, etc. ; not familiar or of one's own.</em> 陌生的，未知的。</p>
+<p class="normaltext0"><b>put on</b> <em>cloth oneself with.</em> 穿上，戴上。</p>
+<p class="normaltext0"><b>bravely</b> <em>adv. in a courageous way.</em> 勇敢地。</p>
+<p class="normaltext0"><b>answer</b> <em>v. thing said, written or done as a response or reaction; reply.</em> 回答；应答；答复。</p>
+<p class="normaltext0"><b>help sb. to do sth.</b> 帮助某人做某事。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>3</em>．绿宝石城</p>
+<p class="normaltext">又过了漫长的一天。他们沿着黄砖铺的路穿越田地树林，翻山越岭。走到傍晚，他们看见路边渐渐地有了一些绿色的小房子。有时会有身着绿衣的小矮人走出房子来，好奇地打量他们几个，但是这些小人儿从不靠近他们，因为他们害怕胆小鬼狮子。</p>
+<p class="normaltext">“这里的一切都是绿色的，我们可能离绿宝石城不远了。”多萝西说，“我和托托饿了，到了下一个房子我们就停一下吧。”</p>
+<p class="normaltext">一个矮小的妇人打开了房门，多萝西对她说：“请问，我们能在您这儿过一夜吗？”小妇人望着狮子，于是多萝西连忙说：“这狮子是我的朋友，他从不伤人。”</p>
+<p class="normaltext">“好的。”小妇人回答道，“请进来吧。”</p>
+<p class="normaltext">她准备了一桌丰盛的晚餐。多萝西和托托吃了许多，狮子吃了一些，而稻草人和锡人却什么也没吃。</p>
+<p class="normaltext">“你们要去哪儿？”小妇人问。</p>
+<p class="normaltext">“去绿宝石城，”多萝西回答，“我们想见奥兹魔法师。”</p>
+<p class="normaltext">“那可不容易。”小妇人说，“魔法师从不离开他的房子，也没人见过他的脸。”</p>
+<p class="normaltext">“魔法师是人吗？”稻草人问。</p>
+<p class="normaltext">“没人知道，”小妇人说，“他是魔法师，所以他可以是人，也可以是动物或其他什么东西。”</p>
+<p class="normaltext">“多奇怪啊！”多萝西感叹道，“可我们需要他的帮助，因而我们<span class="xx">必须</span>见他。”</p>
+<p class="normaltext">第二天，他们谢过小妇人，离开她家继续赶路。很快一座美丽的城市出现在他们面前——他们终于到达绿宝石城了。</p>
+<p class="normaltext">他们沿着黄砖路走到一扇绿色大门前停了下来。缓缓地，大门开了，一个身着绿衣绿裤的小矮人站在门内。</p>
+<p class="normaltext">“我们求见魔法师。”多萝西说。</p>
+<p class="normaltext">“没人见过魔法师。”他回答，“他是一位很好、很有名的法师，但没有人见过他。”</p>
+<p class="normaltext">“我们<span class="xx">必须</span>见他，”多萝西说，“请转告他。”</p>
+<p class="normaltext">“好吧，”绿衣人回答，“我可以带你们去他的房子里，不过，你们首先得戴上眼镜。”他打开一个大匣子，里面装着许多眼镜。“你们得一直戴着眼镜，”他说，“魔法师说过，这个城里的人都必须戴眼镜。”</p>
+<p class="normaltext">这样，他们就戴上了眼镜。绿衣人也戴了副眼镜。他领他们在绿宝石城里穿行。城中一切都是绿色的——绿色的男女老少，绿色的房屋、店铺、街道……</p>
+<p class="normaltext">绿衣人把他们领到一幢高大的绿房子里，进了一间长长的绿屋子。“你们在这儿等一下。”他说。过了一会儿，他回来了。</p>
+<p class="normaltext">“你们可以见魔法师，”他说，“但必须一个一个地见他。他想先见这个小女孩。”</p>
+<p class="normaltext">说完他就离开了，又进来了一个绿衣姑娘。她将多萝西领到一扇高大的绿门前。</p>
+<p class="normaltext">“魔法师就在这里，”绿衣姑娘说，“他在等你。”</p>
+<p class="normaltext">多萝西走进去。只见一把绿椅子上有一个非常非常大的脑袋。没有身体，没有胳膊和腿——只有一个脑袋。它张开了嘴，脑袋开始说话了：“我就是奥兹，你是谁？你想要什么？”</p>
+<p class="normaltext">“我叫多萝西。”小女孩勇敢地回答。</p>
+<p class="normaltext">“你是从哪儿弄到那双红鞋的？”</p>
+<p class="normaltext">“从邪恶的东方女巫那里。”多萝西回答，“我的房子落在了她身上，压死了她。”</p>
+<p class="normaltext">“你的脸上是什么？”</p>
+<p class="normaltext">“一个吻。善良的北方女巫吻了我一下。”多萝西回答说，“我需要帮助，是她让我来找你的。”</p>
+<p class="normaltext">“你需要什么帮助？”</p>
+<p class="normaltext">“我想回我的家乡堪萨斯，”多萝西回答，“但不知道怎么走。请帮我重返家园。”</p>
+<p class="normaltext">脑袋上巨大的眼睛张开又闭上，张开又闭上。“噢，”它接着说，“或许我能够帮你，但首先<span class="xx">你</span>得为<span class="xx">我</span>做点儿事。”</p>
+<p class="normaltext">“你想让我做什么呢？”多萝西问。</p>
+<p class="normaltext">“杀死邪恶的西方女巫。”</p>
+<p class="normaltext">“我可不想杀人！”多萝西说。</p>
+<p class="normaltext">“可你杀了她的姐姐，还穿着她的鞋子。去吧，杀掉西方女巫。”</p>
+<p class="normaltext">小女孩哭了起来。“但是我怎么杀得了那个巫婆呢？”她说。巨大的眼睛睁开了，望着她，可没有做声。多萝西离开了。她的朋友们先后进了魔法师的房间——先是稻草人，然后是锡人，最后是狮子。</p>
+<p class="normaltext">其后，他们在长长的绿房子里碰头，交谈起来。多萝西向她的朋友讲了那个脑袋。</p>
+<p class="normaltext">“真有意思，”稻草人说，“我没看见什么脑袋，只见到了一个漂亮的女人。我请她赐予我一些头脑，她说：‘好，但首先你得帮多萝西杀掉西方女巫。’”</p>
+<p class="normaltext">“我见到的是一个长了两个脑袋的动物。”锡人说，“我请它给我一颗心。那动物说：‘我可以给你一颗心，但首先你必须帮多萝西杀掉西方女巫。’狮子，你见到的是什么？”</p>
+<p class="normaltext">“我见到的是一团火，”胆小鬼狮子说，“我对它说：‘我是个懦夫，请让我变成勇敢者。’那团火说：‘只有西方女巫死了，我才能帮你。现在不行。’我听了很生气。”狮子说，“但那团火变得越来越大，我便逃了出来。”</p>
+<p class="normaltext">“哦，那我们现在怎么办？”多萝西问。</p>
+<p class="normaltext">“嗯，”稻草人说，“我们必须先找到西方女巫，然后杀死她。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">绿宝石城</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">3</span></p>
+<p class="title01">The Emerald City</p>
+<p class="normaltext">It was a long day. The yellow brick road went past fields and through trees, up hills and down hills. In the evening they began to see small green houses by the road. Sometimes little people in green clothes came out and looked at the friends. But they did not come near them, because they were afraid of the Cowardly Lion.</p>
+<p class="normaltext">'Everything here is green. Perhaps we're near the Emerald City,' said Dorothy. 'Toto and I are hungry. Let's stop at the next house.'</p>
+<p class="normaltext">A little woman opened the door, and Dorothy said, 'Please can we stay the night in your house?' The little woman looked at the Lion, and Dorothy said quickly, 'The Lion is my friend, and he never hurts anybody.'</p>
+<p class="normaltext">'All right,' the little woman said. 'You can all come in.'</p>
+<p class="normaltext">She put a wonderful dinner on the table. Dorothy and Toto ate a lot of it, and the Lion ate some of it. But the Scarecrow and the Tin Man ate nothing.</p>
+<p class="normaltext">'Where are you all going?' asked the little woman.</p>
+<p class="normaltext">'To the Emerald City,' said Dorothy. 'We want to see the Wizard of Oz.'</p>
+<p class="normaltext">'That's not easy,' said the woman. 'The Wizard never goes out of his house, and nobody sees his face.'</p>
+<p class="normaltext">'Is the Wizard a man?' asked the Scarecrow.</p>
+<p class="picture"><img src="../../../Images/image07233.jpeg" alt="alt"/></p>
+<p class="normaltext">'Nobody knows,' said the woman. 'He's a wizard, so he can be a man, or an animal—or anything!'</p>
+<p class="normaltext">'How strange!' said Dorothy. 'But we need his help, so we <em>must</em> see him.'</p>
+<p class="normaltext">The next day they thanked the woman, left the house, and began walking again. Soon they saw a beautiful city in front of them—it was the Emerald City at last.</p>
+<p class="normaltext">The friends went up the yellow brick road to a big green door, and stopped. Slowly, the door opened, and a little man in green clothes stood there.</p>
+<p class="normaltext">'We want to see the Wizard, please,' said Dorothy.</p>
+<p class="normaltext">'Nobody sees the Wizard,' he said. 'He is a very good and very famous Wizard, but nobody can see him.'</p>
+<p class="normaltext">'We <em>must</em> see him,' said Dorothy. 'Please ask him.'</p>
+<p class="normaltext">'All right,' said the green man. 'I can take you to his house. But first, you must all put glasses on.' He opened a big box. In it were lots of glasses. 'You must wear your glasses all the time,' he said. 'Everybody in the city must wear glasses. The Wizard says this.'</p>
+<p class="normaltext">So they all put on glasses. The green man put on some glasses too, and then he took them through the Emerald City. Everything in the city was green—men, women, children, houses, shops, streets...</p>
+<p class="normaltext">The green man took them to a very big house, and they went into a long green room. 'Wait here,' he said. After a short time he came back.</p>
+<p class="picture"><img src="../../../Images/image07234.jpeg" alt="alt"/></p>
+<p class="normaltext">'You can see the Wizard,' he said. 'But you must go to him one by one. He wants to see the little girl first.'</p>
+<p class="normaltext">Then he went away, and a green girl came in. She took Dorothy to a tall green door.</p>
+<p class="normaltext">'The Wizard is in there,' said the green girl. 'He's waiting for you.' Dorothy went in. On a green chair was a very, very big head. There was no body, or arms, or legs—only a head. Its mouth opened and the Head said: 'I am Oz. Who are you, and what do you want?'</p>
+<p class="normaltext">'I am Dorothy,' said the child bravely.</p>
+<p class="normaltext">'Where did you get those red shoes?'</p>
+<p class="normaltext">'From the bad Witch of the East,' said Dorothy. 'My house fell on her and killed her.'</p>
+<p class="normaltext">'What is that thing on your face?'</p>
+<p class="normaltext">'A kiss. The good Witch of the North kissed me,' said Dorothy. 'I need help, and she told me about you.'</p>
+<p class="normaltext">'And what do you want?'</p>
+<p class="normaltext">'I want to go home to Kansas,' answered Dorothy, 'but I don't know the way. Please help me to get home.'</p>
+<p class="normaltext">The big eyes opened and closed, opened and closed. Then the mouth opened and the Head spoke again. 'Well,' it said. 'Perhaps I can help you. But first, <em>you</em> must do something for <em>me</em>.'</p>
+<p class="normaltext">'What do you want me to do?' asked Dorothy.</p>
+<p class="normaltext">'Kill the bad Witch of the West.'</p>
+<p class="picture"><img src="../../../Images/image07235.jpeg" alt="alt"/></p>
+<p class="normaltext">'But I don't want to kill anybody!' said Dorothy.</p>
+<p class="normaltext">'You killed her sister. And you are wearing her shoes. Go now, and kill the Witch of the West.'</p>
+<p class="normaltext">The little girl began to cry. 'But how can I kill the Witch?' she said. The big eyes opened and looked at her, but the Head did not answer. Dorothy went away, and then her friends went into the Wizard's room—first the Scarecrow, then the Tin Man, and last the Lion.</p>
+<p class="normaltext">Later, they all met in the long green room and talked. Dorothy told her friends about the Head.</p>
+<p class="normaltext">'That's interesting,' said the Scarecrow. 'I didn't see a Head; I saw a beautiful woman. I asked her for some brains and she said, "Yes, but first you must help Dorothy to kill the Witch of the West." '</p>
+<p class="normaltext">'I saw a big animal with two heads,' said the Tin Man. 'I asked for a heart. The animal said, "I can give you a heart; but first you must help Dorothy to kill the Witch of the West." What did you see, Lion?'</p>
+<p class="normaltext">'I saw a ball of fire,' said the Cowardly Lion. 'I said, "I'm a coward; please make me brave." And the fire said, "When the Witch of the West is dead, I can help you. But not before." I was angry then,' said the Lion, 'but the ball of fire got bigger and bigger, so I ran away.'</p>
+<p class="normaltext">'Oh, what are we going to do?' said Dorothy.</p>
+<p class="normaltext">'Well,' said the Scarecrow. 'We must find the Witch of the West, and then we must kill her.'</p>
+<p class="picture"><img src="../../../Images/image07236.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>wonderful</b> <em>adj. causing wonder; very surprising.</em> 令人惊奇的；意想不到的。</p>
+<p class="normaltext0"><b>sometimes</b> <em>adv. at some times but not all the time; occasionally.</em> 有时候；间或；偶尔。</p>
+<p class="normaltext0"><b>strange</b> <em>adj. not previously known, seen, felt, heard of, etc. ; not familiar or of one's own.</em> 陌生的，未知的。</p>
+<p class="normaltext0"><b>put on</b> <em>cloth oneself with.</em> 穿上，戴上。</p>
+<p class="normaltext0"><b>bravely</b> <em>adv. in a courageous way.</em> 勇敢地。</p>
+<p class="normaltext0"><b>answer</b> <em>v. thing said, written or done as a response or reaction; reply.</em> 回答；应答；答复。</p>
+<p class="normaltext0"><b>help sb. to do sth.</b> 帮助某人做某事。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>3</em>．绿宝石城</p>
+<p class="normaltext">又过了漫长的一天。他们沿着黄砖铺的路穿越田地树林，翻山越岭。走到傍晚，他们看见路边渐渐地有了一些绿色的小房子。有时会有身着绿衣的小矮人走出房子来，好奇地打量他们几个，但是这些小人儿从不靠近他们，因为他们害怕胆小鬼狮子。</p>
+<p class="normaltext">“这里的一切都是绿色的，我们可能离绿宝石城不远了。”多萝西说，“我和托托饿了，到了下一个房子我们就停一下吧。”</p>
+<p class="normaltext">一个矮小的妇人打开了房门，多萝西对她说：“请问，我们能在您这儿过一夜吗？”小妇人望着狮子，于是多萝西连忙说：“这狮子是我的朋友，他从不伤人。”</p>
+<p class="normaltext">“好的。”小妇人回答道，“请进来吧。”</p>
+<p class="normaltext">她准备了一桌丰盛的晚餐。多萝西和托托吃了许多，狮子吃了一些，而稻草人和锡人却什么也没吃。</p>
+<p class="normaltext">“你们要去哪儿？”小妇人问。</p>
+<p class="normaltext">“去绿宝石城，”多萝西回答，“我们想见奥兹魔法师。”</p>
+<p class="normaltext">“那可不容易。”小妇人说，“魔法师从不离开他的房子，也没人见过他的脸。”</p>
+<p class="normaltext">“魔法师是人吗？”稻草人问。</p>
+<p class="normaltext">“没人知道，”小妇人说，“他是魔法师，所以他可以是人，也可以是动物或其他什么东西。”</p>
+<p class="normaltext">“多奇怪啊！”多萝西感叹道，“可我们需要他的帮助，因而我们<span class="xx">必须</span>见他。”</p>
+<p class="normaltext">第二天，他们谢过小妇人，离开她家继续赶路。很快一座美丽的城市出现在他们面前——他们终于到达绿宝石城了。</p>
+<p class="normaltext">他们沿着黄砖路走到一扇绿色大门前停了下来。缓缓地，大门开了，一个身着绿衣绿裤的小矮人站在门内。</p>
+<p class="normaltext">“我们求见魔法师。”多萝西说。</p>
+<p class="normaltext">“没人见过魔法师。”他回答，“他是一位很好、很有名的法师，但没有人见过他。”</p>
+<p class="normaltext">“我们<span class="xx">必须</span>见他，”多萝西说，“请转告他。”</p>
+<p class="normaltext">“好吧，”绿衣人回答，“我可以带你们去他的房子里，不过，你们首先得戴上眼镜。”他打开一个大匣子，里面装着许多眼镜。“你们得一直戴着眼镜，”他说，“魔法师说过，这个城里的人都必须戴眼镜。”</p>
+<p class="normaltext">这样，他们就戴上了眼镜。绿衣人也戴了副眼镜。他领他们在绿宝石城里穿行。城中一切都是绿色的——绿色的男女老少，绿色的房屋、店铺、街道……</p>
+<p class="normaltext">绿衣人把他们领到一幢高大的绿房子里，进了一间长长的绿屋子。“你们在这儿等一下。”他说。过了一会儿，他回来了。</p>
+<p class="normaltext">“你们可以见魔法师，”他说，“但必须一个一个地见他。他想先见这个小女孩。”</p>
+<p class="normaltext">说完他就离开了，又进来了一个绿衣姑娘。她将多萝西领到一扇高大的绿门前。</p>
+<p class="normaltext">“魔法师就在这里，”绿衣姑娘说，“他在等你。”</p>
+<p class="normaltext">多萝西走进去。只见一把绿椅子上有一个非常非常大的脑袋。没有身体，没有胳膊和腿——只有一个脑袋。它张开了嘴，脑袋开始说话了：“我就是奥兹，你是谁？你想要什么？”</p>
+<p class="normaltext">“我叫多萝西。”小女孩勇敢地回答。</p>
+<p class="normaltext">“你是从哪儿弄到那双红鞋的？”</p>
+<p class="normaltext">“从邪恶的东方女巫那里。”多萝西回答，“我的房子落在了她身上，压死了她。”</p>
+<p class="normaltext">“你的脸上是什么？”</p>
+<p class="normaltext">“一个吻。善良的北方女巫吻了我一下。”多萝西回答说，“我需要帮助，是她让我来找你的。”</p>
+<p class="normaltext">“你需要什么帮助？”</p>
+<p class="normaltext">“我想回我的家乡堪萨斯，”多萝西回答，“但不知道怎么走。请帮我重返家园。”</p>
+<p class="normaltext">脑袋上巨大的眼睛张开又闭上，张开又闭上。“噢，”它接着说，“或许我能够帮你，但首先<span class="xx">你</span>得为<span class="xx">我</span>做点儿事。”</p>
+<p class="normaltext">“你想让我做什么呢？”多萝西问。</p>
+<p class="normaltext">“杀死邪恶的西方女巫。”</p>
+<p class="normaltext">“我可不想杀人！”多萝西说。</p>
+<p class="normaltext">“可你杀了她的姐姐，还穿着她的鞋子。去吧，杀掉西方女巫。”</p>
+<p class="normaltext">小女孩哭了起来。“但是我怎么杀得了那个巫婆呢？”她说。巨大的眼睛睁开了，望着她，可没有做声。多萝西离开了。她的朋友们先后进了魔法师的房间——先是稻草人，然后是锡人，最后是狮子。</p>
+<p class="normaltext">其后，他们在长长的绿房子里碰头，交谈起来。多萝西向她的朋友讲了那个脑袋。</p>
+<p class="normaltext">“真有意思，”稻草人说，“我没看见什么脑袋，只见到了一个漂亮的女人。我请她赐予我一些头脑，她说：‘好，但首先你得帮多萝西杀掉西方女巫。’”</p>
+<p class="normaltext">“我见到的是一个长了两个脑袋的动物。”锡人说，“我请它给我一颗心。那动物说：‘我可以给你一颗心，但首先你必须帮多萝西杀掉西方女巫。’狮子，你见到的是什么？”</p>
+<p class="normaltext">“我见到的是一团火，”胆小鬼狮子说，“我对它说：‘我是个懦夫，请让我变成勇敢者。’那团火说：‘只有西方女巫死了，我才能帮你。现在不行。’我听了很生气。”狮子说，“但那团火变得越来越大，我便逃了出来。”</p>
+<p class="normaltext">“哦，那我们现在怎么办？”多萝西问。</p>
+<p class="normaltext">“嗯，”稻草人说，“我们必须先找到西方女巫，然后杀死她。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">4．The witch and the monkeys</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">4</span></p>
+<p class="title01">The witch and the monkeys</p>
+<p class="normaltext">The next morning they left the Emerald City. The green man took away their glasses and told them the way to the Witch's house. 'Everybody is afraid of the Witch of the West,' he said. 'So be careful!'</p>
+<p class="normaltext">The friends walked for a long time. The road was bad, and there were no houses, no fields, no trees.</p>
+<p class="normaltext">Now the Witch of the West had a magic eye, and it could see everything. She saw the friends on the road, and she was angry. She put on her tall black hat and shouted, 'Magic Monkeys—come!'</p>
+<p class="normaltext">In a second forty monkeys arrived at her tall house. 'What do you want?' they asked.</p>
+<p class="normaltext">'There are three people, a dog, and a lion on my road,' she said. 'Kill the people and the dog. But bring the lion here to my house. He can work for me.'</p>
+<p class="normaltext">'At once,' said the Monkeys. And away they went.</p>
+<p class="normaltext">They broke the Tin Man's arms and legs. They took all the straw out of the Scarecrow and threw his clothes up into a tall tree. Then they took the Lion and carried him to a dark cellar under the Witch's house.</p>
+<p class="normaltext">But they could not hurt Dorothy and Toto, because of the good Witch's kiss. So the Monkeys picked them up very carefully and carried them to the Witch's house. The Witch saw the kiss on Dorothy's face, and was afraid. But she did not tell Dorothy that.</p>
+<p class="picture"><img src="../../../Images/image07237.jpeg" alt="alt"/></p>
+<p class="normaltext">'You must work for me in my house now,' she said to the child. 'All day, and every day. And remember—I am watching you all the time.'</p>
+<p class="normaltext">Now Dorothy did not know this, but the red shoes were magic. The Witch wanted those shoes very much, but Dorothy never took them off. She took them off when she washed, of course, but the Witch never went near water. She was very, very afraid of water.</p>
+<p class="normaltext">Then, one morning, Dorothy's left shoe fell off.</p>
+<p class="normaltext">The Witch picked up the shoe at once. 'This is <em>my</em> shoe now!' she shouted.</p>
+<p class="normaltext">'No, it isn't!' shouted Dorothy angrily. 'Give it back to me at once!'</p>
+<p class="normaltext">'No!' said the Witch. And then she tried to take Dorothy's right shoe too.</p>
+<p class="normaltext">Dorothy loved her red shoes, and she was very angry. There was a bucket of water near the door. Dorothy picked up the bucket and threw the water at the Witch. The water hit her in the face, and she cried out, 'Help! Help! The water is killing me! The—water—is...'</p>
+<p class="normaltext">And then she disappeared! There was only her tall black hat and a long black dress.</p>
+<p class="normaltext">Dorothy looked and looked, but the Witch was not there. Dorothy picked up her red shoe and put it on.</p>
+<p class="picture"><img src="../../../Images/image07238.jpeg" alt="alt"/></p>
+<p class="normaltext">'Now, how can I help my friends?' she said. 'Can I call the Magic Monkeys?' She picked up the Witch's black hat and looked at it. 'Perhaps I must wear this magic hat when I speak.' So she put the hat on and called, 'Magic Monkeys—come!'</p>
+<p class="normaltext">The Monkeys arrived in a second.</p>
+<p class="normaltext">'Please can you help my friends?' asked Dorothy.</p>
+<p class="normaltext">'Of course,' said the Monkeys. 'We must always help the wearer of the magic black hat.'</p>
+<p class="normaltext">They broke open the dark cellar, and the Cowardly Lion came out. 'Free at last!' he said. 'Thank you!'</p>
+<p class="normaltext">Then the Monkeys found the Scarecrow's clothes and put some new straw in them. The Scarecrow laughed and jumped. 'Thank you!' he said.</p>
+<p class="normaltext">Next the Monkeys mended the Tin Man and gave him a new oil-can. He moved his arms and legs. 'I feel wonderful!' he said. 'Thank you!'</p>
+<p class="normaltext">Dorothy told her friends about the Witch and the water, and they were all very happy. Toto could not speak, but he jumped up and down very happily.</p>
+<p class="normaltext">'Now,' said Dorothy, 'we must go back to the Wizard of Oz. Magic Monkeys—take us to the Emerald City!'</p>
+<p class="normaltext">'Don't forget the magic black hat!' said the Tin Man.</p>
+<p class="normaltext">The Monkeys carried them up into the sky, and ten minutes later the friends were once again at the big green door of the Emerald City.</p>
+<p class="picture"><img src="../../../Images/image07239.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>magic</b> <em>adj. used in or using magic.</em> 用魔法或魔术的。</p>
+<p class="normaltext0"><b>arrive at</b> <em>reach (a place), esp. at the end of a journey.</em> 到达；抵达（某地）（尤指旅途的终点）。</p>
+<p class="normaltext0"><b>carry</b> <em>v. support the weight of (sb. /sth. ) and take (him/it) from place to place; take from one place to another.</em> 携带，搬运，传送。</p>
+<p class="normaltext0"><b>break</b> <em>v. (of a whole object) separate into two or more parts as a result of force or strain (but not by cutting).</em> （指完整的物体）破，碎，断（非切割所致）。</p>
+<p class="normaltext0"><b>in a second</b> 在极短的时间内。</p>
+<p class="normaltext0"><b>watch</b> <em>v. look at (sb. /sth. ); observe.</em> 看（某人或某物）；观察。</p>
+<p class="normaltext0"><b>take off</b> <em>remove.</em> 除去；脱掉。</p>
+<p class="normaltext0"><b>bucket</b> <em>n. round open container with a handle for carrying or holding liquids, sands, etc.</em> 圆桶。</p>
+<p class="normaltext0"><b>throw</b> <em>v. send through the air with some force, esp. by moving the arm.</em> 投；抛；掷；扔（某物）。</p>
+<p class="normaltext0"><b>always</b> <em>adv. at all times; without exception.</em> 永远地；无例外地；总是；一直。</p>
+<p class="normaltext0"><b>wearer</b> <em>n. person who is wearing sth.</em> 穿戴某物的人。</p>
+<p class="normaltext0"><b>mend</b> <em>v. return (sth. broken, worn out or torn) to good conditions or working order; repair.</em> 修理，修补（某物）。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>4</em>．女巫和魔猴</p>
+<p class="normaltext">第二天早上，他们离开了绿宝石城。绿衣人拿走了他们戴的眼镜，给他们指了去女巫那儿的路。“没有人不怕西方女巫，”他说，“小心啊！”</p>
+<p class="normaltext">他们又走了很久。路变得崎岖了，两侧也没有房舍、田地和树木了。</p>
+<p class="normaltext">西方女巫有一只神眼，可以看见一切。她看到多萝西他们走在路上，非常生气。她戴上高高的黑帽子，大声喝道：“魔猴，来呀！”</p>
+<p class="normaltext">刹那间，40只猴子来到了她高大的房子里。“您有何吩咐？”它们问。</p>
+<p class="normaltext">“有三个人、一只狗和一头狮子在我的路上走，”她说，“杀了人和狗。把狮子带到这儿来，他能为我干活。”</p>
+<p class="normaltext">“遵命。”猴子们说。然后它们就走了。</p>
+<p class="normaltext">它们折断了锡人的胳膊和腿，掏出了稻草人的稻草并把他的衣服扔在一棵高高的树上。然后它们抓住了狮子，把它弄到巫婆房子阴暗的地窖里。</p>
+<p class="normaltext">但好女巫的吻使它们无法伤害多萝西和托托，因而猴子们非常小心地抓住她们，把她们带到巫婆的住处。巫婆看到多萝西脸上的唇印，害怕了，但她没有让多萝西知道。</p>
+<p class="normaltext">“从现在起，你要待在这房子里为我干活，”她对女孩说，“从早到晚，日复一日。记住——我一直在监视你。”</p>
+<p class="normaltext">红鞋子有魔力，可现在多萝西还不知道。巫婆很想要这鞋，但多萝西从不脱下它们。当然，她会在洗脚时把鞋脱掉，但巫婆从不靠近水，因为她非常非常怕水。</p>
+<p class="normaltext">一天早上，多萝西左脚的鞋掉了。</p>
+<p class="normaltext">巫婆立即捡了起来，大叫：“从现在起这鞋是<span class="xx">我的</span>了！”</p>
+<p class="normaltext">“不是的！”多萝西生气地喊道，“马上还给我！”</p>
+<p class="normaltext">“不！”巫婆喊道。她还试图抢夺多萝西右脚上的鞋。</p>
+<p class="normaltext">多萝西喜欢她的红鞋子，因而她很生气。门边恰好有一桶水，于是她提起桶，把水泼向巫婆。水泼在了她的脸上，她大叫：“救命啊！救命！水会杀了我的！水——会……”</p>
+<p class="normaltext">接着她就消失了！地上只剩下她高高的黑帽子和黑色的长袍。</p>
+<p class="normaltext">多萝西看看这儿，又看看那儿，就是不见巫婆的踪影。多萝西捡起她的红鞋子，把它们穿上。</p>
+<p class="normaltext">“现在该怎么解救我的朋友们呢？”多萝西自言自语道，“我能召唤魔猴吗？”她拿起巫婆的黑帽子端详了一番。“也许召唤时得戴上这顶帽子。”于是她戴上帽子，开始喊：“魔猴，来呀！”</p>
+<p class="normaltext">猴子们立即赶到。</p>
+<p class="normaltext">“请你们帮助我的朋友们。”多萝西要求说。</p>
+<p class="normaltext">“当然，”魔猴们回答，“我们总是帮助戴这顶黑色魔法帽的人。”</p>
+<p class="normaltext">它们砸开阴暗的地窖，胆小鬼狮子走了出来。“重获自由了！”他说，“谢谢！”</p>
+<p class="normaltext">之后，猴子们找到了稻草人的衣服，又填了些新稻草进去。稻草人笑着、跳着。“谢谢！”他说。</p>
+<p class="normaltext">最后，猴子们修好了锡人，又给了他一个新油罐。锡人活动着胳膊和腿，“感觉好极了，”他说，“谢谢！”</p>
+<p class="normaltext">多萝西对她的朋友们讲了巫婆和水的事，她的朋友们都非常开心。托托虽然不会说话，但它也高兴得上蹿下跳。</p>
+<p class="normaltext">“现在，”多萝西说，“我们必须返回到奥兹魔法师那里。魔猴，带我们去绿宝石城！”</p>
+<p class="normaltext">“别忘了戴上黑魔帽！”锡人说。</p>
+<p class="normaltext">猴子们带他们飞上了天空，10分钟后他们就到了绿宝石城绿色的大门口。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-12" class="chapter-section">
+                <h2 class="chapter-title">女巫和魔猴</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">4</span></p>
+<p class="title01">The witch and the monkeys</p>
+<p class="normaltext">The next morning they left the Emerald City. The green man took away their glasses and told them the way to the Witch's house. 'Everybody is afraid of the Witch of the West,' he said. 'So be careful!'</p>
+<p class="normaltext">The friends walked for a long time. The road was bad, and there were no houses, no fields, no trees.</p>
+<p class="normaltext">Now the Witch of the West had a magic eye, and it could see everything. She saw the friends on the road, and she was angry. She put on her tall black hat and shouted, 'Magic Monkeys—come!'</p>
+<p class="normaltext">In a second forty monkeys arrived at her tall house. 'What do you want?' they asked.</p>
+<p class="normaltext">'There are three people, a dog, and a lion on my road,' she said. 'Kill the people and the dog. But bring the lion here to my house. He can work for me.'</p>
+<p class="normaltext">'At once,' said the Monkeys. And away they went.</p>
+<p class="normaltext">They broke the Tin Man's arms and legs. They took all the straw out of the Scarecrow and threw his clothes up into a tall tree. Then they took the Lion and carried him to a dark cellar under the Witch's house.</p>
+<p class="normaltext">But they could not hurt Dorothy and Toto, because of the good Witch's kiss. So the Monkeys picked them up very carefully and carried them to the Witch's house. The Witch saw the kiss on Dorothy's face, and was afraid. But she did not tell Dorothy that.</p>
+<p class="picture"><img src="../../../Images/image07237.jpeg" alt="alt"/></p>
+<p class="normaltext">'You must work for me in my house now,' she said to the child. 'All day, and every day. And remember—I am watching you all the time.'</p>
+<p class="normaltext">Now Dorothy did not know this, but the red shoes were magic. The Witch wanted those shoes very much, but Dorothy never took them off. She took them off when she washed, of course, but the Witch never went near water. She was very, very afraid of water.</p>
+<p class="normaltext">Then, one morning, Dorothy's left shoe fell off.</p>
+<p class="normaltext">The Witch picked up the shoe at once. 'This is <em>my</em> shoe now!' she shouted.</p>
+<p class="normaltext">'No, it isn't!' shouted Dorothy angrily. 'Give it back to me at once!'</p>
+<p class="normaltext">'No!' said the Witch. And then she tried to take Dorothy's right shoe too.</p>
+<p class="normaltext">Dorothy loved her red shoes, and she was very angry. There was a bucket of water near the door. Dorothy picked up the bucket and threw the water at the Witch. The water hit her in the face, and she cried out, 'Help! Help! The water is killing me! The—water—is...'</p>
+<p class="normaltext">And then she disappeared! There was only her tall black hat and a long black dress.</p>
+<p class="normaltext">Dorothy looked and looked, but the Witch was not there. Dorothy picked up her red shoe and put it on.</p>
+<p class="picture"><img src="../../../Images/image07238.jpeg" alt="alt"/></p>
+<p class="normaltext">'Now, how can I help my friends?' she said. 'Can I call the Magic Monkeys?' She picked up the Witch's black hat and looked at it. 'Perhaps I must wear this magic hat when I speak.' So she put the hat on and called, 'Magic Monkeys—come!'</p>
+<p class="normaltext">The Monkeys arrived in a second.</p>
+<p class="normaltext">'Please can you help my friends?' asked Dorothy.</p>
+<p class="normaltext">'Of course,' said the Monkeys. 'We must always help the wearer of the magic black hat.'</p>
+<p class="normaltext">They broke open the dark cellar, and the Cowardly Lion came out. 'Free at last!' he said. 'Thank you!'</p>
+<p class="normaltext">Then the Monkeys found the Scarecrow's clothes and put some new straw in them. The Scarecrow laughed and jumped. 'Thank you!' he said.</p>
+<p class="normaltext">Next the Monkeys mended the Tin Man and gave him a new oil-can. He moved his arms and legs. 'I feel wonderful!' he said. 'Thank you!'</p>
+<p class="normaltext">Dorothy told her friends about the Witch and the water, and they were all very happy. Toto could not speak, but he jumped up and down very happily.</p>
+<p class="normaltext">'Now,' said Dorothy, 'we must go back to the Wizard of Oz. Magic Monkeys—take us to the Emerald City!'</p>
+<p class="normaltext">'Don't forget the magic black hat!' said the Tin Man.</p>
+<p class="normaltext">The Monkeys carried them up into the sky, and ten minutes later the friends were once again at the big green door of the Emerald City.</p>
+<p class="picture"><img src="../../../Images/image07239.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>magic</b> <em>adj. used in or using magic.</em> 用魔法或魔术的。</p>
+<p class="normaltext0"><b>arrive at</b> <em>reach (a place), esp. at the end of a journey.</em> 到达；抵达（某地）（尤指旅途的终点）。</p>
+<p class="normaltext0"><b>carry</b> <em>v. support the weight of (sb. /sth. ) and take (him/it) from place to place; take from one place to another.</em> 携带，搬运，传送。</p>
+<p class="normaltext0"><b>break</b> <em>v. (of a whole object) separate into two or more parts as a result of force or strain (but not by cutting).</em> （指完整的物体）破，碎，断（非切割所致）。</p>
+<p class="normaltext0"><b>in a second</b> 在极短的时间内。</p>
+<p class="normaltext0"><b>watch</b> <em>v. look at (sb. /sth. ); observe.</em> 看（某人或某物）；观察。</p>
+<p class="normaltext0"><b>take off</b> <em>remove.</em> 除去；脱掉。</p>
+<p class="normaltext0"><b>bucket</b> <em>n. round open container with a handle for carrying or holding liquids, sands, etc.</em> 圆桶。</p>
+<p class="normaltext0"><b>throw</b> <em>v. send through the air with some force, esp. by moving the arm.</em> 投；抛；掷；扔（某物）。</p>
+<p class="normaltext0"><b>always</b> <em>adv. at all times; without exception.</em> 永远地；无例外地；总是；一直。</p>
+<p class="normaltext0"><b>wearer</b> <em>n. person who is wearing sth.</em> 穿戴某物的人。</p>
+<p class="normaltext0"><b>mend</b> <em>v. return (sth. broken, worn out or torn) to good conditions or working order; repair.</em> 修理，修补（某物）。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>4</em>．女巫和魔猴</p>
+<p class="normaltext">第二天早上，他们离开了绿宝石城。绿衣人拿走了他们戴的眼镜，给他们指了去女巫那儿的路。“没有人不怕西方女巫，”他说，“小心啊！”</p>
+<p class="normaltext">他们又走了很久。路变得崎岖了，两侧也没有房舍、田地和树木了。</p>
+<p class="normaltext">西方女巫有一只神眼，可以看见一切。她看到多萝西他们走在路上，非常生气。她戴上高高的黑帽子，大声喝道：“魔猴，来呀！”</p>
+<p class="normaltext">刹那间，40只猴子来到了她高大的房子里。“您有何吩咐？”它们问。</p>
+<p class="normaltext">“有三个人、一只狗和一头狮子在我的路上走，”她说，“杀了人和狗。把狮子带到这儿来，他能为我干活。”</p>
+<p class="normaltext">“遵命。”猴子们说。然后它们就走了。</p>
+<p class="normaltext">它们折断了锡人的胳膊和腿，掏出了稻草人的稻草并把他的衣服扔在一棵高高的树上。然后它们抓住了狮子，把它弄到巫婆房子阴暗的地窖里。</p>
+<p class="normaltext">但好女巫的吻使它们无法伤害多萝西和托托，因而猴子们非常小心地抓住她们，把她们带到巫婆的住处。巫婆看到多萝西脸上的唇印，害怕了，但她没有让多萝西知道。</p>
+<p class="normaltext">“从现在起，你要待在这房子里为我干活，”她对女孩说，“从早到晚，日复一日。记住——我一直在监视你。”</p>
+<p class="normaltext">红鞋子有魔力，可现在多萝西还不知道。巫婆很想要这鞋，但多萝西从不脱下它们。当然，她会在洗脚时把鞋脱掉，但巫婆从不靠近水，因为她非常非常怕水。</p>
+<p class="normaltext">一天早上，多萝西左脚的鞋掉了。</p>
+<p class="normaltext">巫婆立即捡了起来，大叫：“从现在起这鞋是<span class="xx">我的</span>了！”</p>
+<p class="normaltext">“不是的！”多萝西生气地喊道，“马上还给我！”</p>
+<p class="normaltext">“不！”巫婆喊道。她还试图抢夺多萝西右脚上的鞋。</p>
+<p class="normaltext">多萝西喜欢她的红鞋子，因而她很生气。门边恰好有一桶水，于是她提起桶，把水泼向巫婆。水泼在了她的脸上，她大叫：“救命啊！救命！水会杀了我的！水——会……”</p>
+<p class="normaltext">接着她就消失了！地上只剩下她高高的黑帽子和黑色的长袍。</p>
+<p class="normaltext">多萝西看看这儿，又看看那儿，就是不见巫婆的踪影。多萝西捡起她的红鞋子，把它们穿上。</p>
+<p class="normaltext">“现在该怎么解救我的朋友们呢？”多萝西自言自语道，“我能召唤魔猴吗？”她拿起巫婆的黑帽子端详了一番。“也许召唤时得戴上这顶帽子。”于是她戴上帽子，开始喊：“魔猴，来呀！”</p>
+<p class="normaltext">猴子们立即赶到。</p>
+<p class="normaltext">“请你们帮助我的朋友们。”多萝西要求说。</p>
+<p class="normaltext">“当然，”魔猴们回答，“我们总是帮助戴这顶黑色魔法帽的人。”</p>
+<p class="normaltext">它们砸开阴暗的地窖，胆小鬼狮子走了出来。“重获自由了！”他说，“谢谢！”</p>
+<p class="normaltext">之后，猴子们找到了稻草人的衣服，又填了些新稻草进去。稻草人笑着、跳着。“谢谢！”他说。</p>
+<p class="normaltext">最后，猴子们修好了锡人，又给了他一个新油罐。锡人活动着胳膊和腿，“感觉好极了，”他说，“谢谢！”</p>
+<p class="normaltext">多萝西对她的朋友们讲了巫婆和水的事，她的朋友们都非常开心。托托虽然不会说话，但它也高兴得上蹿下跳。</p>
+<p class="normaltext">“现在，”多萝西说，“我们必须返回到奥兹魔法师那里。魔猴，带我们去绿宝石城！”</p>
+<p class="normaltext">“别忘了戴上黑魔帽！”锡人说。</p>
+<p class="normaltext">猴子们带他们飞上了天空，10分钟后他们就到了绿宝石城绿色的大门口。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-13" class="chapter-section">
+                <h2 class="chapter-title">5．The old man from Kansas</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">5</span></p>
+<p class="title01">The old man from Kansas</p>
+<p class="normaltext">The little green man opened the door. He gave them all glasses, then he took them through the city to the Wizard's house. There, in the long green room, the friends waited, and waited... and waited.</p>
+<p class="normaltext">After three hours the Scarecrow said, 'I'm tired of waiting.' He called the green man. 'We want to see the Wizard <em>now</em>. Or we're going to call the Magic Monkeys. Please tell the Wizard that.'</p>
+<p class="normaltext">The green man went away to speak to the Wizard through the door. The Wizard knew about the Magic Monkeys, and he was very afraid of them. So he said to the green man, 'These people can come and see me at nine o'clock tomorrow morning.'</p>
+<p class="normaltext">At nine o'clock the green man took the friends to the Wizard's room. They went in and looked all round, but they could not see anybody. Then a voice said, 'I am the Wizard of Oz. Who are you, and what do you want?'</p>
+<p class="normaltext">'Where are you?' asked Dorothy.</p>
+<p class="normaltext">'I am everywhere, but you can't see me. Now answer me—who are you and what do you want?'</p>
+<p class="normaltext">'You know us all,' said the Scarecrow. 'You said to me, "Help Dorothy to kill the Witch of the West, and you can have some brains." Well, the Witch is dead, and now I want my brains.'</p>
+<p class="normaltext">'And I want my heart,' said the Tin Man.</p>
+<p class="normaltext">'And I want to be brave,' said the Cowardly Lion.</p>
+<p class="normaltext">'And I want to go home to Kansas,' said Dorothy.</p>
+<p class="normaltext">'Is the Witch truly dead?' asked the Voice.</p>
+<p class="normaltext">'Yes,' said Dorothy. 'I threw a bucket of water over her, and she disappeared.'</p>
+<p class="normaltext">'Very well,' said the Voice. 'Come again tomorrow. I must think about things first and—'</p>
+<p class="normaltext">'No!' said the Tin Man. 'I want my heart now!'</p>
+<p class="normaltext">'I'm not going to wait another minute!' said the Scarecrow.</p>
+<p class="normaltext">'And I'm going to eat you!' the Lion shouted very angrily. Toto was afraid. He jumped away from the Lion, and hit a screen near the wall. The screen fell over, and behind it the friends saw an old man with no hair.</p>
+<p class="normaltext">The Tin Man looked angry and picked up his axe.</p>
+<p class="normaltext">'Who are you?' he said.</p>
+<p class="normaltext">'Please don't hurt me!' said the old man, in a quiet little voice. 'I'm the Wizard of Oz.'</p>
+<p class="normaltext">'But the Wizard of Oz is a big head without a body,' said Dorothy.</p>
+<p class="normaltext">'No, he's a beautiful woman,' said the Scarecrow.</p>
+<p class="normaltext">'You're wrong,' said the Tin Man. 'The Wizard of Oz is a big animal with two heads.'</p>
+<p class="normaltext">'No,' said the Lion. 'The Wizard is a ball of fire.'</p>
+<p class="picture"><img src="../../../Images/image07240.jpeg" alt="alt"/></p>
+<p class="normaltext">'You're all wrong,' said the old man. 'I <em>am</em> the Wizard... Well, I'm not a true wizard. Oh, I know a lot of tricks, but I don't know any true magic. You see, I'm from Kansas too. I went from town to town and did magic tricks. And I went up in a big balloon. The balloon was always on a rope, but one day something went wrong. The rope broke and the balloon blew away. For a long time the wind carried my balloon across the sky. Then I came down here, in the country of Oz. The people saw my balloon and said, "This man is a wizard! He comes out of the sky!" They were afraid of me and wanted to work for me... So they built this city for me, and I called it the Emerald City. Well, emeralds are green, so I made green glasses for everybody. That's why everything in the city looks green.'</p>
+<p class="normaltext">The Scarecrow took off his glasses. 'Oh,' he said. 'Now I understand. The Emerald City isn't green. It just <em>looks</em> green. It's all a trick.'</p>
+<p class="normaltext">'That's right,' said the old man. 'Well, all that happened many years ago. I never went out because I was afraid of the two bad Witches. Now they are dead—thanks to you, Dorothy. But I'm very sorry, I don't know any true magic, so I can't help you.'</p>
+<p class="normaltext">'You're a very bad man,' said Dorothy.</p>
+<p class="normaltext">'No, my child. I'm a very good man, but I <em>am</em> a very bad wizard, that's true.'</p>
+<p class="normaltext">'What about my brains?' said the Scarecrow.</p>
+<p class="picture"><img src="../../../Images/image07241.jpeg" alt="alt"/></p>
+<p class="normaltext">'You don't <em>need</em> brains. You understand things; you can think, you learn quickly. You're very clever.'</p>
+<p class="normaltext">'I <em>want</em> brains,' said the Scarecrow.</p>
+<p class="normaltext">'Very well,' said the old man. 'I can give you some brains tomorrow morning.'</p>
+<p class="normaltext">'What about my heart?' asked the Tin Man.</p>
+<p class="normaltext">'You don't <em>need</em> a heart,' said the old man. 'You laugh, you cry, you love, you feel sorry for people.'</p>
+<p class="normaltext">The Tin Man looked angry and picked up his axe.</p>
+<p class="normaltext">'All right—please don't hurt me!' said the old man. 'I can give you a heart tomorrow morning.'</p>
+<p class="normaltext">'I want to be brave,' said the Cowardly Lion.</p>
+<p class="normaltext">'But you <em>are</em> brave. You do a lot of brave things! No, no—don't eat me! Come here tomorrow morning. I'm going to make you brave.'</p>
+<p class="normaltext">'What about Toto and me?' asked Dorothy.</p>
+<p class="normaltext">'We can go up in my balloon,' said the Wizard. 'The wind blew us here from Kansas—perhaps it can blow us back to Kansas again.'</p>
+<p class="normaltext2">*　　*　　*</p>
+<p class="normaltext0">The next morning the friends came again to the Wizard's room. The old man was ready. He took a bottle with BRAINS on it in big green letters, and carefully opened the Scarecrow's head.</p>
+<p class="normaltext">'Don't move. I'm putting your brains in,' he said. 'There—now you're the cleverest scarecrow in Oz.' The Scarecrow thanked him.</p>
+<p class="picture"><img src="../../../Images/image07242.jpeg" alt="alt"/></p>
+<p class="normaltext">Next the Wizard gave the Tin Man a small red heart. 'Wear this always,' he said.</p>
+<p class="normaltext">The Tin Man was very happy and thanked the Wizard again and again.</p>
+<p class="normaltext">Then the old man took a bottle with BE BRAVE on it. 'Drink this,' he said to the Cowardly Lion.</p>
+<p class="normaltext">The Lion drank. 'Yes. Yes, I feel brave!' he shouted. 'Very, very brave! Thank you!'</p>
+<p class="normaltext">The Wizard smiled at them. 'You didn't need my magic,' he said. 'But you're all happy now, and that's a good thing. Now, Dorothy,' he said, 'come and see my balloon. It's all ready. I mended it last night.'</p>
+<p class="normaltext">They went out into the garden behind the Wizard's house. The balloon was very big. There was a small box under it, and the Wizard of Oz jumped into the box.</p>
+<p class="normaltext">'Come on, Dorothy!' he shouted. 'We're going to Kansas. Say goodbye to your friends.'</p>
+<p class="normaltext">Dorothy kissed the Scarecrow, the Lion, and the Tin Man, and said goodbye. 'Come on, Toto,' she said. 'We're going home to Kansas. We're going to see Aunt Em and Uncle Henry.'</p>
+<p class="normaltext">But just then Toto saw a cat. He jumped out of Dorothy's arms and ran after it.</p>
+<p class="normaltext">'Toto!' called Dorothy, and she began to run after him.</p>
+<p class="picture"><img src="../../../Images/image07243.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>be tired of sth. /doing sth.</b> <em>become uninterested in (doing) sth.</em> 对（做）某事感到厌倦。</p>
+<p class="normaltext0"><b>truly</b> <em>adv. truthfully.</em> 真实地；如实地。</p>
+<p class="normaltext0"><b>screen</b> <em>n. upright, fixed or movable, sometimes folding framework used for dividing a room, concealing sth. or protecting sb. from excessive heat, light, etc.</em> 隔板；屏；帐。</p>
+<p class="normaltext0"><b>wrong</b> <em>adj. mistaken; unsuitable.</em> 错误的；不适当的。</p>
+<p class="normaltext0"><b>balloon</b> <em>n. brightly-coloured rubber bag that is filled with air, used as a child's toy or a decoration.</em> （用作玩具或装饰品的）气球。</p>
+<p class="normaltext0"><b>country</b> <em>n. area of land that forms a politically independent unit; nation; state.</em> 国，国家。</p>
+<p class="normaltext0"><b>trick</b> <em>n. thing done to deceive or outwit sb.</em> 诡计；计谋；花招；骗术。</p>
+<p class="normaltext0"><b>bottle</b> <em>n. a glass or plastic container, usu. with a narrow neck, used for storing liquids.</em> 瓶子。</p>
+<p class="normaltext0"><b>drink</b> <em>v. take (liquid) into mouth and swallow.</em> 喝；饮。</p>
+<p class="normaltext0"><b>run after sb.</b> <em>run to try to catch sb. ; chase sb.</em> 追赶某人；追逐某人。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>5</em>．堪萨斯来的老头儿</p>
+<p class="normaltext">绿衣小矮人打开了门。他给了他们每人一副眼镜，带他们穿过城市，来到魔法师的房子里。在那长长的绿房子里，他们几个等啊，等啊，等啊……</p>
+<p class="normaltext">三个小时以后，稻草人说：“我讨厌就这么等下去了。”他叫绿衣人，“去告诉魔法师，我们<span class="xx">现在</span>就要见他。否则我们要召唤魔猴来帮忙了。”</p>
+<p class="normaltext">绿衣人隔着门将稻草人的话转告给了魔法师。魔法师知道魔猴是怎么回事，并且很怕它们。因此他对绿衣人说：“这些人可以在明天早上9点来见我。”</p>
+<p class="normaltext">第二天9点钟，绿衣人将多萝西和她的朋友们带到魔法师那里。他们进去四处张望，却看不见任何人。这时一个声音响起了：“我就是奥兹魔法师，你们是谁？有什么要求？”</p>
+<p class="normaltext">“你在哪儿？”多萝西问。</p>
+<p class="normaltext">“我无处不在，但你们看不见我。现在回答我——你们是谁，有什么要求？”</p>
+<p class="normaltext">“你认识我们，”稻草人说，“你还对我说过：‘帮助多萝西杀死西方女巫，你就可以得到智慧。’嗯，现在巫婆死了，我要我的智慧。”</p>
+<p class="normaltext">“我要我的心。”锡人说。</p>
+<p class="normaltext">“我要我的勇气。”胆小鬼狮子说。</p>
+<p class="normaltext">“我要回堪萨斯的家。”多萝西说。</p>
+<p class="normaltext">“巫婆真的死了？”那声音问道。</p>
+<p class="normaltext">“是的，”多萝西回答说，“我朝她泼了一桶水，然后她就消失了。”</p>
+<p class="normaltext">“很好，”声音说，“你们明天再来吧！我需要先考虑一下然后——”</p>
+<p class="normaltext">“不行！”锡人说，“我现在就要我的心！”</p>
+<p class="normaltext">“我一分钟都不愿再等了！”稻草人说。</p>
+<p class="normaltext">“我要吃了你！”狮子怒吼道。托托吓坏了，它从狮子身边跳开，撞到墙边的一堵屏风上，屏风倒了，他们看见后面躲着一个秃顶的老头儿。</p>
+<p class="normaltext">锡人举起斧子，一脸怒气。</p>
+<p class="normaltext">“你是谁？”锡人问道。</p>
+<p class="normaltext">“请别伤害我！”老头儿用细细的声音说，“我就是奥兹魔法师。”</p>
+<p class="normaltext">“可奥兹魔法师是一个没有身体的大脑袋呀！”多萝西说。</p>
+<p class="normaltext">“不，他是个漂亮的女人。”稻草人说。</p>
+<p class="normaltext">“你们都错了，”锡人说，“奥兹魔法师是一个长了两个脑袋的怪兽。”</p>
+<p class="normaltext">“不对，”狮子说，“魔法师是一团火。”</p>
+<p class="normaltext">“你们都错了。”老头儿说，“<span class="xx">我</span>是奥兹魔法师……嗯，我不是个真正的魔法师。哦，我虽然会变许多魔术，可我没有魔力。你们看，我也是堪萨斯人。我走乡串镇变魔术。我钻进一个大气球里，气球通常是拴在一根绳子上的，但是有一天出了意外，绳子断了，气球飞起来了。风使我的气球在天空中飘了很久。最后我落在了这儿——奥兹国。这儿的人看见我的气球，说：‘这人是魔法师！他从天而降！’他们都怕我，愿意为我效劳……所以他们为我修了这座城，我将它命名为绿宝石城。哦，绿宝石是绿色的，所以我给所有人都做了绿色的眼镜，这就是为什么城里一切看起来都是绿色的原因了。”</p>
+<p class="normaltext">稻草人摘下眼镜。“噢，”他说，“我明白了，绿宝石城原来不是绿色的，只是<span class="xx">看起来</span>是绿色的，这全是骗人的把戏。”</p>
+<p class="normaltext">“完全正确，”老头儿说，“嗯，这些都是许多年前的事了。我从不出去是因为我怕两个坏巫婆。现在她们已死——谢谢你，多萝西，但是很抱歉，我不会真正的魔法，所以不能帮你。”</p>
+<p class="normaltext">“你真是个坏蛋！”多萝西说。</p>
+<p class="normaltext">“不，我的孩子，我是一个非常善良的人，但我<span class="xx">的确是</span>一个糟糕的魔法师。一点不假。”</p>
+<p class="normaltext">“那我要的智慧呢？”稻草人问。</p>
+<p class="normaltext">“你不<span class="xx">需要</span>智慧。你能理解事物，你会思考，你学东西也很快。你很聪明。”</p>
+<p class="normaltext">“可我<span class="xx">想要</span>智慧。”稻草人说。</p>
+<p class="normaltext">“好吧，”老头儿说，“明早我会给你一些智慧。”</p>
+<p class="normaltext">“那我的心呢？”锡人问。</p>
+<p class="normaltext">“你不<span class="xx">需要</span>心，”老头儿回答，“你笑，你哭，你爱别人，你同情别人。”</p>
+<p class="normaltext">锡人气乎乎地举起他的斧子。</p>
+<p class="normaltext">“好，好——别伤害我！”老头儿说，“我明早就给你一颗心。”</p>
+<p class="normaltext">“我要变得勇敢，”胆小鬼狮子说。</p>
+<p class="normaltext">“但你<span class="xx">的确</span>很勇敢。你做了许多英勇的事情！别，别——别吃我！明早来吧，我会让你变得勇敢。”</p>
+<p class="normaltext">“那我和托托怎么办？”多萝西问。</p>
+<p class="normaltext">“我们可以钻进我的气球，”魔法师说，“风把我从堪萨斯吹到这儿——或许它也能把我们吹回堪萨斯。”</p>
+<p class="normaltext2">*　　*　　*</p>
+<p class="normaltext">第二天早上，这几个朋友重新来到魔法师的屋里。老头儿已经准备就绪了。他拿出一个瓶子，瓶子上用绿色的字母写着两个大字“智慧”。他小心翼翼地打开稻草人的脑袋。</p>
+<p class="normaltext">“别动，我要把智慧放入你的脑袋里，”老头儿说，“好——你现在是奥兹国最聪明的稻草人了。”稻草人谢过了老头儿。</p>
+<p class="normaltext">然后老头儿又给了锡人一颗小小的红色的心。他说：“一直戴着它。”</p>
+<p class="normaltext">锡人非常高兴，不停地感谢老头儿。</p>
+<p class="normaltext">接着，老头儿拿出一个贴着“勇敢”标签的瓶子。“喝下去。”他对胆小鬼狮子说。</p>
+<p class="normaltext">狮子喝了下去。“是的，是的。我感到自己有勇气了！”他大叫道，“非常非常的勇敢！谢谢你！”</p>
+<p class="normaltext">魔法师微笑着望着他们。“你们并不需要我的魔法。”他说，“但你们现在很开心，这就好。现在，多萝西，”他说，“来看看我的气球，它已准备就绪，我昨晚把它修好了。”</p>
+<p class="normaltext">他们一起走到魔法师房子后面的花园里。气球很大，下面挂了一个小箱子。魔法师跳进箱子里。</p>
+<p class="normaltext">“多萝西，来呀！”他大喊，“我们要回堪萨斯去了，和你的朋友们告别吧。”</p>
+<p class="normaltext">多萝西一一吻了稻草人、狮子和锡人，并与他们道了别。“走，托托，”她说，“我们就要回家了，我们就要见到埃姆舅妈和亨利舅舅了。”</p>
+<p class="normaltext">但就在那时，托托看见了一只猫。它跳出多萝西的手臂，追了过去。</p>
+<p class="normaltext">“托托！”多萝西大叫，开始追它。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-14" class="chapter-section">
+                <h2 class="chapter-title">堪萨斯来的老头儿</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">5</span></p>
+<p class="title01">The old man from Kansas</p>
+<p class="normaltext">The little green man opened the door. He gave them all glasses, then he took them through the city to the Wizard's house. There, in the long green room, the friends waited, and waited... and waited.</p>
+<p class="normaltext">After three hours the Scarecrow said, 'I'm tired of waiting.' He called the green man. 'We want to see the Wizard <em>now</em>. Or we're going to call the Magic Monkeys. Please tell the Wizard that.'</p>
+<p class="normaltext">The green man went away to speak to the Wizard through the door. The Wizard knew about the Magic Monkeys, and he was very afraid of them. So he said to the green man, 'These people can come and see me at nine o'clock tomorrow morning.'</p>
+<p class="normaltext">At nine o'clock the green man took the friends to the Wizard's room. They went in and looked all round, but they could not see anybody. Then a voice said, 'I am the Wizard of Oz. Who are you, and what do you want?'</p>
+<p class="normaltext">'Where are you?' asked Dorothy.</p>
+<p class="normaltext">'I am everywhere, but you can't see me. Now answer me—who are you and what do you want?'</p>
+<p class="normaltext">'You know us all,' said the Scarecrow. 'You said to me, "Help Dorothy to kill the Witch of the West, and you can have some brains." Well, the Witch is dead, and now I want my brains.'</p>
+<p class="normaltext">'And I want my heart,' said the Tin Man.</p>
+<p class="normaltext">'And I want to be brave,' said the Cowardly Lion.</p>
+<p class="normaltext">'And I want to go home to Kansas,' said Dorothy.</p>
+<p class="normaltext">'Is the Witch truly dead?' asked the Voice.</p>
+<p class="normaltext">'Yes,' said Dorothy. 'I threw a bucket of water over her, and she disappeared.'</p>
+<p class="normaltext">'Very well,' said the Voice. 'Come again tomorrow. I must think about things first and—'</p>
+<p class="normaltext">'No!' said the Tin Man. 'I want my heart now!'</p>
+<p class="normaltext">'I'm not going to wait another minute!' said the Scarecrow.</p>
+<p class="normaltext">'And I'm going to eat you!' the Lion shouted very angrily. Toto was afraid. He jumped away from the Lion, and hit a screen near the wall. The screen fell over, and behind it the friends saw an old man with no hair.</p>
+<p class="normaltext">The Tin Man looked angry and picked up his axe.</p>
+<p class="normaltext">'Who are you?' he said.</p>
+<p class="normaltext">'Please don't hurt me!' said the old man, in a quiet little voice. 'I'm the Wizard of Oz.'</p>
+<p class="normaltext">'But the Wizard of Oz is a big head without a body,' said Dorothy.</p>
+<p class="normaltext">'No, he's a beautiful woman,' said the Scarecrow.</p>
+<p class="normaltext">'You're wrong,' said the Tin Man. 'The Wizard of Oz is a big animal with two heads.'</p>
+<p class="normaltext">'No,' said the Lion. 'The Wizard is a ball of fire.'</p>
+<p class="picture"><img src="../../../Images/image07240.jpeg" alt="alt"/></p>
+<p class="normaltext">'You're all wrong,' said the old man. 'I <em>am</em> the Wizard... Well, I'm not a true wizard. Oh, I know a lot of tricks, but I don't know any true magic. You see, I'm from Kansas too. I went from town to town and did magic tricks. And I went up in a big balloon. The balloon was always on a rope, but one day something went wrong. The rope broke and the balloon blew away. For a long time the wind carried my balloon across the sky. Then I came down here, in the country of Oz. The people saw my balloon and said, "This man is a wizard! He comes out of the sky!" They were afraid of me and wanted to work for me... So they built this city for me, and I called it the Emerald City. Well, emeralds are green, so I made green glasses for everybody. That's why everything in the city looks green.'</p>
+<p class="normaltext">The Scarecrow took off his glasses. 'Oh,' he said. 'Now I understand. The Emerald City isn't green. It just <em>looks</em> green. It's all a trick.'</p>
+<p class="normaltext">'That's right,' said the old man. 'Well, all that happened many years ago. I never went out because I was afraid of the two bad Witches. Now they are dead—thanks to you, Dorothy. But I'm very sorry, I don't know any true magic, so I can't help you.'</p>
+<p class="normaltext">'You're a very bad man,' said Dorothy.</p>
+<p class="normaltext">'No, my child. I'm a very good man, but I <em>am</em> a very bad wizard, that's true.'</p>
+<p class="normaltext">'What about my brains?' said the Scarecrow.</p>
+<p class="picture"><img src="../../../Images/image07241.jpeg" alt="alt"/></p>
+<p class="normaltext">'You don't <em>need</em> brains. You understand things; you can think, you learn quickly. You're very clever.'</p>
+<p class="normaltext">'I <em>want</em> brains,' said the Scarecrow.</p>
+<p class="normaltext">'Very well,' said the old man. 'I can give you some brains tomorrow morning.'</p>
+<p class="normaltext">'What about my heart?' asked the Tin Man.</p>
+<p class="normaltext">'You don't <em>need</em> a heart,' said the old man. 'You laugh, you cry, you love, you feel sorry for people.'</p>
+<p class="normaltext">The Tin Man looked angry and picked up his axe.</p>
+<p class="normaltext">'All right—please don't hurt me!' said the old man. 'I can give you a heart tomorrow morning.'</p>
+<p class="normaltext">'I want to be brave,' said the Cowardly Lion.</p>
+<p class="normaltext">'But you <em>are</em> brave. You do a lot of brave things! No, no—don't eat me! Come here tomorrow morning. I'm going to make you brave.'</p>
+<p class="normaltext">'What about Toto and me?' asked Dorothy.</p>
+<p class="normaltext">'We can go up in my balloon,' said the Wizard. 'The wind blew us here from Kansas—perhaps it can blow us back to Kansas again.'</p>
+<p class="normaltext2">*　　*　　*</p>
+<p class="normaltext0">The next morning the friends came again to the Wizard's room. The old man was ready. He took a bottle with BRAINS on it in big green letters, and carefully opened the Scarecrow's head.</p>
+<p class="normaltext">'Don't move. I'm putting your brains in,' he said. 'There—now you're the cleverest scarecrow in Oz.' The Scarecrow thanked him.</p>
+<p class="picture"><img src="../../../Images/image07242.jpeg" alt="alt"/></p>
+<p class="normaltext">Next the Wizard gave the Tin Man a small red heart. 'Wear this always,' he said.</p>
+<p class="normaltext">The Tin Man was very happy and thanked the Wizard again and again.</p>
+<p class="normaltext">Then the old man took a bottle with BE BRAVE on it. 'Drink this,' he said to the Cowardly Lion.</p>
+<p class="normaltext">The Lion drank. 'Yes. Yes, I feel brave!' he shouted. 'Very, very brave! Thank you!'</p>
+<p class="normaltext">The Wizard smiled at them. 'You didn't need my magic,' he said. 'But you're all happy now, and that's a good thing. Now, Dorothy,' he said, 'come and see my balloon. It's all ready. I mended it last night.'</p>
+<p class="normaltext">They went out into the garden behind the Wizard's house. The balloon was very big. There was a small box under it, and the Wizard of Oz jumped into the box.</p>
+<p class="normaltext">'Come on, Dorothy!' he shouted. 'We're going to Kansas. Say goodbye to your friends.'</p>
+<p class="normaltext">Dorothy kissed the Scarecrow, the Lion, and the Tin Man, and said goodbye. 'Come on, Toto,' she said. 'We're going home to Kansas. We're going to see Aunt Em and Uncle Henry.'</p>
+<p class="normaltext">But just then Toto saw a cat. He jumped out of Dorothy's arms and ran after it.</p>
+<p class="normaltext">'Toto!' called Dorothy, and she began to run after him.</p>
+<p class="picture"><img src="../../../Images/image07243.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>be tired of sth. /doing sth.</b> <em>become uninterested in (doing) sth.</em> 对（做）某事感到厌倦。</p>
+<p class="normaltext0"><b>truly</b> <em>adv. truthfully.</em> 真实地；如实地。</p>
+<p class="normaltext0"><b>screen</b> <em>n. upright, fixed or movable, sometimes folding framework used for dividing a room, concealing sth. or protecting sb. from excessive heat, light, etc.</em> 隔板；屏；帐。</p>
+<p class="normaltext0"><b>wrong</b> <em>adj. mistaken; unsuitable.</em> 错误的；不适当的。</p>
+<p class="normaltext0"><b>balloon</b> <em>n. brightly-coloured rubber bag that is filled with air, used as a child's toy or a decoration.</em> （用作玩具或装饰品的）气球。</p>
+<p class="normaltext0"><b>country</b> <em>n. area of land that forms a politically independent unit; nation; state.</em> 国，国家。</p>
+<p class="normaltext0"><b>trick</b> <em>n. thing done to deceive or outwit sb.</em> 诡计；计谋；花招；骗术。</p>
+<p class="normaltext0"><b>bottle</b> <em>n. a glass or plastic container, usu. with a narrow neck, used for storing liquids.</em> 瓶子。</p>
+<p class="normaltext0"><b>drink</b> <em>v. take (liquid) into mouth and swallow.</em> 喝；饮。</p>
+<p class="normaltext0"><b>run after sb.</b> <em>run to try to catch sb. ; chase sb.</em> 追赶某人；追逐某人。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>5</em>．堪萨斯来的老头儿</p>
+<p class="normaltext">绿衣小矮人打开了门。他给了他们每人一副眼镜，带他们穿过城市，来到魔法师的房子里。在那长长的绿房子里，他们几个等啊，等啊，等啊……</p>
+<p class="normaltext">三个小时以后，稻草人说：“我讨厌就这么等下去了。”他叫绿衣人，“去告诉魔法师，我们<span class="xx">现在</span>就要见他。否则我们要召唤魔猴来帮忙了。”</p>
+<p class="normaltext">绿衣人隔着门将稻草人的话转告给了魔法师。魔法师知道魔猴是怎么回事，并且很怕它们。因此他对绿衣人说：“这些人可以在明天早上9点来见我。”</p>
+<p class="normaltext">第二天9点钟，绿衣人将多萝西和她的朋友们带到魔法师那里。他们进去四处张望，却看不见任何人。这时一个声音响起了：“我就是奥兹魔法师，你们是谁？有什么要求？”</p>
+<p class="normaltext">“你在哪儿？”多萝西问。</p>
+<p class="normaltext">“我无处不在，但你们看不见我。现在回答我——你们是谁，有什么要求？”</p>
+<p class="normaltext">“你认识我们，”稻草人说，“你还对我说过：‘帮助多萝西杀死西方女巫，你就可以得到智慧。’嗯，现在巫婆死了，我要我的智慧。”</p>
+<p class="normaltext">“我要我的心。”锡人说。</p>
+<p class="normaltext">“我要我的勇气。”胆小鬼狮子说。</p>
+<p class="normaltext">“我要回堪萨斯的家。”多萝西说。</p>
+<p class="normaltext">“巫婆真的死了？”那声音问道。</p>
+<p class="normaltext">“是的，”多萝西回答说，“我朝她泼了一桶水，然后她就消失了。”</p>
+<p class="normaltext">“很好，”声音说，“你们明天再来吧！我需要先考虑一下然后——”</p>
+<p class="normaltext">“不行！”锡人说，“我现在就要我的心！”</p>
+<p class="normaltext">“我一分钟都不愿再等了！”稻草人说。</p>
+<p class="normaltext">“我要吃了你！”狮子怒吼道。托托吓坏了，它从狮子身边跳开，撞到墙边的一堵屏风上，屏风倒了，他们看见后面躲着一个秃顶的老头儿。</p>
+<p class="normaltext">锡人举起斧子，一脸怒气。</p>
+<p class="normaltext">“你是谁？”锡人问道。</p>
+<p class="normaltext">“请别伤害我！”老头儿用细细的声音说，“我就是奥兹魔法师。”</p>
+<p class="normaltext">“可奥兹魔法师是一个没有身体的大脑袋呀！”多萝西说。</p>
+<p class="normaltext">“不，他是个漂亮的女人。”稻草人说。</p>
+<p class="normaltext">“你们都错了，”锡人说，“奥兹魔法师是一个长了两个脑袋的怪兽。”</p>
+<p class="normaltext">“不对，”狮子说，“魔法师是一团火。”</p>
+<p class="normaltext">“你们都错了。”老头儿说，“<span class="xx">我</span>是奥兹魔法师……嗯，我不是个真正的魔法师。哦，我虽然会变许多魔术，可我没有魔力。你们看，我也是堪萨斯人。我走乡串镇变魔术。我钻进一个大气球里，气球通常是拴在一根绳子上的，但是有一天出了意外，绳子断了，气球飞起来了。风使我的气球在天空中飘了很久。最后我落在了这儿——奥兹国。这儿的人看见我的气球，说：‘这人是魔法师！他从天而降！’他们都怕我，愿意为我效劳……所以他们为我修了这座城，我将它命名为绿宝石城。哦，绿宝石是绿色的，所以我给所有人都做了绿色的眼镜，这就是为什么城里一切看起来都是绿色的原因了。”</p>
+<p class="normaltext">稻草人摘下眼镜。“噢，”他说，“我明白了，绿宝石城原来不是绿色的，只是<span class="xx">看起来</span>是绿色的，这全是骗人的把戏。”</p>
+<p class="normaltext">“完全正确，”老头儿说，“嗯，这些都是许多年前的事了。我从不出去是因为我怕两个坏巫婆。现在她们已死——谢谢你，多萝西，但是很抱歉，我不会真正的魔法，所以不能帮你。”</p>
+<p class="normaltext">“你真是个坏蛋！”多萝西说。</p>
+<p class="normaltext">“不，我的孩子，我是一个非常善良的人，但我<span class="xx">的确是</span>一个糟糕的魔法师。一点不假。”</p>
+<p class="normaltext">“那我要的智慧呢？”稻草人问。</p>
+<p class="normaltext">“你不<span class="xx">需要</span>智慧。你能理解事物，你会思考，你学东西也很快。你很聪明。”</p>
+<p class="normaltext">“可我<span class="xx">想要</span>智慧。”稻草人说。</p>
+<p class="normaltext">“好吧，”老头儿说，“明早我会给你一些智慧。”</p>
+<p class="normaltext">“那我的心呢？”锡人问。</p>
+<p class="normaltext">“你不<span class="xx">需要</span>心，”老头儿回答，“你笑，你哭，你爱别人，你同情别人。”</p>
+<p class="normaltext">锡人气乎乎地举起他的斧子。</p>
+<p class="normaltext">“好，好——别伤害我！”老头儿说，“我明早就给你一颗心。”</p>
+<p class="normaltext">“我要变得勇敢，”胆小鬼狮子说。</p>
+<p class="normaltext">“但你<span class="xx">的确</span>很勇敢。你做了许多英勇的事情！别，别——别吃我！明早来吧，我会让你变得勇敢。”</p>
+<p class="normaltext">“那我和托托怎么办？”多萝西问。</p>
+<p class="normaltext">“我们可以钻进我的气球，”魔法师说，“风把我从堪萨斯吹到这儿——或许它也能把我们吹回堪萨斯。”</p>
+<p class="normaltext2">*　　*　　*</p>
+<p class="normaltext">第二天早上，这几个朋友重新来到魔法师的屋里。老头儿已经准备就绪了。他拿出一个瓶子，瓶子上用绿色的字母写着两个大字“智慧”。他小心翼翼地打开稻草人的脑袋。</p>
+<p class="normaltext">“别动，我要把智慧放入你的脑袋里，”老头儿说，“好——你现在是奥兹国最聪明的稻草人了。”稻草人谢过了老头儿。</p>
+<p class="normaltext">然后老头儿又给了锡人一颗小小的红色的心。他说：“一直戴着它。”</p>
+<p class="normaltext">锡人非常高兴，不停地感谢老头儿。</p>
+<p class="normaltext">接着，老头儿拿出一个贴着“勇敢”标签的瓶子。“喝下去。”他对胆小鬼狮子说。</p>
+<p class="normaltext">狮子喝了下去。“是的，是的。我感到自己有勇气了！”他大叫道，“非常非常的勇敢！谢谢你！”</p>
+<p class="normaltext">魔法师微笑着望着他们。“你们并不需要我的魔法。”他说，“但你们现在很开心，这就好。现在，多萝西，”他说，“来看看我的气球，它已准备就绪，我昨晚把它修好了。”</p>
+<p class="normaltext">他们一起走到魔法师房子后面的花园里。气球很大，下面挂了一个小箱子。魔法师跳进箱子里。</p>
+<p class="normaltext">“多萝西，来呀！”他大喊，“我们要回堪萨斯去了，和你的朋友们告别吧。”</p>
+<p class="normaltext">多萝西一一吻了稻草人、狮子和锡人，并与他们道了别。“走，托托，”她说，“我们就要回家了，我们就要见到埃姆舅妈和亨利舅舅了。”</p>
+<p class="normaltext">但就在那时，托托看见了一只猫。它跳出多萝西的手臂，追了过去。</p>
+<p class="normaltext">“托托！”多萝西大叫，开始追它。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-15" class="chapter-section">
+                <h2 class="chapter-title">6．'East, west—home's best!'</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">6</span></p>
+<p class="title01">'East, west—home's best!'</p>
+<p class="normaltext">'Leave the dog and come quickly!' shouted the Wizard. 'The rope's going to break!'</p>
+<p class="normaltext">Dorothy picked Toto up and ran. 'Wait!' she shouted.</p>
+<p class="normaltext">But before she got there, the rope <em>did</em> break, and the balloon went up, up, up into the sky.</p>
+<p class="normaltext">They heard the old man's voice, very far away.</p>
+<p class="normaltext">'Ask the Witch of the So—o—o—outh.'</p>
+<p class="normaltext">Then the balloon disappeared. And nobody saw the Wizard of Oz again.</p>
+<p class="normaltext">Dorothy began to cry. 'Oh, how can I get home now?'</p>
+<p class="normaltext">'Put on the magic black hat,' said the Scarecrow, 'and ask the Magic Monkeys for help. Perhaps they can find the Witch of the South and bring her here.'</p>
+<p class="normaltext">'Clever Scarecrow!' said Dorothy. She put on the magic hat and called for the Magic Monkeys. When they arrived, she said, 'Please find the Witch of the South, and bring her here to the Emerald City.'</p>
+<p class="normaltext">And five minutes later, a beautiful woman with long red hair arrived. 'I am Glinda, the Witch of the South,' she said. 'What can I do for you, my child?'</p>
+<p class="normaltext">'I want to go home to Kansas,' said Dorothy. 'Please can you help me?'</p>
+<p class="picture"><img src="../../../Images/image07244.jpeg" alt="alt"/></p>
+<p class="normaltext">'Ask your shoes,' smiled the good Witch. But Dorothy did not understand.</p>
+<p class="normaltext">'Your red shoes,' said Glinda, 'are magic shoes. They can carry you home. Just close your eyes, and say, "East, west—home's best." Then jump.'</p>
+<p class="normaltext">'Oh, thank you,' cried Dorothy happily.</p>
+<p class="normaltext">She kissed her friends and said goodbye again. Then she picked up Toto and closed her eyes. 'East, west—home's best,' she said—and jumped. There was a noise like a wind, and suddenly Dorothy was in the sky. The red shoes fell off her feet, and she never saw them again.</p>
+<p class="normaltext">When she opened her eyes, there she was—back in Kansas. And there were Aunt Em and Uncle Henry, in a field by a new little house.</p>
+<p class="normaltext">'Dorothy!' cried Aunt Em. She ran and took Dorothy in her arms. 'Oh, Dorothy, what happened to you? And where did you come from?'</p>
+<p class="normaltext">'From the country of Oz,' said Dorothy. 'But I'm home again now—and I'm so happy!'</p>
+<p class="picture"><img src="../../../Images/image07245.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>leave</b> <em>v. go away from (a person or place).</em> 离开（某人或某处）。</p>
+<p class="normaltext0"><b>clever</b> <em>adj. quick at learning and understanding things; intelligent.</em> 敏于学习和理解的；机灵的；聪明的；伶俐的。</p>
+<p class="normaltext0"><b>noise</b> <em>n. sound, esp. when it is loud, unpleasent, confused, or unwanted.</em> 声音，响声；（尤指）噪音，噪声，杂音。</p>
+<p class="normaltext0"><b>say goodbye</b> 与（某人）告别。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>6</em>．“无论身在何方——家是最好的地方！”</p>
+<p class="normaltext">“别追狗了，快来！”魔法师喊道，“绳子要断了！”</p>
+<p class="normaltext">多萝西抱起托托就跑。“等一等！”她喊道。</p>
+<p class="normaltext">可还没等她跑到那儿，绳子<span class="xx">就</span>断了。气球越飞越高，一直飞到天空中。</p>
+<p class="normaltext">他们听见老头儿的声音从远远的半空中传来。</p>
+<p class="normaltext">“去问问南——方——女——巫。”</p>
+<p class="normaltext">之后气球就消失了。从此再也没有人见过奥兹魔法师。</p>
+<p class="normaltext">多萝西哭了起来：“哦，我现在怎么回家呀？”</p>
+<p class="normaltext">“戴上黑魔帽，”稻草人说，“让魔猴来帮你。或许它们能找到南方女巫并把她带到这儿来。”</p>
+<p class="normaltext">“聪明的稻草人！”多萝西说。她戴上魔帽召唤魔猴。猴子们来了以后，她说：“去找南方女巫，把她带到绿宝石城来。”</p>
+<p class="normaltext">五分钟以后，一个长着一头红色长发的漂亮女人来了。她说：“我是南方女巫格琳达。”她说，“孩子，你想让我怎么帮你？”</p>
+<p class="normaltext">“我想回我的家乡堪萨斯去，请问你能帮我吗？”多萝西说。</p>
+<p class="normaltext">“让你的鞋子帮你吧。”善良的女巫笑着说。可是多萝西并不明白她的话。</p>
+<p class="normaltext">“你的红鞋，”格琳达说，“是魔鞋。它们能带你回家。闭上眼睛，说：‘无论身在何方——家是最好的地方。’然后跳一下。”</p>
+<p class="normaltext">“哦，谢谢你！”多萝西高兴地大叫。</p>
+<p class="normaltext">她吻了朋友们，再一次和他们道别。然后她抱着托托，闭上眼睛。“无论身在何方——家是最好的地方。”她说道，然后跳了一下。耳边只听见呼呼的风声，一眨眼多萝西就在半空里了。红鞋子掉了下去，她再也没见过它们。</p>
+<p class="normaltext">当她再次睁开眼睛时，发现已经回到了堪萨斯。她看见亨利舅舅和埃姆舅妈在一片田地里。田地边有一幢小小的新房子。</p>
+<p class="normaltext">“多萝西！”埃姆舅妈喊着，朝她跑来，一把把她搂在怀中。“噢，多萝西，发生了什么事？你从哪儿回来的？”</p>
+<p class="normaltext">“从奥兹国。”多萝西回答，“总算回家了——我太高兴了！”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-16" class="chapter-section">
+                <h2 class="chapter-title">“无论身在何方——家是最好的地方！”</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">6</span></p>
+<p class="title01">'East, west—home's best!'</p>
+<p class="normaltext">'Leave the dog and come quickly!' shouted the Wizard. 'The rope's going to break!'</p>
+<p class="normaltext">Dorothy picked Toto up and ran. 'Wait!' she shouted.</p>
+<p class="normaltext">But before she got there, the rope <em>did</em> break, and the balloon went up, up, up into the sky.</p>
+<p class="normaltext">They heard the old man's voice, very far away.</p>
+<p class="normaltext">'Ask the Witch of the So—o—o—outh.'</p>
+<p class="normaltext">Then the balloon disappeared. And nobody saw the Wizard of Oz again.</p>
+<p class="normaltext">Dorothy began to cry. 'Oh, how can I get home now?'</p>
+<p class="normaltext">'Put on the magic black hat,' said the Scarecrow, 'and ask the Magic Monkeys for help. Perhaps they can find the Witch of the South and bring her here.'</p>
+<p class="normaltext">'Clever Scarecrow!' said Dorothy. She put on the magic hat and called for the Magic Monkeys. When they arrived, she said, 'Please find the Witch of the South, and bring her here to the Emerald City.'</p>
+<p class="normaltext">And five minutes later, a beautiful woman with long red hair arrived. 'I am Glinda, the Witch of the South,' she said. 'What can I do for you, my child?'</p>
+<p class="normaltext">'I want to go home to Kansas,' said Dorothy. 'Please can you help me?'</p>
+<p class="picture"><img src="../../../Images/image07244.jpeg" alt="alt"/></p>
+<p class="normaltext">'Ask your shoes,' smiled the good Witch. But Dorothy did not understand.</p>
+<p class="normaltext">'Your red shoes,' said Glinda, 'are magic shoes. They can carry you home. Just close your eyes, and say, "East, west—home's best." Then jump.'</p>
+<p class="normaltext">'Oh, thank you,' cried Dorothy happily.</p>
+<p class="normaltext">She kissed her friends and said goodbye again. Then she picked up Toto and closed her eyes. 'East, west—home's best,' she said—and jumped. There was a noise like a wind, and suddenly Dorothy was in the sky. The red shoes fell off her feet, and she never saw them again.</p>
+<p class="normaltext">When she opened her eyes, there she was—back in Kansas. And there were Aunt Em and Uncle Henry, in a field by a new little house.</p>
+<p class="normaltext">'Dorothy!' cried Aunt Em. She ran and took Dorothy in her arms. 'Oh, Dorothy, what happened to you? And where did you come from?'</p>
+<p class="normaltext">'From the country of Oz,' said Dorothy. 'But I'm home again now—and I'm so happy!'</p>
+<p class="picture"><img src="../../../Images/image07245.jpeg" alt="alt"/></p>
+<hr/>
+<p class="normaltext0"><b>leave</b> <em>v. go away from (a person or place).</em> 离开（某人或某处）。</p>
+<p class="normaltext0"><b>clever</b> <em>adj. quick at learning and understanding things; intelligent.</em> 敏于学习和理解的；机灵的；聪明的；伶俐的。</p>
+<p class="normaltext0"><b>noise</b> <em>n. sound, esp. when it is loud, unpleasent, confused, or unwanted.</em> 声音，响声；（尤指）噪音，噪声，杂音。</p>
+<p class="normaltext0"><b>say goodbye</b> 与（某人）告别。</p>
+<div style="page-break-after:always"></div><p class="title2" id="mllj1"><em>6</em>．“无论身在何方——家是最好的地方！”</p>
+<p class="normaltext">“别追狗了，快来！”魔法师喊道，“绳子要断了！”</p>
+<p class="normaltext">多萝西抱起托托就跑。“等一等！”她喊道。</p>
+<p class="normaltext">可还没等她跑到那儿，绳子<span class="xx">就</span>断了。气球越飞越高，一直飞到天空中。</p>
+<p class="normaltext">他们听见老头儿的声音从远远的半空中传来。</p>
+<p class="normaltext">“去问问南——方——女——巫。”</p>
+<p class="normaltext">之后气球就消失了。从此再也没有人见过奥兹魔法师。</p>
+<p class="normaltext">多萝西哭了起来：“哦，我现在怎么回家呀？”</p>
+<p class="normaltext">“戴上黑魔帽，”稻草人说，“让魔猴来帮你。或许它们能找到南方女巫并把她带到这儿来。”</p>
+<p class="normaltext">“聪明的稻草人！”多萝西说。她戴上魔帽召唤魔猴。猴子们来了以后，她说：“去找南方女巫，把她带到绿宝石城来。”</p>
+<p class="normaltext">五分钟以后，一个长着一头红色长发的漂亮女人来了。她说：“我是南方女巫格琳达。”她说，“孩子，你想让我怎么帮你？”</p>
+<p class="normaltext">“我想回我的家乡堪萨斯去，请问你能帮我吗？”多萝西说。</p>
+<p class="normaltext">“让你的鞋子帮你吧。”善良的女巫笑着说。可是多萝西并不明白她的话。</p>
+<p class="normaltext">“你的红鞋，”格琳达说，“是魔鞋。它们能带你回家。闭上眼睛，说：‘无论身在何方——家是最好的地方。’然后跳一下。”</p>
+<p class="normaltext">“哦，谢谢你！”多萝西高兴地大叫。</p>
+<p class="normaltext">她吻了朋友们，再一次和他们道别。然后她抱着托托，闭上眼睛。“无论身在何方——家是最好的地方。”她说道，然后跳了一下。耳边只听见呼呼的风声，一眨眼多萝西就在半空里了。红鞋子掉了下去，她再也没见过它们。</p>
+<p class="normaltext">当她再次睁开眼睛时，发现已经回到了堪萨斯。她看见亨利舅舅和埃姆舅妈在一片田地里。田地边有一幢小小的新房子。</p>
+<p class="normaltext">“多萝西！”埃姆舅妈喊着，朝她跑来，一把把她搂在怀中。“噢，多萝西，发生了什么事？你从哪儿回来的？”</p>
+<p class="normaltext">“从奥兹国。”多萝西回答，“总算回家了——我太高兴了！”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-17" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES: Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea">ACTIVITIES</p>
+<hr/>
+<p class="titleb"><em>Before Reading</em></p>
+<p class="subtitle">1. Read the story introduction of the book. How much do you know now about the story? Tick one box for each sentence.</p>
+<p class="normaltextW">1) Dorothy wants to stay in Oz.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">2) Dorothy's brother is called Toto.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">3) There are four witches in Oz.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">4) The Wizard of Oz lives in the Emerald City.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">5) Dorothy makes three new friends in Oz.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">6) Dorothy's friends are children.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">7) The road to the Emerald City is green.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="subtitle">2. What is going to happen in the story? Can you guess? Tick one box for each sentence.</p>
+<p class="normaltextW">1) The witches are all bad women.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">2) The Wizard helps Dorothy and her friends.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">3) Dorothy kills someone.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">4) The Wizard kills someone.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">5) Dorothy goes home to Kansas.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextW">6) Dorothy's friends go to Kansas with her.</p>
+<p class="normaltext1">YES □／NO □</p>
+        
+                </div>
+            </section>
+            <section id="chapter-18" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES: While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea">ACTIVITIES</p>
+<hr/>
+<p class="titleb"><em>While Reading</em></p>
+<p class="subtitle">1. Read Chapter 1. Choose the correct words for this passage.</p>
+<p class="normaltext0">Dorothy lived in Kansas with her <em>mother and father/aunt and uncle</em>. Sometimes there was <em>bad weather / a bad animal</em> called a cyclone. When a cyclone came, people stayed in rooms <em>on top of / under</em> their houses. One day a cyclone came and blew <em>Dorothy and Toto / Aunt Em and Uncle Henry</em> and the house into the sky. They went to sleep and when they opened their eyes, they were in <em>Kansas/ Oz</em>. The house fell on the Witch of the <em>East / North</em> and killed her, so the people were very <em>happy / angry</em>. Dorothy took the Witch's red <em>shoes / hat</em>. She wanted to go home, and the good Witch said: 'You must ask the <em>Wizard / Witch</em> of Oz for help. Follow the <em>red / yellow</em> brick road to the Emerald City.'</p>
+<p class="subtitle">2. Read Chapter 2. Then match Dorothy's new friends with the sentences.</p>
+<p class="normaltext"><em>The Scarecrow / The Tin Man / The Cowardly Lion</em></p>
+<p class="normaltextW">1) ... is made of straw.</p>
+<p class="normaltextW">2) ... has no brains.</p>
+<p class="normaltextW">3) ... hasn't got a heart.</p>
+<p class="normaltextW">4) ... is afraid of fire.</p>
+<p class="normaltextW">5) ... has an axe.</p>
+<p class="normaltextW">6) ... is afraid of everything.</p>
+<p class="normaltextW">7) ... went out in the rain.</p>
+<p class="normaltextW">8) ... jumped across the river.</p>
+<p class="normaltextW">9) ... cut down a tree.</p>
+<p class="normaltextW0">10) ... made friends with Toto.</p>
+<p class="subtitle">3. Before you read Chapter 3, can you guess what happens? Choose the best ending for each sentence.</p>
+<p class="normaltextW">1) The Wizard is...</p>
+<p class="normaltext0a">(a) an animal.</p>
+<p class="normaltext0a">(b) a man.</p>
+<p class="normaltext0a">(c) a lot of different things.</p>
+<p class="normaltextW">2) The Wizard wants to see...</p>
+<p class="normaltext0a">(a) Dorothy, but not her friends.</p>
+<p class="normaltext0a">(b) the four friends together.</p>
+<p class="normaltext0a">(c) the four friends one by one.</p>
+<p class="normaltextW">3) The Wizard tells Dorothy...</p>
+<p class="normaltext0a">(a) to kill someone for him.</p>
+<p class="normaltext0a">(b) to get a lot of money for him.</p>
+<p class="normaltext0a">(c) to go away and never come back.</p>
+<p class="subtitle">4. Read Chapter 3, and then answer these questions.</p>
+<p class="normaltextW">1) What did everybody in the Emerald City wear?</p>
+<p class="normaltextW">2) What did Dorothy see on the green chair?</p>
+<p class="normaltextW">3) What did the Scarecrow, the Tin Man and the Lion see?</p>
+<p class="subtitle">5. Read Chapter 4. Choose the best question-word for these questions, and then answer them.</p>
+<p class="normaltext"><em>How / What / Where / Who / Why</em></p>
+<p class="normaltextW">1) ... called the Magic Monkeys to her?</p>
+<p class="normaltextW">2) ... many Monkeys were there?</p>
+<p class="normaltextW">3) ... did the Monkeys break?</p>
+<p class="normaltextW">4) ... did the Monkeys do to the Scarecrow?</p>
+<p class="normaltextW">5) ... did the Monkeys take the Lion?</p>
+<p class="normaltextW">6) ... couldn't the Monkeys hurt Dorothy and Toto?</p>
+<p class="normaltextW">7) ... did the Witch of the West want Dorothy's shoes?</p>
+<p class="normaltextW">8) ... did the Witch of the West die?</p>
+<p class="normaltextW">9) ... did Dorothy wear to call the Magic Monkeys?</p>
+<p class="normaltextW0">10) ... did Dorothy and her friends get back to the Emerald City?</p>
+<p class="subtitle">6. Read Chapter 5. Are these sentences true (T) or false (F)? Rewrite the false ones with the correct information.</p>
+<p class="normaltext">1) The Wizard was afraid of the green man,</p>
+<p class="normaltext">2) The Wizard was a beautiful woman.</p>
+<p class="normaltext">3) The Wizard knew a lot of true magic.</p>
+<p class="normaltext">4) The Wizard came from Kansas in a balloon.</p>
+<p class="normaltext">5) The Emerald City was green.</p>
+<p class="normaltext">6) The Wizard gave the Tin Man a heart.</p>
+<p class="normaltext">7) Toto ran after a cat.</p>
+<p class="subtitle">7. Before you read Chapter 6, can you guess what happens? Tick one box for each sentence.</p>
+<p class="normaltext">1) The Wizard disappears in the balloon.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">2) Dorothy and Toto get back into the balloon.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">3) Dorothy meets another witch.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext">4) The Magic Monkeys help Dorothy again.</p>
+<p class="normaltext1">YES □／NO □</p>
+        
+                </div>
+            </section>
+            <section id="chapter-19" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES: After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea">ACTIVITIES</p>
+<hr/>
+<p class="titleb"><em>After Reading</em></p>
+<p class="subtitle">1. What did Dorothy try to tell Aunt Em about Oz? Write out their conversation in the correct order and put in the speakers' names. Aunt Em speaks first (number 3).</p>
+<p class="normaltextW">1) ______ 'Oz? Where's that? Is it in Kansas?'</p>
+<p class="normaltextW">2) ______ 'A magic country? Are you feeling all right?'</p>
+<p class="normaltextW">3) ______ 'What happened to you, Dorothy? Where were you?'</p>
+<p class="normaltextW">4) ______ 'Magic shoes? But you aren't wearing any shoes!'</p>
+<p class="normaltextW">5) ______ 'I'm OK, really I am. I made some wonderful new friends in Oz. They helped me a lot.'</p>
+<p class="normaltextW">6) ______ 'I was in Oz.'</p>
+<p class="normaltextW">7) ______ 'No, it's a magic country, a long way from here.'</p>
+<p class="normaltextW">8) ______ 'No, they couldn't come with me. My magic shoes carried me.'</p>
+<p class="normaltextW">9) ______ 'Oh! How strange. Perhaps they fell off.'</p>
+<p class="normaltextW0">10) ______ 'That's nice. Where are your friends now? Did they bring you home?'</p>
+<p class="subtitle">2. Find words from the story to complete the sentences, and then the crossword (all words go across). Now can you find the eighth word going down?</p>
+<p class="normaltextW">1) The Monkeys put the Lion in the ______.</p>
+<p class="normaltextW">2) The ______ helped the wearer of the black hat.</p>
+<p class="normaltextW">3) The friends saw the Wizard when the ______ fell over.</p>
+<p class="normaltextW">4) The Wizard could do ______ but not true magic.</p>
+<p class="normaltextW">5) The Wizard came to Oz in a ______.</p>
+<p class="normaltextW">6) The road to the city was made of ______ bricks.</p>
+<p class="normaltextW">7) The old man was a good man but a bad______.</p>
+<p class="picture"><img src="../../../Images/image07246.jpeg" alt="alt"/></p>
+<p class="subtitle">3. Dorothy told Aunt Em about her friends, but when Aunt Em told Uncle Henry, she got a lot of things wrong. Can you find her mistakes and correct them?</p>
+<p class="normaltext0">'Dorothy met a scarecrow made of tin. He could eat and drink but he couldn't talk. He had no heart, so he couldn't think. Then she met a man made of straw. He couldn't see because he went out in the rain. So Dorothy got some glasses and helped him. But he wasn't happy because he had no brains. Then she met a lion. He was very brave, and often hurt people. They went to see the Wizard of Oz together. When they came to a very big river, the scarecrow cut down a tree with his pole and they all walked across it.'</p>
+<p class="subtitle">4. Here is a new illustration for the story. Find the best place in the story to put the picture, and answer these questions.</p>
+<p class="normaltext">The picture goes in Chapter ______.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextW">1) Who is wearing the magic hat, and why?</p>
+<p class="normaltextW">2) Who is coming out of the cellar?</p>
+<p class="normaltextW">3) What are the Monkeys going to do next?</p>
+<p class="normaltext"><br/></p>
+<p class="subtitle2">Now write a caption for the illustration.</p>
+<p class="picture"><img src="../../../Images/image07247.jpeg" alt="alt"/></p>
+<p class="normaltext"><em>Caption:</em> ________________________</p>
+<p class="subtitle">5. The Scarecrow, the Tin Man and the Lion didn't need the Wizard's help. Why not? Complete these sentences and then answer the question.</p>
+<p class="normaltextW">1) He thought of cutting down a ______ to cross the ______.</p>
+<p class="normaltextW">2) He didn't want to ______ animals, because he felt ______ for them.</p>
+<p class="normaltextW">3) He was ______ of falling, but he ______ across a river.</p>
+<p class="normaltext"><br/></p>
+<p class="subtitle2">So who was brave, who was clever, and who had a heart?</p>
+<p class="subtitle">6. Now say what you think. Answer these questions.</p>
+<p class="normaltextW">1) Is it better to have brains, to have a heart or to be ______ brave?</p>
+<p class="normaltextW">2) The Wizard said, 'You didn't need my magic. But you're all happy now, and that's a good thing.' Was he right?</p>
+<p class="normaltextW">3) Imagine that you can ask the Wizard for help. What are you going to ask for?</p>
+<p class="subtitle">7. What did you think about the people and animals in this story? Choose some names and complete these sentences. Use as many words as you like.</p>
+<p class="normaltext"><em>Dorothy / the Wizard of Oz / the Scarecrow / the Lion / the Tin Man / the Magic Monkeys / the Witch of the North</em></p>
+<p class="normaltextW">1) I liked ______ because ______.</p>
+<p class="normaltextW">2) I didn't like ______ because ______.</p>
+<p class="normaltextW">3) I felt sorry for ______ because/when ______.</p>
+<p class="normaltextW">4) I was angry with ______ because/when ______.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-20" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image07249.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

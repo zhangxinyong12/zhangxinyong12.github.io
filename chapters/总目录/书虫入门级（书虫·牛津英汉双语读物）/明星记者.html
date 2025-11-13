@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>明星记者 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '明星记者';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>明星记者</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">明星记者</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">Star Reporter　明星记者</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP1"><img src="../../../Images/image06921.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2" id="CHP2">京权图字：01-2013-7810</p>
+<p class="normaltext0">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext0">© Oxford University Press 2008</p>
+<p class="normaltext0">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">明星记者：英汉对照／（英）埃斯科特（Escott, J.）著；（英）伊拉斯谟（Erasmus, J.）绘；崔敏译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Star reporter</p>
+<p class="normaltext">ISBN 978-7-5135-3775-9</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①明…　Ⅱ．①埃…②伊…③崔…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272353号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">出版人　　蔡剑峰</p>
+<p class="normaltext0">责任编辑　田　娜</p>
+<p class="normaltext0">封面设计　蔡　颖</p>
+<p class="normaltext0">出版发行　外语教学与研究出版社</p>
+<p class="normaltext0">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext0">网　　址　http://www.fltrp.com</p>
+<p class="normaltext0">版　　次　2013年12月第1版</p>
+<p class="normaltext0">书　　号　ISBN 978-7-5135-3775-9</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">制售盗版必究　举报查实奖励</p>
+<p class="normaltext0">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP3">内容简介</h1>
+<p class="normaltextx">史蒂夫住在卡多，他爸爸是《卡多之星》报的编辑。可今天《卡多之星》的记者生病了，史蒂夫的爸爸想为本期周报寻找一些令人感兴趣的内容。“或许你可以帮我找一些。”他对史蒂夫说。史蒂夫能找到些什么呢？这周卡多有什么新鲜事？</p>
+<p class="normaltextx">史蒂夫的朋友乔说：“城里新来了一个女孩！她个子高挑，有着红色的头发和亲切的微笑……她叫玛丽埃塔。”</p>
+<p class="normaltextx">玛丽埃塔是谁？或许这可以成为史蒂夫为本期报纸提供的报道。但是他必须先遇到她——这可不太容易。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">CONTENTS<br/>目　录</div>
+<div class="contents1"><a href="part0314.xhtml#CHP3">内容简介</a></div>
+<div class="contents1"><a href="part0317.xhtml#CHP5">Star Reporter<br/>明星记者</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0318.xhtml#CHP6">GLOSSARY<br/>词汇表</a></div>
+<div class="contents1"><a href="part0319.xhtml#CHP7">ACTIVITIES<br/>阅读练习</a></div>
+<div class="contents1"><a href="part0320.xhtml#CHP8">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">Star Reporter　明星记者</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP5"><span class="xt">STAR REPORTER</span></h1>
+<p class="picture"><a href="part0320.xhtml#a1"><img src="../../../Images/image06922.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a2"><img src="../../../Images/image06923.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a3"><img src="../../../Images/image06924.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a4"><img src="../../../Images/image06925.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a5"><img src="../../../Images/image06926.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a6"><img src="../../../Images/image06927.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a7"><img src="../../../Images/image06928.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a8"><img src="../../../Images/image06929.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a9"><img src="../../../Images/image06930.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a10"><img src="../../../Images/image06931.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a11"><img src="../../../Images/image06932.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a12"><img src="../../../Images/image06933.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a13"><img src="../../../Images/image06934.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a14"><img src="../../../Images/image06935.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a15"><img src="../../../Images/image06936.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a16"><img src="../../../Images/image06937.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a17"><img src="../../../Images/image06938.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a18"><img src="../../../Images/image06939.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a19"><img src="../../../Images/image06940.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a20"><img src="../../../Images/image06941.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a21"><img src="../../../Images/image06942.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a22"><img src="../../../Images/image06943.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0320.xhtml#a23"><img src="../../../Images/image06944.jpeg" alt="alt"/></a></p>
+<p class="picture"><img src="../../../Images/image06945.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP6">GLOSSARY<br/>词汇表</h1>
+<p class="normaltext3a"><b>buy</b> <em>v.</em> give someone money for something　<span class="normaltext0x">买</span></p>
+<p class="normaltext3a"><b>camera</b> <em>n.</em> the thing you take photographs with　<span class="normaltext0x">照相机</span></p>
+<p class="normaltext3a"><b>editor</b> <em>n.</em> an editor's work is to get a newspaper ready to read　<span class="normaltext0x">编辑</span></p>
+<p class="normaltext3a"><b>fall</b> <em>v.</em> suddenly come down　<span class="normaltext0x">摔下；倒下</span></p>
+<p class="normaltext3a"><b>film</b> <em>n.</em> the thing you put in a camera to take photographs　<span class="normaltext0x">胶卷</span></p>
+<p class="normaltext3a"><b>gas</b> <em>n.</em> petrol; you put it in a car to make the car go　<span class="normaltext0x">汽油</span></p>
+<p class="normaltext3a"><b>hope</b> <em>v.</em> want something to happen later　<span class="normaltext0x">希望</span></p>
+<p class="normaltext3a"><b>librarian</b> <em>n.</em> a person who works in a library　<span class="normaltext0x">图书管理员</span></p>
+<p class="normaltext3a"><b>library</b> <em>n.</em> you can get books from a library, read them, and then take them back　<span class="normaltext0x">图书馆</span></p>
+<p class="normaltext3a"><b>maybe</b> <em>adv.</em> perhaps　<span class="normaltext0x">或许</span></p>
+<p class="normaltext3a"><b>newspaper</b> <em>n.</em> paper where you can read about the things that are happening every day　<span class="normaltext0x">报纸</span></p>
+<p class="normaltext3a"><b>reporter</b> <em>n.</em> someone who writes for a newspaper　<span class="normaltext0x">记者</span></p>
+<p class="normaltext3a"><b>sell</b> <em>v.</em> give someone something, and get money for it　<span class="normaltext0x">卖</span></p>
+<p class="normaltext3a"><b>shush</b> <em>inter.</em> a noise you say to make someone quiet　<span class="normaltext0x">嘘</span></p>
+<p class="normaltext3a"><b>wet</b> <em>adj.</em> covered with water　<span class="normaltext0x">湿的</span></p>
+<p class="normaltext3a"><b>world</b> <em>n.</em> every country is in the world　<span class="normaltext0x">世界</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">Star Reporter</h1>
+<hr/>
+<h1 class="title1" id="CHP7">ACTIVITIES<br/>阅读练习</h1>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em> Before Reading</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Look at the picture on the cover of the book. Now answer these questions.</p>
+<p class="normaltexta">1) Where do you think the story happens?</p>
+<p class="normaltextaa">a □ France.</p>
+<p class="normaltextaa">b □ South Africa.</p>
+<p class="normaltextaa">c □ America.</p>
+<p class="normaltextaa">d □ Japan.</p>
+<p class="normaltexta">2) Do you think the story is about...</p>
+<p class="normaltextaa">a □ ... young people?</p>
+<p class="normaltextaa">b □ ... old people?</p>
+<p class="normaltextaa">c □ ... children?</p>
+<p class="normaltext04">2 Read the <a href="part0322.xhtml">back cover</a> of the book. Do you think the story is...</p>
+<p class="normaltextaa">a □ ... frightening?</p>
+<p class="normaltextaa">b □ ... sad?</p>
+<p class="normaltextaa">c □ ... happy?</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em> While Reading</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Answer these questions.</p>
+<p class="normaltextaa">1) Who is the new girl in town?</p>
+<p class="normaltextaa">2) What is the <em>Cado Star</em>?</p>
+<p class="normaltextaa">3) What is Ned Reit's job?</p>
+<p class="normaltextaa">4) Who is ill?</p>
+<p class="normaltextaa">5) Where does Steve need to take some books?</p>
+<p class="normaltextaa">6) What does Marietta need to get for her camera?</p>
+<p class="normaltext04">2 Are these sentences true (T) or false (F)?</p>
+<p class="normaltextaa">1) Steve gets wet.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">2) Marietta takes some pictures of dogs.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltextaa">3) The children are waiting in the bookshop.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext04">3 Who says or thinks these words?</p>
+<p class="normaltextaa">1) 'it's Cado's weekly newspaper.'</p>
+<p class="normaltextaa">2) '... there's a nice face to go with my drink!'</p>
+<p class="normaltextaa">3) 'Next time, look at your drink, Steve, not at girls!'</p>
+<p class="normaltext04">4 Now answer these questions.</p>
+<p class="normaltextaa">1) Marietta goes to the <em>Cado Star </em>offices. Who does she see there?</p>
+<p class="normaltextaa">2) What does Marietta want to sell?</p>
+<p class="normaltextaa">3) Who sees Marietta coming out of the newspaper offices?</p>
+<p class="normaltextaa">4) Who has got a 1970 <em>Cado Star</em>?</p>
+<p class="normaltextaa">5) Who is living in the old Potter house?</p>
+<p class="normaltext04">5 Answer these questions.</p>
+<p class="normaltextaa">Who...</p>
+<p class="normaltextaa">a ... wants to write about Bud Ritchie?</p>
+<p class="normaltextaa">b ... likes Paris?</p>
+<p class="normaltexta">Where ...</p>
+<p class="normaltextaa">c ... are the 'biggest and most beautiful mountains in the world'?</p>
+<p class="normaltextaa">d ... is the cat?</p>
+<p class="normaltext04">6 Before you read the end of the story, can you guess what happens?</p>
+<p class="normaltextaa">1) Marietta climbs up the tree to get the cat and falls down.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">2) Steve falls into the water.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">3) The cat falls into the water.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">4) Bud Ritchie goes to work for the <em>Cado Star</em>.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">5) Marietta takes a photograph of Steve falling from the tree.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">6) Marietta sells a picture to the <em>Cado Star</em>.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltextaa">7) Marietta and Steve become friends.</p>
+<p class="normaltext1">YES □／NO □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em> After Reading</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Put these ten sentences in the right order.</p>
+<p class="normaltext0aa">a □ Marietta gets some film for her camera at the camera shop.</p>
+<p class="normaltext0aa">b □ Steve goes to the café to get a drink.</p>
+<p class="normaltext0aa">c □ Joe phones Steve to tell him that there's a new girl in town.</p>
+<p class="normaltext0aa">d □ Marietta goes to see Ned Reit at the <em>Cado Star</em> offices.</p>
+<p class="normaltext0aa">e □ Steve gets his picture in the <em>Cado Star</em>.</p>
+<p class="normaltext0aa">f □ Ned Reit tells Steve, 'Ted Seymour is ill. He can't work this week.'</p>
+<p class="normaltext0aa">g □ Steve falls out of the tree into the water.</p>
+<p class="normaltext0aa">h □ Marietta takes photographs of the children in the library.</p>
+<p class="normaltext0aa">i □ Pattie says, 'Next time look at your drink, Steve, not at girls!'</p>
+<p class="normaltext0aa">j □ Steve sees Wilbur Pickett's old 1970 <em>Cado Star</em>.</p>
+<p class="normaltext04">2 Look at these pictures, then answer the questions.</p>
+<p class="normaltextaa">Whose arm is this?</p>
+<p class="normaltextaa">What happens next?</p>
+<p class="normaltextaa"><img src="../../../Images/image06946.jpeg" alt="alt"/></p>
+<p class="normaltextaa">Who are these people?</p>
+<p class="normaltextaa">What are they looking at?</p>
+<p class="normaltextaa"><img src="../../../Images/image06947.jpeg" alt="alt"/></p>
+<p class="normaltextaa">What are these?</p>
+<p class="normaltextaa">What happens next?</p>
+<p class="normaltextaa"><img src="../../../Images/image06948.jpeg" alt="alt"/></p>
+<p class="normaltext04">3 Use these words to join the sentences together.</p>
+<p class="normaltext5"><em>but　　of　　and　　because</em></p>
+<p class="normaltextaa">1) Steve wants to meet Marietta. He thinks she's beautiful.</p>
+<p class="normaltextaa">2) Ned Reit needs something interesting to put in the <em>Cado Star</em>. His reporter is ill.</p>
+<p class="normaltextaa">3) Bud Ritchie is back in Cado. His old friend Wilbur Pickett wants to talk to him.</p>
+<p class="normaltextaa">4) Marietta takes some pictures. Some beautiful horses.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle" id="CHP8">TRANSLATION　参考译文</p>
+<p class="subtitle1">STAR REPORTER<br/>明星记者</p>
+<hr/>
+<p class="normaltext0x" id="a1">Hi, Joe …</p>
+<p class="normaltext0x">Hi, Steve! Listen, there's a new girl in town!</p>
+<p class="normaltext0x">A new girl? Tell me more.</p>
+<p class="normaltext0x">She's tall, with red hair and a nice smile, and … what? … Yes, I think her name is Marietta …</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">嗨，乔！</p>
+<p class="normaltext0x">嗨，史蒂夫！听着，城里新来了一个女孩！</p>
+<p class="normaltext0x">新来了一个女孩？给我好好说说。</p>
+<p class="normaltext0x">她个子高挑，有着红色的头发和亲切的微笑，而且……什么？……对了，我想她叫玛丽埃塔。</p>
+<hr/>
+<p class="normaltext0x" id="a2">Where can I find this girl? Come on, Joe, tell me. I'm your best friend.</p>
+<p class="normaltext0x">Who knows? Listen, I must go now. We're going away for two or three days and my father's waiting in the car. I hope she's here when I come back!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">我在哪儿可以找到这个女孩？快点，乔，告诉我！我是你最好的朋友。</p>
+<p class="normaltext0x">谁知道呢？听着，我现在必须要走了。我们要离开两三天，我爸爸正在车里等我。希望我回来的时候她在这儿！</p>
+<hr/>
+<p class="normaltext000" id="a3"><b>Steve's father, Ned Reit, is editor of the weekly newspaper, the <em>Cado Star</em></b>.</p>
+<p class="normaltext0x">Ted Seymour is ill. He can't work this week.</p>
+<p class="normaltext0x">Oh dear! And he's your only reporter.</p>
+<p class="normaltext0x">I need to find something interesting for this week's newspaper. Maybe you can find something for me, Steve.</p>
+<p class="normaltext0x">What? Oh, yes, maybe.</p>
+<p class="normaltext0x">Excuse me, I must go out.</p>
+<p class="normaltext0x">Don't forget to take those books back to the library.</p>
+<p class="normaltext0x">OK, later. I'm going to the shops first.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext000"><b>史蒂夫的爸爸内德·赖特是《卡多之星》周报的编辑。</b></p>
+<p class="normaltext0x">特德·西摩生病了，这周都不能来上班。</p>
+<p class="normaltext0x">老天！他是你唯一的记者。</p>
+<p class="normaltext0x">我需要为这期报纸找一些令人感兴趣的内容。或许你可以帮我找一些，史蒂夫。</p>
+<p class="normaltext0x">什么？哦，也许能吧。</p>
+<p class="normaltext0x">失陪了，我得出去了。</p>
+<p class="normaltext0x">别忘了把那些书还给图书馆。</p>
+<p class="normaltext0x">好的，稍后就去。我要先去商店。</p>
+<hr/>
+<p class="normaltext0x" id="a4">I want to get some good pictures today, but first I must get a film for my camera.</p>
+<p class="normaltext0x">Who is she? Is it the new girl in town?</p>
+<p class="normaltext0x">Joe's right. She's very beautiful, and … oh no!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">今天我想拍一些精彩的照片，不过得先给照相机买卷胶卷。</p>
+<p class="normaltext0x">她是谁？是城里新来的女孩吗？</p>
+<p class="normaltext0x">乔说得对。她很漂亮，而且……哦，不好！</p>
+<hr/>
+<p class="normaltext0x" id="a5">Can I help you?</p>
+<p class="normaltext0x">I need some film for my camera.</p>
+<p class="normaltext0x">There she is again!</p>
+<p class="normaltext0x">Where is she?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">您买点儿什么？</p>
+<p class="normaltext0x">我想买些照相机胶卷。</p>
+<p class="normaltext0x">她也在这儿！</p>
+<p class="normaltext0x">她去哪儿了？</p>
+<hr/>
+<p class="normaltext0x" id="a6">Now, where can I get some good photographs? Something I can sell to a newspaper, maybe.</p>
+<p class="normaltext0x">I don't like this. My jeans are all wet!</p>
+<p class="normaltext0x">I need some gas.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">嗯，我去哪儿才能拍到一些好照片呢？或许拍些可以卖给报社的照片。</p>
+<p class="normaltext0x">我不喜欢这样。我的牛仔裤都湿透了。</p>
+<p class="normaltext0x">我得去加油了。</p>
+<hr/>
+<p class="normaltext0x" id="a7">What beautiful horses! Maybe I can sell this photograph.</p>
+<p class="normaltext0x">What's the matter with you? What are you doing?</p>
+<p class="normaltext0x">Sorry, I …</p>
+<p class="normaltext0x">Who is that boy?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">好漂亮的马呀！或许这张照片我可以拿去卖。</p>
+<p class="normaltext0x">你怎么回事？你在干什么？</p>
+<p class="normaltext0x">对不起，我……</p>
+<p class="normaltext0x">那个男孩是谁？</p>
+<hr/>
+<p class="normaltext0x" id="a8">What's happening at the library? Oh, it's a reading day. The librarian is reading to the children in a minute. Maybe I can get some good pictures.</p>
+<p class="normaltext0x">I must take my library books back.</p>
+<p class="normaltext0x">Is that her car?</p>
+<p class="normaltext0x">Where is she?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">图书馆有什么活动？哦，今天是读书日。图书管理员马上要给孩子们读书了。也许我可以拍到一些不错的照片。</p>
+<p class="normaltext0x">我必须把书还回图书馆。</p>
+<p class="normaltext0x">那是她的车吗？</p>
+<p class="normaltext0x">她在哪儿？</p>
+<hr/>
+<p class="normaltext0x" id="a9">Can I take some pictures?</p>
+<p class="normaltext0x">Yes, that's OK. Maybe you can sell them to the <em>Cado Star</em>.</p>
+<p class="normaltext0x">What's the <em>Cado Star</em>?</p>
+<p class="normaltext0x">It's Cado's weekly newspaper.</p>
+<p class="normaltext0x">That's interesting.</p>
+<p class="normaltext0x">There she is! What's she doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">我可以拍一些照片吗？</p>
+<p class="normaltext0x">好，没问题。也许你可以把照片卖给《卡多之星》。</p>
+<p class="normaltext0x">《卡多之星》是什么？</p>
+<p class="normaltext0x">是卡多本地的周报。</p>
+<p class="normaltext0x">有意思。</p>
+<p class="normaltext0x">她在那儿！她在干什么？</p>
+<hr/>
+<p class="normaltext0x" id="a10">Oh! What's …!</p>
+<p class="normaltext0x">That makes a good picture!</p>
+<p class="normaltext0x">Now, where can I get a drink?</p>
+<p class="normaltext0x">There's a café across the street. I can get a drink there.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">哦，真是……！</p>
+<p class="normaltext0x">这是一张好照片！</p>
+<p class="normaltext0x">嗯，我去哪儿喝点东西呢？</p>
+<p class="normaltext0x">马路对面有一家咖啡馆。我可以去那儿喝点东西。</p>
+<hr/>
+<p class="normaltext0x" id="a11">I need a drink after that. Oh, and there's a nice face to go with my drink!</p>
+<p class="normaltext0x">Hi, Steve.</p>
+<p class="normaltext0x">Hi, Pattie. Bring me an orange juice, please.</p>
+<p class="normaltext0x">Shall I tell her that my Dad is editor of the <em>Cado Star</em>?</p>
+<p class="normaltext0x">Oh, no!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">我想喝点东西压压惊。哇！我喝东西时还能欣赏到一张漂亮的脸！</p>
+<p class="normaltext0x">你好，史蒂夫。</p>
+<p class="normaltext0x">你好，帕蒂。请给我一杯橙汁。</p>
+<p class="normaltext0x">我应该告诉她我爸爸是《卡多之星》的编辑吗？</p>
+<p class="normaltext0x">哦，不！</p>
+<hr/>
+<p class="normaltext0x" id="a12">Next time, look at your drink, Steve, not at girls!</p>
+<p class="normaltext0x">Shush, Pattie!</p>
+<p class="normaltext0x">How can I get to the <em>Cado Star</em> offices? Are they far away?</p>
+<p class="normaltext0x">No, they're in the next street. About five minutes' walk.</p>
+<p class="normaltext0x">Thanks.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">下次看着你的饮料，史蒂夫，别老盯着女孩！</p>
+<p class="normaltext0x">嘘，帕蒂！</p>
+<p class="normaltext0x">到《卡多之星》报社怎么走？离这儿远吗？</p>
+<p class="normaltext0x">不远，就在另一条街上。大概走五分钟就到了。</p>
+<p class="normaltext0x">谢谢。</p>
+<hr/>
+<p class="normaltext0x" id="a13">Good morning. Can I help you?</p>
+<p class="normaltext0x">Do you buy photographs for the newspaper?</p>
+<p class="normaltext0x">Yes, but they must be interesting. Why? Do you have some?</p>
+<p class="normaltext0x">Maybe. When do you need them for this week's newspaper?</p>
+<p class="normaltext0x">By tomorrow.</p>
+<p class="normaltext0x">OK.</p>
+<p class="normaltext0x">She's coming out of Dad's office!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">早上好。你有事吗？</p>
+<p class="normaltext0x">你们报纸买照片吗？</p>
+<p class="normaltext0x">买啊，不过照片必须有趣。怎么？你有照片要卖吗？</p>
+<p class="normaltext0x">也许有一些。你们什么时候要这周报纸的照片？</p>
+<p class="normaltext0x">截止到明天。</p>
+<p class="normaltext0x">好的。</p>
+<p class="normaltext0x">她从爸爸的办公室出来了！</p>
+<hr/>
+<p class="normaltext0x" id="a14">Who's that girl?</p>
+<p class="normaltext0x">She wants to sell me some photographs for the newspaper, I think.</p>
+<p class="normaltext0x">Oh!</p>
+<p class="normaltext0x">Is she coming back?</p>
+<p class="normaltext0x">How do I know? Why?</p>
+<p class="normaltext0x">Oh, nothing. It doesn't matter.</p>
+<p class="normaltext0x">I need something interesting for my newspaper, Steve. Forget about girls and try and find me something!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">那个女孩是谁？</p>
+<p class="normaltext0x">我想她是想卖给我一些报纸照片。</p>
+<p class="normaltext0x">哦！</p>
+<p class="normaltext0x">她会回来吗？</p>
+<p class="normaltext0x">我怎么知道？怎么了？</p>
+<p class="normaltext0x">哦，没事。没什么。</p>
+<p class="normaltext0x">我的报纸需要一些有意思的内容，史蒂夫。不要总惦记着女孩，想办法给我找些素材！</p>
+<hr/>
+<p class="normaltext0x" id="a15">Hi, Mr Pickett!</p>
+<p class="normaltext0x">Hi, Steve. Come and talk to me for a minute. There is something I want you to see.</p>
+<p class="normaltext0x">Look, Steve. This is an old <em>Cado Star</em>, from 1970. I've got a lot of old <em>Stars</em> and I like to read them sometimes.</p>
+<p class="normaltext0x">That's interesting, Mr Pickett.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">你好，皮克特先生！</p>
+<p class="normaltext0x">你好，史蒂夫！过来和我聊一会儿。我想给你看点东西。</p>
+<p class="normaltext0x">瞧，史蒂夫，这是一份1970年的《卡多之星》旧报纸。我有很多份《卡多之星》旧报纸，我喜欢偶尔拿出来看一看。</p>
+<p class="normaltext0x">有意思，皮克特先生。</p>
+<hr/>
+<p class="normaltext0x" id="a16">Read this about my old school friend, Bud Ritchie. He's a writer.</p>
+<p class="normaltext0x">People tell me that Bud is back in Cado. He's living in the old Potter house. I want to phone him later. Maybe he can come and tell me all about his time away.</p>
+<p class="normaltext0x">I need something interesting for my newspaper.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">看看这一篇讲的是我念书时的好朋友巴德·里奇。他是个作家。</p>
+<p class="normaltext0x">有人告诉我巴德回到了卡多。他住在老波特屋里。我打算回头给他打个电话。或许他会来这儿给我好好讲讲他在外面的日子。</p>
+<p class="normaltext0x">我的报纸需要一些有意思的内容。</p>
+<hr/>
+<p class="normaltext0x" id="a17">Can I have that newspaper for a day or two, Mr Pickett?</p>
+<p class="normaltext0x">Yes, here you are.</p>
+<p class="normaltext0x">Maybe I can write about Bud Ritchie's return. I must try and make Dad happy.</p>
+<p class="normaltext0x">Excuse me, are you Mr Ritchie?</p>
+<p class="normaltext0x">Yes, that's right.</p>
+<p class="normaltext0x">Oh, that's interesting! I can remember that. And now I'm back in dear old Cado again.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">您的报纸可以借我一两天吗，皮克特先生？</p>
+<p class="normaltext0x">没问题，给你。</p>
+<p class="normaltext0x">或许我可以写写巴德·里奇回来的事。我得想办法让爸爸开心。</p>
+<p class="normaltext0x">打扰了，请问您是里奇先生吗？</p>
+<p class="normaltext0x">是的，没错。</p>
+<p class="normaltext0x">哦，太有趣了！我还记得这篇报道。现在我又回到了亲爱的老卡多。</p>
+<hr/>
+<p class="normaltext0x" id="a18">Can I ask you some questions about your time away, Mr Ritchie? And your writing?</p>
+<p class="normaltext0x">Yes, of course. What are you? A newspaper reporter?</p>
+<p class="normaltext0x">My father is editor of the <em>Cado Star</em>. His only reporter is ill, and he needs something interesting for this week's paper.</p>
+<p class="normaltext0x">Am I interesting? Yes, maybe I am.</p>
+<p class="normaltext000"><b> Steve asks Mr Ritchie for paper and pen, and then Mr Ritchie begins to tell him about his time away.</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">我可以问问您离开的那段时间的事吗，里奇先生？还有您的写作。</p>
+<p class="normaltext0x">当然可以。你是做什么的？报社记者？</p>
+<p class="normaltext0x">我爸爸是《卡多之星》的编辑。他唯一的记者生病了，他得为本周的报纸找一些有趣的内容。</p>
+<p class="normaltext0x">我有趣吗？或许是吧。</p>
+<p class="normaltext000"><b>史蒂夫向里奇先生要来了纸和笔，然后里奇先生开始讲述他离开的那段日子。</b></p>
+<hr/>
+<p class="normaltext0x" id="a19">The Himalayas are the biggest and most beautiful mountains in the world, Steve …</p>
+<p class="normaltext0x">I like Paris. It's exciting …</p>
+<p class="normaltext0x">You must go to Africa, one day, Steve …</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">喜马拉雅山脉是世界上最大最美丽的山脉，史蒂夫……</p>
+<p class="normaltext0x">我喜欢巴黎。那里让人兴奋……</p>
+<p class="normaltext0x">你将来一定要去趟非洲，史蒂夫……</p>
+<hr/>
+<p class="normaltext000" id="a20">Across the street, a cat is climbing up a tree.</p>
+<p class="normaltext0x">… and India is a most interesting country. The people there are …</p>
+<p class="normaltext0x">Excuse me, Mr Ritchie, but there's a cat in that tree. It can't get down.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext000">街对面，一只猫正在爬树。</p>
+<p class="normaltext0x">……印度是一个特别有趣的国家。那里的人……</p>
+<p class="normaltext0x">不好意思，里奇先生。那棵树上有一只猫。它下不来了。</p>
+<hr/>
+<p class="normaltext0x" id="a21">Oh, dear.</p>
+<p class="normaltext0x">It's OK, I can get it down.</p>
+<p class="normaltext0x">Be careful!</p>
+<p class="normaltext0x">Oh no! I'm falling!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">哦，天哪！</p>
+<p class="normaltext0x">没事，我可以把它弄下来。</p>
+<p class="normaltext0x">小心！</p>
+<p class="normaltext0x">哦，不！我掉下来了！</p>
+<hr/>
+<p class="normaltext0x" id="a22">Here, give me your hand.</p>
+<p class="normaltext0x">Oh! Thanks.</p>
+<p class="normaltext0x">You're not having a good day!</p>
+<p class="normaltext0x">No, I'm not.</p>
+<p class="normaltext0x">The cat is OK.</p>
+<p class="normaltext0x">This is Marietta, my daughter.</p>
+<p class="normaltext0x">Your daughter!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">嘿，把手给我。</p>
+<p class="normaltext0x">哦！谢谢。</p>
+<p class="normaltext0x">你今天过得不怎么样啊！</p>
+<p class="normaltext0x">是啊，不怎么样。</p>
+<p class="normaltext0x">猫没事。</p>
+<p class="normaltext0x">这是玛丽埃塔，我女儿。</p>
+<p class="normaltext0x">您女儿！</p>
+<hr/>
+<p class="normaltext0x" id="a23">Yes. Marietta, this is Steve Reit. His father is editor of the <em>Cado Star</em>.</p>
+<p class="normaltext0x">I think I've got a good picture. Maybe I can sell it to your father!</p>
+<p class="normaltext000"><b>A week later …</b></p>
+<p class="normaltext0x">You take good photographs, Marietta.</p>
+<p class="normaltext0x">And you're a good newspaper reporter, Steve.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0x">是。玛丽埃塔，这是史蒂夫·赖特。他爸爸是《卡多之星》的编辑。</p>
+<p class="normaltext0x">我想我拍到了一张好照片。或许可以卖给你爸爸！</p>
+<p class="normaltext000"><b>一周后……</b></p>
+<p class="normaltext0x">你的照片拍得不错，玛丽埃塔。</p>
+<p class="normaltext0x">你是个不错的新闻记者，史蒂夫。</p>
+<hr/>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP9"><img src="../../../Images/image06950.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时空异客 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '时空异客';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>时空异客</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">时空异客</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">STARMAN</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">Starman</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="mllj1"><img src="../../../Images/image06952.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字：01-2013-7816</p>
+<p class="normaltext0">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext0">© Oxford University Press 2008</p>
+<p class="normaltext0">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">时空异客：英汉对照／（英）伯罗斯（Burrows，P.），（英）福斯特（Foster，M.）著；张蘅译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Starman</p>
+<p class="normaltext">ISBN 978-7-5135-3771-1</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①时…　Ⅱ．①伯…　②福…　③张…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第271152号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">出版人　　蔡剑峰</p>
+<p class="normaltext0">责任编辑　张红岩</p>
+<p class="normaltext0">封面设计　蔡　颖</p>
+<p class="normaltext0">出版发行　外语教学与研究出版社</p>
+<p class="normaltext0">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext0">网　　址　http://www.fltrp.com</p>
+<p class="normaltext0">版　　次　2013年12月第1版</p>
+<p class="normaltext0">书　　号　ISBN 978-7-5135-3771-1</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">制售盗版必究　举报查实奖励</p>
+<p class="normaltext0">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">内容简介</p>
+<p class="normaltextx">太阳火辣辣的——你开着车，行驶在澳大利亚中部一条长长的公路上。</p>
+<p class="normaltextx">突然，你看到一个男子站在公路中央。他穿着高档的西服、体面的鞋子，但他不说话——一个字都不说。</p>
+<p class="normaltextx">你的车里有一把枪——你要怎么办？你必须小心！但你不能把他丢在这个炎热、荒无人烟的地方——方圆几百公里之内什么都没有——没有水，也没有吃的。</p>
+<p class="normaltextx">但那儿有别的东西——沃拉隆加附近的天空中有一道强烈的白光。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">STARMAN</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">STARMAN</p>
+<p class="normaltext0">The sun is hot, hot, hot – you are driving along a long, long road in the centre of Australia.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">Suddenly you see a man standing in the middle of the road. He is wearing an expensive suit and nice shoes, but he doesn't speak – not one word.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">You have a gun in your car – what do you do? You must be careful! But you can't leave him here – there is nothing for hundreds of kilometres around – no water or food in this hot, empty place.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext0">But there is something else out there – a very white light in the sky near Wolalonga.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">CONTENTS<br/>目　录</div>
+  <div class="contents1"><a href="part0326.xhtml">内容简介</a></div>
+  <div class="contents1"><a href="part0329.xhtml">Starman</a></div>
+<p class="normaltext"><br/></p>
+  <div class="contents1"><a href="part0330.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="contents1"><a href="part0331.xhtml">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="contents1"><a href="part0332.xhtml">TRANSLATION<br/>参考译文</a></div>
+ <p class="normaltext"><br/></p>
+ <div class="contents1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<p class="normaltext">“书虫”<b>免费</b>增值服务上线！</p>
+<p class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</p>
+<p class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">Starman</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">STARMAN</p>
+<p class="normaltext0">A big red car drives on a long, long road. In the car is a farmer, Bill. He is hot and tired. He wants to go home and have a bath.</p>
+<p class="normaltext">Bill listens to the radio in his car and he sings. Bill likes singing. Sometimes people like Bill's singing – but not very often.</p>
+<p class="normaltext">The song he is singing is called <span class="xt">Hot, hot, hot</span>.</p>
+<p class="picture"><img src="../../../Images/image06953.jpeg" alt="alt"/></p>
+<p class="normaltext">There is a sign on the side of the road. Bill reads it: Goondiwindi, 72 kilometres. Dirranbandi 136 kilometres. Bill must drive for a long time. His home is about a hundred kilometres away.</p>
+<p class="normaltext">He rubs his eyes. The sun is very hot and the road is long. Bill does not want to go to sleep so he sings some more. A kangaroo hears him and jumps away. Bill laughs, then rubs his eyes again.</p>
+<p class="picture"><img src="../../../Images/image06954.jpeg" alt="alt"/></p>
+<p class="normaltext">Just then Bill sees something. Suddenly he is not tired and he is not laughing. The hair on his head stands up. There is something on the road.</p>
+<p class="normaltext">He stops the car and gets out. The thing is a long way in front of Bill. He cannot see what it is – but he does not like it.</p>
+<p class="normaltext">Bill gets back in his car and drives slowly. The thing is moving – it is alive.</p>
+<p class="normaltext">'What the...' Bill says quietly. 'It's a man! What's a man doing here?'</p>
+<p class="normaltext">He thinks, 'There must be something wrong.'</p>
+<p class="picture"><img src="../../../Images/image06955.jpeg" alt="alt"/></p>
+<p class="normaltext">Bill stops his car ten metres from the man and looks out.</p>
+<p class="normaltext">'Hello,' says Bill. 'Are you OK? Are you looking for something?'</p>
+<p class="normaltext">The man does not move or speak. He is looking at the sky and smiling unhappily. Bill looks up too. He can see nothing.</p>
+<p class="normaltext">There is a gun in Bill's car. He looks at it. 'I must be careful,' he thinks.</p>
+<p class="picture"><img src="../../../Images/image06956.jpeg" alt="alt"/></p>
+<p class="normaltext">Bill drives five more metres. He can see that the man is about forty years old. He is wearing a good suit – but it is old.</p>
+<p class="normaltext">'Hey! Are you OK?' Bill asks again. 'Can I help you?'</p>
+<p class="normaltext">The man moves his head slowly to look at Bill. He says nothing then begins to walk. Bill watches him for a minute. He thinks, 'I must do something.'</p>
+<p class="picture"><img src="../../../Images/image06957.jpeg" alt="alt"/></p>
+<p class="normaltext">'Where are you going?' shouts Bill. 'There's nothing on that road. Do you have any water? The sun's very hot. Can you hear me?'</p>
+<p class="normaltext">Bill does not know what to do. He cannot leave the man here. 'What is wrong with him?' he thinks. 'Is he ill?'</p>
+<p class="normaltext">A lizard runs across the road. A big bird flies near the man. It looks down, hungrily. Near the road are some bones – a dead kangaroo.</p>
+<p class="picture"><img src="../../../Images/image06958.jpeg" alt="alt"/></p>
+<p class="normaltext">Bill is afraid – but he cannot drive away and leave the man.</p>
+<p class="normaltext">The man looks very tired so Bill drives two more metres. 'Do you want to die out here?' There is no answer. 'Get in! I'm taking you home,' says Bill.</p>
+<p class="normaltext">He opens the car door and gets out. He moves very slowly and talks very quietly. 'It's okay. You can come with me. Get in the car and sit down. I have some water in the car.'</p>
+<p class="normaltext">Bill helps the man and he gets into the car. He is very dirty and tired. Bill gives him a drink. The man is thirsty and drinks a lot of water. 'Stop!' says Bill. 'Don't drink all the water. A little now, then more later.'</p>
+<p class="picture"><img src="../../../Images/image06959.jpeg" alt="alt"/></p>
+<p class="normaltext">The car drives fast on the long, straight road. The two men sit and say nothing.</p>
+<p class="normaltext">Bill listens to the news on the radio. There is rain in Adelaide. A man in Sydney is 125 years old today. A kangaroo is learning to talk. And a very white light is in the sky near Wolalonga.</p>
+<p class="normaltext">Bill likes the news. Next to him, the man sleeps.</p>
+<p class="normaltext">Bill looks at him. The man wears an expensive suit and nice shoes. Why is he out here in the sun, without a hat?</p>
+<p class="normaltext">They drive for an hour before they get to Bill's house.</p>
+<p class="picture"><img src="../../../Images/image06960.jpeg" alt="alt"/></p>
+<p class="normaltext">Bill leaves the man asleep in the car. He goes into the house and tells his wife, Emily, about the man. Emily always knows what to do. 'We must find out who he is then phone his home,' she says. 'Let's look in his pockets. Perhaps there is something with his name on it.'</p>
+<p class="normaltext">Bill and Emily go to the car. They find a wallet in the man's pocket. There is a name – John Phillips – and a telephone number. There is also some money.</p>
+<p class="normaltext">'This money is twenty-five years old!' says Bill to Emily. 'Why has he got old money?'</p>
+<p class="normaltext">'John Phillips,' says Emily to the man. 'You're very interesting.' John suddenly opens his eyes and looks at her, smiling.</p>
+<p class="picture"><img src="../../../Images/image06961.jpeg" alt="alt"/></p>
+<p class="normaltext">'Can you walk?' Emily asks John. He gets up slowly. 'You're ill. Let's put you into a bed.' Carefully, they help John out of the car.</p>
+<p class="normaltext">Bill's dog sees John and is afraid. He runs away and sits under a tree. Bill and Emily help John upstairs and onto a bed. Ten minutes later he is sleeping again.</p>
+<p class="picture"><img src="../../../Images/image06962.jpeg" alt="alt"/></p>
+<p class="normaltext">In the kitchen, Emily says: 'I don't understand this... It's not right. He's different... It's... Oh, I don't know...'</p>
+<p class="normaltext">'I don't want him in our house. I am afraid of him,' says Bill.</p>
+<p class="normaltext">'I know. I'm afraid, too. Let's call the Flying Doctor,' says Emily. 'Then we must talk to his family.'</p>
+<p class="picture"><img src="../../../Images/image06963.jpeg" alt="alt"/></p>
+<p class="normaltext">Bill picks up the telephone and calls the doctor. He tells the doctor about John Phillips. 'I think he's ill. He's very tired and doesn't talk. He doesn't know who he is. Can you come quickly?'</p>
+<p class="normaltext">The doctor lives about two hundred kilometres away. He must fly a plane to visit Bill. 'I'm coming now,' he says. 'Look out for me in half an hour.'</p>
+<p class="picture"><img src="../../../Images/image06964.jpeg" alt="alt"/></p>
+<p class="normaltext">Bill puts the phone down. 'Okay. Let me talk to his wife,' says Emily. She takes the phone and calls the number. Somebody answers and Emily talks for a long time.</p>
+<p class="normaltext">Bill hears her say: 'But he <em>is</em> here... No, it <em>is</em> John Phillips. We have his wallet – his name is in it... Hello! Hello! Are you there?... Oh. What? When?... I don't understand... Okay. Thank you. Goodbye.' When she stops talking, her face is white.</p>
+<p class="normaltext">She looks at Bill and says: 'This is all wrong. "John Phillips is missing," his wife says.'</p>
+<p class="normaltext">'For how long?' says Bill.</p>
+<p class="normaltext">'Thirty years,' says Emily. 'His wife has a new husband now. They have three children!'</p>
+<p class="picture"><img src="../../../Images/image06965.jpeg" alt="alt"/></p>
+<p class="normaltext">The Flying Doctor is late. After an hour he arrives in his plane.</p>
+<p class="normaltext">'I'm sorry,' he says. 'This is a new plane – but sometimes it doesn't go very well. I must take it to a mechanic. But it doesn't matter now. I'm here.'</p>
+<p class="normaltext">Bill tells him everything. The doctor asks a lot of questions, then goes to see the man. John Phillips is looking at the plane through the window.</p>
+<p class="normaltext">'Hello, John,' says the doctor. 'I'm a doctor and I need to ask you some questions. Can you remember your name? Can you remember where you live?' John does not answer.</p>
+<p class="normaltext">The doctor talks to Bill and Emily. He says: 'John hasn't got any broken bones... but I'm not happy about him. I want to take him to hospital.'</p>
+<p class="picture"><img src="../../../Images/image06966.jpeg" alt="alt"/></p>
+<p class="normaltext">They put John in the plane next to the doctor. 'Phone us,' says Emily when the doctor gets in the plane. 'Phone us from the hospital.' Soon the doctor and John Phillips are high in the sky.</p>
+<p class="normaltext">Suddenly John speaks for the first time. He talks slowly: 'I don't want to be here. I want to be with my friends. They are looking for me.'</p>
+<p class="picture"><img src="../../../Images/image06967.jpeg" alt="alt"/></p>
+<p class="normaltext">John stands up in the plane.</p>
+<p class="normaltext">'Wait, you can't do that,' says the doctor. 'Sit down!'</p>
+<p class="normaltext">John opens the door and says to the doctor: 'You can come too. Do you want to?'</p>
+<p class="normaltext">'What?' shouts the doctor.</p>
+<p class="picture"><img src="../../../Images/image06968.jpeg" alt="alt"/></p>
+<p class="normaltext">John looks into the doctor's eyes. The doctor cannot move. He cannot look away. It is cold in the plane but the doctor is hot. John's eyes are looking straight through him.</p>
+<p class="normaltext">'Come with me. It's a good place. It's better than here.'</p>
+<p class="normaltext">'How can I?' says the doctor quietly. Then John jumps.</p>
+<p class="picture"><img src="../../../Images/image06969.jpeg" alt="alt"/></p>
+<p class="normaltext">The doctor looks out of the window. John is falling – down, down, down. But the doctor can see a smile on his face.</p>
+<p class="normaltext">'He isn't going to die,' thinks the doctor. 'He knows that.'</p>
+<p class="normaltext">There are small trees below the plane. Cars drive on a long road. Kangaroos jump all around. John is very small now and he is falling fast.</p>
+<p class="picture"><img src="../../../Images/image06970.jpeg" alt="alt"/></p>
+<p class="normaltext">John is twenty metres above the trees. A kangaroo looks up, but John is not falling any more. A beam of light stops him and takes him away. Up, up, up.</p>
+<p class="normaltext">The doctor closes his eyes. The light is very, very white. When he opens his eyes the light is not there. John is not there. The doctor sees something in the sky. Then there is nothing.</p>
+<p class="normaltext">He is very unhappy – more unhappy than ever. 'I want to go too!' he says.</p>
+<p class="picture"><img src="../../../Images/image06971.jpeg" alt="alt"/></p>
+<p class="normaltext">Roy Cole is a mechanic and he works in an airport. Today he is happy. The sun is nice and warm. Tomorrow is Saturday, and this weekend Roy is buying a new car. He is excited.</p>
+<p class="normaltext">He is eating a sandwich when he hears the plane. He looks up and sees it in the sky. The plane is coming to the airport. It gets very near. In the plane, Roy can see a man.</p>
+<p class="normaltext">'Who is this?' thinks Roy. 'I don't know this plane.' He puts his sandwich in his pocket.</p>
+<p class="picture"><img src="../../../Images/image06972.jpeg" alt="alt"/></p>
+<p class="normaltext">The plane stops at the airport and a man gets out. Roy begins to walk across to him.</p>
+<p class="normaltext">The man stands still and looks at the sky. There is a small smile on his face. His suit is dirty and he looks tired.</p>
+<p class="normaltext">'Oh dear!' thinks Roy. 'What's the matter with him?'</p>
+<p class="picture"><img src="../../../Images/image06973.jpeg" alt="alt"/></p>
+<p class="normaltext">Roy likes to talk to people. He smiles, then talks to the man. 'Perhaps I can help him,' he thinks.</p>
+<p class="normaltext">'Hi, I'm Roy. Who are you?' Roy puts his hand out but the man does not move. Roy puts his hand in his pocket and looks at the plane.</p>
+<p class="picture"><img src="../../../Images/image06974.jpeg" alt="alt"/></p>
+<p class="normaltext">Roy says to the man, 'Wow! What a wonderful plane. It's more than thirty years old. It's an old Flying Doctor's plane, isn't it?'</p>
+<p class="normaltext">Suddenly the man looks at Roy and says: 'Flying Doctor. Yes, that's right. I'm a Flying Doctor.'</p>
+<p class="normaltext">'A Flying Doctor? Of course you are,' says Roy with a smile. 'Where do you live? Where do you want to go?'</p>
+<p class="picture"><img src="../../../Images/image06975.jpeg" alt="alt"/></p>
+<p class="normaltext">The doctor begins to get into the plane again. Then he stops and looks into Roy's eyes. Roy hears him say: 'I live a long way away now. I must go back. Do you want to come with me?'</p>
+<p class="normaltext">Suddenly Roy feels hot. The doctor's eyes are looking straight through him. 'How can I?' says Roy.</p>
+<p class="normaltext">'I can help you. Get in my plane,' says the doctor.</p>
+<p class="picture"><img src="../../../Images/image06976.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">GLOSSARY　词汇表</p>
+<p class="normaltext3"><b>bath</b> <span class="xt">n</span>. sit in water and wash your body　<span class="normaltext0x">洗澡</span></p>
+<p class="normaltext3"><b>broken</b> <span class="xt">adj</span>. in more than one piece　<span class="normaltext0x">破碎的</span></p>
+<p class="normaltext3"><b>doctor</b> <span class="xt">n</span>. a person who works with people who are ill　<span class="normaltext0x">医生</span></p>
+<p class="normaltext3"><b>farmer</b> <span class="xt">n</span>. a person who works on the land　<span class="normaltext0x">农夫，农场主</span></p>
+<p class="normaltext3"><b>gun</b> <span class="xt">n</span>. you can shoot people with this　<span class="normaltext0x">枪</span></p>
+<p class="normaltext3"><b>hospital</b> <span class="xt">n</span>. a place where you take people who are ill　<span class="normaltext0x">医院</span></p>
+<p class="normaltext3"><b>husband</b> <span class="xt">n</span>. the man who a woman marries　<span class="normaltext0x">丈夫</span></p>
+<p class="normaltext3"><b>jump</b> <span class="xt">v</span>. to move quickly through the air　<span class="normaltext0x">跳</span></p>
+<p class="normaltext3"><b>mechanic</b> <span class="xt">n</span>. a person who works with machines　<span class="normaltext0x">机械师</span></p>
+<p class="normaltext3"><b>missing</b> <span class="xt">adj</span>. nobody knows where he or she is　<span class="normaltext0x">失踪的</span></p>
+<p class="normaltext3"><b>news</b> <span class="xt">n</span>. you read this in the newspaper or watch it on the TV　<span class="normaltext0x">新闻</span></p>
+<p class="normaltext3"><b>pocket</b> <span class="xt">n</span>. a place in your shirt or trousers where you can put things　<span class="normaltext0x">衣袋，口袋</span></p>
+<p class="normaltext3"><b>rub</b> <span class="xt">v</span>. to move your hands over　<span class="normaltext0x">揉，搓</span></p>
+<p class="normaltext3"><b>shout</b> <span class="xt">v</span>. to speak loudly　<span class="normaltext0x">大声说，叫</span></p>
+<p class="normaltext3"><b>song</b> <span class="xt">n</span>. music that you sing　<span class="normaltext0x">歌，歌曲</span></p>
+<p class="normaltext3"><b>straight</b> <span class="xt">adj</span>. in a line　<span class="normaltext0x">直的</span></p>
+<p class="normaltext3"><b>suit</b> <span class="xt">n</span>. trousers and jacket　<span class="normaltext0x">套装，西装</span></p>
+<p class="normaltext3"><b>unhappy</b> <span class="xt">adj</span>. not happy　<span class="normaltext0x">不快乐的</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">Starman</p>
+<hr/>
+<p class="subtitle1" id="mllj1">ACTIVITIES<br/>阅读练习</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1"><span class="underline">ACTIVITIES</span><br/><span class="xt">Before Reading</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Look at the front and <a href="part0334.xhtml">back covers</a> of the book. Now answer these questions.</p>
+<p class="normaltexta">1) Where does the story happen?</p>
+<p class="normaltexta2">a In the mountains.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">b In the city.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">c In a hot country.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta">2) What sort of book is it?</p>
+<p class="normaltexta2">a An amusing story.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">b A love story.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">c A science fiction story.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta">3) A man is lost in the desert. What does he need?</p>
+<p class="normaltexta2">a A hat.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">b Some water.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">c A hair dryer.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">d Food.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta">4) What do you think happens to the man?</p>
+<p class="normaltexta2">a He dies and a kangaroo eats him.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">b A farmer rescues him and takes him home.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltexta2">c He finds a horse and rides to a town.</p>
+<p class="normaltext1">Yes □／No □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1"><span class="underline">ACTIVITIES</span><br/><span class="xt">While Reading</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Answer these questions.</p>
+<p class="normaltexta">1) What song is Bill singing?</p>
+<p class="normaltexta">2) How far is it from Goondiwindi to Dirranbandi?</p>
+<p class="normaltexta">3) What does Bill see?</p>
+<p class="normaltexta">4) What animal's bones are?</p>
+<p class="normaltext04">2 Answer these questions.</p>
+<p class="normaltexta">1) What does Bill give to John?</p>
+<p class="normaltexta">2) How old is the man in Sydney?</p>
+<p class="normaltexta">3) Put these sentences in the correct order.</p>
+<p class="normaltexta2">Number them 1-4.</p>
+<p class="normaltexta2">a □ Bill goes in the house.</p>
+<p class="normaltexta2">b □ Bill phones the doctor.</p>
+<p class="normaltexta2">c □ Emily looks in John's pockets.</p>
+<p class="normaltexta2">d □ Bill and Emily help John into bed.</p>
+<p class="normaltexta">4) How does the Doctor get to his patients?</p>
+<p class="normaltexta">5) What does the dog do when he sees John?</p>
+<p class="normaltext04">3 Who says these words?</p>
+<p class="normaltexta">1) 'Okay. Let me talk to his wife.'</p>
+<p class="normaltexta">2) 'This is a new plane – but sometimes it doesn't go very well.'</p>
+<p class="normaltexta">3) 'I want to be with my friends. They are looking for me.'</p>
+<p class="normaltexta">4) 'Phone us from the hospital.'</p>
+<p class="normaltexta">5) 'He isn't going to die.'</p>
+<p class="normaltext04">4 Answer these questions about John.</p>
+<p class="normaltexta">1) What colour is his suit?</p>
+<p class="normaltexta">2) Why is he falling from the plane?</p>
+<p class="normaltexta">3) Why doesn't he fall to the ground?</p>
+<p class="picture"><img src="../../../Images/image06977.jpeg" alt="alt"/></p>
+<p class="normaltext04">5 Answer these questions about the doctor.</p>
+<p class="normaltexta">1) Why does the Doctor close his eyes?</p>
+<p class="normaltexta">2) Where does the Doctor say he lives?</p>
+<p class="normaltexta">3) What type of Doctor is he?</p>
+<p class="picture"><img src="../../../Images/image06978.jpeg" alt="alt"/></p>
+<p class="normaltext04">6 Answer these questions about Roy.</p>
+<p class="normaltexta">1) Where does he work?</p>
+<p class="normaltexta">2) Why is he happy?</p>
+<p class="normaltexta">3) Why does he feel hot?</p>
+<p class="picture"><img src="../../../Images/image06979.jpeg" alt="alt"/></p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext04">1 Finish these sentences.</p>
+<p class="normaltexta">1) John is thirsty because...</p>
+<p class="normaltexta">2) Emily takes John upstairs because...</p>
+<p class="normaltexta">3) John's wife is surprised because...</p>
+<p class="normaltexta">4) The Doctor takes John to hospital because...</p>
+<p class="normaltext04">2 Imagine John meets his wife after thirty years. What does he say to her? Include these words: <span class="xt">desert hot light children home sky afraid friends</span></p>
+<p class="normaltext4">____________________________________________________________________________________________________________________________________________________________</p>
+
+<p class="normaltext04">3 Match the beginnings and endings of these sentences.</p>
+<p class="normaltextaa">1) Bill is a farmer and...</p>
+<p class="normaltextaa">2) After the plane lands...</p>
+<p class="normaltextaa">3) Emily picks up the phone...</p>
+<p class="normaltextaa">4) As they drive, John falls asleep...</p>
+<p class="normaltextaa">5) John jumps out of the plane...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextaa">6) ... but does not hit the ground.</p>
+<p class="normaltextaa">7) ... because he is very tired.</p>
+<p class="normaltextaa">8) ... Roy walks towards to the Doctor.</p>
+<p class="normaltextaa">9) ... and talks to John's wife.</p>
+<p class="normaltexta">10) ... he drives a red car.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle">TRANSLATION　参考译文</p>
+<p class="title1">Starman<br/>时空异客</p>
+<p class="normaltextx">一辆红色大轿车行驶在长长的公路上。坐在车里面的是农场主比尔。他又热又累，想回家洗个澡。</p>
+<p class="normaltextx">比尔在车里听着广播，哼着歌。比尔喜欢唱歌。有时候大家也喜欢听他唱歌，但这样的时候并不多。</p>
+<p class="normaltextx">他现在正在唱《热，热，热》。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">路边有一个路标。比尔看了一眼：贡迪温迪，72公里；迪兰班代，136公里。比尔还要开很长时间。他的家在大约100公里外。</p>
+<p class="normaltextx">他揉了揉眼睛。骄阳似火，长路漫漫。为了不让自己睡着，比尔又唱了几首歌。一只袋鼠听到他的声音跳走了。比尔哈哈大笑，然后又揉了揉眼睛。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">就在这时，比尔看见了什么。他顿时倦意全消，不再大笑。他的头皮发麻，寒毛倒竖。路上有个什么东西。</p>
+<p class="normaltextx">他停下来，下了车。那东西在比尔前方很远处。他看不清是什么，但感到不是什么好东西。</p>
+<p class="normaltextx">比尔回到车里，慢慢地开。那个东西在动——它是活的。</p>
+<p class="normaltextx">“会是什么……”比尔嘀咕道，“是个男人！一个男人在这里干什么？”</p>
+<p class="normaltextx">他想：“肯定出了什么事儿。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">比尔在距离男子10米远处停下车，向他望去。</p>
+<p class="normaltextx">“你好！”比尔说，“你没事吧？你在找什么东西吗？”</p>
+<p class="normaltextx">男子不动，也不说话。他凝视着天空，脸上带着苦笑。比尔也抬头看，但什么都没看见。</p>
+<p class="normaltextx">比尔车里放着一把枪。他看了一眼枪，心想：“我得小心。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">比尔把车又往前开了5米。他看到这个男子在40岁上下，穿着一身体面的西装——就是有点旧。</p>
+<p class="normaltextx">“嘿！你没事吧？”比尔又问了一遍，“要我帮忙吗？”</p>
+<p class="normaltextx">男子慢慢地转过头，看着比尔。他一声也没吭，然后迈开腿走了。比尔盯着他看了一会儿。“我得做点什么。”他想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">“你要去哪里？”比尔大喊，“那条路上什么都没有。你有水吗？太阳很大。你能听见我说话吗？”</p>
+<p class="normaltextx">比尔不知道该怎么办，但是他不能把这个人丢下不管。“他怎么了？”他寻思着，“他病了吗？”</p>
+<p class="normaltextx">一只蜥蜴从公路上窜了过去。一只大鸟飞到男子附近，虎视眈眈地俯视着。路边有一些尸骨——是一只死去的袋鼠。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">比尔很害怕——但他不能丢下这个男子不管自己开走。</p>
+<p class="normaltextx">男子看上去很疲惫，于是比尔又往前开了两米。“你想死在这里吗？”男子没有回答。“上车吧！我送你回家。”比尔说。</p>
+<p class="normaltextx">比尔打开车门，下了车。他的动作很缓慢，说话声音也很轻。“没事的。你可以跟我来。坐到车上去，我车里有水。”</p>
+<p class="normaltextx">比尔扶男子上了车。男子灰头土脸，神情疲倦。比尔把水递给他。男子很渴，喝了好多水。“歇口气！”比尔说，“别一下把水喝完。先喝一点儿，过一会儿再喝。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">车在又长又直的公路上疾驰。两个男人坐着，没说一句话。</p>
+<p class="normaltextx">比尔听着新闻广播。阿德莱德下雨了。悉尼有个男人今天满125岁。一只袋鼠在学说话。沃拉隆加附近的天空出现了一道强烈的白光。</p>
+<p class="normaltextx">比尔听得起劲儿，而他身边的男子则睡着了。</p>
+<p class="normaltextx">比尔打量着他。男子穿着高档的西装、体面的鞋子。他为什么要跑到这里待在太阳底下，连顶帽子都没戴？</p>
+<p class="normaltextx">他们又开了一个小时，到了比尔家。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">比尔把熟睡的男子留在车上，自己进屋把男子的事告诉了妻子埃米莉。埃米莉总是能够想到办法。“我们必须搞清楚他是谁，然后联系他家里人。”她说，“我们翻翻他的口袋，说不定里面有什么东西会有他的名字。”</p>
+<p class="normaltextx">比尔和埃米莉来到车旁。他们在男子的口袋里找到一个钱包。钱包里面有一个人名——约翰·菲利普斯——和一个电话号码，还有一些钱。</p>
+<p class="normaltextx">“这是25年前的钱！”比尔对埃米莉说，“他为什么带着旧钱呢？”</p>
+<p class="normaltextx">“约翰·菲利普斯，”埃米莉对男子说，“你很有意思。”约翰突然睁开眼睛，微笑地看着她。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">“你能走路吗？”埃米莉问约翰。他慢慢地起身。“你病了。我们扶你去床上。”他们小心翼翼地扶约翰下了车。</p>
+<p class="normaltextx">比尔家的狗看到约翰，显得很害怕。它跑到一棵树下蹲了起来。比尔和埃米莉扶约翰上了楼，让他躺到床上。十分钟后，他又睡着了。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">在厨房，埃米莉说：“我搞不懂……这件事不对劲。他看起来不大寻常……这……哦，我不知道……”</p>
+<p class="normaltextx">“我不想让他待在我们家。我害怕他。”比尔说。</p>
+<p class="normaltextx">“我明白，我也害怕。我们请飞行医生来一趟，”埃米莉说，“然后我们得联系上他的家人。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">比尔拿起电话打给医生。他给医生讲述了约翰·菲利普斯的情况。“我觉得他病了。他很累，又不说话。他不知道自己是谁。您能快点儿来吗？”</p>
+<p class="normaltextx">医生住在大约200公里外。他得开飞机来比尔家。“我现在就去，”他说，“半小时后注意迎我一下。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">比尔放下电话。“好了，我来给他妻子打个电话。”埃米莉说。她拿起电话，拨了号码。有人接了，埃米莉聊了很久。</p>
+<p class="normaltextx">比尔听见她说：“但他的确在这里……不，他确实是约翰·菲利普斯。我们这儿有他的钱包——里面有他的名字……喂！喂！您在吗？……哦。什么？什么时候？……我不明白……好。谢谢您，再见。”她说完话时脸色煞白。</p>
+<p class="normaltextx">她看着比尔说：“完全不对头。‘约翰·菲利普斯失踪了。’他妻子说的。”</p>
+<p class="normaltextx">“失踪多久了？”比尔说。</p>
+<p class="normaltextx">“三十年了。”埃米莉说，“他妻子现在有了新的丈夫。他们都有三个孩子了！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">飞行医生来晚了。一个小时后他才开着飞机赶到。</p>
+<p class="normaltextx">“抱歉，”他说，“这是一架新飞机——但有时候不太好开。我得找机械师修一下。不过现在没事了，我到了。”</p>
+<p class="normaltextx">比尔把事情的经过都告诉了医生。医生问了很多问题，接着去看那个男子。约翰·菲利普斯正透过窗户看着飞机。</p>
+<p class="normaltextx">“你好，约翰。”医生说，“我是医生，我需要问你一些问题。你记得你的名字吗？你记得你住在哪儿吗？”约翰没有回答。</p>
+<p class="normaltextx">医生转而与比尔和埃米莉说话。他说：“约翰身上没有任何骨折……但我对他的情况不放心。我想带他去医院。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">他们把约翰弄到飞机上，在医生旁边坐下。“给我们打电话，”医生上飞机时埃米莉嘱咐道，“到医院给我们打电话。”很快，医生和约翰·菲利普斯飞上了高空。</p>
+<p class="normaltextx">突然，约翰说话了，这是他第一次开口。他语速缓慢：“我不想待在这里。我想和朋友们在一起，他们在找我。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">约翰在机舱里站起来。</p>
+<p class="normaltextx">“等等，你不能那样，”医生说，“快坐下！”</p>
+<p class="normaltextx">约翰打开舱门，对医生说：“你也可以来。你想来吗？”</p>
+<p class="normaltextx">“什么？”医生大声喊道。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">约翰盯着医生的双眼。医生无法动弹，也无法往别处看。飞机里冷飕飕的，但医生却感觉发热。约翰的眼睛直勾勾地盯着他。</p>
+<p class="normaltextx">“跟我来。那是个好地方。比这儿强。”</p>
+<p class="normaltextx">“我怎么去？”医生轻声问。这时约翰跳了下去。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">医生往窗外望去。约翰正在不断地下落。但医生看到他脸上带着微笑。</p>
+<p class="normaltextx">“他不会死，”医生心想，“他知道自己不会死。”</p>
+<p class="normaltextx">飞机下方是小树丛。汽车在长长的公路上行驶。袋鼠在四处蹦跳。约翰现在变得很小，他在快速下落。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">约翰落到树丛上方20米处。一只袋鼠仰头看着，但约翰不再下落了。一束光托住了他，带他不断上升。</p>
+<p class="normaltextx">医生闭上双眼。那束光异常地白。当他睁开眼睛，光已经不见了。约翰也不见了。医生看到天上有什么东西，然后又没了。</p>
+<p class="normaltextx">他很不开心——比以往任何时候都不开心。“我也想去！”他说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">罗伊·科尔是一位机械师，在机场工作。今天他心情不错。阳光暖暖的。明天是星期六，这周末罗伊要买一辆新车。他很兴奋。</p>
+<p class="normaltextx">他正吃着三明治，突然听见了飞机的声音。他抬头望去，看见了天上的飞机。飞机正往机场飞来，离得很近了。罗伊看见飞机里有个男人。</p>
+<p class="normaltextx">“他是谁？”罗伊想，“我没见过这架飞机。”他把三明治放进口袋里。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">飞机降落在机场，一个男人下了飞机。罗伊迈步向他走过去。</p>
+<p class="normaltextx">男子一动不动地站着，凝视着天空。他脸上挂着一丝淡淡的笑容。他的衣服脏兮兮的，人看上去很疲惫。</p>
+<p class="normaltextx">“哦，天哪！”罗伊想，“他是怎么了？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">罗伊喜欢和人交谈。他微微一笑，然后跟男子搭讪。“也许我能帮到他。”他想。</p>
+<p class="normaltextx">“嘿，我是罗伊。你是谁？”罗伊伸出手，但男子没有动。罗伊把手放回口袋，看着飞机。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">罗伊对男子说：“哇！这飞机真棒。有30多年机龄了，是一架老式的飞行医生专用飞机，对吗？”</p>
+<p class="normaltextx">突然，这名男子看着罗伊说：“飞行医生。对，说得对。我是一名飞行医生。”</p>
+<p class="normaltextx">“飞行医生？你当然是。”罗伊微笑着说，“你住在哪儿？想去什么地方？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextx">医生要回到飞机上，忽又停下来，盯着罗伊的眼睛。罗伊听见他说：“我现在住在很远的地方，必须要回去。你想和我一起去吗？”</p>
+<p class="normaltextx">突然，罗伊感到身上发热。医生的眼睛直勾勾地盯着他。“我怎么去呢？”罗伊问。</p>
+<p class="normaltextx">“我可以帮你。到我的飞机上来。”医生说。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06981.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

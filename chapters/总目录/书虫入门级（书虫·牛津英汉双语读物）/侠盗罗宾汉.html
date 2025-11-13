@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侠盗罗宾汉 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '侠盗罗宾汉';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>侠盗罗宾汉</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">侠盗罗宾汉</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">Copyright</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">Robin Hood</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">ACTIVITIES Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="m1"><img src="../../../Images/image06331.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">Copyright</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext">Copyright © Foreign Language Teaching and Research Press 2006</p>
+<p class="normaltext">All rights reserved. No part of this publication may be reproduced or distributed by any means, or stored in a database or retrieval system, without the prior written permission of Foreign Language Teaching and Research Press.</p>
+<p class="normaltext">本书版权由外语教学与研究出版社独家所有。如未获得该社书面同意，书中任何部分之文字及图片，不得用任何方式抄袭、节录、翻印或存储利用于任何数据库及检索系统等。</p>
+<p class="normaltext">Published by Foreign Language Teaching and Research Press</p>
+<p class="normaltext">No. 19 Xisanhuan Beilu</p>
+<p class="normaltext">Beijing, China 100089</p>
+<p class="normaltext">http://www.fltrp.com</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2B">京权图字01-2006-2800</p>
+<p class="normaltext00">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 2001 This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext00">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="subtitle2B">图书在版编目（CIP）数据</p>
+<p class="normaltext">侠盗罗宾汉／（英）埃斯科特（Escott, J.）著．—北京：外语教学与研究出版社，2006.5（2013.11重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Robin Hood</p>
+<p class="normaltext">ISBN 978-7-5600-5452-0</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．侠…　Ⅱ．埃…　Ⅲ．英语—语言读物　Ⅳ．H319.4</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2006）第023259号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext00"><b>出版人：</b>蔡剑峰</p>
+<p class="normaltext00"><b>责任编辑：</b>余　军</p>
+<p class="normaltext00"><b>封面设计：</b>孙莉明</p>
+<p class="normaltext00"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltext00"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltext00"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltext00"><b>书　　号：</b>ISBN 978-7-5600-5452-0</p>
+<p class="normaltext00">*　　*　　*</p>
+<p class="normaltext00"><b>制售盗版必究　举报查实奖励</b></p>
+<p class="normaltext00"><b>版权保护举报电话：(010)88817519</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <p class="mulu">目　录</p>
+  <p class="mulu1"><a href="part0063.xhtml">Robin Hood</a></p>
+  <p class="mulu1"><a href="part0064.xhtml">ACTIVITIES Before Reading</a></p>
+  <p class="mulu1"><a href="part0065.xhtml">ACTIVITIES While Reading</a></p>
+  <p class="mulu1"><a href="part0066.xhtml">ACTIVITIES After Reading</a></p>
+  <p class="mulu1"><a href="part0067.xhtml">参考译文</a></p>
+  <p class="normaltext"><br/></p>
+  <p class="mulu1"><a href="part0001.xhtml">返回总目录</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">Robin Hood</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><a href="part0067.xhtml#m0"><img src="../../../Images/image06332.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m1"><img src="../../../Images/image06333.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m2"><img src="../../../Images/image06334.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m3"><img src="../../../Images/image06335.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m4"><img src="../../../Images/image06336.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m5"><img src="../../../Images/image06337.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m6"><img src="../../../Images/image06338.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m7"><img src="../../../Images/image06339.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m8"><img src="../../../Images/image06340.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m9"><img src="../../../Images/image06341.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m10"><img src="../../../Images/image06342.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m11"><img src="../../../Images/image06343.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m12"><img src="../../../Images/image06344.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m13"><img src="../../../Images/image06345.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m14"><img src="../../../Images/image06346.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m15"><img src="../../../Images/image06347.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m16"><img src="../../../Images/image06348.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m17"><img src="../../../Images/image06349.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m18"><img src="../../../Images/image06350.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m19"><img src="../../../Images/image06351.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m20"><img src="../../../Images/image06352.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m21"><img src="../../../Images/image06353.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m22"><img src="../../../Images/image06354.jpeg" alt="alt"/></a></p>
+<p class="picture"><a href="part0067.xhtml#m23"><img src="../../../Images/image06355.jpeg" alt="alt"/></a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>Before Reading</em></p>
+<p class="normaltext0">1. Look at the front cover and choose the correct answer for these questions.</p>
+<p class="normaltext">1) When do you think this story happens?</p>
+<p class="normaltext">　a　Today.</p>
+<p class="normaltext">　b　In the past.</p>
+<p class="normaltext">　c　In a time that is to come.</p>
+<p class="normaltext">2) Where do you think this story happens?</p>
+<p class="normaltext">　a　In America.</p>
+<p class="normaltext">　b　In England.</p>
+<p class="normaltext">　c　In Japan.</p>
+<p class="normaltext">　d　In Australia.</p>
+<p class="normaltext0">2. Read the back cover of the book and answer these questions.</p>
+<p class="normaltext">1) Do you think Prince John is a good man or bad man?</p>
+<p class="normaltext">2) Do you think Robin Hood is a good man or bad man?</p>
+<p class="normaltext">3) Where do Robin Hood and his men live?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>While Reading</em></p>
+<p class="normaltext0">1. Answer these questions.</p>
+<p class="normaltext">1) What do the people call Richard, the King of England?</p>
+<p class="normaltext">2) Where is Robin's house?</p>
+<p class="normaltext">3) The Sheriff of Nottingham tells his soldiers to bring Robin to the castle. How does Robin hear about this?</p>
+<p class="normaltext">4) Why can't Robin marry Lady Marian?</p>
+<p class="normaltext0">2. Who says or thinks these words?</p>
+<p class="normaltext">1) 'We must take money from Prince John's bad men.'</p>
+<p class="normaltext">2) 'Wait for me to come across!'</p>
+<p class="normaltext">3) 'This is Robin Hood!'</p>
+<p class="normaltext">4) 'Wake up! I want you to carry me across the river.'</p>
+<p class="normaltext">5) 'Now you can carry me—across the river again!'</p>
+<p class="normaltext0">3. Answer these questions.</p>
+<p class="normaltext">1) Who is 'a good friend of Lady Marian Fitzwalter'?</p>
+<p class="normaltext">2) Why is this friend hiding from the Sheriff?</p>
+<p class="normaltext">3) Why is the boy hunting in the forest?</p>
+<p class="normaltext">4) What do the soldiers say is to happen to the boy the next day?</p>
+<p class="normaltext">5) Who is the 'woman' carrying eggs?</p>
+<p class="normaltext">6) Who tells the boy to run to the forest?</p>
+<p class="normaltext0">4. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext">1) The winner of the shooting contest gets a gold arrow.</p>
+<p class="normaltext">2) The Sheriff wants to catch Friar Tuck.</p>
+<p class="normaltext">3) Robin wants to win the contest for the people of Nottingham.</p>
+<p class="normaltext">4) Forty men shoot in the contest.</p>
+<p class="normaltext">5) Sir Guy Gisborne wins the contest.</p>
+<p class="normaltext0">5. Can you guess what happens to these characters?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Robin</b></p>
+<p class="picture"><img src="../../../Images/image06356.jpeg" alt="alt"/></p>
+<p class="normaltext">A　He kills Sir Guy Gisborne.</p>
+<p class="normaltext">B　He marries Lady Marian.</p>
+<p class="normaltext">C　He leaves the forest and goes back to his home.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Sir Guy Gisborne</b></p>
+<p class="picture"><img src="../../../Images/image06357.jpeg" alt="alt"/></p>
+<p class="normaltext">A　He marries Lady Marian.</p>
+<p class="normaltext">B　He catches all of Robin's men.</p>
+<p class="normaltext">C　He leaves England.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Prince John</b></p>
+<p class="picture"><img src="../../../Images/image06358.jpeg" alt="alt"/></p>
+<p class="normaltext">A　He marries Lady Marian.</p>
+<p class="normaltext">B　He kills Robin.</p>
+<p class="normaltext">C　He becomes king.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Lady Marian</b></p>
+<p class="picture"><img src="../../../Images/image06359.jpeg" alt="alt"/></p>
+<p class="normaltext">A　She comes to live in the forest with Robin.</p>
+<p class="normaltext">B　She marries Prince John to help Robin.</p>
+<p class="normaltext">C　She leaves England.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext0">1. Use these words to join the sentences together.</p>
+<p class="normaltext"><em>but　　gets　　from　　in　　and</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">1) King Richard is a good man. The people love him.</p>
+<p class="normaltext">2) The soldiers come after Robin. He hides from them in the forest.</p>
+<p class="normaltext">3) The Sheriff and Sir Guy look down. A castle window.</p>
+<p class="normaltext">4) The shooting contest winner. A silver arrow.</p>
+<p class="normaltext">5) The men hit their targets. The centre.</p>
+<p class="normaltext0">2. Complete this summary of the story. Use these words:</p>
+<p class="normaltext"><em>taxes　　kill　　outlaw　　marry　　forest　　brother　　friends　　money　　hide　　hungry</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">King Richard the First goes away. His ________ is Prince John. Prince John wants the people to pay more ________. Robin of Locksley is going to ________ Lady Marian, but somebody tells him, 'They want to ________ you. You must ________!' So Robin goes to Sherwood Forest. Now he is an ________. There are more men hiding in the forest. They and Robin take ________ from Prince John's bad men. They wait in the ________, then stop rich people and say, 'We want money for the ________ people.' They want King Richard to know that they are his true ________.</p>
+<p class="normaltext0">3. Look at each picture, then answer the questions after it.</p>
+<p class="picture"><img src="../../../Images/image06360.jpeg" alt="alt"/></p>
+<p class="normaltext">1) Who is getting into the boat?</p>
+<p class="picture"><img src="../../../Images/image06361.jpeg" alt="alt"/></p>
+<p class="normaltext">2) Who is this?</p>
+<p class="picture"><img src="../../../Images/image06362.jpeg" alt="alt"/></p>
+<p class="normaltext">3) Who is this and what is happening?</p>
+<p class="picture"><img src="../../../Images/image06363.jpeg" alt="alt"/></p>
+<p class="normaltext">4) Who is sitting in the water?</p>
+<p class="picture"><img src="../../../Images/image06364.jpeg" alt="alt"/></p>
+<p class="normaltext">5) Who is this?</p>
+<p class="picture"><img src="../../../Images/image06365.jpeg" alt="alt"/></p>
+<p class="normaltext">6) Who are these two people?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1">参考译文</p>
+<p class="title1">Robin Hood<br/>侠盗罗宾汉</p>
+<p class="normaltextA" id="m0">Richard the First is King of England. He is a brave, good man, and the people love him. They call him Richard the Lionheart.</p>
+<p class="normaltextA">But when the King goes away, his brother Prince John does his work…</p>
+<p class="normaltext">Sheriff of Nottingham, the people must pay more taxes!</p>
+<p class="normaltext">But Prince John, some of them can't pay.</p>
+<p class="normaltext">Then take their houses and animals away from them!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">理查一世是英格兰国王。他是一个勇敢的好人，人民都爱戴他。他们称他为“狮心王理查”。</p>
+<p class="normaltextA">可国王离开之后，他的兄弟约翰亲王接管了他的工作……</p>
+<p class="normaltext">诺丁汉郡长，百姓必须交更多的税！</p>
+<p class="normaltext">可是有些人根本交不起，约翰亲王。</p>
+<p class="normaltext">那么就没收他们的房子和牲畜！</p>
+<hr/>
+<p class="normaltextA" id="m1">Robin of Locksley lives near the town of Nottingham. He has a big house near Sherwood Forest.</p>
+<p class="normaltext">Prince John is a thief! I must do something to help the people without homes or money, Lady Marian.</p>
+<p class="normaltext">You're a brave man, but I am afraid for you.</p>
+<p class="normaltext">Robin of Locksley is a traitor!</p>
+<p class="normaltext">Find him and bring him to me. He must die!</p>
+<p class="normaltext">Robin is getting married to Lady Marian Fitzwalter today. Bring him to the castle.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">洛克斯莱的罗宾生活在诺丁汉城附近。他在舍伍德森林附近有一座大房子。</p>
+<p class="normaltext">约翰亲王是个强盗！玛丽安小姐，我必须帮助那些没钱、没房子的人们！</p>
+<p class="normaltext">你是个勇敢的人，可我很担心你。</p>
+<p class="normaltext">洛克斯莱的罗宾是个叛国贼！</p>
+<p class="normaltext">找到他，把他带到我这儿来。他必须被处死！</p>
+<p class="normaltext">今天，罗宾要和玛丽安·菲茨沃尔特小姐成婚。把他带到城堡来。</p>
+<hr/>
+<p class="normaltext" id="m2">I must tell Robin now.</p>
+<p class="normaltext">They want to kill you. You must hide! Don't go home.</p>
+<p class="normaltext">How can I marry Lady Marian now? I've got no money, no house. I'm not Robin of Locksley, I'm Robin Hood, the outlaw!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我得赶快告诉罗宾。</p>
+<p class="normaltext">他们想杀你。你必须躲起来！别回家。</p>
+<p class="normaltext">现在我要怎样才能娶玛丽安小姐呢？我没有了钱，没有了房子。我不再是洛克斯莱的罗宾了，我是罗宾汉，一个逃犯！</p>
+<hr/>
+<p class="normaltextA" id="m3">There are more men living and hiding in Sherwood Forest.</p>
+<p class="normaltext">We must take money from Prince John's bad men. And then give it to our people. They are hungry.</p>
+<p class="normaltextA">When Robin and his men see a rich man in the forest, they stop him.</p>
+<p class="normaltext">We want money for the hungry people.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">还有一些人躲藏在舍伍德森林。</p>
+<p class="normaltext">我们得从约翰亲王的狗腿子那里弄点钱，分给老百姓。他们非常饥饿。</p>
+<p class="normaltextA">罗宾和他的随从在森林里看到一个富人，便拦住了他。</p>
+<p class="normaltext">我们想要些钱，分给那些挨饿的人。</p>
+<hr/>
+<p class="normaltextA" id="m4">One day Robin and his outlaws are walking through the forest…</p>
+<p class="normaltext">Wait for me to come across!</p>
+<p class="normaltext">No, you wait!</p>
+<p class="normaltext">Then we must fight.</p>
+<p class="normaltext">(Crack)</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">一天，罗宾和他的随从正在森林里行走……</p>
+<p class="normaltext">等我先过去！</p>
+<p class="normaltext">不，还是你等等！</p>
+<p class="normaltext">那么咱们得较量一下了。</p>
+<p class="normaltext">（啪）</p>
+<hr/>
+<p class="normaltextA" id="m5">Robin hits him three times! But the big man laughs.</p>
+<p class="normaltext">Oh, no!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">罗宾打中他三次！可是那个大块头哈哈大笑。</p>
+<p class="normaltext">哦，不！</p>
+<hr/>
+<p class="normaltext" id="m6">Put your hands on this. I can help you out of the water.</p>
+<p class="normaltext">(HA HA HA HA)</p>
+<p class="normaltext">(SPLASH)</p>
+<p class="normaltext">Who are you?</p>
+<p class="normaltext">My name's John Little. I'm looking for Robin Hood. I want to help him.</p>
+<p class="normaltext">This is Robin Hood!</p>
+<p class="normaltext">I'm sorry.</p>
+<p class="normaltext">Don't be sorry. But I think I must change your name—to Little John!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">抓住棍子。我拉你上来。</p>
+<p class="normaltext">（哈哈哈哈）</p>
+<p class="normaltext">(哗啦）</p>
+<p class="normaltext">你是谁？</p>
+<p class="normaltext">我叫约翰·利特尔。我要找罗宾汉。我想帮他。</p>
+<p class="normaltext">他就是罗宾汉！</p>
+<p class="normaltext">很抱歉。</p>
+<p class="normaltext">别抱歉了。不过我想我必须把你的名字改改——改成小约翰吧！</p>
+<hr/>
+<p class="normaltextA" id="m7">One summer day…</p>
+<p class="normaltext">They say Lady Marian's friend, Friar Tuck's living in the forest. But where?</p>
+<p class="normaltext">There's a man living near the river. He carries people across. He's a fat man, and will fight anybody. Is he Friar Tuck?</p>
+<p class="normaltext">Is this man Friar Tuck? I must see.</p>
+<p class="normaltext">Wake up! I want you to carry me across the river.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">一个夏日……</p>
+<p class="normaltext">他们说玛丽安小姐的朋友弗里亚尔·塔克住在森林里。可是他在哪儿呢？</p>
+<p class="normaltext">有个人住在河边。他驮人过河。他长得很胖，敢和任何人打架。他就是弗里亚尔·塔克吗？</p>
+<p class="normaltext">这个人就是弗里亚尔·塔克吗？我得看看。</p>
+<p class="normaltext">醒醒！我想让你背我过河。</p>
+<hr/>
+<p class="normaltext" id="m8">Oh, no!</p>
+<p class="normaltext">Now you can carry me—across the river again!</p>
+<p class="normaltext">I can't carry you. You're very fat!(SPLASH)</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">哦，不！</p>
+<p class="normaltext">嗨，你可以把我背回去了！</p>
+<p class="normaltext">我背不动你。你太胖了！（哗啦）</p>
+<hr/>
+<p class="normaltext" id="m9">Now, what are you doing in the forest?</p>
+<p class="normaltext">I'm looking for Robin Hood.</p>
+<p class="normaltext">Are you working for the Sheriff of Nottingham?</p>
+<p class="normaltext">No! I'm hiding from the Sheriff.</p>
+<p class="normaltext">Why?</p>
+<p class="normaltext">Because I think Robin Hood is a good man, and I tell everybody. The Sheriff does not like that.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">嗨，说说你在森林里干什么呢？</p>
+<p class="normaltext">我在找罗宾汉。</p>
+<p class="normaltext">你是诺丁汉郡长派来的吗？</p>
+<p class="normaltext">不是的！我躲他还来不及呢。</p>
+<p class="normaltext">为什么？</p>
+<p class="normaltext">因为我觉得罗宾汉是个好人，而且我逢人便这么讲。郡长可不喜欢我这样。</p>
+<hr/>
+<p class="normaltext" id="m10">What's your name?</p>
+<p class="normaltext">Friar Tuck.</p>
+<p class="normaltext">And my name is Robin Hood.</p>
+<p class="normaltext">I'm a good friend of Lady Marian Fitzwalter.</p>
+<p class="normaltext">Then you're my friend too!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">你叫什么？</p>
+<p class="normaltext">弗里亚尔·塔克。</p>
+<p class="normaltext">我叫罗宾汉。</p>
+<p class="normaltext">我是玛丽安·菲茨沃尔特小姐的好朋友。</p>
+<p class="normaltext">那么你也是我的好朋友！</p>
+<hr/>
+<p class="normaltextA" id="m11">One day, a young boy is hunting in the forest. He kills a deer. But some of the Sheriff's men are watching him…</p>
+<p class="normaltext">That is Sir Guy Gisborne's deer. You can't kill it.</p>
+<p class="normaltext">You must hang tomorrow!</p>
+<p class="normaltext">But my family have no food.</p>
+<p class="normaltext">…and the Sheriff's men have my son. They want to hang him tomorrow!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">一天，一个少年在森林里打猎。他猎杀了一头鹿。可郡长的手下一直盯着他……</p>
+<p class="normaltext">那是盖伊·吉斯本爵士的鹿。你不能杀它。</p>
+<p class="normaltext">明天你就得被绞死！</p>
+<p class="normaltext">可我们家没东西吃了。</p>
+<p class="normaltext">……然后郡长的手下抓了我儿子，他们明天要绞死他！</p>
+<hr/>
+<p class="normaltextA" id="m12">Early the next morning at Nottingham Castle, the Sheriff and his friend Sir Guy Gisborne look down from a castle window…</p>
+<p class="normaltextA">Suddenly…</p>
+<p class="normaltext">Now!</p>
+<p class="normaltext">It's Robin Hood!</p>
+<p class="normaltext">Oh, no!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">第二天一大早，在诺丁汉城堡，郡长和他的朋友盖伊·吉斯本爵士从城堡的窗户往下看……</p>
+<p class="normaltextA">突然……</p>
+<p class="normaltext">动手！</p>
+<p class="normaltext">是罗宾汉！</p>
+<p class="normaltext">哦，不！</p>
+<hr/>
+<p class="normaltext" id="m13">Run to the forest!</p>
+<p class="normaltext">The boy is getting away!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">快跑到森林里去！</p>
+<p class="normaltext">那个男孩逃走了！</p>
+<hr/>
+<p class="normaltext" id="m14">Robin Hood wins again!</p>
+<p class="normaltext">This Robin Hood likes to win. Yes?</p>
+<p class="normaltext">Yes.</p>
+<p class="normaltext">I've got an idea.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">罗宾汉又得手了！</p>
+<p class="normaltext">这个罗宾汉总是想赢，是吗？</p>
+<p class="normaltext">是的。</p>
+<p class="normaltext">我有个主意。</p>
+<hr/>
+<p class="normaltextA" id="m15">A day or two later…</p>
+<p class="normaltext">There's a shooting contest in Nottingham. The winner gets a silver arrow!</p>
+<p class="normaltext">That's very interesting.</p>
+<p class="normaltext">I'm afraid, Robin. Why does the Sheriff want to have a contest? Perhaps he wants to catch you.</p>
+<p class="normaltext">I know. But I must win the contest for the people of Nottingham.</p>
+<p class="normaltextA">On the day of the contest…</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">一两天之后……</p>
+<p class="normaltext">诺丁汉要举行一场射箭比赛。胜者会得到一支银箭！</p>
+<p class="normaltext">听起来很有趣。</p>
+<p class="normaltext">我有点儿担心，罗宾。为什么郡长想举办一场比赛？或许他想要抓住你。</p>
+<p class="normaltext">我知道。不过，为了诺丁汉的人民，我必须赢得比赛。</p>
+<p class="normaltextA">在比赛那天……</p>
+<hr/>
+<p class="normaltext" id="m16">Who is the best man in this contest?</p>
+<p class="normaltext">Sir Guy is the best man with a bow and arrow.</p>
+<p class="normaltext">Where's Robin Hood? I don't see him. Do you?</p>
+<p class="normaltext">He's here, I know. He likes to win shooting contests. Then we can catch him!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">谁是比赛中最棒的选手？</p>
+<p class="normaltext">盖伊爵士是最棒的弓箭手。</p>
+<p class="normaltext">罗宾汉在哪儿？我没看见他。你看见了吗？</p>
+<p class="normaltext">他就在这儿，我知道。他想赢得射箭比赛。然后我们就能抓住他！</p>
+<hr/>
+<p class="normaltextA" id="m17">Forty men shoot their arrows.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">四十个人射出了箭。</p>
+<hr/>
+<p class="normaltextA" id="m18">Three men hit their targets in the centre—Sir Guy Gisborne, one of the Sheriff's men, and an old man with a beard. They shoot again.</p>
+<p class="normaltextA">This time, the Sheriff's man and Sir Guy do badly.</p>
+<p class="normaltextA">But the old man's arrow hits the centre!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">有三个人射中了靶心——分别是盖伊爵士、一名郡长的手下以及一个留着络腮胡子的老头。他们又射了一轮。</p>
+<p class="normaltextA">这一次，郡长的手下和盖伊爵士都成绩欠佳。</p>
+<p class="normaltextA">而那个老头的箭则射中了靶心！</p>
+<hr/>
+<p class="normaltext" id="m19">Only one man can do that! Robin Hood!</p>
+<p class="normaltext">Get him!</p>
+<p class="normaltextA">The Sheriff's men are very slow. And everyone wants to help Robin.</p>
+<p class="normaltext">Stop him!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">只有一个人能做到！罗宾汉！</p>
+<p class="normaltext">抓住他！</p>
+<p class="normaltextA">郡长的手下动作太慢了。大家都想帮助罗宾。</p>
+<p class="normaltext">拦住他！</p>
+<hr/>
+<p class="normaltext" id="m20">I don't have my silver arrow. I must go back and get it one day. Ha! Ha! Ha!</p>
+<p class="normaltextA">Sir Guy Gisborne visits Lord Fitzwalter.</p>
+<p class="normaltext">Listen, Fitzwalter. I want to marry your daughter, Lady Marian.</p>
+<p class="normaltext">Oh!</p>
+<p class="normaltext">No! I can never marry him! He's a bad man, and I love Robin.</p>
+<p class="normaltext">I understand, my daughter. But Sir Guy can make things bad for us.</p>
+<p class="normaltext">I must go away.</p>
+<p class="normaltext">Yes, my daughter.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">我没拿到我的银箭。总有一天我得回去把它取回来。哈哈哈！</p>
+<p class="normaltextA">盖伊·吉斯本爵士拜访了菲茨沃尔特大人。</p>
+<p class="normaltext">听着，菲茨沃尔特。我想娶你的女儿，玛丽安小姐。</p>
+<p class="normaltext">哦！</p>
+<p class="normaltext">不！我绝不嫁给他！他是个坏蛋，我只爱罗宾。</p>
+<p class="normaltext">我明白，女儿。可是盖伊爵士会给我们使坏的。</p>
+<p class="normaltext">我必须离开。</p>
+<p class="normaltext">是的，我的女儿。</p>
+<hr/>
+<p class="normaltextA" id="m21">Two days later, Robin is walking through the forest. Suddenly he sees a young boy sitting under a tree.</p>
+<p class="normaltext">What are you doing here?</p>
+<p class="normaltext">I'm looking for Robin Hood.</p>
+<p class="normaltext">Is this boy working for the Sheriff?</p>
+<p class="normaltext">Robin Hood is an outlaw and a thief.</p>
+<p class="normaltext">That's not true! Robin Hood isn't a thief!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">两天之后，罗宾正在森林里走。突然他看到一个小伙子坐在树下。</p>
+<p class="normaltext">你在这儿干什么？</p>
+<p class="normaltext">我在找罗宾汉。</p>
+<p class="normaltext">这个男孩是郡长的手下吗？</p>
+<p class="normaltext">罗宾汉是个逃犯、窃贼。</p>
+<p class="normaltext">不对！罗宾汉不是窃贼！</p>
+<hr/>
+<p class="normaltext" id="m22">Take out your sword and fight!</p>
+<p class="normaltext">I don't fight children.</p>
+<p class="normaltext">I'm not a child.</p>
+<p class="normaltext">(CLANG)</p>
+<p class="normaltext">Robin! Robin! Don't you know me?</p>
+<p class="normaltext">Marian! It's you!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">拔出你的剑来，咱们决斗！</p>
+<p class="normaltext">我不和孩子决斗。</p>
+<p class="normaltext">我不是个孩子。</p>
+<p class="normaltext">（咣啷）</p>
+<p class="normaltext">罗宾！罗宾！你不认识我了吗？</p>
+<p class="normaltext">玛丽安！是你！</p>
+<hr/>
+<p class="normaltextA" id="m23">Lady Marian tells Robin about Sir Guy…</p>
+<p class="normaltext">…and I can never marry him! Not in a hundred years! I love you, Robin.</p>
+
+<p class="normaltext">And I love you, Marian. You must stay in Sherwood Forest with me.</p>
+<p class="normaltextA">A week later, Robin and Marian get married in Sherwood Forest.</p>
+<p class="normaltext">We must fight for everything that is good and right. When King Richard comes back to England, he must know that we are his true friends.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltextA">玛丽安小姐给罗宾讲了盖伊爵士的事情……</p>
+<p class="normaltext">……我绝不会嫁给他！一百年都不嫁！我爱你，罗宾。</p>
+<p class="normaltext">我也爱你，玛丽安。你一定要留在舍伍德森林里和我在一起。</p>
+<p class="normaltextA">一周之后，罗宾和玛丽安在舍伍德森林里成婚了。</p>
+<p class="normaltext">我们必须为公平正义而战！等理查国王回到英格兰，他一定会知道我们是他真正的朋友。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06366.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

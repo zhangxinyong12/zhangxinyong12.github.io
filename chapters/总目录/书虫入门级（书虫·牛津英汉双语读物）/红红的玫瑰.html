@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红红的玫瑰 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '红红的玫瑰';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>红红的玫瑰</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">红红的玫瑰</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">RED ROSES</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">1 White roses</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">2 Pink roses</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">3 Red roses</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="a1"><img src="../../../Images/image06712.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字：01-2013-7807</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2008</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">红红的玫瑰：英汉对照／（新西兰）林多普（Lindop, C.）著；（英）里斯（Reece, G.）绘；周晶译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Red roses</p>
+<p class="normaltext">ISBN 978-7-5135-3779-7</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①红…　Ⅱ．①林…②里…③周…　Ⅲ．①英语—汉语—对照读物②短篇小说—新西兰—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272359号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">出版人：　蔡剑峰</p>
+<p class="normaltext3">责任编辑：文雪琴</p>
+<p class="normaltext3">封面设计：蔡　颖</p>
+<p class="normaltext3">出版发行：外语教学与研究出版社</p>
+<p class="normaltext3">社　　址：北京市西三环北路19号（100089）</p>
+<p class="normaltext3">网　　址：http://www.fltrp.com</p>
+<p class="normaltext3">版　　次：2013年12月第1版</p>
+<p class="normaltext3">书　　号：ISBN 978-7-5135-3779-7</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">制售盗版必究　举报查实奖励</p>
+<p class="normaltext3">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">内容简介</h1>
+<p class="normaltext2a">哪里都有漂亮的姑娘，笑容迷人的小伙子也不稀奇。每一座大城小镇都有年轻男女在一瞥一笑间互相吸引。他们就这样相遇，相识，畅谈，欢笑……多么美妙的日日夜夜，这就是爱的魔力。</p>
+<p class="normaltext2a">威尔看见了安娜，她是个漂亮的姑娘，他想认识她，可是要怎么做呢？他能听到她的吉他声，却找不到她的身影。</p>
+<p class="normaltext2a">安娜看见了威尔，她也想认识他，但是他在哪里？她能闻到他留在电梯里的玫瑰花香，可是他去了哪里？</p>
+<p class="normaltext2a">安娜的朋友薇姬想帮她。威尔的奶奶也想帮他。可是一切的努力都没有结果。安娜和威尔能再次相遇吗？让他们互相吸引的是爱吗？</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">RED ROSES</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">RED ROSES</h1>
+<p class="normaltext3">There are pretty young women everywhere. And there are young men with nice smiles. In every town, in every city, young men are looking at young women, and young women are smiling at them. They look, they meet, they talk, they laugh... happy days, sweet nights – it's love.</p>
+<p class="normaltext03">Will looks at Anna. She is a pretty young woman, and he wants to meet her. But how? He can hear her guitar, but he cannot find her.</p>
+<p class="normaltext03">Anna looks at Will. She wants to meet him too. But where is he? She can smell his roses in the elevator, but where does he go?</p>
+<p class="normaltext03">Anna's friend Vicki wants to help. Will's gran wants to help. But nothing happens. Can Anna find Will? Can Will meet Anna? Is it love?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">CONTENTS<br/>目　录</div>
+  <div class="mulu1"><a href="part0209.xhtml">内容简介</a></div>
+  <div class="mulu1"><a href="part0212.xhtml">1 White roses</a></div>
+  <div class="mulu1"><a href="part0213.xhtml">2 Pink roses</a></div>
+  <div class="mulu1"><a href="part0214.xhtml">3 Red roses</a></div>
+  <p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0215.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="mulu1"><a href="part0216.xhtml#a1">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="mulu1"><a href="part0217.xhtml">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">1 White roses</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">1<br/>White roses</h1>
+<p class="normaltext3">It's August. Anna is playing her guitar on the balcony of her new apartment. 'I like it here,' she thinks.</p>
+<p class="normaltext">Then her phone rings. It's her friend Vicki.</p>
+<p class="normaltext">'I'm coming now, Anna. It's Grandview Apartments, Charlton, isn't it?'</p>
+<p class="normaltext">'That's right. See you soon.'</p>
+<p class="normaltext">Anna takes her guitar and goes out of her apartment. She goes down in the elevator and goes outside.</p>
+<p class="picture"><img src="../../../Images/image06713.jpeg" alt="alt"/></p>
+<p class="normaltext3">Anna is waiting outside the apartment building.</p>
+<p class="normaltext">A young man is walking along the street. He is carrying a bunch of white roses.</p>
+<p class="normaltext">Anna looks at them. 'What beautiful roses!' she thinks. Then she looks at the young man. 'He's nice too!' she thinks.</p>
+<p class="normaltext">The young man looks at her and smiles, and suddenly Anna's face is pink.</p>
+<p class="picture"><img src="../../../Images/image06714.jpeg" alt="alt"/></p>
+<p class="normaltext3">Will is walking along the street, when he sees a young woman with a guitar.</p>
+<p class="normaltext">'Hmm – a guitar!' he thinks. 'I must play my guitar more often.'</p>
+<p class="normaltext">Then he looks at the young woman.</p>
+<p class="normaltext">'She's nice!' he thinks, and he smiles at her.</p>
+<p class="normaltext">Anna's face is pink, and she looks away. Will goes into Grandview Apartments.</p>
+<p class="picture"><img src="../../../Images/image06715.jpeg" alt="alt"/></p>
+<p class="normaltext3">Just then, Vicki arrives in her car.</p>
+<p class="normaltext">'Hello, Anna,' she says. 'Are you OK? Your face is a bit pink. What's the matter?'</p>
+<p class="normaltext">'Oh – er – nothing,' says Anna.</p>
+<p class="normaltext">They drive away. Vicki talks to Anna, but Anna is thinking about the young man.</p>
+<p class="normaltext">'Who is he?' she thinks. 'Does he live in the building? Who are the roses for? His wife? His girlfriend? His mother?'</p>
+<p class="picture"><img src="../../../Images/image06716.jpeg" alt="alt"/></p>
+<p class="normaltext3">'Anna? Are you listening?' says Vicki.</p>
+<p class="normaltext">'Oh! Sorry, Vicki,' says Anna. Her face is red now.</p>
+<p class="normaltext">'What are you thinking about?' says Vicki. 'Tell me!'</p>
+<p class="normaltext">'Well, I'm thinking about a bunch of roses,' says Anna. 'And a man.'</p>
+<p class="normaltext">'Aha! Who is he?' says Vicki.</p>
+<p class="normaltext">'I don't know,' says Anna.</p>
+<p class="normaltext">'But I want to know,' she thinks.</p>
+<p class="picture"><img src="../../../Images/image06717.jpeg" alt="alt"/></p>
+<p class="normaltext3">Will arrives at his gran's apartment.</p>
+<p class="normaltext">'Hello, dear,' she says. 'Oh, you are a good boy. You always bring me roses.'</p>
+<p class="normaltext">'Of course,' says Will.</p>
+<p class="normaltext">Gran makes Will some coffee. She asks him a question, but Will does not answer.</p>
+<p class="normaltext">'Will, are you listening? You're thinking about something, aren't you? What is it?'</p>
+<p class="normaltext">'Oh – sorry, Gran. It's – it's not important.'</p>
+<p class="picture"><img src="../../../Images/image06718.jpeg" alt="alt"/></p>
+<p class="normaltext3">Later, Will says goodbye to his gran. Then he gets into his car and drives away.</p>
+<p class="normaltext">In the car he thinks about the young woman with the guitar.</p>
+<p class="normaltext">'Where does she live?' he thinks. 'Does she live in one of the apartments? Or has she got a friend there? How can I meet her? Who is she?'</p>
+<p class="picture"><img src="../../../Images/image06719.jpeg" alt="alt"/></p>
+<p class="normaltext3">Five minutes later, Anna and Vicki arrive outside the apartment building.</p>
+<p class="normaltext">'Goodnight, Vicki,' says Anna.</p>
+<p class="normaltext">'Quick – go inside,' says Vicki. 'Just think – you walk out of the elevator, and there is a young man with a bunch of roses. And he says—'</p>
+<p class="normaltext">'Oh be quiet,' laughs Anna. 'See you tomorrow.'</p>
+<p class="picture"><img src="../../../Images/image06720.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">2 Pink roses</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">2<br/>Pink roses</h1>
+<p class="normaltext3">It's September. Will is visiting his gran again.</p>
+<p class="normaltext">'It's a lovely day, Will,' she says. 'Let's have our coffee on the balcony.'</p>
+<p class="normaltext">Will and his gran are sitting on the balcony in the sun, when suddenly Will hears a guitar.</p>
+<p class="normaltext">'Listen!' he says. 'That's a guitar. Where's it coming from?' He stands up and looks around, but he cannot see the guitar.</p>
+<p class="normaltext">'Excuse me, Gran,' he says. 'I – er – back soon!' And he runs out of the apartment.</p>
+<p class="picture"><img src="../../../Images/image06721.jpeg" alt="alt"/></p>
+<p class="normaltext3">Will runs along the corridor. Where is the guitar? And who is playing it?</p>
+<p class="normaltext">He stops outside an apartment and listens. Nothing.</p>
+<p class="normaltext">'Perhaps it's outside,' he thinks. 'Perhaps she's on her balcony.'</p>
+<p class="normaltext">So he goes down in the elevator and goes outside.</p>
+<p class="normaltext">Upstairs, Anna takes her guitar and goes inside. She closes the door to the balcony.</p>
+<p class="normaltext">'That's it for today,' she thinks.</p>
+<p class="picture"><img src="../../../Images/image06722.jpeg" alt="alt"/></p>
+<p class="normaltext3">Will looks at all the balconies, but he cannot see or hear a guitar.</p>
+<p class="normaltext">He goes back to his gran's apartment.</p>
+<p class="normaltext">'Are you all right, dear?' she says.</p>
+<p class="normaltext">'Yes thanks, Gran,' says Will. 'It's just – oh, it's not important. Well, it is important, but...'</p>
+<p class="normaltext">And Will tells Gran about the girl with the guitar.</p>
+<p class="picture"><img src="../../../Images/image06723.jpeg" alt="alt"/></p>
+<p class="normaltext3">A week later, Anna is coming home. She can see a young man near the apartment building, and he is carrying a bunch of roses – pink roses today. But he is not looking, and he does not see her.</p>
+<p class="normaltext">Anna walks more quickly. But when she gets to the building, there is nobody there.</p>
+<p class="normaltext">She gets into the elevator. There is nobody in the elevator, but she can smell roses – beautiful pink roses.</p>
+<p class="picture"><img src="../../../Images/image06724.jpeg" alt="alt"/></p>
+<p class="normaltext3">One day Anna comes home and finds Gran at the door of the building with a lot of bags.</p>
+<p class="normaltext">'Oh, can I help you?' she says. 'Can I carry something?'</p>
+<p class="normaltext">'Thank you very much,' says Gran.</p>
+<p class="normaltext">At the apartment, Gran says, 'Come in, dear. Would you like some coffee?'</p>
+<p class="normaltext">'Oh – that's very nice of you,' says Anna. 'I'm new here, and I don't know anybody in the building.'</p>
+<p class="normaltext">'What do you do?' asks Gran.</p>
+<p class="normaltext">'I'm a music student,' says Anna.</p>
+<p class="picture"><img src="../../../Images/image06725.jpeg" alt="alt"/></p>
+<p class="normaltext3">Gran brings some coffee into the room.</p>
+<p class="normaltext">'These are lovely apartments, aren't they?' says Anna.</p>
+<p class="normaltext">'Oh yes,' says Gran. 'I like it here very much.' She tells Anna about her apartment, and about Charlton. Later Anna gets up.</p>
+<p class="normaltext">'I must go now,' she says. 'Thank you for the coffee.'</p>
+<p class="normaltext">'Goodbye, dear,' says Gran, and Anna goes out.</p>
+<p class="normaltext">'What a nice girl,' Gran thinks. 'But – just a minute. A music student – perhaps she's the girl with the guitar! I can ask her over one day when Will comes. No I can't – I don't know the number of her apartment!'</p>
+<p class="picture"><img src="../../../Images/image06726.jpeg" alt="alt"/></p>
+<p class="normaltext3">Later that week Vicki talks to Anna. 'I'm having a party on Saturday,' she says. 'Can you come?'</p>
+<p class="normaltext">'Yes, of course!' says Anna. 'Your parties are always wonderful.'</p>
+<p class="normaltext">Vicki calls her brother. 'Come to my party on Saturday, James,' she says, 'and bring some friends.'</p>
+<p class="normaltext">On Saturday, James and his friends arrive at Vicki's house.</p>
+<p class="normaltext">'Hi, Vicki,' says James. 'Meet my friends. This is Tom, and Daniel – and Will.'</p>
+<p class="picture"><img src="../../../Images/image06727.jpeg" alt="alt"/></p>
+<p class="normaltext3">Just then, Vicki's phone rings.</p>
+<p class="normaltext">'I'm sorry, Vicki,' says Anna. 'I can't come to your party, because I'm not feeling well.'</p>
+<p class="normaltext">'Oh Anna! I'm sorry, too,' says Vicki. 'Well, stay in bed, and get better soon.'</p>
+<p class="normaltext">Vicki's party is wonderful. Will meets Natalie, and Jane, and Katie. But he does not meet Anna.</p>
+<p class="picture"><img src="../../../Images/image06728.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">3 Red roses</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">3<br/>Red roses</h1>
+<p class="normaltext3">Now it's October. Will visits his gran, but he does not see Anna. He walks along the corridor, but he does not hear a guitar.</p>
+<p class="normaltext">'Where is she?' he thinks.</p>
+<p class="normaltext">Anna visits her family for a week, then she comes back to her apartment. She looks for Will, but she does not see him.</p>
+<p class="normaltext">'There are lots of men!' says Vicki, but Anna cannot forget Will.</p>
+<p class="picture"><img src="../../../Images/image06729.jpeg" alt="alt"/></p>
+<p class="normaltext3">Then Gran goes to hospital for two weeks. One day Will visits her there.</p>
+<p class="normaltext">'How are you today, Gran?' he asks.</p>
+<p class="normaltext">'Very well thank you, dear. I'm going home on Friday.'</p>
+<p class="normaltext">'That's good,' says Will. 'Perhaps I can get some things for you on Thursday and take them to the apartment.'</p>
+<p class="normaltext">'That's very nice of you, Will,' says Gran.</p>
+<p class="picture"><img src="../../../Images/image06730.jpeg" alt="alt"/></p>
+<p class="normaltext3">After work on Thursday Will goes to the shops and gets some things for Gran. He gets some roses, too, and he puts everything in his car.</p>
+<p class="normaltext">Suddenly it begins to rain. Will is getting into his car when he sees his friend Tom.</p>
+<p class="normaltext">'Where are you going, Tom?' says Will.</p>
+<p class="normaltext">'Home – to Eastfield.'</p>
+<p class="normaltext">'I'm going to my gran's apartment in Charlton, so I can take you to Eastfield first.'</p>
+<p class="normaltext">'Can you take my friend Anna, too? She's going to Charlton.'</p>
+<p class="normaltext">'Yes of course,' says Will.</p>
+<p class="picture"><img src="../../../Images/image06731.jpeg" alt="alt"/></p>
+<p class="normaltext3">Tom and Anna get into Will's car.</p>
+<p class="normaltext">'Thanks, Will,' says Tom. 'It's not a very nice night!'</p>
+<p class="normaltext">'That's all right, Tom,' says Will. He drives Tom home, and then he says to Anna, 'Where are you going, Anna?'</p>
+<p class="normaltext">'I'm going to Grandview Apartments. It's on Park Road.'</p>
+<p class="normaltext">'That's funny,' says Will. 'I'm going to Grandview Apartments.'</p>
+<p class="normaltext">'Is it her?' he thinks. 'The girl with the guitar?' He looks in the mirror, but he can't see her face very well.</p>
+<p class="normaltext">'Can I smell roses?' thinks Anna. 'Is it him – the man with the roses?'</p>
+<p class="picture"><img src="../../../Images/image06732.jpeg" alt="alt"/></p>
+<p class="normaltext3">Then they are outside the apartment building. They get out of the car, and then they begin to talk at the same time.</p>
+<p class="normaltext">'Oh! It's you!'</p>
+<p class="normaltext">'You play the guitar!'</p>
+<p class="normaltext">'And you come here with roses!'</p>
+<p class="normaltext">'Yes – I always bring roses to my gran.'</p>
+<p class="normaltext">'His gran!' thinks Anna. 'Not his wife, not his girlfriend.'</p>
+<p class="normaltext">'She's coming home from hospital tomorrow, so I'm taking some things to her apartment,' says Will.</p>
+<p class="normaltext">'Can I... would you like some help?' says Anna.</p>
+<p class="normaltext">'Yes please!' says Will.</p>
+<p class="picture"><img src="../../../Images/image06733.jpeg" alt="alt"/></p>
+<p class="normaltext3">They go up to Gran's apartment. Will puts things away, and Anna puts the roses in a vase.</p>
+<p class="normaltext">'There – aren't they lovely!' she says. 'I like roses. They smell wonderful.'</p>
+<p class="normaltext">'Thank you for your help, Anna,' says Will.</p>
+<p class="normaltext">'That's all right,' Anna says. 'Look – would you like to come up to my apartment for coffee?'</p>
+<p class="normaltext">'I'd like to very much,' says Will.</p>
+<p class="normaltext">He smiles, and she smiles. They go upstairs.</p>
+<p class="picture"><img src="../../../Images/image06734.jpeg" alt="alt"/></p>
+<p class="normaltext3">On Friday Gran comes home. Will goes to see her. He is carrying a bunch of red roses.</p>
+<p class="normaltext">'That's a big smile, Will!' says Gran. 'Red roses – don't they say "Red roses for love"?'</p>
+<p class="normaltext">'Well, Gran...' says Will.</p>
+<p class="normaltext">Ten minutes later, Will comes out of Gran's apartment and goes upstairs. He's carrying a bunch of red roses.</p>
+<p class="picture"><img src="../../../Images/image06735.jpeg" alt="alt"/></p>
+<p class="normaltext3">Gran goes out onto the balcony and sits down in the sun. She can hear a guitar. Then it stops.</p>
+<p class="normaltext">Gran hears Will's voice, and Anna's voice. Then Anna laughs.</p>
+<p class="normaltext">Gran smiles. She can smell roses – beautiful red roses, in the sun, outside on a balcony.</p>
+<p class="picture"><img src="../../../Images/image06736.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">GLOSSARY<br/>词汇表</h1>
+<p class="normaltext4"><b>a bit</b> a small amount, not much　<span class="kt">一点儿；稍微</span></p>
+<p class="normaltext4"><b>along</b> <em>prep.</em> from one end of something to the other end　<span class="kt">沿着…（移动）</span></p>
+<p class="normaltext4"><b>anybody</b> <em>pron.</em> any person　<span class="kt">任何人；无论谁</span></p>
+<p class="normaltext4"><b>apartment</b> <em>n.</em> a group of rooms for living in　<span class="kt">公寓套房</span></p>
+<p class="normaltext4"><b>around</b> <em>adv.</em> in different places　<span class="kt">在四周；向各处</span></p>
+<p class="normaltext4"><b>dear</b> <em>n.</em> you say this when you speak to someone you like or love　<span class="kt">亲爱的；宝贝</span></p>
+<p class="normaltext4"><b>funny</b> <em>adj.</em> strange　<span class="kt">有趣的，奇怪的</span></p>
+<p class="normaltext4"><b>girlfriend</b> <em>n.</em> a girl who is a man's special friend　<span class="kt">女朋友</span></p>
+<p class="normaltext4"><b>gran</b> <em>n.</em> grandmother – the mother of your father or mother　<span class="kt">〈口语〉奶奶，外婆</span></p>
+<p class="normaltext4"><b>inside</b> <em>adv.</em> into a room or building　<span class="kt">在里面，在室内</span></p>
+<p class="normaltext4"><b>lovely</b> <em>adj.</em> very nice　<span class="kt">可爱的；美好的</span></p>
+<p class="normaltext4"><b>music</b> <em>n.</em> what you make when you sing, or play the piano, guitar, etc　<span class="kt">音乐</span></p>
+<p class="normaltext4"><b>outside</b> <em>adv.</em> out of a room or building　<span class="kt">在外面，在室外</span></p>
+<p class="normaltext4"><b>ring</b> <em>v.</em> make a sound like a bell (e.g. a telephone rings)　<span class="kt">（电话等）鸣响</span></p>
+<p class="normaltext4"><b>smell</b> <em>v.</em> notice something with your nose　<span class="kt">闻，嗅</span></p>
+<p class="normaltext4"><b>upstairs</b> <em>adv.</em> to or in the higher part of a building　<span class="kt">向楼上；在楼上</span></p>
+<p class="normaltext4"><b>voice</b> <em>n.</em> you speak and sing with your voice　<span class="kt">（人的）说话声，嗓音</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title01">Red Roses</h1>
+<hr/>
+<h1 class="title1a" id="a1">ACTIVITIES<br/>阅读练习</h1>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h1 class="title1a"><span class="underline">　ACTIVITIES　</span><br/><em>Before Reading</em></h1>
+<p class="normaltext5">1 Look at the front and <a href="part0219.xhtml">back covers</a> of the book and choose the correct endings for these sentences.</p>
+<p class="normaltext7">1) This story is about...</p>
+<p class="normaltext">a □ work.</p>
+<p class="normaltext">b □ love.</p>
+<p class="normaltext">c □ families.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext7">2) Roses are...</p>
+<p class="normaltext">a □ people.</p>
+<p class="normaltext">b □ buildings.</p>
+<p class="normaltext">c □ flowers.</p>
+<p class="normaltext5">2 Guess what happens. In the story...</p>
+<p class="normaltext7">1) Anna and Will never meet.</p>
+<p class="normaltext1"><em>Yes </em>□／<em>No </em>□</p>
+<p class="normaltext7">2) Will meets Vicki.</p>
+<p class="normaltext1"><em>Yes </em>□／<em>No </em>□</p>
+<p class="normaltext7">3) Will takes Anna home in his car.</p>
+<p class="normaltext1"><em>Yes </em>□／<em>No </em>□</p>
+<p class="normaltext7">4) Will meets Anna at work.</p>
+<p class="normaltext1"><em>Yes </em>□／<em>No </em>□</p>
+<p class="normaltext7">5) Anna sees Will on TV.</p>
+<p class="normaltext1"><em>Yes </em>□／<em>No </em>□</p>
+<p class="normaltext7">6) Anna meets Will's grandmother.</p>
+<p class="normaltext1"><em>Yes </em>□／<em>No </em>□</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h1 class="title1a"><span class="underline">　ACTIVITIES　</span><br/><em>While Reading</em></h1>
+<p class="normaltext5">1 Read the first half of Chapter 1, then answer these questions.</p>
+<p class="normaltext7">1) What does Anna play?</p>
+<p class="normaltext7">2) Who is coming to her apartment?</p>
+<p class="normaltext7">3) What colour are Will's roses?</p>
+<p class="normaltext7">4) Who is Anna thinking about?</p>
+<p class="normaltext5">2 Read the second half of Chapter 1. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext7">1) Anna is not listening to Vicki.</p>
+<p class="normaltext7">2) Will always takes apples to Gran.</p>
+<p class="normaltext7">3) Gran makes coffee for Will.</p>
+<p class="normaltext7">4) Will talks to Gran about Anna.</p>
+<p class="normaltext7">5) Anna sees Will outside the apartment building when she comes home.</p>
+<p class="normaltext5">3 Read the first half of Chapter 2, then answer the questions.</p>
+<p class="normaltext7">Who...</p>
+<p class="normaltext7">1) ... says: 'It's a lovely day'?</p>
+<p class="normaltext7">2) ... runs out of the apartment?</p>
+<p class="normaltext7">3) ... closes the door to the balcony?</p>
+<p class="normaltext7">4) ... says: 'Are you all right, dear?'?</p>
+<p class="normaltext7">5) ... can smell roses in the elevator?</p>
+<p class="normaltext5">4 Read the second half of Chapter 2, then answer these questions.</p>
+<p class="normaltext7">1) How does Anna help Gran?</p>
+<p class="normaltext7">2) What is Vicki doing on Saturday?</p>
+<p class="normaltext7">3) Why does Anna stay at home on Saturday?</p>
+<p class="normaltext7">4) Who does Will meet at the party?</p>
+<p class="normaltext5">5 Read the first half of Chapter 3, then match the sentence halves to make four complete sentences.</p>
+<p class="normaltext7">1) Will walks along the corridor...</p>
+<p class="normaltext7">2) Anna visits her family for a week...</p>
+<p class="normaltext7">3) Will is getting into his car...</p>
+<p class="normaltext7">4) Will is going to Charlton...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext7">a then she comes back to her apartment.</p>
+<p class="normaltext7">b so he can take Tom to Eastfield first.</p>
+<p class="normaltext7">c but he does not hear a guitar.</p>
+<p class="normaltext7">d when he sees his friend Tom.</p>
+<p class="normaltext5">6 Read the second half of Chapter 3. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext7">1) Will takes the roses to his mother.</p>
+<p class="normaltext7">2) Anna puts the roses in a vase.</p>
+<p class="normaltext7">3) Anna asks Will to her apartment.</p>
+<p class="normaltext7">4) Will has a bunch of red roses for Gran.</p>
+<p class="normaltext7">5) Gran laughs when she smells the red roses.</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h1 class="title1a"><span class="underline">　ACTIVITIES　</span><br/><em>After Reading</em></h1>
+<p class="normaltext5">1 What do you know about Anna? Write a description using these words:</p>
+<p class="normaltext7"><em>live / Grandview Apartments / Charlton</em></p>
+<p class="normaltext7"><em>music student / play guitar</em></p>
+<p class="normaltext7"><em>friend / called Vicki</em></p>
+<p class="normaltext7"><em>like / help people</em></p>
+<p class="normaltext7"><em>like parties / roses</em></p>
+<p class="normaltext5">2 Put these sentences in the correct order. Number them 1–10.</p>
+<p class="normaltext07">a □ Tom and Anna get into Will's car.</p>
+<p class="normaltext07">b □ 'Is she the girl with the guitar?' Will thinks.</p>
+<p class="normaltext07">c □ Will goes shopping for Gran.</p>
+<p class="normaltext07">d □ They arrive at the apartment building and get out of the car.</p>
+<p class="normaltext07">e □ Then they go to Anna's apartment.</p>
+<p class="normaltext07">f □ Will drives Tom home.</p>
+<p class="normaltext07">g □ Anna says, 'I'm going to Grandview Apartments.'</p>
+<p class="normaltext07">h □ Anna helps Will with the roses.</p>
+<p class="normaltext07">i □ Then Will and Anna meet!</p>
+<p class="normaltext07">j □ Then he sees his friend Tom.</p>
+<p class="normaltext5">3 Who says this? Who do they say it to?</p>
+<p class="normaltext7">1) 'I'm thinking about a bunch of roses.'</p>
+<p class="normaltext7">2) 'That's a guitar. Where's it coming from?'</p>
+<p class="normaltext7">3) 'Can I carry something?'</p>
+<p class="normaltext7">4) 'Come to my party on Saturday.'</p>
+<p class="normaltext7">5) 'Stay in bed, and get better soon.'</p>
+<p class="normaltext7">6) 'Can you take my friend Anna, too?'</p>
+<p class="normaltext5">4 Complete this summary of the story. Use these words:</p>
+<p class="normaltext"><em>apartment　because　hears　home</em></p>
+<p class="normaltext"><em>do not　nice　outside　party　rain　red</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext8">One day Anna sees Will with a bunch of roses outside her ___________ building. She thinks, 'He's ___________.' Will likes Anna too, but they ___________ meet. Then Will ___________ a guitar. Is it Anna's guitar? He goes ___________, but he cannot see it.</p>
+<p class="normaltext8">Anna's friend Vicki asks Anna and Will to her ___________, but Anna cannot go ___________ she is not well. Then one afternoon Will sees his friend Tom in the ___________. He takes Tom and Tom's friend Anna ___________. This time, Will and Anna meet. The next day, Will takes a bunch of roses to the apartment building. They are ___________ roses, for Anna.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle">TRANSLATION　参考译文</p>
+<h1 class="title1">Red Roses<br/><span class="kt">红红的玫瑰</span></h1>
+<p class="subtitle1"><a href="part0212.xhtml#a1">1　白玫瑰</a></p>
+<p class="normaltext2a">时值八月，安娜正在她新公寓的阳台上弹吉他。“我喜欢这里。”她想。</p>
+<p class="normaltext2a">这时，她的手机响了。是她的朋友薇姬打来的。</p>
+<p class="normaltext2a">“我正过来呢，安娜。是在查尔顿的美景公寓，对吧？”</p>
+<p class="normaltext2a">“对，一会儿见。”</p>
+<p class="normaltext2a">安娜拿上吉他，出了公寓。她坐电梯下楼，走到大门外。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">安娜等在公寓大楼外。</p>
+<p class="normaltext2a">一个年轻人沿着街道走来，手里拿着一束白玫瑰。</p>
+<p class="normaltext2a">安娜看了看那束花。“多漂亮的玫瑰！”她想。接着，她又看了看那年轻人。“他看起来也不错！”她想。</p>
+<p class="normaltext2a">年轻人望着她，笑了笑，安娜的脸一下子泛起了红晕。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">威尔正在大街上走着，看到了一位提着吉他的姑娘。</p>
+<p class="normaltext2a">“唔，吉他！”他想，“我得多练练我的吉他了。”</p>
+<p class="normaltext2a">接着他又看了看那位姑娘。</p>
+<p class="normaltext2a">“她很不错！”他想，于是朝她笑了笑。</p>
+<p class="normaltext2a">安娜的脸一红，移开了目光。威尔走进了美景公寓。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">就在这时，薇姬开车到了。</p>
+<p class="normaltext2a">“嗨，安娜，”她说，“你还好吧？你的脸有点儿红。出了什么事吗？”</p>
+<p class="normaltext2a">“哦，呃，没什么。”安娜说。</p>
+<p class="normaltext2a">她们驾车离开了。薇姬跟安娜说话，可安娜一直在想那个年轻人。</p>
+<p class="normaltext2a">“他是谁？”她想，“他住在那个楼里吗？那些玫瑰是送给谁的？他的妻子？他的女朋友？还是他母亲？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">“安娜？你在听吗？”薇姬说。</p>
+<p class="normaltext2a">“哦！对不起，薇姬。”安娜说。她的脸现在更红了。</p>
+<p class="normaltext2a">“你在想什么呢？”薇姬说，“跟我说说！”</p>
+<p class="normaltext2a">“呃，我在想一束玫瑰，”安娜说，“还有一个男人。”</p>
+<p class="normaltext2a">“啊哈！他是谁？”薇姬问。</p>
+<p class="normaltext2a">“我不知道。”安娜说。</p>
+<p class="normaltext2a">“可是我想知道。”她想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">威尔到了他奶奶的公寓。</p>
+<p class="normaltext2a">“你好，亲爱的。”她说，“哦，你是个好孩子，总是带玫瑰花给我。”</p>
+<p class="normaltext2a">“当然啦。”威尔说。</p>
+<p class="normaltext2a">奶奶给威尔冲了一些咖啡。她问了他一个问题，但是威尔没有回答。</p>
+<p class="normaltext2a">“威尔，你在听吗？你在想事情，对吧？想什么呢？”</p>
+<p class="normaltext2a">“哦，对不起，奶奶。是——不是什么重要的事。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">晚些时候，威尔跟奶奶告别，然后开车走了。</p>
+<p class="normaltext2a">在车里他想起了那个拿着吉他的姑娘。</p>
+<p class="normaltext2a">“她住在哪儿？”他想，“她会不会就住在那栋公寓楼的某一间里？或者她在那儿有朋友？我怎样才能认识她呢？她是谁？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">五分钟后，安娜和薇姬的车到了公寓楼外。</p>
+<p class="normaltext2a">“晚安，薇姬。”安娜说。</p>
+<p class="normaltext2a">“快点儿进去吧。”薇姬说，“想想看，你走出电梯，正有个年轻人捧着玫瑰站在那儿。他还说——”</p>
+<p class="normaltext2a">“哦，别说了。”安娜笑了起来，“明天见。”</p>
+<p class="subtitle1"><a href="part0213.xhtml#a1">2　粉玫瑰</a></p>
+<p class="normaltext2a">时至九月，威尔又来看望奶奶。</p>
+<p class="normaltext2a">“今天天气不错，威尔。”她说，“我们到阳台上喝咖啡吧。”</p>
+<p class="normaltext2a">威尔正和奶奶坐在阳台上晒太阳，忽然听到了吉他声。</p>
+<p class="normaltext2a">“听！”他说，“那是吉他声。是从哪里传来的？”他站起来四处张望，但是看不到吉他的影子。</p>
+<p class="normaltext2a">“抱歉，奶奶。”他说，“我，呃，很快回来！”说着他就跑出了房间。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">威尔沿着楼道一路跑。那吉他在哪儿？又是谁在弹奏？</p>
+<p class="normaltext2a">他停在一间房的门口听了听，没有动静。</p>
+<p class="normaltext2a">“或许是在外面，”他想，“或许她在阳台上。”</p>
+<p class="normaltext2a">于是他坐电梯下楼，到了外面。</p>
+<p class="normaltext2a">楼上，安娜拿着吉他走进屋子，关上了阳台门。</p>
+<p class="normaltext2a">“今天就弹到这儿吧。”她想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">威尔望向所有的阳台，但是既看不到也听不到有人弹吉他。</p>
+<p class="normaltext2a">他回到奶奶的房间。</p>
+<p class="normaltext2a">“你还好吧，亲爱的？”她说。</p>
+<p class="normaltext2a">“是的，谢谢，奶奶，”威尔说，“就是，哦，这不重要。好吧，这挺重要的，但是……”</p>
+<p class="normaltext2a">威尔告诉了奶奶那个弹吉他的姑娘的事。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">一个星期后，安娜正往家走。她看到公寓楼旁有个年轻人，拿着一束玫瑰——今天是粉色的玫瑰。但是他没往这边看，也没有看到她。</p>
+<p class="normaltext2a">安娜加快了脚步。但是等她赶到楼里，那里已经没有人了。</p>
+<p class="normaltext2a">她走进电梯，里面没有人，但她能闻到玫瑰的香气——是美丽的粉色玫瑰。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">一天，安娜回家的时候，在楼门口看到一位老太太拎着很多袋子。</p>
+<p class="normaltext2a">“哦，要我帮忙吗？”她说，“我来帮您拎一些吧？”</p>
+<p class="normaltext2a">“非常感谢。”老太太说。</p>
+<p class="normaltext2a">到了房间门口，老太太说：“进来吧，亲爱的。你要不要来点儿咖啡？”</p>
+<p class="normaltext2a">“哦，您太客气了。”安娜说，“我是新搬来的，跟楼里的人都不认识。”</p>
+<p class="normaltext2a">“你是做什么的？”老太太问。</p>
+<p class="normaltext2a">“我是学音乐的学生。”安娜说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">老太太端来了咖啡。</p>
+<p class="normaltext2a">“这里的公寓很不错，是吧？”安娜说。</p>
+<p class="normaltext2a">“哦，是的。”老太太说，“我很喜欢这儿。”她跟安娜聊起了自己的公寓，又说了些查尔顿的事。过了一会儿，安娜站起身来。</p>
+<p class="normaltext2a">“我得走了。”她说，“谢谢您的咖啡。”</p>
+<p class="normaltext2a">“再见，亲爱的。”老太太说，安娜出门离去。</p>
+<p class="normaltext2a">“多好的姑娘，”老太太想，“不过，等等。学音乐的学生——或许她就是那个弹吉他的姑娘！等哪天威尔来的时候，我可以请她过来。不行，我不知道她的房号！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">快到周末了，薇姬跟安娜聊天。“我周六要开个派对。”她说，“你能来吗？”</p>
+<p class="normaltext2a">“好啊，当然了！”安娜说，“你的派对总是很棒。”</p>
+<p class="normaltext2a">薇姬给她的弟弟打电话。“周六来我的派对吧，詹姆斯。”她说，“带些朋友过来。”</p>
+<p class="normaltext2a">星期六，詹姆斯和他的朋友们到了薇姬家。</p>
+<p class="normaltext2a">“嗨，薇姬，”詹姆斯说，“来认识一下我的朋友们。这是汤姆、丹尼尔，还有威尔。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">这个时候，薇姬的手机响了。</p>
+<p class="normaltext2a">“对不起，薇姬，”安娜说，“我不能去你的派对了，我不太舒服。”</p>
+<p class="normaltext2a">“哦，安娜！真不幸。”薇姬说，“嗯，卧床休息，快点儿好起来。”</p>
+<p class="normaltext2a">薇姬的派对很棒。威尔见到了娜塔莉，见到了简，还有凯蒂。但是他没见到安娜。</p>
+<p class="subtitle1"><a href="part0214.xhtml#a1">3　红玫瑰</a></p>
+<p class="normaltext2a">时间进入十月。威尔去看望奶奶，可是没见到安娜。他走在楼道里，但是没有听到吉他声。</p>
+<p class="normaltext2a">“她在哪儿？”他想。</p>
+<p class="normaltext2a">安娜回家探亲一个星期，然后回到公寓。她也在寻找威尔，但没见到他。</p>
+<p class="normaltext2a">“男人有的是！”薇姬说，可是安娜对威尔念念不忘。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">后来，威尔的奶奶住了两个星期的医院。一天，威尔去医院看望她。</p>
+<p class="normaltext2a">“您今天怎么样，奶奶？”他问。</p>
+<p class="normaltext2a">“很好，谢谢，亲爱的。我星期五就回家了。”</p>
+<p class="normaltext2a">“那好啊，”威尔说，“或许我星期四可以买点儿东西给您送到公寓去。”</p>
+<p class="normaltext2a">“你真好，威尔。”奶奶说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">星期四下班后，威尔到商店给奶奶买了些东西。他还买了玫瑰，然后把所有东西放到了车上。</p>
+<p class="normaltext2a">天突然下起了雨。威尔正要上车时，看到了他的朋友汤姆。</p>
+<p class="normaltext2a">“你要去哪儿，汤姆？”威尔问。</p>
+<p class="normaltext2a">“回家——去伊斯特菲尔德。”</p>
+<p class="normaltext2a">“我要去查尔顿我奶奶家，可以先送你去伊斯特菲尔德。”</p>
+<p class="normaltext2a">“你能一道儿送送我的朋友安娜吗？她要去查尔顿。”</p>
+<p class="normaltext2a">“当然可以。”威尔说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">汤姆和安娜上了威尔的车。</p>
+<p class="normaltext2a">“谢谢，威尔。”汤姆说，“今晚天气真不好！”</p>
+<p class="normaltext2a">“别客气，汤姆。”威尔说。他开车把汤姆送回家，然后对安娜说：“你去哪儿，安娜？”</p>
+<p class="normaltext2a">“我去美景公寓，在帕克路上。”</p>
+<p class="normaltext2a">“真巧，”威尔说，“我也去美景公寓。”</p>
+<p class="normaltext2a">“是她吗？”他想，“是那个弹吉他的姑娘吗？”他看了看后视镜，但看不清她的脸。</p>
+<p class="normaltext2a">“我闻到的是玫瑰花香吗？”安娜想，“是他吗——那个拿玫瑰的人？”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">他们到了公寓楼外，一下车就同时开了口。</p>
+<p class="normaltext2a">“哦，是你！”</p>
+<p class="normaltext2a">“你弹吉他！”</p>
+<p class="normaltext2a">“你带着玫瑰花来这儿的！”</p>
+<p class="normaltext2a">“是的，我总是给我奶奶带玫瑰花。”</p>
+<p class="normaltext2a">“他的奶奶！”安娜想，“不是他妻子，也不是他女朋友。”</p>
+<p class="normaltext2a">“她明天就要出院回家，所以我来她家送些东西。”威尔说。</p>
+<p class="normaltext2a">“我能……你需要帮忙吗？”安娜问。</p>
+<p class="normaltext2a">“是的，劳驾！”威尔说。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">他们上楼来到老奶奶的房间。威尔把东西收拾好，安娜把玫瑰插到花瓶里。</p>
+<p class="normaltext2a">“好了。它们真漂亮！”她说，“我喜欢玫瑰，闻起来很香。”</p>
+<p class="normaltext2a">“谢谢你帮忙，安娜。”威尔说。</p>
+<p class="normaltext2a">“不客气。”安娜说，“哎，你想不想上楼到我的公寓去喝杯咖啡？”</p>
+<p class="normaltext2a">“我很乐意。”威尔说。</p>
+<p class="normaltext2a">他笑了，她也笑了。他们一起上了楼。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">星期五，奶奶回到了家。威尔去看她。他拿着一束红玫瑰。</p>
+<p class="normaltext2a">“你笑得真开心，威尔！”奶奶说，“红玫瑰——不是说‘红玫瑰代表爱情’吗？”</p>
+<p class="normaltext2a">“嗯，奶奶……”威尔说。</p>
+<p class="normaltext2a">十分钟后，威尔出了奶奶的房间，来到楼上。他拿着一束红玫瑰。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">威尔的奶奶走出房间，坐在阳台上晒太阳。她听到了一阵吉他声，接着又停了。</p>
+<p class="normaltext2a">她听到了威尔的声音，还有安娜的声音。接着传来安娜的笑声。</p>
+<p class="normaltext2a">奶奶笑了。她能闻到玫瑰的香味——美丽的红玫瑰，正摆在阳台上，沐浴在阳光里。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="a1"><img src="../../../Images/image06738.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

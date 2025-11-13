@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出租车惊魂 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '出租车惊魂';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>出租车惊魂</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">出租车惊魂</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">TAXI OF TERROR</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP1"><img src="../../../Images/image06983.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext8" id="CHP2">京权图字：01-2013-7812</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2008</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="normaltext8">图书在版编目（CIP）数据</p>
+<p class="normaltext">出租车惊魂：英汉对照／（英）伯罗斯（Burrows, P.），（英）福斯特（Foster, M.）著；田娜译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Taxi of terror</p>
+<p class="normaltext">ISBN 978-7-5135-3783-4</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①出…　Ⅱ．①伯…②福…③田…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272375号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">出版人　　蔡剑峰</p>
+<p class="normaltext3">责任编辑　陈海燕</p>
+<p class="normaltext3">封面设计　蔡　颖</p>
+<p class="normaltext3">出版发行　外语教学与研究出版社</p>
+<p class="normaltext3">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext3">网　　址　http://www.fltrp.com</p>
+<p class="normaltext3">版　　次　2013年12月第1版</p>
+<p class="normaltext3">书　　号　ISBN 978-7-5135-3783-4</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">制售盗版必究　举报查实奖励</p>
+<p class="normaltext3">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP3">内容简介</h1>
+<p class="normaltext02">“祝你好运，杰克。别忘了我们！”杰克的同事们与他告别。他们为杰克举办了一个派对，因为他找了一份新工作，要离职了。杰克收到了一张卡片和一份礼物——一部手机。杰克的同事们有些伤感，不过派对很棒，他们都跳了几个小时的舞。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">然后，杰克离开了派对。他累了，想要回家。“好冷。”他想。他想找辆出租车，可是没能找到。他步行了很长时间，整个人疲惫不堪。后来，他终于看到一辆出租车。好极了！他终于可以回家睡觉了！</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">然而，漫漫长夜才刚刚拉开帷幕——杰克将在出租车中惊恐度过这漫漫长夜！</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">CONTENTS<br/>目　录</div>
+<div class="contents1"><a href="part0338.xhtml#CHP3">内容简介</a></div>
+<div class="contents1"><a href="part0341.xhtml#CHP5">Taxi of Terror</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0342.xhtml#CHP6">GLOSSARY<br/>词汇表</a></div>
+<div class="contents1"><a href="part0343.xhtml#CHP7">ACTIVITIES<br/>阅读练习</a></div>
+<div class="contents1"><a href="part0344.xhtml#CHP8">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">TAXI OF TERROR</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="CHP5"><em>TAXI OF TERROR</em></h1>
+<p class="picture"><a id="fhzs1" href="part0344.xhtml#zhushi1"><img src="../../../Images/image06984.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs2" href="part0344.xhtml#zhushi2"><img src="../../../Images/image06985.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs3" href="part0344.xhtml#zhushi3"><img src="../../../Images/image06986.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs4" href="part0344.xhtml#zhushi4"><img src="../../../Images/image06987.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs5" href="part0344.xhtml#zhushi5"><img src="../../../Images/image06988.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs6" href="part0344.xhtml#zhushi6"><img src="../../../Images/image06989.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs7" href="part0344.xhtml#zhushi7"><img src="../../../Images/image06990.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs8" href="part0344.xhtml#zhushi8"><img src="../../../Images/image06991.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs9" href="part0344.xhtml#zhushi9"><img src="../../../Images/image06992.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs10" href="part0344.xhtml#zhushi10"><img src="../../../Images/image06993.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs11" href="part0344.xhtml#zhushi11"><img src="../../../Images/image06994.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs12" href="part0344.xhtml#zhushi12"><img src="../../../Images/image06995.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs13" href="part0344.xhtml#zhushi13"><img src="../../../Images/image06996.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs14" href="part0344.xhtml#zhushi14"><img src="../../../Images/image06997.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs15" href="part0344.xhtml#zhushi15"><img src="../../../Images/image06998.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs16" href="part0344.xhtml#zhushi16"><img src="../../../Images/image06999.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs17" href="part0344.xhtml#zhushi17"><img src="../../../Images/image07000.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs18" href="part0344.xhtml#zhushi18"><img src="../../../Images/image07001.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs19" href="part0344.xhtml#zhushi19"><img src="../../../Images/image07002.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs20" href="part0344.xhtml#zhushi20"><img src="../../../Images/image07003.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs21" href="part0344.xhtml#zhushi21"><img src="../../../Images/image07004.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs22" href="part0344.xhtml#zhushi22"><img src="../../../Images/image07005.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs23" href="part0344.xhtml#zhushi23"><img src="../../../Images/image07006.jpeg" alt="alt"/></a></p>
+<p class="picture"><a id="fhzs24" href="part0344.xhtml#zhushi24"><img src="../../../Images/image07007.jpeg" alt="alt"/></a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a" id="CHP6">GLOSSARY</h1>
+<h2 class="title2">词汇表</h2>
+<p class="normaltext3"><b>calm</b> <em>adj</em>. not angry <span class="CN_Kindle_Kai">镇定的，镇静的</span></p>
+<p class="normaltext3"><b>dangerous</b> <em>adj</em>. something that can hurt you is dangerous <span class="CN_Kindle_Kai">危险的</span></p>
+<p class="normaltext3"><b>enjoy</b> <em>v</em>. like doing something <span class="CN_Kindle_Kai">喜爱；享受……的乐趣</span></p>
+<p class="normaltext3"><b>hurt</b> <em>v</em>./<em>adj.</em> be or cause to be in pain <span class="CN_Kindle_Kai">（身体某部位）感到疼痛；使感到疼痛</span></p>
+<p class="normaltext3"><b>kind</b> <em>adj</em>. if you are good to other people you are kind <span class="CN_Kindle_Kai">友善的</span></p>
+<p class="normaltext3"><b>loud</b> <em>adj</em>. making a lot of noise <span class="CN_Kindle_Kai">大声的；响亮的</span></p>
+<p class="normaltext3"><b>luck</b> <em>n</em>. you have luck if good things happen to you <span class="CN_Kindle_Kai">运气</span></p>
+<p class="normaltext3"><b>ouch</b> <em>exclam</em>. what you say when you are in pain <span class="CN_Kindle_Kai">（表示疼痛）哎哟</span></p>
+<p class="normaltext3"><b>seagull</b> <em>n</em>. a bird that lives by the sea <span class="CN_Kindle_Kai">海鸥</span></p>
+<p class="normaltext3"><b>tunnel</b> <em>n</em>. where a road goes under the ground <span class="CN_Kindle_Kai">隧道</span></p>
+<p class="normaltext3"><b>turn</b> <em>v</em>. change the way you are going <span class="CN_Kindle_Kai">转向</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1a">Taxi of Terror</h1>
+<p class="sx1"></p>
+<h1 class="title1a" id="CHP7">ACTIVITIES</h1>
+<h1 class="title1">阅读练习</h1>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em>Before Reading</em></p>
+<p class="normaltext4">1　Look at the front and <a href="part0346.xhtml#CHP9">back covers</a> of the book. Now complete these sentences.</p>
+<p class="normaltext5">1）The taxi in the story is...</p>
+<p class="normaltext6">a　□　black.</p>
+<p class="normaltext6">b　□　yellow.</p>
+<p class="normaltext6">c　□　blue.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">2）Imagine you are the taxi driver. You are...</p>
+<p class="normaltext6">a　□　afraid.</p>
+<p class="normaltext6">b　□　happy.</p>
+<p class="normaltext6">c　□　not interested.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">3）The story happens...</p>
+<p class="normaltext6">a　□　in a town.</p>
+<p class="normaltext6">b　□　in the country.</p>
+<p class="normaltext6">c　□　not in a or b.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">4）At the end of the story the police catch...</p>
+<p class="normaltext6">a　□　a bad man.</p>
+<p class="normaltext6">b　□　the taxi driver.</p>
+<p class="normaltext6">c　□　Jack.</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em>While Reading</em></p>
+<p class="normaltext4">1　Answer these questions.</p>
+<p class="normaltext5">1）Why is Jack leaving his job?</p>
+<p class="normaltext5">2）How does Jack decide to get home?</p>
+<p class="normaltext5">3）Where does the taxi stop?</p>
+<p class="normaltext4">2　Answer these questions.</p>
+<p class="normaltext5">1）Does the Wolf want money?</p>
+<p class="normaltext5">2）Does the taxi turn right or left next to the hospital?</p>
+<p class="normaltext5">3）Write a description of the Wolf.</p>
+<p class="picture"><img src="../../../Images/image07008.jpeg" alt="alt"/></p>
+<p class="zhx"></p>
+<p class="zhx"></p>
+<p class="zhx"></p>
+<p class="normaltext5">4）What is the number of the Taxi?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4a">3　Are these sentences true (T) or false (F)?</p>
+<p class="normaltext5">1）He gets in the boot of the taxi.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext5">2）He phones his mum.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext5">3）He escapes from the boot.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext5">4）He talks to a policeman.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext5">5）He tells the police the Wolf has a small nose.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext5">6）He hears a clock.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext4">4　Complete the sentences with the following words:</p>
+<p class="normaltext7"><em>airport　beard　boot　plane　seagulls</em></p>
+<p class="normaltext5">1）</p>
+<p class="normaltext5"><img src="../../../Images/image07009.jpeg" alt="alt"/></p>
+<p class="normaltext7">Now I can hear lots of..... Are we near the sea?</p>
+<p class="normaltext5">2）</p>
+<p class="normaltext5"><img src="../../../Images/image07010.jpeg" alt="alt"/></p>
+<p class="normaltext7">Drive to the..... I must get on that.....</p>
+<p class="normaltext5">3）</p>
+<p class="normaltext5"><img src="../../../Images/image07011.jpeg" alt="alt"/></p>
+<p class="normaltext7">Are you looking for that bad man with the..... ? He's over there.</p>
+<p class="normaltext5">4）</p>
+<p class="normaltext5"><img src="../../../Images/image07012.jpeg" alt="alt"/></p>
+<p class="normaltext7">Can someone open the..... ?</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em> After Reading</em></p>
+<p class="normaltext4">1　Answer these questions.</p>
+<p class="normaltext5">1）Who</p>
+<p class="normaltext5">a　... does the Wolf put in the boot of the taxi?</p>
+<p class="normaltext5">b　... does Jack call on his mobile phone?</p>
+<p class="normaltext5">c　... gets knocked over by the Wolf?</p>
+<p class="normaltext5">d　... says: 'That's ￡16.50 please'?</p>
+<p class="normaltext5">2）What</p>
+<p class="normaltext5">a　... almost crashes into the taxi?</p>
+<p class="normaltext5">b　... is the Wolf trying to catch?</p>
+<p class="normaltext5">c　... can Jack hear at the dump?</p>
+<p class="normaltext5">d　... do the police look at on the wall?</p>
+<p class="normaltext5">3）Where</p>
+<p class="normaltext5">a　... does the taxi go over some bumps?</p>
+<p class="normaltext5">b　... is Jack at the beginning of the story?</p>
+<p class="normaltext5">c　... do the police catch up with the Wolf?</p>
+<p class="normaltext5">d　... does the Wolf get in the taxi?</p>
+<p class="normaltext4">2　Put these sentences in the correct order.</p>
+<p class="normaltext5">a　□　The taxi drives next to a rubbish dump.</p>
+<p class="normaltext5">b　□　The taxi arrives at the airport.</p>
+<p class="normaltext5">c　□　Jack calls the police with his mobile phone.</p>
+<p class="normaltext5">d　□　The taxi drives through a tunnel.</p>
+<p class="normaltext5">e　□　The taxi drives near a clock.</p>
+<p class="normaltext4">3　Use these words to fill in the gaps.</p>
+<p class="normaltext7"><em>airport　boot　catch　gun　hear　job　mobile phone　pleased　police　taxi</em></p>
+<p class="normaltext7">Jack is leaving his old _____________ His friends give him a _____________ as a leaving present. He is very _____________ On his way home Jack falls asleep in a _____________. Suddenly at a traffic light, a dangerous man called the Wolf gets in the taxi – he has a _____________. The taxi driver does what the Wolf tells him. Jack wakes up and is soon put in the _____________ of the taxi. Then he has an idea – he calls the _____________ with his phone. Jack tells them what he can _____________ from inside the boot. The police find out that the taxi is driving to the _____________. The police get there just in time to _____________ the Wolf.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="subtitle" id="CHP8">TRANSLATION　参考译文</h1>
+<h1 class="title1">Taxi of Terror<br/><span class="CN_Kindle_Kai">出租车惊魂</span></h1>
+<hr/>
+<p class="normaltext3" id="zhushi1"><b>GOOD LUCK JACK</b></p>
+<p class="normaltext3">Don't forget us, Jack.</p>
+<p class="normaltext3">Are you excited about your new job?</p>
+<p class="normaltext3">You're going, Jack. I'm sorry.</p>
+<p class="normaltext3">Here's a leaving card from us all.</p>
+<p class="normaltext3">Thank you for the card. My new job's great. But I'm sorry because I'm leaving you.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>（条幅上写着：祝你好运，杰克）</b></p>
+<p class="normaltext3a">别忘了我们，杰克。</p>
+<p class="normaltext3a">你的新工作让你很兴奋吗？</p>
+<p class="normaltext3a">你要走了，杰克。我很难过。</p>
+<p class="normaltext3a">这是离别之际我们大家送你的卡片。</p>
+<p class="normaltext3a">谢谢你们的卡片。我的新工作非常棒。不过想到要离开你们我就很难过。</p>
+<hr/>
+<p class="normaltext3" id="zhushi2">Quiet, please. I want to say something.</p>
+<p class="normaltext3"><b>Bang! Bang!</b></p>
+<p class="normaltext3">Jack's leaving and we're all very unhappy. Here's a present for you. You can use it in your new job.</p>
+<p class="normaltext3">A mobile phone! Thanks, very much. You're all very kind.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">请静一下。我想说两句。</p>
+<p class="normaltext3"><b>（<img src="../../../Images/image07013.gif" style="width: 1em; vertical-align: middle;" alt="alt"/>！<img src="../../../Images/image07013.gif" style="width: 1em; vertical-align: middle;" alt="alt"/>！）</b></p>
+<p class="normaltext3a">杰克要走了，我们都很不开心。这是送给你的一份礼物。在新的工作中你用得上。</p>
+<p class="normaltext3a">手机！非常感谢！你们大家对我真好！</p>
+<hr/>
+<p class="normaltext3" id="zhushi3">How does it work? Do you know?</p>
+<p class="normaltext3"><b>Beep!</b></p>
+<p class="normaltext3">Oh, it's talking to me.</p>
+<p class="normaltext3">Now I can phone you all – from my car! This is a very good present. Thank you very much.</p>
+<p class="normaltext3">Good luck, Jack.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">它怎么使用？你知道吗？</p>
+<p class="normaltext3"><b>哔！</b></p>
+<p class="normaltext3a">哇，它跟我说话呢。</p>
+<p class="normaltext3a">这下我在车里就可以给你们大家打电话了！这是一件非常棒的礼物。非常感谢大家！</p>
+<p class="normaltext3a">祝你好运，杰克。</p>
+<hr/>
+<p class="normaltext3" id="zhushi4"><b>Everybody is having a good time.</b></p>
+<p class="normaltext3">Goodbye, everyone. Thank you, again, for my present.</p>
+<p class="normaltext3">See you soon.</p>
+<p class="normaltext3">Take care.</p>
+<p class="normaltext3">Enjoy yourself.</p>
+<p class="normaltext3">It's late – but I don't have to work tomorrow. Now, how do I get home?</p>
+<p class="normaltext3">It's cold. Where's a taxi?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>大家都玩得很开心。</b></p>
+<p class="normaltext3a">再见，诸位。再次感谢你们送我的礼物。</p>
+<p class="normaltext3a">回头见！</p>
+<p class="normaltext3a">保重！</p>
+<p class="normaltext3a">过得开心！</p>
+<p class="normaltext3a">夜深了，不过我明天不用去上班。唉，我怎么回家呢？</p>
+<p class="normaltext3a">好冷。哪儿有出租车？</p>
+<hr/>
+<p class="normaltext3" id="zhushi5"><b>Jack cannot find a taxi. He walks for a long time and gets very tired.</b></p>
+<p class="normaltext3"><b>At last, Jack sees a taxi.</b></p>
+<p class="normaltext3">I live at 57 Park Road. Can you take me there?</p>
+<p class="normaltext3">Of course. Get in. You look tired.</p>
+<p class="normaltext3">Yes, I'm very tired.</p>
+<p class="normaltext3">It's very quiet tonight, sir. You're only my second passenger... Sir?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>杰克找不到出租车。他步行了很长时间，疲惫不堪。</b></p>
+<p class="normaltext3"><b>杰克终于看到一辆出租车。</b></p>
+<p class="normaltext3a">我住在公园路57号。你能送我去那儿吗？</p>
+<p class="normaltext3a">没问题。上车吧。你看上去累了。</p>
+<p class="normaltext3a">是啊，我累坏了。</p>
+<p class="normaltext3a">今晚可真安静，先生。你是我拉的第二位乘客……先生？</p>
+<hr/>
+<p class="normaltext3" id="zhushi6">It's late. He needs his bed.</p>
+<p class="normaltext3"><b>The taxi stops at a traffic light. Suddenly...</b></p>
+<p class="normaltext3">What the...</p>
+<p class="normaltext3">Say nothing.</p>
+<p class="normaltext3">Do what I tell you... or you're dead.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">夜深了。他该睡觉了。</p>
+<p class="normaltext3"><b>出租车在一个交通信号灯前停了下来。突然……</b></p>
+<p class="normaltext3a">怎么……</p>
+<p class="normaltext3a">给我闭嘴。</p>
+<p class="normaltext3a">照我说的做……不然你就死定了。</p>
+<hr/>
+<p class="normaltext3" id="zhushi7">When the lights are green, drive fast.</p>
+<p class="normaltext3">I'm watching you. Don't be clever.</p>
+<p class="normaltext3">Go left and then right.</p>
+<p class="normaltext3">Left here, fast.</p>
+<p class="normaltext3">... then right next to the hospital.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">灯一变绿就马上给我开车。</p>
+<p class="normaltext3a">我看着你呢。别耍小聪明。</p>
+<p class="normaltext3a">左转然后右转。</p>
+<p class="normaltext3a">这里左转，快一点。</p>
+<p class="normaltext3a">……到医院那里右转。</p>
+<hr/>
+<p class="normaltext3" id="zhushi8">What do you want? I've got some money, but not very much. Take it.</p>
+<p class="normaltext3">I don't want your money. I...</p>
+<p class="normaltext3"><b>Screech!</b></p>
+<p class="normaltext3">Oh no! Get out of the way.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">你想要什么？我有一些钱，但是不多。拿走吧。</p>
+<p class="normaltext3a">我不要你的钱。我……</p>
+<p class="normaltext3"><b>（嘎！）</b></p>
+<p class="normaltext3a">哦，不好！快闪开！</p>
+<hr/>
+<p class="normaltext3" id="zhushi9"><b>Screech!</b></p>
+<p class="normaltext3"><b>Crash!</b></p>
+<p class="normaltext3">Ow!</p>
+<p class="normaltext3"><b>Clonk!</b></p>
+<p class="normaltext3">Don't shoot! We're driving too fast. Can we drive slowly?</p>
+<p class="normaltext3">Quiet! OK. Just drive... carefully.</p>
+<p class="normaltext3">Ow! What's happening?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>（嘎！）</b></p>
+<p class="normaltext3"><b>（砰！）</b></p>
+<p class="normaltext3a">哎哟！</p>
+<p class="normaltext3"><b>（咚！）</b></p>
+<p class="normaltext3a">别开枪！我们开得太快了。能慢点儿开吗？</p>
+<p class="normaltext3a">别喊！好吧。只管开你的车……小心点儿。</p>
+<p class="normaltext3a">哎哟！怎么回事？</p>
+<hr/>
+<p class="normaltext3" id="zhushi10">He has a gun! I don't understand. Am I dreaming?</p>
+<p class="normaltext3">At the roundabout turn right.</p>
+<p class="normaltext3"><b>The taxi driver drives very carefully now.</b></p>
+<p class="normaltext3">OK. I must keep calm. Everything's OK. He can't see me here.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">他有枪！我搞不懂了。我在做梦吗？</p>
+<p class="normaltext3a">在环岛那儿右拐。</p>
+<p class="normaltext3"><b>这会儿出租车司机开得非常小心。</b></p>
+<p class="normaltext3a">好吧，我必须保持冷静。不会有事儿的。他看不到我在这儿。</p>
+<hr/>
+<p class="normaltext3" id="zhushi11">I must do something... but what?</p>
+<p class="normaltext3">Taxi 250. Can you hear me?</p>
+<p class="normaltext3">This is taxi 250. They want to talk to me.</p>
+<p class="normaltext3">Well, they can't.</p>
+<p class="normaltext3"><b>Rip!</b></p>
+<p class="normaltext3"><b>Jack is not tired now. Suddenly, he has an idea.</b></p>
+<p class="normaltext3">I know what to do. People do this on television. I can do it.</p>
+<p class="normaltext3">G-g-give me the gun... slowly. I don't want to hurt you.</p>
+<p class="normaltext3">Stop the taxi.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">我得做点儿什么……但是做什么呢？</p>
+<p class="normaltext3a">250号出租车。你能听到我说话吗？</p>
+<p class="normaltext3a">这车就是250号。他们有话跟我说。</p>
+<p class="normaltext3a">哦，不行。</p>
+<p class="normaltext3"><b>（刺啦！）</b></p>
+<p class="normaltext3"><b>杰克现在不困了。突然，他有了个主意。</b></p>
+<p class="normaltext3a">我知道该怎么做了。电视里的人就是这么干的。我也可以。</p>
+<p class="normaltext3a">给……给……给我枪……慢慢地递给我。我不想伤害你。</p>
+<p class="normaltext3a">停车。</p>
+<hr/>
+<p class="normaltext3" id="zhushi12">Don't do that. I don't like surprises.</p>
+<p class="normaltext3">Now, get out of the taxi. Slowly.</p>
+<p class="normaltext3">Driver, open the boot of the taxi.</p>
+<p class="normaltext3">What?</p>
+<p class="normaltext3">Just do it!</p>
+<p class="normaltext3">How can we get home? Look there's a taxi.</p>
+<p class="normaltext3"><b>I've</b> got a gun. You haven't! Do you want me to shoot?</p>
+<p class="normaltext3">No. Please. Don't shoot.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">少来这套。我可不吃诈唬。</p>
+<p class="normaltext3a">好了，下车。慢慢地下来。</p>
+<p class="normaltext3a">司机，把后备箱打开。</p>
+<p class="normaltext3a">什么？</p>
+<p class="normaltext3a">只管按我说的做！</p>
+<p class="normaltext3a">我们怎么回家呢？看，那儿有一辆出租车。</p>
+<p class="normaltext3a"><span class="xx">我</span>有枪，你可没有！你想让我开枪吗？</p>
+<p class="normaltext3a">不，求求你了，别开枪。</p>
+<hr/>
+<p class="normaltext3" id="zhushi13">You – get in the boot.</p>
+<p class="normaltext3">It's too small.</p>
+<p class="normaltext3">Get in, you dog, or I shoot.</p>
+<p class="normaltext3"><b>Slam!</b></p>
+<p class="normaltext3">Now drive! Fast!</p>
+<p class="normaltext3"><b>Screech!</b></p>
+<p class="normaltext3">They're going fast.</p>
+<p class="normaltext3">He's holding a gun!</p>
+<p class="normaltext3">A gun? No! It's a banana.</p>
+<p class="normaltext3">A banana?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">你——到后备箱里去。</p>
+<p class="normaltext3a">太小了。</p>
+<p class="normaltext3a">进去，你这混蛋，不然我就开枪了。</p>
+<p class="normaltext3"><b>（砰！）</b></p>
+<p class="normaltext3a">现在开车！开快点儿！</p>
+<p class="normaltext3"><b>（嘎！）</b></p>
+<p class="normaltext3a">他们开得真快。</p>
+<p class="normaltext3a">他拿着枪呢！</p>
+<p class="normaltext3a">枪？不！那是一根香蕉。</p>
+<p class="normaltext3a">香蕉？</p>
+<hr/>
+<p class="normaltext3" id="zhushi14">It's too small in here and my leg hurts. I'm not clever. What can I do?</p>
+<p class="normaltext3">Something's hurting me. What is it? I must move it.</p>
+<p class="normaltext3">It's my new phone. Yes! I can phone for help.</p>
+<p class="normaltext3">I must stop to get some petrol.</p>
+<p class="normaltext3">OK, you can stop but you must stay in the taxi.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">这儿空间太小了，我的腿很疼。我太笨了。我该怎么办？</p>
+<p class="normaltext3a">有东西硌着我，是什么东西？我得把它挪开。</p>
+<p class="normaltext3a">是我的新手机。对了！我可以打电话求救。</p>
+<p class="normaltext3a">我得停车加点儿油。</p>
+<p class="normaltext3a">好吧，你可以停车，但是必须待在车上。</p>
+<hr/>
+<p class="normaltext3" id="zhushi15">I'm taking the keys. I don't want you to drive away.</p>
+<p class="normaltext3"><b>Beep!</b></p>
+<p class="normaltext3"><b>Beep!</b></p>
+<p class="normaltext3">What's that? Is there something wrong with your car?</p>
+<p class="normaltext3">No!</p>
+<p class="normaltext3">Drive!</p>
+<p class="normaltext3">You're not paying!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">钥匙给我。我可不想让你把车开跑了。</p>
+<p class="normaltext3"><b>哔！</b></p>
+<p class="normaltext3"><b>哔！</b></p>
+<p class="normaltext3a">什么声音？你的车出故障了吗？</p>
+<p class="normaltext3a">没有！</p>
+<p class="normaltext3a">开车！</p>
+<p class="normaltext3a">你还没给钱呢！</p>
+<hr/>
+<p class="normaltext3" id="zhushi16">Now, I want the police. 9... 9...9...</p>
+<p class="normaltext3"><b>Beep!</b></p>
+<p class="normaltext3">Hello. Police.</p>
+<p class="normaltext3">Yes! It works. We're all right now.</p>
+<p class="normaltext3"><b>Jack phones the police station and talks to a policewoman.</b></p>
+<p class="normaltext3">Can I help you?</p>
+<p class="normaltext3">A man's in our taxi. He's got a gun. I don't know where he wants to go. He's very dangerous.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">嗯，我要打电话给警察局。9……9……9……</p>
+<p class="normaltext3"><b>哔！</b></p>
+<p class="normaltext3a">你好，警察局。</p>
+<p class="normaltext3a">好，接通了！我们现在安全了。</p>
+<p class="normaltext3"><b>杰克给警察局打电话，一位女警官负责接听。</b></p>
+<p class="normaltext3a">您有什么事？</p>
+<p class="normaltext3a">我们的出租车里有一个男人。他有一把枪。我不知道他想去哪儿。他是个非常危险的人物。</p>
+<hr/>
+<p class="normaltext3" id="zhushi17">OK, keep calm. What's your name and where are you?</p>
+<p class="normaltext3">I'm Jack and I'm in the boot of the taxi.</p>
+<p class="normaltext3">OK, Jack. Tell me about the man.</p>
+<p class="normaltext3">He's little and thin, and he has a bad eye and red hair. He has a little beard.</p>
+<p class="normaltext3">You know who that is? It's the Wolf.</p>
+<p class="normaltext3">Jack, that man's very dangerous. He's called the Wolf and we're looking for him. Be careful. We must find where you are. Can you see anything?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">好的，请保持冷静。你叫什么名字？你在哪里？</p>
+<p class="normaltext3a">我叫杰克，我在出租车的后备箱里。</p>
+<p class="normaltext3a">好的，杰克。请告诉我那个人长什么样。</p>
+<p class="normaltext3a">他个儿不高，瘦瘦的，有只眼睛不太好，红头发。他留着小络腮胡。</p>
+<p class="normaltext3a">你知道是谁吗？是那个“独眼狼”。</p>
+<p class="normaltext3a">杰克，那个人非常危险。他的外号叫“独眼狼”，我们正在追捕他。你小心点儿。我们必须弄清楚你在什么地方。你能看到周围什么东西吗？</p>
+<hr/>
+<p class="normaltext3" id="zhushi18">I can't see anything but I hear a clock. It sounds very loud and very near.</p>
+<p class="normaltext3"><b>Ding-dong!</b></p>
+<p class="normaltext3">Can you see a big clock?</p>
+<p class="normaltext3">There are lots in the town.</p>
+<p class="normaltext3">We're going through a tunnel, I think.</p>
+<p class="normaltext3">We're driving over lots of bumps. Is it a railway crossing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">我什么都看不见，不过我能听到钟声。钟声很大，感觉离我很近。</p>
+<p class="normaltext3"><b>（叮咚！）</b></p>
+<p class="normaltext3a">你看见一个大钟吗？</p>
+<p class="normaltext3a">城里有很多大钟。</p>
+<p class="normaltext3a">我觉得我们正穿过一条隧道。</p>
+<p class="normaltext3a">我们正开过坑坑洼洼的地面。是铁道路口吗？</p>
+<hr/>
+<p class="normaltext3" id="zhushi19">Look! Here's a big clock. Here's the tunnel. And here's a railway crossing. They must be on this road.</p>
+<p class="normaltext3">Now I can hear lots of seagulls. Are we near the sea?</p>
+<p class="normaltext3">We're wrong. The sea isn't on that side of town. It's over here.</p>
+<p class="normaltext3">No! Look! We <b>are</b> right. The city rubbish dump's next to the road. Just here. There are always seagulls on the dump. Also, the dump's near the airport! Quick, let's catch the Wolf.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">看！这儿有一个大钟，这儿是那条隧道，这儿有个铁路道口。他们一定是在这条路上。</p>
+<p class="normaltext3a">现在我能听到很多海鸥的叫声。我们在海边吗？</p>
+<p class="normaltext3a">我们搞错了。大海不在城那边，而是在这边。</p>
+<p class="normaltext3a">不！瞧！我们<span class="xx">是对的</span>。城市的垃圾站路边，就是这儿。垃圾堆上总有海鸥，而且垃圾站离机场很近。快点儿，我们去抓“独眼狼”！</p>
+<hr/>
+<p class="normaltext3" id="zhushi20"><b>Screech!</b></p>
+<p class="normaltext3">It's about five minutes to the airport. We must stop the Wolf.</p>
+<p class="normaltext3">Drive to the airport. I must get on that plane.</p>
+<p class="normaltext3"><b>The Wolf races into the airport.</b></p>
+<p class="normaltext3">The car isn't moving now. I can hear planes. I think we're at the airport!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>（嘎！）</b></p>
+<p class="normaltext3a">这儿离机场大约有5分钟的路程。我们必须阻止“独眼狼”。</p>
+<p class="normaltext3a">朝机场开。我必须赶上那班飞机。</p>
+<p class="normaltext3"><b>“独眼狼”飞快地冲进机场。</b></p>
+<p class="normaltext3a">现在汽车停下来了。我能听到飞机的声音。我觉得我们在机场！</p>
+<hr/>
+<p class="normaltext3" id="zhushi21"><b>Bang!</b></p>
+<p class="normaltext3">Get out of my way!</p>
+<p class="normaltext3">Are you hurt?</p>
+<p class="normaltext3">Oh! What a bad man!</p>
+<p class="normaltext3">Wait! I've got a ticket. I must get on that plane.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>（<img src="../../../Images/image07013.gif" style="width: 1em; vertical-align: middle;" alt="alt"/>！）</b></p>
+<p class="normaltext3a">闪开！</p>
+<p class="normaltext3a">你没受伤吧？</p>
+<p class="normaltext3a">哎哟！这个坏蛋！</p>
+<p class="normaltext3a">等等！我有票。我必须坐上那班飞机。</p>
+<hr/>
+<p class="normaltext3" id="zhushi22"><b>Screech!</b></p>
+<p class="normaltext3">There's the taxi.</p>
+<p class="normaltext3">Quick. He's in the airport.</p>
+<p class="normaltext3">Come on. Let's go!</p>
+<p class="normaltext3">Are you looking for that bad man with the beard? He's over there.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>（嘎！）</b></p>
+<p class="normaltext3a">出租车在那儿。</p>
+<p class="normaltext3a">快点儿，他进机场了。</p>
+<p class="normaltext3a">快点儿，我们走！</p>
+<p class="normaltext3a">你们在找留着络腮胡子的那个坏蛋吗？他就在那边。</p>
+<hr/>
+<p class="normaltext3" id="zhushi23">Police!</p>
+<p class="normaltext3">Police!</p>
+<p class="normaltext3">Out of the way!</p>
+<p class="normaltext3"><b>Later the police bring the Wolf back into the airport building.</b></p>
+<p class="normaltext3">I don't like you. You're a very bad man.</p>
+<p class="normaltext3"><b>Crack!</b></p>
+<p class="normaltext3">Ouch!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">警察！</p>
+<p class="normaltext3a">警察！</p>
+<p class="normaltext3a">让开！</p>
+<p class="normaltext3"><b>不一会儿，警察把“独眼狼”带回到机场大楼。</b></p>
+<p class="normaltext3a">我讨厌你，你是个大坏蛋。</p>
+<p class="normaltext3"><b>（啪！）</b></p>
+<p class="normaltext3a">哎哟！</p>
+<hr/>
+<p class="normaltext3" id="zhushi24">Nice work, everyone.</p>
+<p class="normaltext3">There's a telephone call for you, madam.</p>
+<p class="normaltext3">Hello?</p>
+<p class="normaltext3">Can someone open the boot?</p>
+<p class="normaltext3">That's ￡16.50 please.</p>
+<p class="normaltext3">Ha!</p>
+<p class="normaltext3">Ha!</p>
+<p class="normaltext3">Ha!</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3a">干得漂亮，诸位。</p>
+<p class="normaltext3a">有你电话，警官。</p>
+<p class="normaltext3a">喂？</p>
+<p class="normaltext3a">有人能给打开后备箱吗？</p>
+<p class="normaltext3a">一共是16.5英镑！</p>
+<p class="normaltext3a">哈！</p>
+<p class="normaltext3a">哈！</p>
+<p class="normaltext3a">哈！</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP9"><img src="../../../Images/image07015.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

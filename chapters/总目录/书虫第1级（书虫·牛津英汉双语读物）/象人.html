@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>象人 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '象人';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>象人</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫第1级（书虫·牛津英汉双语读物）/index.html">书虫第1级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">象人</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">chapter-a034_ 1　The Creature in the Shop</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">店铺里的怪物</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">chapter-a034_ 2　The Card</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">名片</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">chapter-a034_ 3　A Letter to 'The Times'</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">给《泰晤士报》的一封信</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">chapter-a034_ 4　Merrick's First Home</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">梅里克的第一个家</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-12" class="toc-link">chapter-a034_ 5　An Important Visitor</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-13" class="toc-link">一位重要的来访者</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-14" class="toc-link">chapter-a034_ 6　Outside the Hospital</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-15" class="toc-link">在医院的外面</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-16" class="toc-link">chapter-a034_ 7　The Last Letter</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-17" class="toc-link">最后一封信</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-18" class="toc-link">Exercises</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-19" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="m0"><img src="../../../Images/image07084.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字01-97-0347</p>
+<p class="normaltext3">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 1989</p>
+<p class="normaltext3">This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext3">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="normaltext3">只限中华人民共和国境内销售，不包括香港特别行政区、澳门特别行政区及台湾省。不得出口。</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">象人／（英）维克瑞（Vicary, T.）著；丁松涛译．—北京：外语教学与研究出版社，1998.8（2014.12 重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书虫原文：The Elephant Man</p>
+<p class="normaltext">ISBN 978-7-5600-1450-0</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．象…　Ⅱ．①维…②丁…　Ⅲ．小说—英国—对照读物—英、汉　Ⅳ．H319.4</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（1998）第13276号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>出版人</b>：　蔡剑峰</p>
+<p class="normaltext3"><b>责任编辑</b>：余　军</p>
+<p class="normaltext3"><b>封面设计</b>：李　萌</p>
+<p class="normaltext3"><b>出版发行</b>：外语教学与研究出版社</p>
+<p class="normaltext3"><b>社　　址</b>：北京市西三环北路19号（100089）</p>
+<p class="normaltext3"><b>网　　址</b>：http://www.fltrp.com</p>
+<p class="normaltext3"><b>版　　次</b>：1998年8月第1版</p>
+<p class="normaltext3">*　　*　　*</p>
+<p class="normaltext3"><b>凡侵权、盗版书籍线索，请联系我社法律事务部</b></p>
+<p class="normaltext3"><b>举报电话：（010）88817519　　电子邮箱：banquan@fltrp.com</b></p>
+<p class="normaltext3"><b>法律顾问：立方律师事务所　刘旭东律师</b></p>
+<p class="normaltext3"><b>　　　　　中咨律师事务所　殷　斌律师</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">简介</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">简　介</p>
+<p class="normaltext">一百年前的世界与现在的截然不同。大多数人生活在没有电的阴冷、潮湿的环境中。他们从不上医院，往往死得很惨。</p>
+<p class="normaltext">本书讲述了一个贫穷、丑陋的人的故事。没有人喜欢他，大家都嘲笑他。人们将他放在笼子里，当作动物一样展览。直到有一天一位医生发现了他，觉得他很有趣，想研究他。象人就这样出了名，每个人都想去拜访他，甚至女王都来看望他。</p>
+<p class="normaltext">为什么刚开始人们逃避他，后来又接近他呢？看了这本书，你便会明白了。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">蒂姆·维克瑞是一位经验丰富的教师兼作家，生活在英格兰北部的约克郡。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">目　录</div>
+  <div class="contents1"><a href="part0484.xhtml">简介</a></div>
+  <div class="contents1"><a href="part0486.xhtml">Chapter 1　The Creature in the Shop</a></div>
+  <div class="contents1"><a href="part0486.xhtml#a1">店铺里的怪物</a></div>
+  <div class="contents1"><a href="part0487.xhtml">Chapter 2　The Card</a></div>
+  <div class="contents1"><a href="part0487.xhtml#a1">名片</a></div>
+  <div class="contents1"><a href="part0488.xhtml">Chapter 3　A Letter to 'The Times'</a></div>
+  <div class="contents1"><a href="part0488.xhtml#a1">给《泰晤士报》的一封信</a></div>
+  <div class="contents1"><a href="part0489.xhtml">Chapter 4　Merrick's First Home</a></div>
+  <div class="contents1"><a href="part0489.xhtml#a1">梅里克的第一个家</a></div>
+  <div class="contents1"><a href="part0490.xhtml">Chapter 5　An Important Visitor</a></div>
+  <div class="contents1"><a href="part0490.xhtml#a1">一位重要的来访者</a></div>
+  <div class="contents1"><a href="part0491.xhtml">Chapter 6　Outside the Hospital</a></div>
+  <div class="contents1"><a href="part0491.xhtml#a1">在医院的外面</a></div>
+  <div class="contents1"><a href="part0492.xhtml">Chapter 7　The Last Letter</a></div>
+  <div class="contents1"><a href="part0492.xhtml#a1">最后一封信</a></div>
+  <p class="normaltext"><br/></p>
+  <div class="contents1"><a href="part0493.xhtml">Exercises</a></div>
+<p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<p class="normaltext">“书虫”<b>免费</b>增值服务上线！</p>
+<p class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</p>
+<p class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">chapter-a034_ 1　The Creature in the Shop</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 1</em></p>
+<hr/>
+<p class="titleb">The Creature in the Shop</p>
+<p class="normaltext">My name is Dr Frederick Treves. I am a doctor at the London Hospital. One day in 1884, I saw a picture in the window of a shop near the hospital. I stopped in front of the shop and looked at the picture. At first I felt interested, then I felt angry, then afraid. It was a horrible, ugly picture. There was a man in the picture, but he did not look like you and me. He did not look like a man. He looked like an elephant.</p>
+<p class="normaltext">I read the writing under the picture. It said:</p>
+<p class="normaltext"><em>Come in and see the Elephant Man. 2 pence.</em></p>
+<p class="normaltext">I opened the door and went in.</p>
+<p class="normaltext">There was a man in the shop. He was a dirty man in an old coat with a cigarette in his mouth. 'What do you want?' he asked.</p>
+<p class="normaltext">'I'd like to see the elephant man, please,' I said.</p>
+<p class="normaltext">The man looked at me angrily. 'Well, you can't,' he said. 'The shop's closing now. You can come back tomorrow.'</p>
+<p class="normaltext">'I'm sorry,' I said. 'But I would like to see him now. I have no time tomorrow—I have a lot of work to do. But I can give you more than 2 pence.'</p>
+<p class="normaltext">The man looked at me carefully. Then he took the cigarette out of his mouth and smiled with his yellow teeth.</p>
+<p class="normaltext">'All right, sir,' he said. 'Give me twelve pence then.'</p>
+<p class="normaltext">I gave him the money and he opened a door at the back of the shop. We went into a little room. The room was cold and dark, and there was a horrible smell in it.</p>
+<p class="normaltext">A creature sat on a chair behind a table. I say a creature, because it was not a man or a woman, like you or me. The creature did not move or look at us. It sat very quietly on the chair in the cold, dark, dirty room, and looked at the table. The creature had a cloth over its head, because of the cold. On the table in front of it, there was a dead flower.</p>
+<p class="normaltext">'Stand up!' said the shopkeeper, loudly.</p>
+<p class="normaltext">The creature stood up slowly. It took the old cloth off its head, and put it on the chair.</p>
+<p class="normaltext">I looked at the creature and felt sad. I am a doctor, so I know a lot about accidents and ill people. I see horrible, ugly things every day. But this creature, this thing, was the worst of all. There were no men or women in the hospital like him.</p>
+<p class="normaltext">He wore some old trousers, but no shirt, coat, or shoes, so I could see his body very well. His head was the most interesting thing. It was very, very big—like an enormous bag with a lot of books in it. The head did not have much hair, and there was another bag of brown, dirty skin at the back of it. This skin came down below his neck. I could not see one of his eyes very well, because a lot of skin came down in front of his face, too.</p>
+<p class="normaltext">An enormous red tooth came out of his mouth, under his nose. It looked like an elephant's tooth. The mouth and nose were like holes in the face. The face could not smile or laugh or look angry or sad, because the skin could not move. It was dead, like an elephant's face.</p>
+<p class="normaltext">There were more bags of dirty skin on the front and back of the creature's body. These bags came down to his legs. The right arm was enormous, and there were bags of skin on it, too. The right hand was like a man's foot.</p>
+<p class="normaltext">But the left hand—the left arm and the left hand were beautiful! The left arm had wonderful skin, and the fingers of the left hand were long and beautiful. It was like a young woman's hand!</p>
+<p class="normaltext">'Walk, Merrick!' said the shopkeeper angrily. 'Come on, quickly, move!' He hit the creature with his hand.</p>
+<p class="normaltext">Slowly, the creature walked across the room. But he could not walk well. His legs were very big and fat, and he had a bad back. He could not walk far without a stick.</p>
+<p class="normaltext">'All right, thank you,' I said. 'Let him sit down. I don't want to see any more.' I felt ill, and the smell in the room was very bad.</p>
+<p class="normaltext">'Yes, sir,' said the shopkeeper. 'Sit down, Merrick.'</p>
+<p class="normaltext">We went out of the room and closed the door. The shopkeeper smiled at me with his yellow teeth.</p>
+<p class="normaltext">'Wonderful, sir, isn't it?' he said. 'The best Elephant Man in England! Hundreds of people come to see him, you know, hundreds! I take him all over the country, I do!'</p>
+<p class="normaltext">'Yes, very interesting,' I said. 'Can I sit down?'</p>
+<p class="normaltext">'Yes, sir, of course. Here's a chair.' He looked at me, smiling. 'Would you like a glass of water, sir?'</p>
+<p class="normaltext">'Yes, please,' I said. Then I looked at the things in the dirty shop. There were two or three bad apples and some old black bananas: that was all. 'Er, no... no, thank you. I'm all right,' I said. 'Did you... did you call the creature Merrick?'</p>
+<p class="normaltext">'That's right, sir. Joseph Merrick. The best Elephant Man in England! I take him all over the country, you know. Lots of people want to see him.'</p>
+<p class="normaltext">'Yes, I see. Do you get a lot of money?'</p>
+<p class="normaltext">'Well, sometimes we do, sir, yes. But it's difficult, you see, sir, because of the police. The police don't like us, you see, sir. So we can't stay in a town very long. We usually move every week.'</p>
+<p class="normaltext">'Yes, I see. Well, anyway, Mr...er?'</p>
+<p class="normaltext">'Silcock, sir. Simon Silcock.'</p>
+<p class="normaltext">'Yes, well, Mr Silcock, I'm a doctor at the London Hospital. My name is Dr Treves. I think this... er... this man Joseph Merrick is very interesting, and I would like to see him at the hospital. I want to look at him more carefully, you see.'</p>
+<p class="normaltext">'Yes sir, I see. But how can he get to the hospital? It's going to be difficult.'</p>
+<p class="normaltext">'Why, man? The hospital's not far from here.'</p>
+<p class="normaltext">'Well, yes, sir. I know. But, you see, Merrick can't walk very well. He needs help.'</p>
+<p class="normaltext">'You can come with him. Do you want more money? Is that it?'</p>
+<p class="normaltext">'Well, yes, sir, I do. But, you see, people are afraid of him too... In the road, little boys always run after him and hit him. Then the police get angry because people are afraid. Sometimes they take us to prison.'</p>
+<p class="normaltext">'I see,' I said. 'Well, how can he come to the hospital, then?'</p>
+<p class="normaltext">'Bring a cab, sir,' said Silcock. 'You can take him to the hospital in a cab.'</p>
+<hr/>
+<p class="normaltext2A"><b>elephant</b> <em>n. a very large animal with two long curved teeth and a long nose</em>. 大象。</p>
+<p class="normaltext2A"><b>horrible</b> <em>adj. causing horror</em>. 可怕的。</p>
+<p class="normaltext2A"><b>hospital</b> <em>n. place providing medical treatment for ill people</em>. 医院。</p>
+<p class="normaltext2A"><b>creature</b> <em>n. an animal or being of some kind</em>. 生物。</p>
+<p class="normaltext2A"><b>enormous</b> <em>adj. very big</em>. 巨大的。</p>
+<p class="normaltext2A"><b>shopkeeper</b> <em>n. usu. the owner, in charge of a small shop</em>. 店主；零售商。</p>
+<p class="normaltext2A"><b>sad</b> <em>adj. not happy</em>. 悲伤的。</p>
+<p class="normaltext2A"><b>smell</b> <em>n. a quality that has an effect on the nose</em>. 气味。</p>
+<p class="normaltext2A"><b>accident</b> <em>n. something that happens unexpectedly and causes damage</em>. 不测；意外。</p>
+<p class="normaltext2A"><b>hit</b> <em>to give a blow to; strike</em>. 打；击。</p>
+<p class="normaltext2A"><b>hole</b> <em>n. an empty space within something solid</em>. 洞。</p>
+<p class="normaltext2A"><b>nose</b> <em>n. your nose is between your eyes and your mouth</em>. 鼻子。</p>
+<p class="normaltext2A"><b>skin</b> <em>n. you have skin all over your body; some people have white skin, others have yellow, brown or black skin</em>. 皮肤。</p>
+<p class="normaltext2A"><b>glass</b> <em>n. a drinking vessel made of glass</em>. 玻璃杯。</p>
+<p class="normaltext2A"><b>police</b> <em>n. an official body of men and women whose duty is to protect people and property, to make sure that everyone obeys the law, to catch criminals, etc</em>. 警察。</p>
+<p class="normaltext2A"><b>cab</b> <em>n. (in former times) a horse-drawn carriage for hire</em>. （旧时）出租马车。</p>
+<p class="normaltext2A"><b>prison</b> <em>n. a large (state) building where criminals are kept locked up as a punishment</em>. 监狱。</p>
+<p class="normaltext2A"><b>angry</b> <em>adj. annoyed</em>. 愤怒的。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>1</em>　店铺里的怪物</p>
+<p class="picture"><img src="../../../Images/image07085.jpeg" alt="alt"/></p>
+<p class="normaltext">我是弗雷德里克·特里夫斯医生，伦敦医院的医生。1884年的一天，我在医院附近一家店铺的橱窗里看见了一张照片。我在店铺前停了下来，看着这张照片。起先我觉得这张照片挺有趣，后来就感到生气、害怕起来。那是一张可怕的、丑陋的照片。照片上有个男人，但和你我不同。他看上去不像个人，而像一头大象。</p>
+<p class="normaltext">我看了看照片下面的文字，上面写着：</p>
+<p class="normaltext2K">进来吧，看看这个象人，一次两便士。</p>
+<p class="normaltext3">我推开门走了进去。</p>
+<p class="normaltext">店里有个男人，邋邋遢遢的，穿着一件旧外套，嘴里叼着一支烟。“你想干什么？”他问道。</p>
+<p class="normaltext">“我想看看象人。”我说。</p>
+<p class="normaltext">这个人生气地看着我。“不行。”他说，“店铺现在关门了，你明天来吧。”</p>
+<p class="normaltext">“对不起，”我说，“我想现在就看，明天我没有空——我有许多事情要做，我可以另外多给你一些钱。”</p>
+<p class="normaltext">这个人仔细地打量着我，后来他取下嘴里的烟卷笑了起来，露出了满嘴黄牙。</p>
+<p class="normaltext">他说，“好吧，先生。就给12便士吧。”</p>
+<p class="normaltext">我把钱给了他，他就打开了店铺后门。我们走进一个小房间，房间又冷又暗，里面还有一股恶心的气味。</p>
+<p class="normaltext">一个怪物坐在桌子后面的椅子上。我称他为怪物，是因为他不像你和我，不是男人也不是女人。他一动不动，也没有看我们，只是安静地坐在这间又冷又暗又脏的房间里的椅子上，眼睛盯着桌子。由于阴冷，这个怪物的头上盖着一块布，在他面前的桌子上放着一朵枯萎的花。</p>
+<p class="normaltext">“站起来！”店老板大声地说。</p>
+<p class="normaltext">怪物慢慢地站起来，取下头上的盖布放在椅子上。</p>
+<p class="normaltext">看着这个怪物，我感到很悲伤。我是一个医生，我很熟悉事故和病人。我每天要遇到许多可怕的、丑恶的东西，可这个怪物却是最糟糕的。医院里没有任何一个男人或女人像他这个样子。</p>
+<p class="normaltext">他穿着条旧裤子，没有穿衬衫、外套和鞋子。所以，我可以清楚地看见他的身体。他的头部最有趣，长得很大很大——就像一个装着许多书籍的大口袋。头上头发不多，脑后还耷拉着一块褐色的、肮脏的头皮，一直垂到脖子下面。我看不见他的一只眼睛，因为大块的皮肤也从脸部垂下来。</p>
+<p class="normaltext">鼻子下面一颗巨大的红牙齿从嘴里露出来，就像一颗象牙，嘴和鼻子就像是脸上开的洞，从他脸上看不出微笑还是大笑，也看不出生气和悲伤，因为这种皮肤无法活动，它已经失去了活力，像一只大象的脸。</p>
+<p class="normaltext">这个怪物身体的前胸和后背的脏皮肤上有许多囊肿，这种囊肿（包状物）一直拖到他的腿部。他的右臂巨大，皮肤上也有包状物，右手像男人的脚。</p>
+<p class="normaltext">然而左手——左臂和左手——却是长得很美！左臂上有漂亮的皮肤，左手手指纤长、美丽，就像年轻女人的手一样。</p>
+<p class="normaltext">“走一走，梅里克！”店老板生气地说，“朝前走，动一动，快！”他用手打着这个怪物。</p>
+<p class="normaltext">慢慢地，这个怪物走到房间的对面。可他腿脚不便，他的腿又粗又肥，背部有病，没有拐杖走不远。</p>
+<p class="normaltext">“好了，谢谢你，”我说，“让他坐下来，我不想再看什么了。”我感到恶心，房间里的气味难闻极了。</p>
+<p class="normaltext">“好的，先生，”店老板说着。“坐下，梅里克。”</p>
+<p class="normaltext">我们走出房间，关上门。店老板朝我笑了笑，露出满嘴黄牙。</p>
+<p class="normaltext">“好极了，先生，是不是？”他说，“这是英国最棒的象人！成百上千的人来看他，知道吗？成百上千！我带他到全国各地去，真的！”</p>
+<p class="normaltext">“是的，挺有意思！”我说，“我可以坐下吗？”</p>
+<p class="normaltext">“当然可以，先生。请坐。”他朝我看了看，笑了笑说：“来杯水吗，先生？”</p>
+<p class="normaltext">“好的，请给我一杯水，”我说。接着我朝脏商店里那些东西看着，有两三个坏苹果、几根烂香蕉。仅此而已。“啊！不……不，谢谢，我没事！”我说。“你……你把这个怪物叫作梅里克吗？”</p>
+<p class="normaltext">“不错，先生，约瑟夫·梅里克。英国最棒的象人！我把他带到全国各地去，你知道，许多人要看他。”</p>
+<p class="normaltext">“是的，我明白。那你会赚到很多钱吗？”</p>
+<p class="normaltext">“嗯，有时会赚到很多钱，先生。但是也很难，因为警察找麻烦，你知道的，先生，警察不喜欢我们，所以我们不能在一个城镇待很长时间，通常每星期就换个地方。”</p>
+<p class="normaltext">“是的，我明白，噢，……先生，您是……呃？”</p>
+<p class="normaltext">“西尔科克，先生。西蒙·西尔科克。”</p>
+<p class="normaltext">“是的，哦，西尔科克先生，我是伦敦医院的一个医生。我是特里夫斯医生。我想，这个……呃……约瑟夫·梅里克这个人非常有趣，我想在医院里看看他，我想更仔细地观察他，你看怎么样？”</p>
+<p class="normaltext">“是的，先生，我明白您的意思！但是，他怎能到医院去呢？这是很困难的。”</p>
+<p class="normaltext">“为什么不行呢，先生，医院离这儿不远。”</p>
+<p class="normaltext">“是的，先生，我知道，但是，您看，梅里克腿脚不灵便，他需要别人帮他。”</p>
+<p class="normaltext">“你可以和他一块儿来，你还要钱吗？是这样吗？”</p>
+<p class="normaltext">“噢，是的，先生，但是，你知道，人们也害怕他……走在路上，小男孩们总是追他打他。警察也会生气，怪他吓着了大家。有时候警察就把我们送进监狱里。”</p>
+<p class="normaltext">“我明白，”我说，“那么，他怎么能到医院里去呢？”</p>
+<p class="normaltext">“弄一辆马车来，先生，”西尔科克说，“您可以用马车送他去医院。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">店铺里的怪物</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 1</em></p>
+<hr/>
+<p class="titleb">The Creature in the Shop</p>
+<p class="normaltext">My name is Dr Frederick Treves. I am a doctor at the London Hospital. One day in 1884, I saw a picture in the window of a shop near the hospital. I stopped in front of the shop and looked at the picture. At first I felt interested, then I felt angry, then afraid. It was a horrible, ugly picture. There was a man in the picture, but he did not look like you and me. He did not look like a man. He looked like an elephant.</p>
+<p class="normaltext">I read the writing under the picture. It said:</p>
+<p class="normaltext"><em>Come in and see the Elephant Man. 2 pence.</em></p>
+<p class="normaltext">I opened the door and went in.</p>
+<p class="normaltext">There was a man in the shop. He was a dirty man in an old coat with a cigarette in his mouth. 'What do you want?' he asked.</p>
+<p class="normaltext">'I'd like to see the elephant man, please,' I said.</p>
+<p class="normaltext">The man looked at me angrily. 'Well, you can't,' he said. 'The shop's closing now. You can come back tomorrow.'</p>
+<p class="normaltext">'I'm sorry,' I said. 'But I would like to see him now. I have no time tomorrow—I have a lot of work to do. But I can give you more than 2 pence.'</p>
+<p class="normaltext">The man looked at me carefully. Then he took the cigarette out of his mouth and smiled with his yellow teeth.</p>
+<p class="normaltext">'All right, sir,' he said. 'Give me twelve pence then.'</p>
+<p class="normaltext">I gave him the money and he opened a door at the back of the shop. We went into a little room. The room was cold and dark, and there was a horrible smell in it.</p>
+<p class="normaltext">A creature sat on a chair behind a table. I say a creature, because it was not a man or a woman, like you or me. The creature did not move or look at us. It sat very quietly on the chair in the cold, dark, dirty room, and looked at the table. The creature had a cloth over its head, because of the cold. On the table in front of it, there was a dead flower.</p>
+<p class="normaltext">'Stand up!' said the shopkeeper, loudly.</p>
+<p class="normaltext">The creature stood up slowly. It took the old cloth off its head, and put it on the chair.</p>
+<p class="normaltext">I looked at the creature and felt sad. I am a doctor, so I know a lot about accidents and ill people. I see horrible, ugly things every day. But this creature, this thing, was the worst of all. There were no men or women in the hospital like him.</p>
+<p class="normaltext">He wore some old trousers, but no shirt, coat, or shoes, so I could see his body very well. His head was the most interesting thing. It was very, very big—like an enormous bag with a lot of books in it. The head did not have much hair, and there was another bag of brown, dirty skin at the back of it. This skin came down below his neck. I could not see one of his eyes very well, because a lot of skin came down in front of his face, too.</p>
+<p class="normaltext">An enormous red tooth came out of his mouth, under his nose. It looked like an elephant's tooth. The mouth and nose were like holes in the face. The face could not smile or laugh or look angry or sad, because the skin could not move. It was dead, like an elephant's face.</p>
+<p class="normaltext">There were more bags of dirty skin on the front and back of the creature's body. These bags came down to his legs. The right arm was enormous, and there were bags of skin on it, too. The right hand was like a man's foot.</p>
+<p class="normaltext">But the left hand—the left arm and the left hand were beautiful! The left arm had wonderful skin, and the fingers of the left hand were long and beautiful. It was like a young woman's hand!</p>
+<p class="normaltext">'Walk, Merrick!' said the shopkeeper angrily. 'Come on, quickly, move!' He hit the creature with his hand.</p>
+<p class="normaltext">Slowly, the creature walked across the room. But he could not walk well. His legs were very big and fat, and he had a bad back. He could not walk far without a stick.</p>
+<p class="normaltext">'All right, thank you,' I said. 'Let him sit down. I don't want to see any more.' I felt ill, and the smell in the room was very bad.</p>
+<p class="normaltext">'Yes, sir,' said the shopkeeper. 'Sit down, Merrick.'</p>
+<p class="normaltext">We went out of the room and closed the door. The shopkeeper smiled at me with his yellow teeth.</p>
+<p class="normaltext">'Wonderful, sir, isn't it?' he said. 'The best Elephant Man in England! Hundreds of people come to see him, you know, hundreds! I take him all over the country, I do!'</p>
+<p class="normaltext">'Yes, very interesting,' I said. 'Can I sit down?'</p>
+<p class="normaltext">'Yes, sir, of course. Here's a chair.' He looked at me, smiling. 'Would you like a glass of water, sir?'</p>
+<p class="normaltext">'Yes, please,' I said. Then I looked at the things in the dirty shop. There were two or three bad apples and some old black bananas: that was all. 'Er, no... no, thank you. I'm all right,' I said. 'Did you... did you call the creature Merrick?'</p>
+<p class="normaltext">'That's right, sir. Joseph Merrick. The best Elephant Man in England! I take him all over the country, you know. Lots of people want to see him.'</p>
+<p class="normaltext">'Yes, I see. Do you get a lot of money?'</p>
+<p class="normaltext">'Well, sometimes we do, sir, yes. But it's difficult, you see, sir, because of the police. The police don't like us, you see, sir. So we can't stay in a town very long. We usually move every week.'</p>
+<p class="normaltext">'Yes, I see. Well, anyway, Mr...er?'</p>
+<p class="normaltext">'Silcock, sir. Simon Silcock.'</p>
+<p class="normaltext">'Yes, well, Mr Silcock, I'm a doctor at the London Hospital. My name is Dr Treves. I think this... er... this man Joseph Merrick is very interesting, and I would like to see him at the hospital. I want to look at him more carefully, you see.'</p>
+<p class="normaltext">'Yes sir, I see. But how can he get to the hospital? It's going to be difficult.'</p>
+<p class="normaltext">'Why, man? The hospital's not far from here.'</p>
+<p class="normaltext">'Well, yes, sir. I know. But, you see, Merrick can't walk very well. He needs help.'</p>
+<p class="normaltext">'You can come with him. Do you want more money? Is that it?'</p>
+<p class="normaltext">'Well, yes, sir, I do. But, you see, people are afraid of him too... In the road, little boys always run after him and hit him. Then the police get angry because people are afraid. Sometimes they take us to prison.'</p>
+<p class="normaltext">'I see,' I said. 'Well, how can he come to the hospital, then?'</p>
+<p class="normaltext">'Bring a cab, sir,' said Silcock. 'You can take him to the hospital in a cab.'</p>
+<hr/>
+<p class="normaltext2A"><b>elephant</b> <em>n. a very large animal with two long curved teeth and a long nose</em>. 大象。</p>
+<p class="normaltext2A"><b>horrible</b> <em>adj. causing horror</em>. 可怕的。</p>
+<p class="normaltext2A"><b>hospital</b> <em>n. place providing medical treatment for ill people</em>. 医院。</p>
+<p class="normaltext2A"><b>creature</b> <em>n. an animal or being of some kind</em>. 生物。</p>
+<p class="normaltext2A"><b>enormous</b> <em>adj. very big</em>. 巨大的。</p>
+<p class="normaltext2A"><b>shopkeeper</b> <em>n. usu. the owner, in charge of a small shop</em>. 店主；零售商。</p>
+<p class="normaltext2A"><b>sad</b> <em>adj. not happy</em>. 悲伤的。</p>
+<p class="normaltext2A"><b>smell</b> <em>n. a quality that has an effect on the nose</em>. 气味。</p>
+<p class="normaltext2A"><b>accident</b> <em>n. something that happens unexpectedly and causes damage</em>. 不测；意外。</p>
+<p class="normaltext2A"><b>hit</b> <em>to give a blow to; strike</em>. 打；击。</p>
+<p class="normaltext2A"><b>hole</b> <em>n. an empty space within something solid</em>. 洞。</p>
+<p class="normaltext2A"><b>nose</b> <em>n. your nose is between your eyes and your mouth</em>. 鼻子。</p>
+<p class="normaltext2A"><b>skin</b> <em>n. you have skin all over your body; some people have white skin, others have yellow, brown or black skin</em>. 皮肤。</p>
+<p class="normaltext2A"><b>glass</b> <em>n. a drinking vessel made of glass</em>. 玻璃杯。</p>
+<p class="normaltext2A"><b>police</b> <em>n. an official body of men and women whose duty is to protect people and property, to make sure that everyone obeys the law, to catch criminals, etc</em>. 警察。</p>
+<p class="normaltext2A"><b>cab</b> <em>n. (in former times) a horse-drawn carriage for hire</em>. （旧时）出租马车。</p>
+<p class="normaltext2A"><b>prison</b> <em>n. a large (state) building where criminals are kept locked up as a punishment</em>. 监狱。</p>
+<p class="normaltext2A"><b>angry</b> <em>adj. annoyed</em>. 愤怒的。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>1</em>　店铺里的怪物</p>
+<p class="picture"><img src="../../../Images/image07085.jpeg" alt="alt"/></p>
+<p class="normaltext">我是弗雷德里克·特里夫斯医生，伦敦医院的医生。1884年的一天，我在医院附近一家店铺的橱窗里看见了一张照片。我在店铺前停了下来，看着这张照片。起先我觉得这张照片挺有趣，后来就感到生气、害怕起来。那是一张可怕的、丑陋的照片。照片上有个男人，但和你我不同。他看上去不像个人，而像一头大象。</p>
+<p class="normaltext">我看了看照片下面的文字，上面写着：</p>
+<p class="normaltext2K">进来吧，看看这个象人，一次两便士。</p>
+<p class="normaltext3">我推开门走了进去。</p>
+<p class="normaltext">店里有个男人，邋邋遢遢的，穿着一件旧外套，嘴里叼着一支烟。“你想干什么？”他问道。</p>
+<p class="normaltext">“我想看看象人。”我说。</p>
+<p class="normaltext">这个人生气地看着我。“不行。”他说，“店铺现在关门了，你明天来吧。”</p>
+<p class="normaltext">“对不起，”我说，“我想现在就看，明天我没有空——我有许多事情要做，我可以另外多给你一些钱。”</p>
+<p class="normaltext">这个人仔细地打量着我，后来他取下嘴里的烟卷笑了起来，露出了满嘴黄牙。</p>
+<p class="normaltext">他说，“好吧，先生。就给12便士吧。”</p>
+<p class="normaltext">我把钱给了他，他就打开了店铺后门。我们走进一个小房间，房间又冷又暗，里面还有一股恶心的气味。</p>
+<p class="normaltext">一个怪物坐在桌子后面的椅子上。我称他为怪物，是因为他不像你和我，不是男人也不是女人。他一动不动，也没有看我们，只是安静地坐在这间又冷又暗又脏的房间里的椅子上，眼睛盯着桌子。由于阴冷，这个怪物的头上盖着一块布，在他面前的桌子上放着一朵枯萎的花。</p>
+<p class="normaltext">“站起来！”店老板大声地说。</p>
+<p class="normaltext">怪物慢慢地站起来，取下头上的盖布放在椅子上。</p>
+<p class="normaltext">看着这个怪物，我感到很悲伤。我是一个医生，我很熟悉事故和病人。我每天要遇到许多可怕的、丑恶的东西，可这个怪物却是最糟糕的。医院里没有任何一个男人或女人像他这个样子。</p>
+<p class="normaltext">他穿着条旧裤子，没有穿衬衫、外套和鞋子。所以，我可以清楚地看见他的身体。他的头部最有趣，长得很大很大——就像一个装着许多书籍的大口袋。头上头发不多，脑后还耷拉着一块褐色的、肮脏的头皮，一直垂到脖子下面。我看不见他的一只眼睛，因为大块的皮肤也从脸部垂下来。</p>
+<p class="normaltext">鼻子下面一颗巨大的红牙齿从嘴里露出来，就像一颗象牙，嘴和鼻子就像是脸上开的洞，从他脸上看不出微笑还是大笑，也看不出生气和悲伤，因为这种皮肤无法活动，它已经失去了活力，像一只大象的脸。</p>
+<p class="normaltext">这个怪物身体的前胸和后背的脏皮肤上有许多囊肿，这种囊肿（包状物）一直拖到他的腿部。他的右臂巨大，皮肤上也有包状物，右手像男人的脚。</p>
+<p class="normaltext">然而左手——左臂和左手——却是长得很美！左臂上有漂亮的皮肤，左手手指纤长、美丽，就像年轻女人的手一样。</p>
+<p class="normaltext">“走一走，梅里克！”店老板生气地说，“朝前走，动一动，快！”他用手打着这个怪物。</p>
+<p class="normaltext">慢慢地，这个怪物走到房间的对面。可他腿脚不便，他的腿又粗又肥，背部有病，没有拐杖走不远。</p>
+<p class="normaltext">“好了，谢谢你，”我说，“让他坐下来，我不想再看什么了。”我感到恶心，房间里的气味难闻极了。</p>
+<p class="normaltext">“好的，先生，”店老板说着。“坐下，梅里克。”</p>
+<p class="normaltext">我们走出房间，关上门。店老板朝我笑了笑，露出满嘴黄牙。</p>
+<p class="normaltext">“好极了，先生，是不是？”他说，“这是英国最棒的象人！成百上千的人来看他，知道吗？成百上千！我带他到全国各地去，真的！”</p>
+<p class="normaltext">“是的，挺有意思！”我说，“我可以坐下吗？”</p>
+<p class="normaltext">“当然可以，先生。请坐。”他朝我看了看，笑了笑说：“来杯水吗，先生？”</p>
+<p class="normaltext">“好的，请给我一杯水，”我说。接着我朝脏商店里那些东西看着，有两三个坏苹果、几根烂香蕉。仅此而已。“啊！不……不，谢谢，我没事！”我说。“你……你把这个怪物叫作梅里克吗？”</p>
+<p class="normaltext">“不错，先生，约瑟夫·梅里克。英国最棒的象人！我把他带到全国各地去，你知道，许多人要看他。”</p>
+<p class="normaltext">“是的，我明白。那你会赚到很多钱吗？”</p>
+<p class="normaltext">“嗯，有时会赚到很多钱，先生。但是也很难，因为警察找麻烦，你知道的，先生，警察不喜欢我们，所以我们不能在一个城镇待很长时间，通常每星期就换个地方。”</p>
+<p class="normaltext">“是的，我明白，噢，……先生，您是……呃？”</p>
+<p class="normaltext">“西尔科克，先生。西蒙·西尔科克。”</p>
+<p class="normaltext">“是的，哦，西尔科克先生，我是伦敦医院的一个医生。我是特里夫斯医生。我想，这个……呃……约瑟夫·梅里克这个人非常有趣，我想在医院里看看他，我想更仔细地观察他，你看怎么样？”</p>
+<p class="normaltext">“是的，先生，我明白您的意思！但是，他怎能到医院去呢？这是很困难的。”</p>
+<p class="normaltext">“为什么不行呢，先生，医院离这儿不远。”</p>
+<p class="normaltext">“是的，先生，我知道，但是，您看，梅里克腿脚不灵便，他需要别人帮他。”</p>
+<p class="normaltext">“你可以和他一块儿来，你还要钱吗？是这样吗？”</p>
+<p class="normaltext">“噢，是的，先生，但是，你知道，人们也害怕他……走在路上，小男孩们总是追他打他。警察也会生气，怪他吓着了大家。有时候警察就把我们送进监狱里。”</p>
+<p class="normaltext">“我明白，”我说，“那么，他怎么能到医院里去呢？”</p>
+<p class="normaltext">“弄一辆马车来，先生，”西尔科克说，“您可以用马车送他去医院。”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">chapter-a034_ 2　The Card</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 2</em></p>
+<hr/>
+<p class="titleb">The Card</p>
+<p class="normaltext">So next day, at seven o'clock, I came to the shop in a cab. There were not very many people in the road, because it was early in the morning. In November it is dark at seven o'clock in the morning, and I could not see the shop very well. I waited five minutes. A postman walked past. Then the door of the shop opened, and the creature, Merrick, came out.</p>
+<p class="normaltext">I could not see his face or his body. He had an enormous black hat on his head, like a big box. A grey cloth came down from the hat, in front of his face. There was a hole in the cloth in front of his eyes. He could see out of the hole but I could not see in. He wore a long black coat, too. The coat began at his neck, and ended at his feet, so I could not see his arms, his body, or his legs. On his feet he wore big shoes, like old bags.</p>
+<p class="normaltext">He had a stick in his left hand, and he walked very slowly. I opened the door of the cab, and got out.</p>
+<p class="normaltext">'Good morning, Mr Merrick,' I said. 'Can you get in?'</p>
+<p class="normaltext">'Elpmyupasteps,' he said.</p>
+<p class="normaltext">'I'm sorry,' I said. 'I don't understand.'</p>
+<p class="normaltext">For a minute he stood by the door of the cab and said nothing. Then he hit the cab with his stick.</p>
+<p class="normaltext">'STEPS!' he said loudly. 'Help me up the steps!'</p>
+<p class="normaltext">Then I understood. There were three steps up into the cab, and he could not get up them.</p>
+<p class="normaltext">'Yes, I see. I'm sorry,' I said. 'Let me help you.'</p>
+<p class="normaltext">I took his left hand and began to help him. My right hand was behind his back. I felt very strange. His left hand was like a young woman's, but his back under the coat, was horrible. I could feel the bags of old skin on his back under the coat.</p>
+<p class="normaltext">He put one enormous foot on the first step, and then he stopped. After a minute, he moved his second foot slowly. Then he stopped and waited again.</p>
+<p class="normaltext">'Hello, sir. Can I help you?'</p>
+<p class="normaltext">I looked behind me. It was the postman. And behind him, I could see three young boys. One of the boys laughed.</p>
+<p class="normaltext">The postman smiled. 'Is the gentleman ill?' he asked.</p>
+<p class="normaltext">I thought quickly. 'Yes. But this is a lady, not a gentleman. I'm a doctor, and she's ill. Take her hand, so I can help her better.'</p>
+<p class="normaltext">The postman took Merrick's left hand, and I helped him with two hands from behind. Slowly, very slowly, Merrick went up the steps and into the cab.</p>
+<p class="normaltext">One boy was very near the cab. He called to his friends.</p>
+<p class="normaltext">'Come and see this, boys! A fat lady in a black coat! And look at that enormous hat!'</p>
+<p class="normaltext">The boys laughed. They were very near the cab too, now. I closed the door quickly.</p>
+<p class="normaltext">'Thank you,' I said to the postman.</p>
+<p class="normaltext">'That's all right, sir,' he said. 'She's a strange lady, sir, isn't she?'</p>
+<p class="normaltext">'She's ill, that's all,' I said quickly. 'We're going to the hospital. Goodbye, and thank you.'</p>
+<p class="normaltext">The cab drove down the road to the hospital. I looked at Merrick. 'That was difficult, wasn't it?' I said.</p>
+<p class="normaltext">At first he said nothing, but then he spoke. His voice was very strange, but I listened to him carefully, and I could understand him.</p>
+<p class="normaltext">'The steps were very difficult,' he said. 'But most things are difficult for me.'</p>
+<p class="normaltext">'Yes,' I said. 'Nothing is easy for you, is it?'</p>
+<p class="normaltext">'No,' he said. He was very quiet for a minute. Then he said, 'Who are you, sir?'</p>
+<p class="normaltext">'Who am I? Oh, I'm sorry, My name is Dr Treves. Here, this is my card.'</p>
+<p class="normaltext">I gave him a card with my name on. Then I thought, 'That was no good. This man can't read.' But Merrick took the card and looked at it very carefully. Then he put it in his trousers pocket.</p>
+<p class="normaltext">I did not talk to him very much at the hospital. I looked at his head and arms and legs and body very carefully. Then I wrote the important things about him in a little book. A nurse helped me. Merrick looked at her sometimes, but she did not smile at him or talk to him. I think she was afraid of him. I think Merrick was afraid too, because he was very quiet.</p>
+<p class="normaltext">At four o'clock I took him back to the shop in a cab. The next day I looked in the shop window again, but the picture was not there.</p>
+<hr/>
+<p class="normaltext2A"><b>card</b> <em>n. a small sheet of plastic or stiffened paper usu. with information printed on it and having various uses</em>.</p>
+<p class="normaltext2A"><b>end</b> <em>v. finish</em>. 结束。</p>
+<p class="normaltext2A"><b>loudly</b> <em>adv. noisily</em>. 大声地。</p>
+<p class="normaltext2A"><b>steps</b> <em>n. place to put the foot when climbing up and down</em>. 台阶。</p>
+<p class="normaltext2A"><b>stick</b> <em>n. a thin rod of wood used for a special purpose</em>. 棍；杖。</p>
+<p class="normaltext2A"><b>postman</b> <em>n. person employed to collect and deliver letters, parcels, etc</em>. 邮递员。</p>
+<p class="normaltext2A"><b>strange</b> <em>adj. different</em>. 奇怪的。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>2</em>　名片</p>
+<p class="picture"><img src="../../../Images/image07086.jpeg" alt="alt"/></p>
+<p class="normaltext">于是第二天7点钟，我乘着马车来到这家商店。天刚刚亮，路上没有多少人。11月份的早上7点钟天还是黑的，商店还看不太清楚。我等了五分钟，一个邮递员恰好经过，后来商店门开了，那个怪物——梅里克出来了。</p>
+<p class="normaltext">我看不见他的脸和身体，他头上戴着一顶大黑帽子，就像顶着一个大盒子。帽子上搭着一块灰色的布一直遮着脸，眼睛前面的布上有个洞，他可以从洞里朝外看，可我却看不见里面。他还穿了一件黑色的长外套，外套从颈子上一直拖到脚下，所以我看不见他的手臂、身体和腿。他脚上穿着一双大鞋，就像两条旧口袋。</p>
+<p class="normaltext">他左手拄着一根拐杖，走得很慢，我打开车门，走了出来。</p>
+<p class="normaltext">“早上好，梅里克先生，”我说，“你能上去吗？”</p>
+<p class="normaltext">“Elpmyupasteps.”他说。</p>
+<p class="normaltext">“对不起，”我说，“我听不懂。”</p>
+<p class="normaltext">他在车门边站了一会儿，什么话也没有说。后来他用拐杖敲了敲车子。</p>
+<p class="normaltext">“上台阶！”他大声地说，“帮我上台阶！”</p>
+<p class="normaltext">后来，我明白了，马车上有三级台阶，他迈不上去。</p>
+<p class="normaltext">“噢，对不起，”我说，“我来帮你。”</p>
+<p class="normaltext">我拉着他的左手，右手扶着他的背帮助他上车。我觉得很奇怪，他的左手就像年轻女人的手，而他外套里面的背部却是很可怕。我可以隔着外套摸到背上那些老皮囊肿。</p>
+<p class="normaltext">他一只大脚先迈上了头一个台阶，就停下了。过了一会儿，又慢慢地挪动另外一只脚，然后又停了下来再次等着。</p>
+<p class="normaltext">“喂，先生，要我帮忙吗？”</p>
+<p class="normaltext">我朝身后一看，是那位邮递员，在他的身后还有三个小男孩，其中有一个在大声笑着。</p>
+<p class="normaltext">这位邮递员微笑着问：“这位先生病了吗？”</p>
+<p class="normaltext">我灵机一动：“对，但这是位女士，不是先生。我是医生，她病了。拉着她的手，这样我能更好地帮助她。”</p>
+<p class="normaltext">邮递员拉着梅里克的左手，我用双手从后面推他。梅里克慢慢地移动步子，走进马车。</p>
+<p class="normaltext">一个小男孩离马车很近，他对着他的伙伴们大声地喊着：“过来看，一个穿黑外套的胖女人！瞧那顶大帽子！”</p>
+<p class="normaltext">孩子们哄笑着走到马车旁，我迅速地关上了车门。</p>
+<p class="normaltext">我对邮递员说：“谢谢你。”</p>
+<p class="normaltext">他说：“不用谢，先生。这位女士很怪呀！”</p>
+<p class="normaltext">我很快地回答：“她是病人，仅此而已。我们要去医院，谢谢你，再见。”</p>
+<p class="normaltext">马车沿着去医院的路驶去。我看了看梅里克说：“很不容易，是吧？”</p>
+<p class="normaltext">他先是什么都不说，可后来他开口了，他的嗓音很怪，可我还是认真地听着，我能听懂他讲的意思。</p>
+<p class="normaltext">“上台阶很困难。”他说，“大多数事情对于我来说，都很困难。”</p>
+<p class="normaltext">“对您来说没有容易的事，对吧？”我说。</p>
+<p class="normaltext">“对。”他沉默了一会儿，然后问道：“您是谁，先生？”</p>
+<p class="normaltext">“我是谁？哦，对不起，我是特里夫斯医生。瞧，这是我的名片。”</p>
+<p class="normaltext">我递给了他一张上面有我名字的名片。但转念一想，这没什么用，他不识字。梅里克拿着名片认真地看了看，然后就塞进裤子口袋里。</p>
+<p class="normaltext">在医院里我和他谈得不多，我很仔细地看过他的头、手臂、腿和身子，然后我将有关他的重要情况记在了一个小笔记本里。一位护士来协助我工作。梅里克时不时地朝她看看，可她既不朝他微笑也不与他说话。我想她是怕他，梅里克可能也怕她，因为他一直很安静。</p>
+<p class="normaltext">4点钟时，我用马车将他送回那个商店。第二天我又朝小店橱窗里看了看，可那张照片已不见了。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">名片</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 2</em></p>
+<hr/>
+<p class="titleb">The Card</p>
+<p class="normaltext">So next day, at seven o'clock, I came to the shop in a cab. There were not very many people in the road, because it was early in the morning. In November it is dark at seven o'clock in the morning, and I could not see the shop very well. I waited five minutes. A postman walked past. Then the door of the shop opened, and the creature, Merrick, came out.</p>
+<p class="normaltext">I could not see his face or his body. He had an enormous black hat on his head, like a big box. A grey cloth came down from the hat, in front of his face. There was a hole in the cloth in front of his eyes. He could see out of the hole but I could not see in. He wore a long black coat, too. The coat began at his neck, and ended at his feet, so I could not see his arms, his body, or his legs. On his feet he wore big shoes, like old bags.</p>
+<p class="normaltext">He had a stick in his left hand, and he walked very slowly. I opened the door of the cab, and got out.</p>
+<p class="normaltext">'Good morning, Mr Merrick,' I said. 'Can you get in?'</p>
+<p class="normaltext">'Elpmyupasteps,' he said.</p>
+<p class="normaltext">'I'm sorry,' I said. 'I don't understand.'</p>
+<p class="normaltext">For a minute he stood by the door of the cab and said nothing. Then he hit the cab with his stick.</p>
+<p class="normaltext">'STEPS!' he said loudly. 'Help me up the steps!'</p>
+<p class="normaltext">Then I understood. There were three steps up into the cab, and he could not get up them.</p>
+<p class="normaltext">'Yes, I see. I'm sorry,' I said. 'Let me help you.'</p>
+<p class="normaltext">I took his left hand and began to help him. My right hand was behind his back. I felt very strange. His left hand was like a young woman's, but his back under the coat, was horrible. I could feel the bags of old skin on his back under the coat.</p>
+<p class="normaltext">He put one enormous foot on the first step, and then he stopped. After a minute, he moved his second foot slowly. Then he stopped and waited again.</p>
+<p class="normaltext">'Hello, sir. Can I help you?'</p>
+<p class="normaltext">I looked behind me. It was the postman. And behind him, I could see three young boys. One of the boys laughed.</p>
+<p class="normaltext">The postman smiled. 'Is the gentleman ill?' he asked.</p>
+<p class="normaltext">I thought quickly. 'Yes. But this is a lady, not a gentleman. I'm a doctor, and she's ill. Take her hand, so I can help her better.'</p>
+<p class="normaltext">The postman took Merrick's left hand, and I helped him with two hands from behind. Slowly, very slowly, Merrick went up the steps and into the cab.</p>
+<p class="normaltext">One boy was very near the cab. He called to his friends.</p>
+<p class="normaltext">'Come and see this, boys! A fat lady in a black coat! And look at that enormous hat!'</p>
+<p class="normaltext">The boys laughed. They were very near the cab too, now. I closed the door quickly.</p>
+<p class="normaltext">'Thank you,' I said to the postman.</p>
+<p class="normaltext">'That's all right, sir,' he said. 'She's a strange lady, sir, isn't she?'</p>
+<p class="normaltext">'She's ill, that's all,' I said quickly. 'We're going to the hospital. Goodbye, and thank you.'</p>
+<p class="normaltext">The cab drove down the road to the hospital. I looked at Merrick. 'That was difficult, wasn't it?' I said.</p>
+<p class="normaltext">At first he said nothing, but then he spoke. His voice was very strange, but I listened to him carefully, and I could understand him.</p>
+<p class="normaltext">'The steps were very difficult,' he said. 'But most things are difficult for me.'</p>
+<p class="normaltext">'Yes,' I said. 'Nothing is easy for you, is it?'</p>
+<p class="normaltext">'No,' he said. He was very quiet for a minute. Then he said, 'Who are you, sir?'</p>
+<p class="normaltext">'Who am I? Oh, I'm sorry, My name is Dr Treves. Here, this is my card.'</p>
+<p class="normaltext">I gave him a card with my name on. Then I thought, 'That was no good. This man can't read.' But Merrick took the card and looked at it very carefully. Then he put it in his trousers pocket.</p>
+<p class="normaltext">I did not talk to him very much at the hospital. I looked at his head and arms and legs and body very carefully. Then I wrote the important things about him in a little book. A nurse helped me. Merrick looked at her sometimes, but she did not smile at him or talk to him. I think she was afraid of him. I think Merrick was afraid too, because he was very quiet.</p>
+<p class="normaltext">At four o'clock I took him back to the shop in a cab. The next day I looked in the shop window again, but the picture was not there.</p>
+<hr/>
+<p class="normaltext2A"><b>card</b> <em>n. a small sheet of plastic or stiffened paper usu. with information printed on it and having various uses</em>.</p>
+<p class="normaltext2A"><b>end</b> <em>v. finish</em>. 结束。</p>
+<p class="normaltext2A"><b>loudly</b> <em>adv. noisily</em>. 大声地。</p>
+<p class="normaltext2A"><b>steps</b> <em>n. place to put the foot when climbing up and down</em>. 台阶。</p>
+<p class="normaltext2A"><b>stick</b> <em>n. a thin rod of wood used for a special purpose</em>. 棍；杖。</p>
+<p class="normaltext2A"><b>postman</b> <em>n. person employed to collect and deliver letters, parcels, etc</em>. 邮递员。</p>
+<p class="normaltext2A"><b>strange</b> <em>adj. different</em>. 奇怪的。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>2</em>　名片</p>
+<p class="picture"><img src="../../../Images/image07086.jpeg" alt="alt"/></p>
+<p class="normaltext">于是第二天7点钟，我乘着马车来到这家商店。天刚刚亮，路上没有多少人。11月份的早上7点钟天还是黑的，商店还看不太清楚。我等了五分钟，一个邮递员恰好经过，后来商店门开了，那个怪物——梅里克出来了。</p>
+<p class="normaltext">我看不见他的脸和身体，他头上戴着一顶大黑帽子，就像顶着一个大盒子。帽子上搭着一块灰色的布一直遮着脸，眼睛前面的布上有个洞，他可以从洞里朝外看，可我却看不见里面。他还穿了一件黑色的长外套，外套从颈子上一直拖到脚下，所以我看不见他的手臂、身体和腿。他脚上穿着一双大鞋，就像两条旧口袋。</p>
+<p class="normaltext">他左手拄着一根拐杖，走得很慢，我打开车门，走了出来。</p>
+<p class="normaltext">“早上好，梅里克先生，”我说，“你能上去吗？”</p>
+<p class="normaltext">“Elpmyupasteps.”他说。</p>
+<p class="normaltext">“对不起，”我说，“我听不懂。”</p>
+<p class="normaltext">他在车门边站了一会儿，什么话也没有说。后来他用拐杖敲了敲车子。</p>
+<p class="normaltext">“上台阶！”他大声地说，“帮我上台阶！”</p>
+<p class="normaltext">后来，我明白了，马车上有三级台阶，他迈不上去。</p>
+<p class="normaltext">“噢，对不起，”我说，“我来帮你。”</p>
+<p class="normaltext">我拉着他的左手，右手扶着他的背帮助他上车。我觉得很奇怪，他的左手就像年轻女人的手，而他外套里面的背部却是很可怕。我可以隔着外套摸到背上那些老皮囊肿。</p>
+<p class="normaltext">他一只大脚先迈上了头一个台阶，就停下了。过了一会儿，又慢慢地挪动另外一只脚，然后又停了下来再次等着。</p>
+<p class="normaltext">“喂，先生，要我帮忙吗？”</p>
+<p class="normaltext">我朝身后一看，是那位邮递员，在他的身后还有三个小男孩，其中有一个在大声笑着。</p>
+<p class="normaltext">这位邮递员微笑着问：“这位先生病了吗？”</p>
+<p class="normaltext">我灵机一动：“对，但这是位女士，不是先生。我是医生，她病了。拉着她的手，这样我能更好地帮助她。”</p>
+<p class="normaltext">邮递员拉着梅里克的左手，我用双手从后面推他。梅里克慢慢地移动步子，走进马车。</p>
+<p class="normaltext">一个小男孩离马车很近，他对着他的伙伴们大声地喊着：“过来看，一个穿黑外套的胖女人！瞧那顶大帽子！”</p>
+<p class="normaltext">孩子们哄笑着走到马车旁，我迅速地关上了车门。</p>
+<p class="normaltext">我对邮递员说：“谢谢你。”</p>
+<p class="normaltext">他说：“不用谢，先生。这位女士很怪呀！”</p>
+<p class="normaltext">我很快地回答：“她是病人，仅此而已。我们要去医院，谢谢你，再见。”</p>
+<p class="normaltext">马车沿着去医院的路驶去。我看了看梅里克说：“很不容易，是吧？”</p>
+<p class="normaltext">他先是什么都不说，可后来他开口了，他的嗓音很怪，可我还是认真地听着，我能听懂他讲的意思。</p>
+<p class="normaltext">“上台阶很困难。”他说，“大多数事情对于我来说，都很困难。”</p>
+<p class="normaltext">“对您来说没有容易的事，对吧？”我说。</p>
+<p class="normaltext">“对。”他沉默了一会儿，然后问道：“您是谁，先生？”</p>
+<p class="normaltext">“我是谁？哦，对不起，我是特里夫斯医生。瞧，这是我的名片。”</p>
+<p class="normaltext">我递给了他一张上面有我名字的名片。但转念一想，这没什么用，他不识字。梅里克拿着名片认真地看了看，然后就塞进裤子口袋里。</p>
+<p class="normaltext">在医院里我和他谈得不多，我很仔细地看过他的头、手臂、腿和身子，然后我将有关他的重要情况记在了一个小笔记本里。一位护士来协助我工作。梅里克时不时地朝她看看，可她既不朝他微笑也不与他说话。我想她是怕他，梅里克可能也怕她，因为他一直很安静。</p>
+<p class="normaltext">4点钟时，我用马车将他送回那个商店。第二天我又朝小店橱窗里看了看，可那张照片已不见了。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">chapter-a034_ 3　A Letter to 'The Times'</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 3</em></p>
+<hr/>
+<p class="titleb">A Letter to 'The Times'</p>
+<p class="normaltext">I did not see Merrick again for two years. Then, one day, the police found him. He had my card in his hand, so they brought him to the London Hospital. He was very tired, hungry, and dirty, so I put him to bed in a quiet little room. But he could not stay at the hospital. He was not ill, and of course the beds in the hospital are for ill people. We have no beds for hungry people, or ugly people.</p>
+<p class="normaltext">I told the Hospital Chairman, Mr Carr Gomm, about Merrick. He listened carefully, and then he wrote a letter to the editor of The Times newspaper.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><em>From The Times, December 4th, 1886</em></p>
+<p class="normaltext3"><em>A Letter to the Editor.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Dear Sir,</p>
+<p class="normaltext">I am writing to you about a man in our hospital. He needs your help. His name is Joseph Merrick, and he is 27 years old. He is not ill, but he cannot go out of the hospital because he is very, very ugly. Nobody likes to look at him, and some people are afraid of him. We call him 'The Elephant Man'.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Two years ago, Merrick lived in a shop near the London Hospital. For two pence, people could see him and laugh at him. One day Dr Frederick Treves—a hospital doctor—saw Merrick, brought him to this hospital, and looked at him carefully. Dr Treves could not help Merrick, but he gave him his card.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Then the shopkeeper, Silcock, took Merrick to Belgium. A lot of people in Belgium wanted to see him, and so after a year Merrick had ￡50. But then Silcock took Merrick's ￡50, left Merrick in Belgium, and went back to London.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Merrick came back to London by himself. Everyone on the train and the ship looked at him, and laughed at him. In London, the police put him in prison. But then they saw Dr Treves's card, and brought Merrick to the London Hospital.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">This man has no money, and he cannot work. His face and body are very, very ugly, so of course many people are afraid of him. But he is a very interesting man. He can read and write, and he thinks a lot. He is a good, quiet man. Sometimes he makes things with his hands and gives them to the nurses, because they are kind to him.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">He remembers his mother, and he has a picture of her. She was beautiful and kind, he says. But he never sees her now. She gave him to Silcock a long time ago.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Can the readers of The Times help us? This man is not ill, but he needs a home. We can give him a room at the hospital, but we need some money. Please write to me at the London Hospital.</p>
+<p class="normaltextc">Yours faithfully,</p>
+<p class="normaltextc"><img src="../../../Images/image07087.jpeg" style="height:0.85em;" alt="alt"/></p>
+<p class="normaltextc">F.C. Carr Gomm</p>
+<p class="normaltextc">Chairman of the London Hospital</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">The readers of The Times are very kind people. They gave us a lot of money. After one week, we had ￡50, 000, so Merrick could live in the Hospital for all his life. We could give him a home.</p>
+<hr/>
+<p class="normaltext2A"><b>chairman</b> <em>n. an important man in the hospital</em>. 医院院长。</p>
+<p class="normaltext2A"><b>ugly</b> <em>adj. unpleasant to see</em>. 丑陋的。</p>
+<p class="normaltext2A"><b>editor</b> <em>n. a person who edits</em>. 编辑。</p>
+<p class="normaltext2A"><b>kind</b> <em>adj. nice, good</em>. 善良的；好心的。</p>
+<p class="normaltext2A"><b>Yours faithfully</b> <em>the usual polite way of ending a letter written to someone whom one does not know</em>. 你的忠实的（给陌生人写信时常用的有礼貌的结束语）。</p>
+<p class="normaltext2A"><b>life</b> <em>n. the period during which one is alive</em>. 生命；一生。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>3</em>　给《泰晤士报》的一封信</p>
+<p class="picture"><img src="../../../Images/image07088.jpeg" alt="alt"/></p>
+<p class="normaltext">我有两年未见到梅里克了。后来有一天，警察发现了他，他手里有我的名片，所以警察就将他带到伦敦医院。他很疲劳、饥饿、肮脏，我就把他安置在一间很安静的小房间里休息。但因为他没有生病，他不能待在医院里，医院里的床当然是给病人用的。我们不能给饥饿的人或丑陋的人提供床铺使用。</p>
+<p class="normaltext">我将梅里克的情况告诉了院长卡尔·戈姆先生。他听得很仔细，并给《泰晤士报》的编辑写了一封信。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">摘自1886年12月4日的《泰晤士报》</p>
+<p class="normaltext">致编辑的一封信。</p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的先生：</span></p>
+<p class="normaltext2K">我写信给你是告诉你一个在我们医院里的人的情况，他需要得到你的帮助。他名叫约瑟夫·梅里克，现年27岁。他没有生病，但是他不能走出医院，因为他长得很丑很丑，没有人愿意看他一眼，一些人害怕他，我们叫他“象人”。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">两年前，梅里克住在伦敦医院附近的一家商店里，花两个便士，人们就可以看到他、嘲笑他。有一天，医院医生弗雷德里克·特里夫斯医生见到了梅里克，将他带到我们医院里，并给他仔细检查。由于特里夫斯医生无法帮助梅里克，只好给了他一张名片。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">后来店老板西尔科克将他带到了比利时，在那儿许多人都想看他，所以，一年后，梅里克挣到了50英镑。但是后来西尔科克拿走了梅里克的50英镑，将他留在比利时，而自己回到了伦敦。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">梅里克是独自一人回到伦敦的，火车上、轮船上的每个人都看着他、嘲笑他。在伦敦，警察把他关进监狱。但后来，他们看到特里夫斯医生的名片，就把梅里克带到了伦敦医院。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">他没有钱，又不能工作，他的脸和身体都非常丑陋，当然许多人都害怕他。但是，他是一个很有趣的人，他能读书写字，会思考，他是一个安份的好人。有时他用自己的双手做些玩意儿送给护士们，因为她们对他很和善。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">他记得他的母亲，他有他母亲的一张照片。他说他的母亲很漂亮、温柔。但是，现在他再也没有见过她。她在很久以前就将他给了西尔科克。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">《泰晤士报》的读者们能否帮助我们？这个人没有生病，但他需要有一个家，我们在医院里可以给他一间房子，但我们需要钱，请给我回信到伦敦医院来。</p>
+<p class="normaltextd kt">你的忠实的　　　</p>
+<p class="normaltextd kt">F．C．卡尔·戈姆</p>
+<p class="normaltextd kt">伦敦医院院长　　</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">《泰晤士报》的读者们都很仁慈，他们给了我们很多钱。一星期后，我们收到了五万英镑，足够让梅里克在医院里住一辈子。我们可以给他安个家。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">给《泰晤士报》的一封信</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 3</em></p>
+<hr/>
+<p class="titleb">A Letter to 'The Times'</p>
+<p class="normaltext">I did not see Merrick again for two years. Then, one day, the police found him. He had my card in his hand, so they brought him to the London Hospital. He was very tired, hungry, and dirty, so I put him to bed in a quiet little room. But he could not stay at the hospital. He was not ill, and of course the beds in the hospital are for ill people. We have no beds for hungry people, or ugly people.</p>
+<p class="normaltext">I told the Hospital Chairman, Mr Carr Gomm, about Merrick. He listened carefully, and then he wrote a letter to the editor of The Times newspaper.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><em>From The Times, December 4th, 1886</em></p>
+<p class="normaltext3"><em>A Letter to the Editor.</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Dear Sir,</p>
+<p class="normaltext">I am writing to you about a man in our hospital. He needs your help. His name is Joseph Merrick, and he is 27 years old. He is not ill, but he cannot go out of the hospital because he is very, very ugly. Nobody likes to look at him, and some people are afraid of him. We call him 'The Elephant Man'.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Two years ago, Merrick lived in a shop near the London Hospital. For two pence, people could see him and laugh at him. One day Dr Frederick Treves—a hospital doctor—saw Merrick, brought him to this hospital, and looked at him carefully. Dr Treves could not help Merrick, but he gave him his card.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Then the shopkeeper, Silcock, took Merrick to Belgium. A lot of people in Belgium wanted to see him, and so after a year Merrick had ￡50. But then Silcock took Merrick's ￡50, left Merrick in Belgium, and went back to London.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Merrick came back to London by himself. Everyone on the train and the ship looked at him, and laughed at him. In London, the police put him in prison. But then they saw Dr Treves's card, and brought Merrick to the London Hospital.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">This man has no money, and he cannot work. His face and body are very, very ugly, so of course many people are afraid of him. But he is a very interesting man. He can read and write, and he thinks a lot. He is a good, quiet man. Sometimes he makes things with his hands and gives them to the nurses, because they are kind to him.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">He remembers his mother, and he has a picture of her. She was beautiful and kind, he says. But he never sees her now. She gave him to Silcock a long time ago.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Can the readers of The Times help us? This man is not ill, but he needs a home. We can give him a room at the hospital, but we need some money. Please write to me at the London Hospital.</p>
+<p class="normaltextc">Yours faithfully,</p>
+<p class="normaltextc"><img src="../../../Images/image07087.jpeg" style="height:0.85em;" alt="alt"/></p>
+<p class="normaltextc">F.C. Carr Gomm</p>
+<p class="normaltextc">Chairman of the London Hospital</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">The readers of The Times are very kind people. They gave us a lot of money. After one week, we had ￡50, 000, so Merrick could live in the Hospital for all his life. We could give him a home.</p>
+<hr/>
+<p class="normaltext2A"><b>chairman</b> <em>n. an important man in the hospital</em>. 医院院长。</p>
+<p class="normaltext2A"><b>ugly</b> <em>adj. unpleasant to see</em>. 丑陋的。</p>
+<p class="normaltext2A"><b>editor</b> <em>n. a person who edits</em>. 编辑。</p>
+<p class="normaltext2A"><b>kind</b> <em>adj. nice, good</em>. 善良的；好心的。</p>
+<p class="normaltext2A"><b>Yours faithfully</b> <em>the usual polite way of ending a letter written to someone whom one does not know</em>. 你的忠实的（给陌生人写信时常用的有礼貌的结束语）。</p>
+<p class="normaltext2A"><b>life</b> <em>n. the period during which one is alive</em>. 生命；一生。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>3</em>　给《泰晤士报》的一封信</p>
+<p class="picture"><img src="../../../Images/image07088.jpeg" alt="alt"/></p>
+<p class="normaltext">我有两年未见到梅里克了。后来有一天，警察发现了他，他手里有我的名片，所以警察就将他带到伦敦医院。他很疲劳、饥饿、肮脏，我就把他安置在一间很安静的小房间里休息。但因为他没有生病，他不能待在医院里，医院里的床当然是给病人用的。我们不能给饥饿的人或丑陋的人提供床铺使用。</p>
+<p class="normaltext">我将梅里克的情况告诉了院长卡尔·戈姆先生。他听得很仔细，并给《泰晤士报》的编辑写了一封信。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">摘自1886年12月4日的《泰晤士报》</p>
+<p class="normaltext">致编辑的一封信。</p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的先生：</span></p>
+<p class="normaltext2K">我写信给你是告诉你一个在我们医院里的人的情况，他需要得到你的帮助。他名叫约瑟夫·梅里克，现年27岁。他没有生病，但是他不能走出医院，因为他长得很丑很丑，没有人愿意看他一眼，一些人害怕他，我们叫他“象人”。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">两年前，梅里克住在伦敦医院附近的一家商店里，花两个便士，人们就可以看到他、嘲笑他。有一天，医院医生弗雷德里克·特里夫斯医生见到了梅里克，将他带到我们医院里，并给他仔细检查。由于特里夫斯医生无法帮助梅里克，只好给了他一张名片。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">后来店老板西尔科克将他带到了比利时，在那儿许多人都想看他，所以，一年后，梅里克挣到了50英镑。但是后来西尔科克拿走了梅里克的50英镑，将他留在比利时，而自己回到了伦敦。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">梅里克是独自一人回到伦敦的，火车上、轮船上的每个人都看着他、嘲笑他。在伦敦，警察把他关进监狱。但后来，他们看到特里夫斯医生的名片，就把梅里克带到了伦敦医院。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">他没有钱，又不能工作，他的脸和身体都非常丑陋，当然许多人都害怕他。但是，他是一个很有趣的人，他能读书写字，会思考，他是一个安份的好人。有时他用自己的双手做些玩意儿送给护士们，因为她们对他很和善。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">他记得他的母亲，他有他母亲的一张照片。他说他的母亲很漂亮、温柔。但是，现在他再也没有见过她。她在很久以前就将他给了西尔科克。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2K">《泰晤士报》的读者们能否帮助我们？这个人没有生病，但他需要有一个家，我们在医院里可以给他一间房子，但我们需要钱，请给我回信到伦敦医院来。</p>
+<p class="normaltextd kt">你的忠实的　　　</p>
+<p class="normaltextd kt">F．C．卡尔·戈姆</p>
+<p class="normaltextd kt">伦敦医院院长　　</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">《泰晤士报》的读者们都很仁慈，他们给了我们很多钱。一星期后，我们收到了五万英镑，足够让梅里克在医院里住一辈子。我们可以给他安个家。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">chapter-a034_ 4　Merrick's First Home</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 4</em></p>
+<hr/>
+<p class="titleb">Merrick's First Home</p>
+<p class="normaltext">We gave Merrick two rooms at the back of the hospital. One room was a bathroom, so he could have a bath every day. Soon his skin was much better, and there was no horrible smell.</p>
+<p class="normaltext">The second room had a bed, table, and chairs. I visited him every day, and talked to him. He loved reading, and talking about books. At first he did not know many books: the Bible, and one or two newspapers, that's all. But I gave him some books of love stories, and he liked them very much. He read them again and again, and talked about them often. For him, the men and women in these books were alive, like you and me. He was very happy.</p>
+<p class="normaltext">But sometimes it was difficult for him. At first, one or two people in the hospital laughed at Merrick because he was ugly. Sometimes, they brought their friends to look at him. One day a new nurse came to the hospital, and nobody told her about Merrick. She took his food to his room, and opened the door. Then she saw him. She screamed, dropped the food on the floor, and ran out of the room.</p>
+<p class="normaltext">I was very angry with the nurse, and went to see Merrick. He was not happy about it, but he was not very angry. I think he felt sorry for the girl.</p>
+<p class="normaltext">'People don't like looking at me. I know that, Dr Treves,' he said. 'They usually laugh or scream.'</p>
+<p class="normaltext">'Well, I don't want nurses to laugh at you, Joseph,' I said angrily. 'I want them to help you.'</p>
+<p class="normaltext">'Thank you, doctor,' he said, in his strange slow voice. 'But it's not important. Everyone laughs at me. I understand that.'</p>
+<p class="normaltext">I looked at him sadly. In his one good hand, his left hand, he had the little picture of his mother. He looked at the picture for a minute, and then put it by a flower on the table. A tear ran out of his eye and down the skin of his enormous, ugly face.</p>
+<p class="normaltext">'Dr Treves,' he said, slowly. 'You and the nurses are very kind, and I'm very happy here. Thank you very much. But...I know I can't stay here long, and... I would like to live in a lighthouse, after the hospital, please. A lighthouse, or a home for blind people. I think those are the best places for me.'</p>
+<p class="normaltext">'What do you mean?' I asked. 'Why?'</p>
+<p class="normaltext">He did not look at me. He put the flower on the picture and looked at it carefully.</p>
+<p class="normaltext">'Lighthouses have sea all round them, don't they?' he said. 'Nobody could look at me in a lighthouse, so I would be happy there. And blind people can see nothing, so they couldn't see me, could they?'</p>
+<p class="normaltext">'But Joseph,' I said. 'This is your home. You live here now. You aren't going to leave the hospital.'</p>
+<p class="normaltext">'Not today, perhaps,' he said. 'But soon. You are a kind man, Dr Treves. But I can't stay here very long. I have no money.'</p>
+<p class="normaltext">I smiled. 'Joseph,' I said. 'This is your <em>home</em> now. Don't you understand? You can stay here all your life.' Very carefully, I told him about the letter to The Times, and the money.</p>
+<p class="normaltext">I don't think he understood at first, so I told him again. He was very quiet for a minute. Then he stood up, and walked up and down the room very quickly. A strange sound came from him, like laughing.</p>
+<hr/>
+<p class="normaltext2A"><b>bath</b> <em>n. an act of washing one's whole body at one time</em>. 洗浴。</p>
+<p class="normaltext2A"><b>Bible</b> <em>(a copy of) the holy book of the Christians and the Jews</em>. 基督教或犹太教《圣经》。</p>
+<p class="normaltext2A"><b>drop</b> <em>v. to let something fall</em>. 使跌落。</p>
+<p class="normaltext2A"><b>scream</b> <em>v. to cry out loudly on a high note, in fear, pain, excitement</em>. 尖叫；喊叫。</p>
+<p class="normaltext2A"><b>tear</b> <em>n. a drop of liquid that flows from the eye during pain or sadness</em>. 眼泪。</p>
+<p class="normaltext2A"><b>voice</b> <em>n. the sound(s) produced by humans in speaking and singing</em>. 嗓音。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>4</em>　梅里克的第一个家</p>
+<p class="picture"><img src="../../../Images/image07089.jpeg" alt="alt"/></p>
+<p class="normaltext">我们将医院后面的两个房间给了梅里克，一间是浴室，供他每天洗澡。于是他的皮肤好多了，再也没有难闻的气味。</p>
+<p class="normaltext">另一间里面有床、桌子和椅子。我每天都去看他，陪他说话。他喜欢看书，也喜欢谈论书里的内容。起初，他并不知道多少书，只知道《圣经》和一两份报纸而已。后来我给了他几本爱情小说，他非常喜欢，看了一遍又一遍，并经常谈论其中的故事。对他来说，书中的男女就像你我一样，都是鲜活的，他非常高兴。</p>
+<p class="normaltext">但对他来说，有时也很难。开始时，医院里有一两个人嘲笑他，说他长得丑陋，有时他们把自己的朋友带来参观他。有一天，一个护士新来到医院，没有人把梅里克的情况告诉她，她给梅里克送饭，当她打开门，见到他时，尖叫一声，将饭扔在地上跑了出去。</p>
+<p class="normaltext">我去看望梅里克，我很生这个护士的气。他对此事感到不高兴但没生气，我想他觉得自己对不起这个姑娘。</p>
+<p class="normaltext">他说：“人们不喜欢朝我看，他们经常对我嘲笑、尖叫，我知道为什么，特里夫斯医生。”</p>
+<p class="normaltext">我气愤地说：“约瑟夫，我不希望护士们嘲笑你，我要她们来帮助你。”</p>
+<p class="normaltext">“谢谢你，大夫。”他用奇怪的声音慢慢说着：“每个人都在嘲笑我，我理解，这并不重要。”</p>
+<p class="normaltext">我忧伤地看着他。他的那只好手——左手——拿着一张他母亲的小照片，他看了一会儿照片，然后将照片放在桌上的一朵花旁，一滴泪水顺着他那张丑陋的大脸滚下来。</p>
+<p class="normaltext">“特里夫斯医生，您和这些护士们都是非常善良的，我在这儿很幸福。非常感谢您。可是……我知道我不能长期待在这儿，那么……出院后我想要住到一座灯塔里。一座灯塔或是盲人之家，我想那对我来说是最好的地方。”他慢慢地说道。</p>
+<p class="normaltext">我问：“你这是什么意思？为什么？”</p>
+<p class="normaltext">他不看我，他把那束花放在那张照片上，仔细地看着。</p>
+<p class="normaltext">他说：“灯塔四周是大海，对不对？在那里没有人朝我看，所以在那里我会幸福的。盲人什么也看不见，所以他们也看不见我，是不是？”</p>
+<p class="normaltext">我说：“约瑟夫，这就是你的家，现在你就住在这儿，你不要离开医院。”</p>
+<p class="normaltext">他说：“可能不会是今天，但会很快。您是一个好人，特里夫斯医生。可我不能在这儿待很长时间，我没有钱。”我笑着说：“约瑟夫，现在这儿就是你的<span class="underline">家</span>。你难道还不明白吗？你可以在这儿待一辈子。”于是我把写给《泰晤士报》的那封信及有关钱的来历详详细细地告诉了他。</p>
+<p class="normaltext">开始我担心他不能理解此事，所以就又说了一遍。他沉默了片刻，然后站起来在房间里很快地来回走动着，并发出一种奇怪的声音，像是在大笑。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">梅里克的第一个家</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 4</em></p>
+<hr/>
+<p class="titleb">Merrick's First Home</p>
+<p class="normaltext">We gave Merrick two rooms at the back of the hospital. One room was a bathroom, so he could have a bath every day. Soon his skin was much better, and there was no horrible smell.</p>
+<p class="normaltext">The second room had a bed, table, and chairs. I visited him every day, and talked to him. He loved reading, and talking about books. At first he did not know many books: the Bible, and one or two newspapers, that's all. But I gave him some books of love stories, and he liked them very much. He read them again and again, and talked about them often. For him, the men and women in these books were alive, like you and me. He was very happy.</p>
+<p class="normaltext">But sometimes it was difficult for him. At first, one or two people in the hospital laughed at Merrick because he was ugly. Sometimes, they brought their friends to look at him. One day a new nurse came to the hospital, and nobody told her about Merrick. She took his food to his room, and opened the door. Then she saw him. She screamed, dropped the food on the floor, and ran out of the room.</p>
+<p class="normaltext">I was very angry with the nurse, and went to see Merrick. He was not happy about it, but he was not very angry. I think he felt sorry for the girl.</p>
+<p class="normaltext">'People don't like looking at me. I know that, Dr Treves,' he said. 'They usually laugh or scream.'</p>
+<p class="normaltext">'Well, I don't want nurses to laugh at you, Joseph,' I said angrily. 'I want them to help you.'</p>
+<p class="normaltext">'Thank you, doctor,' he said, in his strange slow voice. 'But it's not important. Everyone laughs at me. I understand that.'</p>
+<p class="normaltext">I looked at him sadly. In his one good hand, his left hand, he had the little picture of his mother. He looked at the picture for a minute, and then put it by a flower on the table. A tear ran out of his eye and down the skin of his enormous, ugly face.</p>
+<p class="normaltext">'Dr Treves,' he said, slowly. 'You and the nurses are very kind, and I'm very happy here. Thank you very much. But...I know I can't stay here long, and... I would like to live in a lighthouse, after the hospital, please. A lighthouse, or a home for blind people. I think those are the best places for me.'</p>
+<p class="normaltext">'What do you mean?' I asked. 'Why?'</p>
+<p class="normaltext">He did not look at me. He put the flower on the picture and looked at it carefully.</p>
+<p class="normaltext">'Lighthouses have sea all round them, don't they?' he said. 'Nobody could look at me in a lighthouse, so I would be happy there. And blind people can see nothing, so they couldn't see me, could they?'</p>
+<p class="normaltext">'But Joseph,' I said. 'This is your home. You live here now. You aren't going to leave the hospital.'</p>
+<p class="normaltext">'Not today, perhaps,' he said. 'But soon. You are a kind man, Dr Treves. But I can't stay here very long. I have no money.'</p>
+<p class="normaltext">I smiled. 'Joseph,' I said. 'This is your <em>home</em> now. Don't you understand? You can stay here all your life.' Very carefully, I told him about the letter to The Times, and the money.</p>
+<p class="normaltext">I don't think he understood at first, so I told him again. He was very quiet for a minute. Then he stood up, and walked up and down the room very quickly. A strange sound came from him, like laughing.</p>
+<hr/>
+<p class="normaltext2A"><b>bath</b> <em>n. an act of washing one's whole body at one time</em>. 洗浴。</p>
+<p class="normaltext2A"><b>Bible</b> <em>(a copy of) the holy book of the Christians and the Jews</em>. 基督教或犹太教《圣经》。</p>
+<p class="normaltext2A"><b>drop</b> <em>v. to let something fall</em>. 使跌落。</p>
+<p class="normaltext2A"><b>scream</b> <em>v. to cry out loudly on a high note, in fear, pain, excitement</em>. 尖叫；喊叫。</p>
+<p class="normaltext2A"><b>tear</b> <em>n. a drop of liquid that flows from the eye during pain or sadness</em>. 眼泪。</p>
+<p class="normaltext2A"><b>voice</b> <em>n. the sound(s) produced by humans in speaking and singing</em>. 嗓音。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>4</em>　梅里克的第一个家</p>
+<p class="picture"><img src="../../../Images/image07089.jpeg" alt="alt"/></p>
+<p class="normaltext">我们将医院后面的两个房间给了梅里克，一间是浴室，供他每天洗澡。于是他的皮肤好多了，再也没有难闻的气味。</p>
+<p class="normaltext">另一间里面有床、桌子和椅子。我每天都去看他，陪他说话。他喜欢看书，也喜欢谈论书里的内容。起初，他并不知道多少书，只知道《圣经》和一两份报纸而已。后来我给了他几本爱情小说，他非常喜欢，看了一遍又一遍，并经常谈论其中的故事。对他来说，书中的男女就像你我一样，都是鲜活的，他非常高兴。</p>
+<p class="normaltext">但对他来说，有时也很难。开始时，医院里有一两个人嘲笑他，说他长得丑陋，有时他们把自己的朋友带来参观他。有一天，一个护士新来到医院，没有人把梅里克的情况告诉她，她给梅里克送饭，当她打开门，见到他时，尖叫一声，将饭扔在地上跑了出去。</p>
+<p class="normaltext">我去看望梅里克，我很生这个护士的气。他对此事感到不高兴但没生气，我想他觉得自己对不起这个姑娘。</p>
+<p class="normaltext">他说：“人们不喜欢朝我看，他们经常对我嘲笑、尖叫，我知道为什么，特里夫斯医生。”</p>
+<p class="normaltext">我气愤地说：“约瑟夫，我不希望护士们嘲笑你，我要她们来帮助你。”</p>
+<p class="normaltext">“谢谢你，大夫。”他用奇怪的声音慢慢说着：“每个人都在嘲笑我，我理解，这并不重要。”</p>
+<p class="normaltext">我忧伤地看着他。他的那只好手——左手——拿着一张他母亲的小照片，他看了一会儿照片，然后将照片放在桌上的一朵花旁，一滴泪水顺着他那张丑陋的大脸滚下来。</p>
+<p class="normaltext">“特里夫斯医生，您和这些护士们都是非常善良的，我在这儿很幸福。非常感谢您。可是……我知道我不能长期待在这儿，那么……出院后我想要住到一座灯塔里。一座灯塔或是盲人之家，我想那对我来说是最好的地方。”他慢慢地说道。</p>
+<p class="normaltext">我问：“你这是什么意思？为什么？”</p>
+<p class="normaltext">他不看我，他把那束花放在那张照片上，仔细地看着。</p>
+<p class="normaltext">他说：“灯塔四周是大海，对不对？在那里没有人朝我看，所以在那里我会幸福的。盲人什么也看不见，所以他们也看不见我，是不是？”</p>
+<p class="normaltext">我说：“约瑟夫，这就是你的家，现在你就住在这儿，你不要离开医院。”</p>
+<p class="normaltext">他说：“可能不会是今天，但会很快。您是一个好人，特里夫斯医生。可我不能在这儿待很长时间，我没有钱。”我笑着说：“约瑟夫，现在这儿就是你的<span class="underline">家</span>。你难道还不明白吗？你可以在这儿待一辈子。”于是我把写给《泰晤士报》的那封信及有关钱的来历详详细细地告诉了他。</p>
+<p class="normaltext">开始我担心他不能理解此事，所以就又说了一遍。他沉默了片刻，然后站起来在房间里很快地来回走动着，并发出一种奇怪的声音，像是在大笑。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-12" class="chapter-section">
+                <h2 class="chapter-title">chapter-a034_ 5　An Important Visitor</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 5</em></p>
+<hr/>
+<p class="titleb">An Important Visitor</p>
+<p class="normaltext">I did not want Merrick to live by himself, like a man in a lighthouse. He read his books, and talked to me, but I wanted him to talk to more people. And I wanted him to talk to women.</p>
+<p class="normaltext">Merrick read about women in his books, but he did not often talk to women. He met the nurses every day, but they did not talk to him very much. For them, he was always a creature, not a man.</p>
+<p class="normaltext">One day, one of my friends, a beautiful young woman, came to the hospital. I told her about Merrick, and took her to his room. She opened the door, and smiled at him.</p>
+<p class="normaltext">'Good morning, Mr Merrick,' she said. Then she shook his hand.</p>
+<p class="normaltext">Merrick looked at her for a minute with his mouth open. Then he sat down on his bed, with his head in his hand, and cried. He cried for nearly five minutes. The tears ran down his face, between his fingers, and onto the floor.</p>
+<p class="normaltext">My friend sat on the bed beside him and put her hand on his arm. She said nothing, but she smiled at him and shook his hand again before she left.</p>
+<p class="normaltext">'Dr Treves,' he said to me that night. 'That lady was wonderful! My mother smiled at me once, many years ago, but no women smile at me now. But this lady smiled at me too, and she shook my hand! A beautiful lady smiled at me and shook my hand!'</p>
+<p class="normaltext">My young lady friend came again the next week, and talked to Merrick for half an hour. The week after that, she came again with a friend. They gave him some books, and had a cup of tea with him. It was wonderful for him. For the first time in his life, he had some friends. He was a very happy man. He sat in his room, and read his books, and said no more about living on a lighthouse.</p>
+<p class="normaltext">People began to read about Merrick in the newspapers, so he had a lot of visitors. Everybody wanted to see him. A lot of important ladies and gentlemen visited him. They smiled at him, shook his hand, and gave him books. Merrick liked talking to these people, and he began to forget about his ugly body. His visitors never laughed at him. He began to feel like a man, not a creature.</p>
+<p class="normaltext">One wonderful day, a very important lady came to the hospital to visit him. I met the lady, and took her to his room. Then I opened the door, and smiled at him.</p>
+<p class="normaltext">'Good morning, Joseph,' I said. 'There is a new visitor to see you today. A very famous lady.'</p>
+<p class="normaltext">Merrick stood up beside his table. He did not smile, because his face could not smile, but his eyes looked happy.</p>
+<p class="normaltext">'That's good,' he said. 'Who is it?'</p>
+<p class="normaltext">I moved away from the door, and the visitor walked in. 'Your Majesty, this is Joseph Merrick,' I said. 'Joseph, this is Her Majesty, Queen Alexandra, the Queen of England.'</p>
+<p class="normaltext">Queen Alexandra smiled at him. 'How do you do, Mr Merrick,' She said. 'I'm very pleased to meet you.' Then she shook his hand.</p>
+<p class="normaltext">Merrick did not move. For nearly half a minute he stood and looked at her with his mouth open. Then he spoke, in his strange, slow voice.</p>
+<p class="normaltext">'How... how do you do, Your Majesty,' he said. But I don't think the Queen understood him, because he tried to get down on his knees at the same time. It was very difficult for him, because of his enormous legs.</p>
+<p class="normaltext">'No, please, Mr Merrick, do get up,' said the Queen. 'I would like to talk to you. Can we sit at your table?'</p>
+<p class="normaltext">'Yes... yes, of course,' he said. They sat at the table. She took his left hand, the good hand, in hers. She looked at the hand carefully, and then smiled at Merrick again.</p>
+<p class="normaltext">'I often read about you in the newspapers,' she said. 'You are a very interesting man, Mr Merrick. You have a very difficult life, but people say you're happy. Is it true? Are you happy now?'</p>
+<p class="normaltext">'Oh, yes, Your Majesty, yes!' said Merrick. 'I'm a very happy man! I have a home here now, and friends, and my books. I'm happy every hour of the day!'</p>
+<p class="normaltext">'What a wonderful story!' she said. 'I'm very pleased to hear it. Now, tell me about your reading. I see you have a lot of books here.'</p>
+<p class="normaltext">'Oh, yes, Your Majesty. I love my books,' said Merrick. And for nearly half an hour they sat and talked about books. The Queen gave him a little book, and some red flowers, before she left.</p>
+<p class="normaltext">After her visit, Merrick began to sing. He could not sing easily, of course, because of his mouth, but all that day there was a strange, happy noise in his room. He looked at the flowers carefully, and put them on his table.</p>
+<p class="normaltext">He had many visits from the Queen, and at Christmas she sent him a Christmas card.</p>
+<p class="normaltext1"><b>Windsor Castle</b></p>
+<p class="normaltext1"><b>20th December 1888</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>Dear Joseph,</b></p>
+<p class="normaltext"><b>Here is a small Christmas present for you. I think it looks like me, doesn't it? I do like visiting you very much, and I am going to come to the hospital again in the New Year.</b></p>
+<p class="normaltext"><b>Happy Christmas!</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltexte"><b>Your friend</b></p>
+<p class="normaltexte"><b>Alexandra</b></p>
+<p class="normaltext">The present was a picture of Queen Alexandra, with her name on it. Merrick cried over it, and put it carefully by the bed in his room. Then he sat down and wrote a letter to the Queen. It was the first letter of his life.</p>
+<p class="normaltext1"><em>The London Hospital</em></p>
+<p class="normaltext1"><em>23rd December 1888</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><em>My dear Queen ,</em></p>
+<p class="normaltext"><em>Thank you very, very much for your wonderful card and the beautiful picture. It is the best thing in my room, the very best, the most beautiful thing I have. This is the first Christmas in my life, and my first Christmas present. Perhaps I had a Christmas with my mother once, but I do not remember it. I have my mother's picture too, and she is beautiful, like you. But now I know many famous ladies and kind people like Dr Treves, and I am a very happy man. I am happy too because I am going to see you in the New Year.</em></p>
+<p class="normaltext"><em>Happy Christmas to you, my dear friend,</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext1Q"><em>With all my love,　　</em></p>
+<p class="normaltext1"><em>Joseph Merrick　　　</em></p>
+<hr/>
+<p class="normaltext2A"><b>like</b> <em>prep. in the same way as; of the same kind as</em>. 同样的；像……一样。</p>
+<p class="normaltext2A"><b>lighthouse</b> <em>n. a building with a powerful flashing light that guides ships or warns them of dangerous rocks</em>. 灯塔。</p>
+<p class="normaltext2A"><b>shake</b> <em>v. to take and hold (someone's right hand) in one's own, as a sign of greeting, goodbye, or agreement</em>. 握手。</p>
+<p class="normaltext2A"><b>gentleman</b> <em>n. who behaves well towards others and who can always be trusted to act honourably</em>. 绅士。</p>
+<p class="normaltext2A"><b>speak</b> <em>v. to talk</em>. 说话；讲话。</p>
+<p class="normaltext2A"><b>famous</b> <em>adj. very well known</em>. 著名的；出名的。</p>
+<p class="normaltext2A"><b>Queen (the)</b> <em>n. a female ruler of a country</em>. 女王。</p>
+<p class="normaltext2A"><b>Majesty</b> <em>n. a title for speaking to or of a king or queen</em>. 陛下。</p>
+<p class="normaltext2A"><b>Knees</b> <em>n. the middle joint of leg</em>. 膝盖。</p>
+<p class="normaltext2A"><b>present</b> <em>n. gift</em>. 礼物。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>5</em>　一位重要的来访者</p>
+<p class="picture"><img src="../../../Images/image07090.jpeg" alt="alt"/></p>
+<p class="normaltext">我不愿梅里克独自居住，就像一个灯塔守望人那样。他看书，也和我聊天，但我却想让他与更多的人特别是妇女们交谈。</p>
+<p class="normaltext">梅里克在书中读到过有关妇女的事，可他不常与妇女们说话。他每天都与护士接触，可她们不常与他说话，在她们的眼里，他始终是一个怪物而不是一个人。</p>
+<p class="normaltext">有一天，我的一位朋友，一位年轻漂亮的女子来到了医院，我告诉她有关梅里克的事，并把她领到他的房间。她打开房门，朝他微笑。</p>
+<p class="normaltext">“早上好，梅里克先生。”她握住他的手说。</p>
+<p class="normaltext">梅里克张着嘴朝她看了一会儿，然后坐到床上捂着头哭了起来。他哭了近五分钟时间，泪水从指缝里滚落到地上。</p>
+<p class="normaltext">我的这位朋友靠近他坐在他的床上，把手放在他的手臂上，什么也没说，只是朝他微笑，离开前又与他握手道别。</p>
+<p class="normaltext">那天晚上他对我说：“特里夫斯医生，那位女士好极了！我的母亲曾经朝我微笑过，那是很多年以前的事了。直到现在没有一个女人朝我笑过，可是这位女士朝我微笑，还握了我的手！一个漂亮的女士朝我微笑，握我的手！”</p>
+<p class="normaltext">第二个星期，我的那位年轻的朋友又来了，与梅里克谈了半个小时。又过了一个星期，她又与另一个朋友一道来了。她们送给他一些书，和他一起喝了茶。对他来说这比什么都好，人生中第一次有了一些朋友。他很高兴，坐在屋子里看书，再也不提生活在灯塔里的事了。</p>
+<p class="normaltext">人们开始从报纸上看到有关梅里克的报道，所以他有了许多来访者。每个人都想去看他，许多有身份的女士和绅士们访问了他，他们朝他微笑，和他握手，送给他许多书。梅里克喜欢与这些人交谈，渐渐忘了自己那丑陋的样子。他的来访者从不嘲笑他，他开始觉得自己像个人，而不再是个怪物了。</p>
+<p class="normaltext">一天，天气非常宜人，一位很有身份的女士来到医院拜访他。我见到这位女士，把她带到他的房间。我打开门，冲他微笑。</p>
+<p class="normaltext">“约瑟夫，早上好！今天有一位新客人来拜访你，是一位名人。”我对他说道。</p>
+<p class="normaltext">梅里克从桌子旁站了起来。他没有笑，因为他的脸不会笑，但从他的眼睛里能看出他很高兴。</p>
+<p class="normaltext">他说：“太好了，是谁？”</p>
+<p class="normaltext">我从门口闪开，把来访者让进屋，给他们介绍说：“陛下，这是约瑟夫·梅里克。约瑟夫，这是亚历山德拉女王陛下，当今英国女王。”</p>
+<p class="normaltext">亚历山德拉女王朝他笑着说：“梅里克先生，你好。见到你非常高兴。”随后她又握了握他的手。</p>
+<p class="normaltext">梅里克没有动，站在那里张着嘴朝她看了约半分钟之久，然后他说话了，声音奇怪而缓慢。“噢……陛下，您好！”他说道。我不知王后是否听清了他的话，因为与此同时他想要跪下，给王后行礼，但由于他那两条腿太粗了，他很难跪下。</p>
+<p class="normaltext">王后说：“梅里克先生，请不必这样，起来吧。我想与你说说话，我们可以在你的桌旁坐坐吗？”</p>
+<p class="normaltext">他回答着：“是的……是的，当然可以。”他们都在桌子旁坐下，她拉着他的左手，也就是那只好手。她仔细看了看他的手后又朝梅里克笑了笑说。</p>
+<p class="normaltext">“我常在报纸上看到有关你的情况，你是一个很有趣的人，你生活虽难以自理，但人们说你很幸福，是真的吗？你现在很幸福吗？”她说。</p>
+<p class="normaltext">梅里克回答说：“嗯，陛下，是的！我是一个很幸福的人！现在我在这有一个家，有许多朋友，还有许多书。我每时每刻都很愉快！”</p>
+<p class="normaltext">她说：“多么精彩的故事！我非常想听，请把你读到的讲给我听，我发现你这儿有许多书。”</p>
+<p class="normaltext">梅里克说：“哦，陛下，是的，我喜欢这些书。”他们坐在那儿就书上的事谈了近半个小时。王后离开时送给了他一本小书和一些红花。</p>
+<p class="normaltext">女王走后，梅里克开始唱歌。尽管他的嘴不能自如地歌唱，但那一整天他的房间里都回荡着奇怪、幸福的歌声。他仔细看了看这些花，将它们摆在桌子上。</p>
+<p class="normaltext">王后多次拜访他，圣诞节那天她寄给他一张圣诞卡片。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的约瑟夫：</span></p>
+<p class="normaltext2K">给你一个小小的圣诞礼物，我想你见到它会像见到我本人一样的，是吗？我很喜欢拜访你，我将在新年那天去医院看你。</p>
+<p class="normaltext2K">祝圣诞快乐！</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext1 kt"><span class="normaltext2">你的朋友　亚历山德拉</span></p>
+<p class="normaltext1 kt"><span class="normaltext2">1888年12月20日于温莎城堡</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">这份礼物是亚历山德拉王后的一张照片，上面有她的名字。梅里克高兴地叫出声来，仔细地把它放在房间里他的床边，然后坐下来给王后写信。这是他有生以来写的第一封信。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的王后：</span></p>
+<p class="normaltext2K">您好！非常感谢您给我精美的卡片和漂亮的照片，这是我房间里最好的东西，也是我所拥有的最好最漂亮的东西。我有生以来第一次过圣诞节，这是我的第一个圣诞节礼物。也许我曾与母亲一起度过一个圣诞节，但我已记不住了。我也有一张母亲的照片，她很漂亮，像您一样。现在我认识许多有名望的女士和像特里夫斯医生一样的好心人，我是一个很幸福的人。我很高兴将在新年时再次见到您。</p>
+<p class="normaltext2K">祝我亲爱的朋友圣诞节愉快！</p>
+<p class="normaltext1 kt"><span class="normaltext2">热爱您的　约瑟夫·梅里克</span></p>
+<p class="normaltext1 kt"><span class="normaltext2">1888年12月23日于伦敦医院</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-13" class="chapter-section">
+                <h2 class="chapter-title">一位重要的来访者</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 5</em></p>
+<hr/>
+<p class="titleb">An Important Visitor</p>
+<p class="normaltext">I did not want Merrick to live by himself, like a man in a lighthouse. He read his books, and talked to me, but I wanted him to talk to more people. And I wanted him to talk to women.</p>
+<p class="normaltext">Merrick read about women in his books, but he did not often talk to women. He met the nurses every day, but they did not talk to him very much. For them, he was always a creature, not a man.</p>
+<p class="normaltext">One day, one of my friends, a beautiful young woman, came to the hospital. I told her about Merrick, and took her to his room. She opened the door, and smiled at him.</p>
+<p class="normaltext">'Good morning, Mr Merrick,' she said. Then she shook his hand.</p>
+<p class="normaltext">Merrick looked at her for a minute with his mouth open. Then he sat down on his bed, with his head in his hand, and cried. He cried for nearly five minutes. The tears ran down his face, between his fingers, and onto the floor.</p>
+<p class="normaltext">My friend sat on the bed beside him and put her hand on his arm. She said nothing, but she smiled at him and shook his hand again before she left.</p>
+<p class="normaltext">'Dr Treves,' he said to me that night. 'That lady was wonderful! My mother smiled at me once, many years ago, but no women smile at me now. But this lady smiled at me too, and she shook my hand! A beautiful lady smiled at me and shook my hand!'</p>
+<p class="normaltext">My young lady friend came again the next week, and talked to Merrick for half an hour. The week after that, she came again with a friend. They gave him some books, and had a cup of tea with him. It was wonderful for him. For the first time in his life, he had some friends. He was a very happy man. He sat in his room, and read his books, and said no more about living on a lighthouse.</p>
+<p class="normaltext">People began to read about Merrick in the newspapers, so he had a lot of visitors. Everybody wanted to see him. A lot of important ladies and gentlemen visited him. They smiled at him, shook his hand, and gave him books. Merrick liked talking to these people, and he began to forget about his ugly body. His visitors never laughed at him. He began to feel like a man, not a creature.</p>
+<p class="normaltext">One wonderful day, a very important lady came to the hospital to visit him. I met the lady, and took her to his room. Then I opened the door, and smiled at him.</p>
+<p class="normaltext">'Good morning, Joseph,' I said. 'There is a new visitor to see you today. A very famous lady.'</p>
+<p class="normaltext">Merrick stood up beside his table. He did not smile, because his face could not smile, but his eyes looked happy.</p>
+<p class="normaltext">'That's good,' he said. 'Who is it?'</p>
+<p class="normaltext">I moved away from the door, and the visitor walked in. 'Your Majesty, this is Joseph Merrick,' I said. 'Joseph, this is Her Majesty, Queen Alexandra, the Queen of England.'</p>
+<p class="normaltext">Queen Alexandra smiled at him. 'How do you do, Mr Merrick,' She said. 'I'm very pleased to meet you.' Then she shook his hand.</p>
+<p class="normaltext">Merrick did not move. For nearly half a minute he stood and looked at her with his mouth open. Then he spoke, in his strange, slow voice.</p>
+<p class="normaltext">'How... how do you do, Your Majesty,' he said. But I don't think the Queen understood him, because he tried to get down on his knees at the same time. It was very difficult for him, because of his enormous legs.</p>
+<p class="normaltext">'No, please, Mr Merrick, do get up,' said the Queen. 'I would like to talk to you. Can we sit at your table?'</p>
+<p class="normaltext">'Yes... yes, of course,' he said. They sat at the table. She took his left hand, the good hand, in hers. She looked at the hand carefully, and then smiled at Merrick again.</p>
+<p class="normaltext">'I often read about you in the newspapers,' she said. 'You are a very interesting man, Mr Merrick. You have a very difficult life, but people say you're happy. Is it true? Are you happy now?'</p>
+<p class="normaltext">'Oh, yes, Your Majesty, yes!' said Merrick. 'I'm a very happy man! I have a home here now, and friends, and my books. I'm happy every hour of the day!'</p>
+<p class="normaltext">'What a wonderful story!' she said. 'I'm very pleased to hear it. Now, tell me about your reading. I see you have a lot of books here.'</p>
+<p class="normaltext">'Oh, yes, Your Majesty. I love my books,' said Merrick. And for nearly half an hour they sat and talked about books. The Queen gave him a little book, and some red flowers, before she left.</p>
+<p class="normaltext">After her visit, Merrick began to sing. He could not sing easily, of course, because of his mouth, but all that day there was a strange, happy noise in his room. He looked at the flowers carefully, and put them on his table.</p>
+<p class="normaltext">He had many visits from the Queen, and at Christmas she sent him a Christmas card.</p>
+<p class="normaltext1"><b>Windsor Castle</b></p>
+<p class="normaltext1"><b>20th December 1888</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>Dear Joseph,</b></p>
+<p class="normaltext"><b>Here is a small Christmas present for you. I think it looks like me, doesn't it? I do like visiting you very much, and I am going to come to the hospital again in the New Year.</b></p>
+<p class="normaltext"><b>Happy Christmas!</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltexte"><b>Your friend</b></p>
+<p class="normaltexte"><b>Alexandra</b></p>
+<p class="normaltext">The present was a picture of Queen Alexandra, with her name on it. Merrick cried over it, and put it carefully by the bed in his room. Then he sat down and wrote a letter to the Queen. It was the first letter of his life.</p>
+<p class="normaltext1"><em>The London Hospital</em></p>
+<p class="normaltext1"><em>23rd December 1888</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><em>My dear Queen ,</em></p>
+<p class="normaltext"><em>Thank you very, very much for your wonderful card and the beautiful picture. It is the best thing in my room, the very best, the most beautiful thing I have. This is the first Christmas in my life, and my first Christmas present. Perhaps I had a Christmas with my mother once, but I do not remember it. I have my mother's picture too, and she is beautiful, like you. But now I know many famous ladies and kind people like Dr Treves, and I am a very happy man. I am happy too because I am going to see you in the New Year.</em></p>
+<p class="normaltext"><em>Happy Christmas to you, my dear friend,</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext1Q"><em>With all my love,　　</em></p>
+<p class="normaltext1"><em>Joseph Merrick　　　</em></p>
+<hr/>
+<p class="normaltext2A"><b>like</b> <em>prep. in the same way as; of the same kind as</em>. 同样的；像……一样。</p>
+<p class="normaltext2A"><b>lighthouse</b> <em>n. a building with a powerful flashing light that guides ships or warns them of dangerous rocks</em>. 灯塔。</p>
+<p class="normaltext2A"><b>shake</b> <em>v. to take and hold (someone's right hand) in one's own, as a sign of greeting, goodbye, or agreement</em>. 握手。</p>
+<p class="normaltext2A"><b>gentleman</b> <em>n. who behaves well towards others and who can always be trusted to act honourably</em>. 绅士。</p>
+<p class="normaltext2A"><b>speak</b> <em>v. to talk</em>. 说话；讲话。</p>
+<p class="normaltext2A"><b>famous</b> <em>adj. very well known</em>. 著名的；出名的。</p>
+<p class="normaltext2A"><b>Queen (the)</b> <em>n. a female ruler of a country</em>. 女王。</p>
+<p class="normaltext2A"><b>Majesty</b> <em>n. a title for speaking to or of a king or queen</em>. 陛下。</p>
+<p class="normaltext2A"><b>Knees</b> <em>n. the middle joint of leg</em>. 膝盖。</p>
+<p class="normaltext2A"><b>present</b> <em>n. gift</em>. 礼物。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>5</em>　一位重要的来访者</p>
+<p class="picture"><img src="../../../Images/image07090.jpeg" alt="alt"/></p>
+<p class="normaltext">我不愿梅里克独自居住，就像一个灯塔守望人那样。他看书，也和我聊天，但我却想让他与更多的人特别是妇女们交谈。</p>
+<p class="normaltext">梅里克在书中读到过有关妇女的事，可他不常与妇女们说话。他每天都与护士接触，可她们不常与他说话，在她们的眼里，他始终是一个怪物而不是一个人。</p>
+<p class="normaltext">有一天，我的一位朋友，一位年轻漂亮的女子来到了医院，我告诉她有关梅里克的事，并把她领到他的房间。她打开房门，朝他微笑。</p>
+<p class="normaltext">“早上好，梅里克先生。”她握住他的手说。</p>
+<p class="normaltext">梅里克张着嘴朝她看了一会儿，然后坐到床上捂着头哭了起来。他哭了近五分钟时间，泪水从指缝里滚落到地上。</p>
+<p class="normaltext">我的这位朋友靠近他坐在他的床上，把手放在他的手臂上，什么也没说，只是朝他微笑，离开前又与他握手道别。</p>
+<p class="normaltext">那天晚上他对我说：“特里夫斯医生，那位女士好极了！我的母亲曾经朝我微笑过，那是很多年以前的事了。直到现在没有一个女人朝我笑过，可是这位女士朝我微笑，还握了我的手！一个漂亮的女士朝我微笑，握我的手！”</p>
+<p class="normaltext">第二个星期，我的那位年轻的朋友又来了，与梅里克谈了半个小时。又过了一个星期，她又与另一个朋友一道来了。她们送给他一些书，和他一起喝了茶。对他来说这比什么都好，人生中第一次有了一些朋友。他很高兴，坐在屋子里看书，再也不提生活在灯塔里的事了。</p>
+<p class="normaltext">人们开始从报纸上看到有关梅里克的报道，所以他有了许多来访者。每个人都想去看他，许多有身份的女士和绅士们访问了他，他们朝他微笑，和他握手，送给他许多书。梅里克喜欢与这些人交谈，渐渐忘了自己那丑陋的样子。他的来访者从不嘲笑他，他开始觉得自己像个人，而不再是个怪物了。</p>
+<p class="normaltext">一天，天气非常宜人，一位很有身份的女士来到医院拜访他。我见到这位女士，把她带到他的房间。我打开门，冲他微笑。</p>
+<p class="normaltext">“约瑟夫，早上好！今天有一位新客人来拜访你，是一位名人。”我对他说道。</p>
+<p class="normaltext">梅里克从桌子旁站了起来。他没有笑，因为他的脸不会笑，但从他的眼睛里能看出他很高兴。</p>
+<p class="normaltext">他说：“太好了，是谁？”</p>
+<p class="normaltext">我从门口闪开，把来访者让进屋，给他们介绍说：“陛下，这是约瑟夫·梅里克。约瑟夫，这是亚历山德拉女王陛下，当今英国女王。”</p>
+<p class="normaltext">亚历山德拉女王朝他笑着说：“梅里克先生，你好。见到你非常高兴。”随后她又握了握他的手。</p>
+<p class="normaltext">梅里克没有动，站在那里张着嘴朝她看了约半分钟之久，然后他说话了，声音奇怪而缓慢。“噢……陛下，您好！”他说道。我不知王后是否听清了他的话，因为与此同时他想要跪下，给王后行礼，但由于他那两条腿太粗了，他很难跪下。</p>
+<p class="normaltext">王后说：“梅里克先生，请不必这样，起来吧。我想与你说说话，我们可以在你的桌旁坐坐吗？”</p>
+<p class="normaltext">他回答着：“是的……是的，当然可以。”他们都在桌子旁坐下，她拉着他的左手，也就是那只好手。她仔细看了看他的手后又朝梅里克笑了笑说。</p>
+<p class="normaltext">“我常在报纸上看到有关你的情况，你是一个很有趣的人，你生活虽难以自理，但人们说你很幸福，是真的吗？你现在很幸福吗？”她说。</p>
+<p class="normaltext">梅里克回答说：“嗯，陛下，是的！我是一个很幸福的人！现在我在这有一个家，有许多朋友，还有许多书。我每时每刻都很愉快！”</p>
+<p class="normaltext">她说：“多么精彩的故事！我非常想听，请把你读到的讲给我听，我发现你这儿有许多书。”</p>
+<p class="normaltext">梅里克说：“哦，陛下，是的，我喜欢这些书。”他们坐在那儿就书上的事谈了近半个小时。王后离开时送给了他一本小书和一些红花。</p>
+<p class="normaltext">女王走后，梅里克开始唱歌。尽管他的嘴不能自如地歌唱，但那一整天他的房间里都回荡着奇怪、幸福的歌声。他仔细看了看这些花，将它们摆在桌子上。</p>
+<p class="normaltext">王后多次拜访他，圣诞节那天她寄给他一张圣诞卡片。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的约瑟夫：</span></p>
+<p class="normaltext2K">给你一个小小的圣诞礼物，我想你见到它会像见到我本人一样的，是吗？我很喜欢拜访你，我将在新年那天去医院看你。</p>
+<p class="normaltext2K">祝圣诞快乐！</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext1 kt"><span class="normaltext2">你的朋友　亚历山德拉</span></p>
+<p class="normaltext1 kt"><span class="normaltext2">1888年12月20日于温莎城堡</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">这份礼物是亚历山德拉王后的一张照片，上面有她的名字。梅里克高兴地叫出声来，仔细地把它放在房间里他的床边，然后坐下来给王后写信。这是他有生以来写的第一封信。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的王后：</span></p>
+<p class="normaltext2K">您好！非常感谢您给我精美的卡片和漂亮的照片，这是我房间里最好的东西，也是我所拥有的最好最漂亮的东西。我有生以来第一次过圣诞节，这是我的第一个圣诞节礼物。也许我曾与母亲一起度过一个圣诞节，但我已记不住了。我也有一张母亲的照片，她很漂亮，像您一样。现在我认识许多有名望的女士和像特里夫斯医生一样的好心人，我是一个很幸福的人。我很高兴将在新年时再次见到您。</p>
+<p class="normaltext2K">祝我亲爱的朋友圣诞节愉快！</p>
+<p class="normaltext1 kt"><span class="normaltext2">热爱您的　约瑟夫·梅里克</span></p>
+<p class="normaltext1 kt"><span class="normaltext2">1888年12月23日于伦敦医院</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-14" class="chapter-section">
+                <h2 class="chapter-title">chapter-a034_ 6　Outside the Hospital</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 6</em></p>
+<hr/>
+<p class="titleb">Outside the Hospital</p>
+<p class="normaltext">Merrick had a lot of friends now, but he was more like a child than a man. He could read about things, and talk to his visitors, but he could not go out of the hospital by himself. He thought and played like a child.</p>
+<p class="normaltext">After Christmas, he wanted to go to the theatre. This was very difficult, because I did not want the people in the theatre to see him. But a kind lady from the theatre—Mrs Kendal—helped us. We bought tickets for a box at the side of the theatre. We went to the theatre in a cab with dark windows, and we went into the theatre by a door at the back—the Queen's door. Nobody saw us.</p>
+<p class="normaltext">Three nurses sat at the front of the box, and Merrick and I sat in the dark behind them. Nobody in the theatre could see us, but we could see the play.</p>
+<p class="normaltext">It was a children's Christmas play. Merrick loved it. It was a most wonderful, exciting story. Often he laughed, and sometimes he tried to sing like the children in the theatre. He was like a child. For him, everything in the story was true.</p>
+<p class="normaltext">Once he was very afraid, because the bad man in the play was angry and had a knife. At first Merrick wanted to leave the theatre, but I stopped him. Then he was very angry with this bad man in the play. He hit his hand on his chair, and stood up and talked to the man. But nobody heard him. When the bad man went to prison, Merrick laughed.</p>
+<p class="normaltext">Merrick thought the beautiful young lady in the play was wonderful. He wanted to talk to her too. At the end of the play he was very happy because she married a good young man.</p>
+<p class="normaltext">He remembered this play for a long time, and he talked a lot about the people in it. 'What do you think they did after we left?' he asked me. 'Where do the young lady and the young man live? What are they doing now?'</p>
+<p class="normaltext">'I don't know,' I said. 'Perhaps they live in the country.'</p>
+<p class="normaltext">Merrick thought about this for a long time. Then he said: 'Dr Treves, can I go to the country, please? I saw the country once from a train, but I never went there. I often read about it in books. It's very beautiful, isn't it? I would like to see it.'</p>
+<p class="normaltext">The visit to the theatre was difficult but a visit to the country was more difficult. But again, one of his new friends helped us. She had a small house in the country, and Merrick could stay in it for the summer, she said.</p>
+<p class="normaltext">I took Merrick to the country in a train with dark windows, so nobody could see him. Then we went in a cab to the country house.</p>
+<p class="normaltext">There were a lot of trees near the house, but no people lived near it. A countryman brought food to the house every day, but no people came near it.</p>
+<p class="normaltext">I stayed with him that night. At night, it was very dark and quiet. In the morning, hundreds of birds sang in the trees, and everything outside the house was green. Merrick walked under the big trees, looking at things happily, and singing his strange song.</p>
+<p class="normaltext">I went back to London, but Merrick stayed there for six weeks. He was wonderfully happy. Every week, he wrote me a letter.</p>
+<p class="normaltext1Q"><em>Apple Tree House,</em></p>
+<p class="normaltext1W"><em>West Wickham,　</em></p>
+<p class="normaltext1"><em>Berkshire.　　　　</em></p>
+<p class="normaltext1Q"><em>21st July 1889　　</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><em>Dear Dr Treves,</em></p>
+<p class="normaltext"><em>I had a wonderful day again today. It was very warm, so I walked under the trees and sat by a stream. The water in the stream made a beautiful noise, like singing. Did you know that? I listened to it for two hours.</em></p>
+<p class="normaltext"><em>Lots of little birds came near me. One had a red body in front, and a brown back. I gave it some bread, and it sat on my hand. A lot of birds are my friends, now.</em></p>
+<p class="normaltext"><em>I watched the fish in the stream, too. They were very exciting, because they move very fast. One minute they were there, and the next minute I couldn't see them. But I waited quietly, and they always came back. I put my hand in the water, but I couldn't touch them.</em></p>
+<p class="normaltext"><em>I met a big dog yesterday. It made a very loud noise, but I was not afraid. I sat down quietly and looked at it, and it came and smelt my hand. I saw it again today, and gave it some bread. It likes me now.</em></p>
+<p class="normaltext"><em>I am going to put some flowers from the country in this letter. There are hundreds of flowers here. Did you know that? I like the little blue ones best, but they are all beautiful. I have lots of them in my room. I give them water every morning. Little flowers are very thirsty, you know!</em></p>
+<p class="normaltext"><em>I am very happy here, doctor, but I want to see you again soon, too.</em></p>
+<p class="normaltextc"><em>With love from your friend,</em></p>
+<p class="normaltextc"><em>Joseph Merrick</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">At the end of the summer he came back to London. He was very well, and his skin looked much better. He talked about the country a lot, but he was happy to see his friends and his books again, too.</p>
+<hr/>
+<p class="normaltext2A"><b>box</b> <em>n. a small room or enclosed space</em> 包厢。</p>
+<p class="normaltext2A"><b>theatre</b> <em>n. a place for the performance of plays</em>. 剧院。</p>
+<p class="normaltext2A"><b>play</b> <em>n. (a performance of) a piece of writing to be acted in a theatre or on TV</em>. 戏剧。</p>
+<p class="normaltext2A"><b>country (the)</b> <em>n. the land outside cities or towns; land used for farming or left unused</em>. 乡村。</p>
+<p class="normaltext2A"><b>bird</b> <em>n. a creature with wings and feathers, which can usu. fly in the air</em>. 鸟。</p>
+<p class="normaltext2A"><b>touch</b> <em>v. to feel or press with a part of the body, esp. the hands or fingers</em>. 触摸。</p>
+<p class="normaltext2A"><b>thirsty</b> <em>adj. feeling or causing thirst</em>. 渴的。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>6</em>　在医院的外面</p>
+<p class="picture"><img src="../../../Images/image07091.jpeg" alt="alt"/></p>
+<p class="normaltext">现在梅里克有了许多朋友，但是与其说他是一个男人，不如说他更像一个大男孩，他能通过阅读了解到许多事情，也能和他的来访者们交谈。但他不能一个人去到医院以外的地方。他像孩子一样思考和玩耍。</p>
+<p class="normaltext">圣诞节后，他想去看戏。这是件很难办的事，因为我不愿剧院里的人们看到他。剧院有一位好心肠的肯德尔夫人帮助了我们，我们订了一个剧院里靠边上的包厢。我们乘坐窗户闭光的出租马车，从剧院后门——女王御用大门进去。没有人看到我们。</p>
+<p class="normaltext">三个护士坐在包厢的前部，我和梅里克坐在她们后面的暗处。剧院里无人能看到我们，但我们可以清楚地观看演出。</p>
+<p class="normaltext">这是一部儿童圣诞剧，梅里克喜欢看。这是一个极精彩并令人激动的故事。他常常笑出声来，有时也试着像剧中的孩子们一样歌唱，他像个孩子似的。在他看来，故事里的每件事都是真实的。</p>
+<p class="normaltext">剧中有个坏蛋生气地拿着刀，梅里克一度害怕起来，要离开剧院，我拉住了他。他非常生那个坏蛋的气，用手击打着椅子，站起来骂那个坏蛋，但无人听见。当那个坏蛋被投进监狱时，梅里克大笑起来。</p>
+<p class="normaltext">他觉得剧中那个漂亮的年轻姑娘非常可爱，他还想和她讲话。剧终时他很高兴，因为她与一个很好的年轻人结了婚。</p>
+<p class="normaltext">他好长时间都没有忘记这出戏，他谈了许多有关剧中人的事。他问我：“我们离开以后他们怎么办？那个年轻人和那个姑娘在哪儿生活？现在他们在干什么？”</p>
+<p class="normaltext">我说：“不知道，或许他们住在乡下。”</p>
+<p class="normaltext">这件事梅里克想了很久。后来他问我：“特里夫斯医生，我可以到乡下去吗？我坐火车时曾看到过乡间，但我从来没去过那里。我在书上读到过有关乡间的事，很美，是不是？我想去看看。”</p>
+<p class="normaltext">到剧场去都难，去乡下谈何容易。不过他的一位新朋友又一次给予了帮助。她在乡下有一座小房，她说梅里克可以在那儿避暑。</p>
+<p class="normaltext">我带着梅里克乘一列窗户不透光的火车来到乡下，没有人看见我们。然后我们又换乘一辆出租马车来到这幢乡间小屋。</p>
+<p class="normaltext">房子附近有许多树，但无人住在附近。除了一个村夫每天送食物过来，没有其他人来。</p>
+<p class="normaltext">那天晚上我与他待在一起。晚上天很黑，也很安静。清晨，许多小鸟在树上歌唱，房子外面一片翠绿。梅里克在大树下散步，开心地欣赏着这里的一切，唱着他那奇怪的歌。</p>
+<p class="normaltext">我回到了伦敦，梅里克在那儿又待了六个星期，他快活极了。每星期他都给我写一封信。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的特里夫斯医生：</span></p>
+<p class="normaltext2K">今天我又过得愉快极了。天气非常暖和，我在树下散步，坐在小溪旁，溪水声优美动听，就像一曲美妙的音乐，您明白我的意思吗？你知道吗？我在这里已听了两个多小时。</p>
+<p class="normaltext2K">许多小鸟儿飞到我的身旁，有一只鸟长着红身褐背。我给它吃面包，它站在我的手上。现在许多鸟已成了我的朋友。</p>
+<p class="normaltext2K">我还看到溪水中的鱼。真令人惊奇，它们游得快极了，刚才还在那儿，一会儿又不见了。我静静地等着，它们总是又游回来。我把手伸进水里，可我摸不着它们。</p>
+<p class="normaltext2K">昨天我碰见一只大狗，它大声地叫着，可我并不害怕。我坐下来静静地朝它看着，它走过来闻闻我的手。今天我又见到了它，还给它吃些面包，现在它很喜欢我。</p>
+<p class="normaltext2K">我准备把乡下的花采摘一些放在信里寄给你，这里有好几百种花，你知道吗？我最喜欢这种小蓝花。不过，这儿所有的花都很好看，我摘了许多放在屋子里，我每天早上给这些花浇水，你知道，这些小花很渴！</p>
+<p class="normaltext2K">大夫，我在这儿很愉快，但我也想尽快见到你。</p>
+<p class="normaltext1 kt"><span class="normaltext2">非常热爱你的朋友</span>　　</p>
+<p class="normaltext1 kt"><span class="normaltext2">约瑟夫·梅里克</span>　　</p>
+<p class="normaltext1 kt"><span class="normaltext2">1889年7月21日于伯克郡</span></p>
+<p class="normaltext1 kt"><span class="normaltext2">西威克汉姆苹果树庄园</span>　　</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">夏季结束时他回到了伦敦。他非常健康，皮肤看上去也好多了。他讲了许多有关乡间的事情，但他也很高兴又见到了他的朋友和书。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-15" class="chapter-section">
+                <h2 class="chapter-title">在医院的外面</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 6</em></p>
+<hr/>
+<p class="titleb">Outside the Hospital</p>
+<p class="normaltext">Merrick had a lot of friends now, but he was more like a child than a man. He could read about things, and talk to his visitors, but he could not go out of the hospital by himself. He thought and played like a child.</p>
+<p class="normaltext">After Christmas, he wanted to go to the theatre. This was very difficult, because I did not want the people in the theatre to see him. But a kind lady from the theatre—Mrs Kendal—helped us. We bought tickets for a box at the side of the theatre. We went to the theatre in a cab with dark windows, and we went into the theatre by a door at the back—the Queen's door. Nobody saw us.</p>
+<p class="normaltext">Three nurses sat at the front of the box, and Merrick and I sat in the dark behind them. Nobody in the theatre could see us, but we could see the play.</p>
+<p class="normaltext">It was a children's Christmas play. Merrick loved it. It was a most wonderful, exciting story. Often he laughed, and sometimes he tried to sing like the children in the theatre. He was like a child. For him, everything in the story was true.</p>
+<p class="normaltext">Once he was very afraid, because the bad man in the play was angry and had a knife. At first Merrick wanted to leave the theatre, but I stopped him. Then he was very angry with this bad man in the play. He hit his hand on his chair, and stood up and talked to the man. But nobody heard him. When the bad man went to prison, Merrick laughed.</p>
+<p class="normaltext">Merrick thought the beautiful young lady in the play was wonderful. He wanted to talk to her too. At the end of the play he was very happy because she married a good young man.</p>
+<p class="normaltext">He remembered this play for a long time, and he talked a lot about the people in it. 'What do you think they did after we left?' he asked me. 'Where do the young lady and the young man live? What are they doing now?'</p>
+<p class="normaltext">'I don't know,' I said. 'Perhaps they live in the country.'</p>
+<p class="normaltext">Merrick thought about this for a long time. Then he said: 'Dr Treves, can I go to the country, please? I saw the country once from a train, but I never went there. I often read about it in books. It's very beautiful, isn't it? I would like to see it.'</p>
+<p class="normaltext">The visit to the theatre was difficult but a visit to the country was more difficult. But again, one of his new friends helped us. She had a small house in the country, and Merrick could stay in it for the summer, she said.</p>
+<p class="normaltext">I took Merrick to the country in a train with dark windows, so nobody could see him. Then we went in a cab to the country house.</p>
+<p class="normaltext">There were a lot of trees near the house, but no people lived near it. A countryman brought food to the house every day, but no people came near it.</p>
+<p class="normaltext">I stayed with him that night. At night, it was very dark and quiet. In the morning, hundreds of birds sang in the trees, and everything outside the house was green. Merrick walked under the big trees, looking at things happily, and singing his strange song.</p>
+<p class="normaltext">I went back to London, but Merrick stayed there for six weeks. He was wonderfully happy. Every week, he wrote me a letter.</p>
+<p class="normaltext1Q"><em>Apple Tree House,</em></p>
+<p class="normaltext1W"><em>West Wickham,　</em></p>
+<p class="normaltext1"><em>Berkshire.　　　　</em></p>
+<p class="normaltext1Q"><em>21st July 1889　　</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><em>Dear Dr Treves,</em></p>
+<p class="normaltext"><em>I had a wonderful day again today. It was very warm, so I walked under the trees and sat by a stream. The water in the stream made a beautiful noise, like singing. Did you know that? I listened to it for two hours.</em></p>
+<p class="normaltext"><em>Lots of little birds came near me. One had a red body in front, and a brown back. I gave it some bread, and it sat on my hand. A lot of birds are my friends, now.</em></p>
+<p class="normaltext"><em>I watched the fish in the stream, too. They were very exciting, because they move very fast. One minute they were there, and the next minute I couldn't see them. But I waited quietly, and they always came back. I put my hand in the water, but I couldn't touch them.</em></p>
+<p class="normaltext"><em>I met a big dog yesterday. It made a very loud noise, but I was not afraid. I sat down quietly and looked at it, and it came and smelt my hand. I saw it again today, and gave it some bread. It likes me now.</em></p>
+<p class="normaltext"><em>I am going to put some flowers from the country in this letter. There are hundreds of flowers here. Did you know that? I like the little blue ones best, but they are all beautiful. I have lots of them in my room. I give them water every morning. Little flowers are very thirsty, you know!</em></p>
+<p class="normaltext"><em>I am very happy here, doctor, but I want to see you again soon, too.</em></p>
+<p class="normaltextc"><em>With love from your friend,</em></p>
+<p class="normaltextc"><em>Joseph Merrick</em></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">At the end of the summer he came back to London. He was very well, and his skin looked much better. He talked about the country a lot, but he was happy to see his friends and his books again, too.</p>
+<hr/>
+<p class="normaltext2A"><b>box</b> <em>n. a small room or enclosed space</em> 包厢。</p>
+<p class="normaltext2A"><b>theatre</b> <em>n. a place for the performance of plays</em>. 剧院。</p>
+<p class="normaltext2A"><b>play</b> <em>n. (a performance of) a piece of writing to be acted in a theatre or on TV</em>. 戏剧。</p>
+<p class="normaltext2A"><b>country (the)</b> <em>n. the land outside cities or towns; land used for farming or left unused</em>. 乡村。</p>
+<p class="normaltext2A"><b>bird</b> <em>n. a creature with wings and feathers, which can usu. fly in the air</em>. 鸟。</p>
+<p class="normaltext2A"><b>touch</b> <em>v. to feel or press with a part of the body, esp. the hands or fingers</em>. 触摸。</p>
+<p class="normaltext2A"><b>thirsty</b> <em>adj. feeling or causing thirst</em>. 渴的。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>6</em>　在医院的外面</p>
+<p class="picture"><img src="../../../Images/image07091.jpeg" alt="alt"/></p>
+<p class="normaltext">现在梅里克有了许多朋友，但是与其说他是一个男人，不如说他更像一个大男孩，他能通过阅读了解到许多事情，也能和他的来访者们交谈。但他不能一个人去到医院以外的地方。他像孩子一样思考和玩耍。</p>
+<p class="normaltext">圣诞节后，他想去看戏。这是件很难办的事，因为我不愿剧院里的人们看到他。剧院有一位好心肠的肯德尔夫人帮助了我们，我们订了一个剧院里靠边上的包厢。我们乘坐窗户闭光的出租马车，从剧院后门——女王御用大门进去。没有人看到我们。</p>
+<p class="normaltext">三个护士坐在包厢的前部，我和梅里克坐在她们后面的暗处。剧院里无人能看到我们，但我们可以清楚地观看演出。</p>
+<p class="normaltext">这是一部儿童圣诞剧，梅里克喜欢看。这是一个极精彩并令人激动的故事。他常常笑出声来，有时也试着像剧中的孩子们一样歌唱，他像个孩子似的。在他看来，故事里的每件事都是真实的。</p>
+<p class="normaltext">剧中有个坏蛋生气地拿着刀，梅里克一度害怕起来，要离开剧院，我拉住了他。他非常生那个坏蛋的气，用手击打着椅子，站起来骂那个坏蛋，但无人听见。当那个坏蛋被投进监狱时，梅里克大笑起来。</p>
+<p class="normaltext">他觉得剧中那个漂亮的年轻姑娘非常可爱，他还想和她讲话。剧终时他很高兴，因为她与一个很好的年轻人结了婚。</p>
+<p class="normaltext">他好长时间都没有忘记这出戏，他谈了许多有关剧中人的事。他问我：“我们离开以后他们怎么办？那个年轻人和那个姑娘在哪儿生活？现在他们在干什么？”</p>
+<p class="normaltext">我说：“不知道，或许他们住在乡下。”</p>
+<p class="normaltext">这件事梅里克想了很久。后来他问我：“特里夫斯医生，我可以到乡下去吗？我坐火车时曾看到过乡间，但我从来没去过那里。我在书上读到过有关乡间的事，很美，是不是？我想去看看。”</p>
+<p class="normaltext">到剧场去都难，去乡下谈何容易。不过他的一位新朋友又一次给予了帮助。她在乡下有一座小房，她说梅里克可以在那儿避暑。</p>
+<p class="normaltext">我带着梅里克乘一列窗户不透光的火车来到乡下，没有人看见我们。然后我们又换乘一辆出租马车来到这幢乡间小屋。</p>
+<p class="normaltext">房子附近有许多树，但无人住在附近。除了一个村夫每天送食物过来，没有其他人来。</p>
+<p class="normaltext">那天晚上我与他待在一起。晚上天很黑，也很安静。清晨，许多小鸟在树上歌唱，房子外面一片翠绿。梅里克在大树下散步，开心地欣赏着这里的一切，唱着他那奇怪的歌。</p>
+<p class="normaltext">我回到了伦敦，梅里克在那儿又待了六个星期，他快活极了。每星期他都给我写一封信。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的特里夫斯医生：</span></p>
+<p class="normaltext2K">今天我又过得愉快极了。天气非常暖和，我在树下散步，坐在小溪旁，溪水声优美动听，就像一曲美妙的音乐，您明白我的意思吗？你知道吗？我在这里已听了两个多小时。</p>
+<p class="normaltext2K">许多小鸟儿飞到我的身旁，有一只鸟长着红身褐背。我给它吃面包，它站在我的手上。现在许多鸟已成了我的朋友。</p>
+<p class="normaltext2K">我还看到溪水中的鱼。真令人惊奇，它们游得快极了，刚才还在那儿，一会儿又不见了。我静静地等着，它们总是又游回来。我把手伸进水里，可我摸不着它们。</p>
+<p class="normaltext2K">昨天我碰见一只大狗，它大声地叫着，可我并不害怕。我坐下来静静地朝它看着，它走过来闻闻我的手。今天我又见到了它，还给它吃些面包，现在它很喜欢我。</p>
+<p class="normaltext2K">我准备把乡下的花采摘一些放在信里寄给你，这里有好几百种花，你知道吗？我最喜欢这种小蓝花。不过，这儿所有的花都很好看，我摘了许多放在屋子里，我每天早上给这些花浇水，你知道，这些小花很渴！</p>
+<p class="normaltext2K">大夫，我在这儿很愉快，但我也想尽快见到你。</p>
+<p class="normaltext1 kt"><span class="normaltext2">非常热爱你的朋友</span>　　</p>
+<p class="normaltext1 kt"><span class="normaltext2">约瑟夫·梅里克</span>　　</p>
+<p class="normaltext1 kt"><span class="normaltext2">1889年7月21日于伯克郡</span></p>
+<p class="normaltext1 kt"><span class="normaltext2">西威克汉姆苹果树庄园</span>　　</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">夏季结束时他回到了伦敦。他非常健康，皮肤看上去也好多了。他讲了许多有关乡间的事情，但他也很高兴又见到了他的朋友和书。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-16" class="chapter-section">
+                <h2 class="chapter-title">chapter-a034_ 7　The Last Letter</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 7</em></p>
+<hr/>
+<p class="titleb">The Last Letter</p>
+<p class="normaltext">Six months later, in April 1890, I found him dead in bed. He was on his back in bed, so at first I thought he was asleep. I talked to him, but he did not move. Then I saw that the skin on his face was blue, so I knew he was dead.</p>
+<p class="normaltext">He did not usually sleep on his back. His enormous head was very heavy, so he usually sat up in bed with his arms round his legs, and his head on his knees. He could sleep well like this.</p>
+<p class="normaltext">But he wanted to sleep on his back like you and me. He tried to sleep on his back that night, but his heavy head came off the bed, and he broke his neck. He died very quickly.</p>
+<p class="normaltext">Next day, the Chairman of the London Hospital, Mr Carr Gomm, wrote to the editor of The Times again.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">The Times, April 16th, 1890</p>
+<hr/>
+<p class="normaltext3">Dear Sir,</p>
+<p class="normaltext">Three and a half years ago I wrote to you about a man called Joseph Merrick. This man was called 'The Elephant Man' because he was born with a very ugly body. Merrick was not ill, but he could not work, and he had no money.</p>
+<p class="normaltext">The readers of The Times felt sorry for him, and they gave me a lot of money for Merrick. Because of this money, we could give Merrick a home in the London Hospital. It was his first good home, and for three and a half years he lived here happily. The doctors and nurses of the hospital helped him, and many important people visited him. He read many books, he went to the theatre, and in the summer he stayed in the country for six weeks. Because of your readers' money, we could give him a happy life.</p>
+<p class="normaltext">Last night Joseph Merrick died quietly in his bed. He was a man with a very ugly body, but he was a good, kind man, and he had a lot of friends. We liked to talk to him, and we are all very sorry because he is dead. A lot of people are going to remember him for a long time.</p>
+<p class="normaltext">There is some money left, so I am going to give it to the hospital. Thank you, sir, for your help.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Yours faithfully,</p>
+<p class="normaltext">F. C. Carr Gomm</p>
+<p class="normaltext">Chairman of the London Hospital</p>
+<hr/>
+<p class="normaltext2A"><b>heavy</b> <em>adj. it is difficult to carry heavy things</em>. 重的。</p>
+<p class="normaltext2A"><b>neck</b> <em>n. your neck is between your head and your body</em>. 脖子。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>7</em>　最后一封信</p>
+<p class="picture"><img src="../../../Images/image07092.jpeg" alt="alt"/></p>
+<p class="normaltext">过了六个月，也就是1890年4月，我发现他死在床上。他仰面朝天地躺在床上，开始我以为他睡着了，我跟他说话他不动，后来我见他脸上的皮肤发青，才知道他死了。</p>
+<p class="normaltext">他通常不能躺着睡觉，因为他的脑袋又大又重，所以他通常坐在床上，用手抱着腿，把头放在膝盖上，这样他能睡得很好。</p>
+<p class="normaltext">可是他也想像你我这样躺着睡觉。那天晚上他试着躺下来睡，结果他那个庞大的头跌下床，折断了脖子。他很快就死了。</p>
+<p class="normaltext">第二天伦敦医院院长卡尔·戈姆又给《泰晤士报》的编辑写了一封信。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">摘自1890年4月16日的《泰晤士报》</p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的先生：</span></p>
+<p class="normaltext2K">三年半以前我写信给你介绍了一个名叫约瑟夫·梅里克的男人，这个人被叫做“象人”，他天生有一个丑陋的身躯。梅里克没有病，但他不能工作，也没有钱。</p>
+<p class="normaltext2K">《泰晤士报》的读者们很同情他，给了他许多钱。有了这些钱，我们可以在伦敦医院里给他安个家，这是他的第一个舒适的家。三年半以来他一直在这里生活得很幸福，医院里的医生和护士都帮助他，许多要人来拜访他。他读了许多书，去看过戏，在乡间避暑待了六个星期。有了读者们给的钱，我们把他的生活安排得很幸福。</p>
+<p class="normaltext2K">昨天晚上约瑟夫·梅里克在床上静静地死去了。他是一个很丑的人，但是很好、很善良，他有许多朋友。我们都喜欢与他交谈，我们都为他的死感到很遗憾。许多人会永远记着他的。</p>
+<p class="normaltext2K">现在还剩下一些钱，我准备把这些钱捐给医院。感谢你的帮助。</p>
+<p class="normaltext1 kt"><span class="normaltext2">你忠实的</span>　　</p>
+<p class="normaltext1 kt"><span class="normaltext2">伦敦医院院长F. C. 卡尔·戈姆</span></p>
+<p class="normaltext1 kt"><span class="normaltext2">1890年4月16日</span>　　</p>
+        
+                </div>
+            </section>
+            <section id="chapter-17" class="chapter-section">
+                <h2 class="chapter-title">最后一封信</h2>
+                <div class="chapter-content">
+                    
+            <p class="titlea"><em>Chapter 7</em></p>
+<hr/>
+<p class="titleb">The Last Letter</p>
+<p class="normaltext">Six months later, in April 1890, I found him dead in bed. He was on his back in bed, so at first I thought he was asleep. I talked to him, but he did not move. Then I saw that the skin on his face was blue, so I knew he was dead.</p>
+<p class="normaltext">He did not usually sleep on his back. His enormous head was very heavy, so he usually sat up in bed with his arms round his legs, and his head on his knees. He could sleep well like this.</p>
+<p class="normaltext">But he wanted to sleep on his back like you and me. He tried to sleep on his back that night, but his heavy head came off the bed, and he broke his neck. He died very quickly.</p>
+<p class="normaltext">Next day, the Chairman of the London Hospital, Mr Carr Gomm, wrote to the editor of The Times again.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">The Times, April 16th, 1890</p>
+<hr/>
+<p class="normaltext3">Dear Sir,</p>
+<p class="normaltext">Three and a half years ago I wrote to you about a man called Joseph Merrick. This man was called 'The Elephant Man' because he was born with a very ugly body. Merrick was not ill, but he could not work, and he had no money.</p>
+<p class="normaltext">The readers of The Times felt sorry for him, and they gave me a lot of money for Merrick. Because of this money, we could give Merrick a home in the London Hospital. It was his first good home, and for three and a half years he lived here happily. The doctors and nurses of the hospital helped him, and many important people visited him. He read many books, he went to the theatre, and in the summer he stayed in the country for six weeks. Because of your readers' money, we could give him a happy life.</p>
+<p class="normaltext">Last night Joseph Merrick died quietly in his bed. He was a man with a very ugly body, but he was a good, kind man, and he had a lot of friends. We liked to talk to him, and we are all very sorry because he is dead. A lot of people are going to remember him for a long time.</p>
+<p class="normaltext">There is some money left, so I am going to give it to the hospital. Thank you, sir, for your help.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Yours faithfully,</p>
+<p class="normaltext">F. C. Carr Gomm</p>
+<p class="normaltext">Chairman of the London Hospital</p>
+<hr/>
+<p class="normaltext2A"><b>heavy</b> <em>adj. it is difficult to carry heavy things</em>. 重的。</p>
+<p class="normaltext2A"><b>neck</b> <em>n. your neck is between your head and your body</em>. 脖子。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title1" id="a1"><em>7</em>　最后一封信</p>
+<p class="picture"><img src="../../../Images/image07092.jpeg" alt="alt"/></p>
+<p class="normaltext">过了六个月，也就是1890年4月，我发现他死在床上。他仰面朝天地躺在床上，开始我以为他睡着了，我跟他说话他不动，后来我见他脸上的皮肤发青，才知道他死了。</p>
+<p class="normaltext">他通常不能躺着睡觉，因为他的脑袋又大又重，所以他通常坐在床上，用手抱着腿，把头放在膝盖上，这样他能睡得很好。</p>
+<p class="normaltext">可是他也想像你我这样躺着睡觉。那天晚上他试着躺下来睡，结果他那个庞大的头跌下床，折断了脖子。他很快就死了。</p>
+<p class="normaltext">第二天伦敦医院院长卡尔·戈姆又给《泰晤士报》的编辑写了一封信。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">摘自1890年4月16日的《泰晤士报》</p>
+<p class="normaltext3"><span class="normaltext2K">亲爱的先生：</span></p>
+<p class="normaltext2K">三年半以前我写信给你介绍了一个名叫约瑟夫·梅里克的男人，这个人被叫做“象人”，他天生有一个丑陋的身躯。梅里克没有病，但他不能工作，也没有钱。</p>
+<p class="normaltext2K">《泰晤士报》的读者们很同情他，给了他许多钱。有了这些钱，我们可以在伦敦医院里给他安个家，这是他的第一个舒适的家。三年半以来他一直在这里生活得很幸福，医院里的医生和护士都帮助他，许多要人来拜访他。他读了许多书，去看过戏，在乡间避暑待了六个星期。有了读者们给的钱，我们把他的生活安排得很幸福。</p>
+<p class="normaltext2K">昨天晚上约瑟夫·梅里克在床上静静地死去了。他是一个很丑的人，但是很好、很善良，他有许多朋友。我们都喜欢与他交谈，我们都为他的死感到很遗憾。许多人会永远记着他的。</p>
+<p class="normaltext2K">现在还剩下一些钱，我准备把这些钱捐给医院。感谢你的帮助。</p>
+<p class="normaltext1 kt"><span class="normaltext2">你忠实的</span>　　</p>
+<p class="normaltext1 kt"><span class="normaltext2">伦敦医院院长F. C. 卡尔·戈姆</span></p>
+<p class="normaltext1 kt"><span class="normaltext2">1890年4月16日</span>　　</p>
+        
+                </div>
+            </section>
+            <section id="chapter-18" class="chapter-section">
+                <h2 class="chapter-title">Exercises</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1">Exercises</p>
+<p class="normaltext"><b>A　Checking your understanding</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Chapter 1</b> <em>Find answers to these questions in the text</em>.</p>
+<p class="normaltext">1 Where did Doctor Treves work?</p>
+<p class="normaltext">2 What did he see in the window of a shop near the hospital?</p>
+<p class="normaltext">3 What was the creature's name?</p>
+<p class="normaltext">4 Why did the Elephant Man have a stick?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Chapter 2</b> <em>Write answers to these questions</em>.</p>
+<p class="normaltext">1 Why were there not many people in the road?</p>
+<p class="normaltext">2 Why could Dr Treves not see Merrick's face and body?</p>
+<p class="normaltext">3 How did they get to the hospital?</p>
+<p class="normaltext">4 What did Dr Treves do to Merrick at the hospital?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Chapters 3 and 4</b> <em>Find answers to these questions in the text</em>.</p>
+<p class="normaltext">1 Why did the police bring Merrick to the hospital?</p>
+<p class="normaltext">2 Why did Merrick have no money?</p>
+<p class="normaltext">3 Who did Merrick have a picture of?</p>
+<p class="normaltext">4 What did the nurse do when she saw Merrick?</p>
+<p class="normaltext">5 Why did Merrick want to live in a lighthouse?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Chapters 5 and 6</b> <em>Are these sentences true (T) or false (F)</em>?</p>
+<p class="normaltext">1 Dr Treves did not want Merrick to talk to women.</p>
+<p class="normaltext">2 Merrick cried because he was unhappy.</p>
+<p class="normaltext">3 Queen Alexandra sent Merrick a Christmas card.</p>
+<p class="normaltext">4 Merrick often went outside the hospital by himself.</p>
+<p class="normaltext">5 One of Merrick's friends had a small house in the country.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>Chapter 7</b> <em>How much can you remember</em>?</p>
+<p class="normaltext">1 Where did Merrick die?</p>
+<p class="normaltext">2 Did he usually sleep on his back?</p>
+<p class="normaltext">3 Did he die quickly?</p>
+<p class="normaltext">4 What did Mr Carr Gomm do with Merrick's money?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>B　Working with language</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">1 <em>Complete these sentences with information from the story</em>.</p>
+<p class="normaltextf">1) The police brought Merrick to the hospital because...</p>
+<p class="normaltextf">2) Merrick didn't have any money because...</p>
+<p class="normaltextf">3) Merrick's face and body were very ugly so...</p>
+<p class="normaltextf">4) We can give Merrick a room at the hospital but...</p>
+<p class="normaltextf">5) Merrick loved...</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">2 <em>Put something from A together with something from B to make six true sentences. Check your sentences in chapter 2</em>.</p>
+<p class="normaltexte">A</p>
+<p class="normaltextf">1 There were not very many people on the road</p>
+<p class="normaltextf">2 Treves could not see Merrick's face</p>
+<p class="normaltextf">3 Merrick had a stick</p>
+<p class="normaltextf">4 The postman and Treves</p>
+<p class="normaltextf">5 Treves wrote about Merrick</p>
+<p class="normaltextf">6 The nurse did not talk to Merrick</p>
+<p class="normaltexte">B</p>
+<p class="normaltextf">7 in his left hand.</p>
+<p class="normaltextf">8 because she was afraid of him.</p>
+<p class="normaltextf">9 because he had a cloth in front of his face.</p>
+<p class="normaltextf">10 in a little book.</p>
+<p class="normaltextf">11 because it was early morning.</p>
+<p class="normaltextf">12 helped Merrick into the cab.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><b>C　Activities</b></p>
+<p class="normaltext"><br/></p>
+<p class="normaltextg">1 Make a list of things you can find in a hospital.</p>
+<p class="normaltextg">2 You are a nurse in the hospital. Write a letter to a friend and tell him/her about Joseph Merrick.</p>
+<p class="normaltextg">3 Because Merrick dies suddenly, the police come to the hospital to see Dr Treves. What questions do they ask Dr Treves about Merrick? What does Dr Treves answer?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-19" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image07094.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

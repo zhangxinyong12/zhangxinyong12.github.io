@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摩托女孩 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '摩托女孩';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>摩托女孩</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">摩托女孩</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">GIRL ON A MOTORCYCLE</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">1 Is there a motel?</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">2 Give me the money!</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">3 Room twenty-three</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">4 Is it her?</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">5 Can I sit here?</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-10" class="toc-link">6 Not the police</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-11" class="toc-link">7 Perhaps I'm wrong</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-12" class="toc-link">8 I must get away</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-13" class="toc-link">9 You're the robber!</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-14" class="toc-link">10 I can't swim!</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-15" class="toc-link">11 Can we go slowly, please?</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-16" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-17" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-18" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-19" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="mllj0"><img src="../../../Images/image06800.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext8">京权图字：01-2013-7800</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2008</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="normaltext8">图书在版编目（CIP）数据</p>
+<p class="normaltext">摩托女孩：英汉对照／（英）埃斯科特（Escott, J.）著；（英）霍普古德（Hopgood, K.）绘；吴怡娜译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Girl on a motorcycle</p>
+<p class="normaltext">ISBN 978-7-5135-3774-2</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①摩…　Ⅱ．①埃…②霍…③吴…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272340号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">出版人　　蔡剑峰</p>
+<p class="normaltext3">责任编辑　文雪琴</p>
+<p class="normaltext3">封面设计　蔡　颖</p>
+<p class="normaltext3">出版发行　外语教学与研究出版社</p>
+<p class="normaltext3">社　　址　北京市西三环北路19号（100089）</p>
+<p class="normaltext3">网　　址　http://www.fltrp.com</p>
+<p class="normaltext3">版　　次　2013年12月第1版</p>
+<p class="normaltext3">书　　号　ISBN 978-7-5135-3774-2</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">制售盗版必究　举报查实奖励</p>
+<p class="normaltext3">版权保护举报电话：（010）88817519</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">内容简介</h1>
+<p class="normaltext02">肯尼正在乘公共汽车横穿美国前往旧金山。这是一段漫长的旅程，所以有时他会下车，在汽车旅馆住上一夜。</p>
+<p class="normaltext02">一天晚上，他住在加利福尼亚一个小镇的汽车旅馆里——离洛杉矶不远。他从房间下楼去吃东西时，看见了一个女孩：骑着摩托车，有一头金色长发。他觉得自己认识她，她是某个名人吗？</p>
+<p class="normaltext02">然后，第二天早上，他从新闻里看到在洛杉矶发生的一起超市劫案。警方正在寻找一个人：这个人骑摩托车，有一头金色长发……</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">GIRL ON A MOTORCYCLE</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">GIRL ON A MOTORCYCLE</h1>
+<p class="normaltext3">Kenny is going across America by bus to San Francisco. It is a long way, so he stops sometimes and stays the night in a motel.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">One evening he stays in a motel in a little town in California – not far from Los Angeles. When he comes down from his room for something to eat, he sees a girl – a girl on a motorcycle, with long blond hair. He thinks he knows her – is she famous?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3">Then, the next morning, he sees the news about a supermarket robbery in Los Angeles. The police are looking for somebody – somebody on a motorcycle, with long blond hair...</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="mulu">CONTENTS<br/>目　录</div>
+  <div class="mulu1"><a href="part0254.xhtml">内容简介</a></div>
+  <div class="mulu1"><a href="part0257.xhtml#a1">1 Is there a motel?</a></div>
+  <div class="mulu1"><a href="part0258.xhtml">2 Give me the money!</a></div>
+  <div class="mulu1"><a href="part0259.xhtml">3 Room twenty-three</a></div>
+  <div class="mulu1"><a href="part0260.xhtml">4 Is it her?</a></div>
+  <div class="mulu1"><a href="part0261.xhtml">5 Can I sit here?</a></div>
+  <div class="mulu1"><a href="part0262.xhtml">6 Not the police</a></div>
+  <div class="mulu1"><a href="part0263.xhtml">7 Perhaps I'm wrong</a></div>
+  <div class="mulu1"><a href="part0264.xhtml">8 I must get away</a></div>
+  <div class="mulu1"><a href="part0265.xhtml">9 You're the robber!</a></div>
+  <div class="mulu1"><a href="part0266.xhtml">10 I can't swim! </a></div>
+  <div class="mulu1"><a href="part0267.xhtml">11 Can we go slowly, please?</a></div>
+  <p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0268.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="mulu1"><a href="part0269.xhtml#a1">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="mulu1"><a href="part0270.xhtml">TRANSLATION<br/>参考译文</a></div>
+  <p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+  <p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">1 Is there a motel?</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">1<br/><em>Is there a motel?</em></h1>
+<p class="normaltext3">Kenny is going across America by bus. One evening in summer, his bus arrives in a little town in California. </p>
+<p class="normaltexty">'I want to stop here tonight,' says Kenny to the bus driver. 'Is there a motel, do you know?' </p>
+<p class="normaltexty">'Yes,' says the bus driver. 'There's a nice motel across the river. It's not expensive.' </p>
+<p class="normaltexty">'Is there a bus to San Francisco tomorrow?' asks Kenny. </p>
+<p class="normaltexty">'Yes,' says the bus driver, 'there's a bus every day.' </p>
+<p class="normaltexty">Kenny gets off the bus with his bag. </p>
+<p class="picture"><img src="../../../Images/image06801.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">2 Give me the money!</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">2<br/><em>Give me the money!</em></h1>
+<p class="normaltext3">In a street in Los Angeles, somebody is robbing a security guard outside a supermarket. The robber is sitting on a  motorcycle and has a gun.</p>
+<p class="normaltexty">'Give me the money!' the robber tells the security guard. 'OK, OK!' says the security guard, and gives the robber the money.</p>
+<p class="normaltexty">Then the robber rides away – but a camera is taking  pictures.</p>
+<p class="normaltexty">After the robbery, the supermarket manager phones the police.</p>
+<p class="normaltexty">'Yes,' he says. 'A robbery... yes, long blond hair, and with a motorcycle... a man or woman? We don't know... yes, we have some pictures... OK! Quickly.' </p>
+<p class="picture"><img src="../../../Images/image06802.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">3 Room twenty-three</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">3<br/><em>Room twenty-three</em></h1>
+<p class="normaltext3">In the little town, fifty kilometres away from Los Angeles, Kenny goes into the motel and asks for a room.</p>
+<p class="normaltexty">'Room twenty-three,' says the man at the desk. He gives Kenny a key.</p>
+<p class="normaltexty">'Thank you,' says Kenny. And he goes up to his room.</p>
+<p class="picture"><img src="../../../Images/image06803.jpeg" alt="alt"/></p>
+<p class="normaltexty">An hour later, Kenny comes down to eat.</p>
+<p class="normaltexty">'I'm hungry,' he thinks.</p>
+<p class="normaltexty">He sees a girl arrive on a motorcycle. She walks to the front desk, and the man gives her a key.</p>
+<p class="normaltexty">'Room seventeen,' says the man at the desk.</p>
+<p class="normaltexty">'I think I know her face,' thinks Kenny. 'Is she somebody famous?'</p>
+<p class="picture"><img src="../../../Images/image06804.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">4 Is it her?</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">4<br/><em>Is it her?</em></h1>
+<p class="normaltext3">Early the next morning, Kenny puts on the TV in his room. A news-reader is talking about the supermarket robbery. There are some pictures from the supermarket camera.</p>
+<p class="picture"><img src="../../../Images/image06805.jpeg" alt="alt"/></p>
+<p class="normaltexty">Kenny watches the news.</p>
+<p class="normaltexty">'The robber is somebody with long blond hair, and with a motorcycle,' says the news-reader.</p>
+<p class="normaltexty">Suddenly, Kenny remembers the girl at the motel desk. 'Is it her?' he thinks. 'Is she the robber?'</p>
+<p class="picture"><img src="../../../Images/image06806.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">5 Can I sit here?</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">5<br/><em>Can I sit here?</em></h1>
+<p class="normaltext3">He goes for breakfast. The girl is eating her breakfast at a table near the window. Kenny looks at her. 'Is it her?' he thinks. 'I think I know her, but...' He walks across to her table.</p>
+<p class="normaltexty">'Can I sit here?' he asks.</p>
+<p class="normaltexty">The girl looks up. 'Well... OK,' she says.</p>
+<p class="picture"><img src="../../../Images/image06807.jpeg" alt="alt"/></p>
+<p class="normaltexty">Kenny sits down. 'My name's Kenny,' he says.</p>
+<p class="normaltexty">'Pleased to meet you,' she says. 'I'm Mel.'</p>
+<p class="normaltexty">'Where are you from?' asks Kenny.</p>
+<p class="normaltexty">'San Francisco,' says Mel. 'I'm going there later this morning. Where are you from?'</p>
+<p class="normaltexty">'Boston,' says Kenny. 'I'm going across America by bus. And I'm going to San Francisco later this morning, too.'</p>
+<p class="normaltexty">'Are you?' the girl says. 'I don't like buses. I like motorcycles. Look, excuse me. I need to make a phone call.'</p>
+<p class="normaltexty">She gets up and leaves the room.</p>
+<p class="picture"><img src="../../../Images/image06808.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-10" class="chapter-section">
+                <h2 class="chapter-title">6 Not the police</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">6<br/><em>Not the police</em></h1>
+<p class="normaltext3">A young man near the door is watching Mel.</p>
+<p class="normaltexty">'Why is he watching her?' thinks Kenny. 'Does he know her face, too? Is <em>he</em> thinking she's the girl from the robbery, too?'</p>
+<p class="normaltexty">Kenny goes to sit next to the young man.</p>
+<p class="normaltexty">'Hi,' he says. 'My name's Kenny Muir.'</p>
+<p class="normaltexty">'Hi,' says the young man. 'I'm... Ned.'</p>
+<p class="picture"><img src="../../../Images/image06809.jpeg" alt="alt"/></p>
+<p class="normaltexty">They begin talking. Kenny tells Ned about the news of the robbery on TV. He looks across at Mel. 'Are you thinking that's the same girl?' he asks Ned.</p>
+<p class="normaltexty">Ned looks across at her. 'I – I don't know,' he says. 'Perhaps it is.'</p>
+<p class="normaltexty">'What can we do?' says Kenny. 'She's leaving soon. Let's phone the police. I <em>think</em> it's her.'</p>
+<p class="normaltexty">'No!' Ned says quickly. 'Not the police. Wait...'</p>
+<p class="normaltexty">Kenny looks carefully at him. 'What's the matter? Are you... afraid of something?' he asks.</p>
+<p class="normaltexty">'No, but... perhaps she's got a gun!' says Ned.</p>
+<p class="picture"><img src="../../../Images/image06810.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-11" class="chapter-section">
+                <h2 class="chapter-title">7 Perhaps I'm wrong</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">7<br/><em>Perhaps I'm wrong</em></h1>
+<p class="normaltext3">'<em>Is</em> it her?' thinks Kenny. 'I want to know. Perhaps the money from the robbery is in her room.'</p>
+<p class="normaltexty">Kenny goes upstairs. Suddenly he sees the girl again. She is coming out of room seventeen. Kenny watches her. She locks her door and goes downstairs.</p>
+<p class="normaltexty">'How can I get into her room?' he thinks.</p>
+<p class="picture"><img src="../../../Images/image06811.jpeg" alt="alt"/></p>
+<p class="normaltexty">Then Kenny sees a woman working in the motel.</p>
+<p class="normaltexty">'Excuse me,' says Kenny. 'Can you open the door of my room? My key's in the car. It's room seventeen.'</p>
+<p class="normaltexty">'Yes, of course,' she says, and opens the door of room seventeen.</p>
+<p class="normaltexty">'Thank you,' says Kenny, and he goes into the room.</p>
+<p class="picture"><img src="../../../Images/image06812.jpeg" alt="alt"/></p>
+<p class="normaltexty">Kenny searches the room, but he cannot find the money from the robbery.</p>
+<p class="normaltexty">'Perhaps I'm wrong about her,' he thinks.</p>
+<p class="normaltexty">Then he hears somebody opening the door with a key.</p>
+<p class="normaltexty">It's Mel!</p>
+<p class="picture"><img src="../../../Images/image06813.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-12" class="chapter-section">
+                <h2 class="chapter-title">8 I must get away</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">8<br/><em>I must get away</em></h1>
+<p class="normaltext3">Kenny runs into the bathroom. A minute later he hears Mel talking into the phone.</p>
+<p class="normaltexty">'Hi, Fran,' says Mel. 'No, I'm at the motel... No, I'm leaving in an hour... Yes, OK...'</p>
+<p class="normaltexty">Kenny looks out carefully from the bathroom. He cannot get to the door, but he can get to the window. He moves quickly.</p>
+<p class="picture"><img src="../../../Images/image06814.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../../../Images/image06815.jpeg" alt="alt"/></p>
+<p class="normaltexty">Mel puts down the phone. Kenny watches her through the window.</p>
+<p class="normaltexty">'I must get away from here!' he thinks.</p>
+<p class="normaltexty">Kenny cannot go back into room seventeen, but he can open the window to room eighteen.</p>
+<p class="picture"><img src="../../../Images/image06816.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-13" class="chapter-section">
+                <h2 class="chapter-title">9 You're the robber!</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">9<br/><em>You're the robber!</em></h1>
+<p class="normaltext3">Kenny climbs into room eighteen. There is nobody there. He goes across to the door. But then he sees something.</p>
+<p class="normaltexty">'What's that?' he thinks. 'Is it... a <em>wig</em>? It is. It's a blond wig!'</p>
+<p class="normaltexty">Kenny searches the room.</p>
+<p class="normaltexty">'Here's a black motorcycle coat,' he says to himself. 'And what's this in this bag? The money from the robbery!'</p>
+<p class="picture"><img src="../../../Images/image06817.jpeg" alt="alt"/></p>
+<p class="normaltexty">Kenny hears somebody coming. He wants to get out of the room, but he cannot.</p>
+<p class="normaltexty">Ned comes into the room. He sees Kenny.</p>
+<p class="normaltexty">'What are you doing in my room?' says Ned.</p>
+<p class="normaltexty">Then he sees the blond wig and the money. He looks at Kenny again.</p>
+<p class="normaltexty">'You know!' says Ned.</p>
+<p class="normaltexty">'Yes, I know!' says Kenny. 'You're the Los Angeles supermarket robber!'</p>
+<p class="picture"><img src="../../../Images/image06818.jpeg" alt="alt"/></p>
+<p class="normaltexty">Suddenly, Ned takes a gun from his coat.</p>
+<p class="normaltexty">'Don't move!' he says. And he takes the bag from Kenny.</p>
+<p class="normaltexty">'You can't get away,' says Kenny.</p>
+<p class="normaltexty">'Yes, I can,' says Ned.</p>
+<p class="normaltexty">He hits Kenny on the head, then he locks him in room eighteen.</p>
+<p class="picture"><img src="../../../Images/image06819.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-14" class="chapter-section">
+                <h2 class="chapter-title">10 I can't swim!</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">10<br/><em>I can't swim!</em></h1>
+<p class="normaltext3">A minute later, Mel is looking across at the river from her room. Suddenly, she sees a man running.</p>
+<p class="normaltexty">'What's the matter with him?' she thinks. 'Why is he running?'</p>
+<p class="normaltexty">Then she sees Kenny come out of the next room.</p>
+<p class="normaltexty">'Th – that man!' says Kenny. 'He's the Los Angeles supermarket robber! Stop him, somebody!'</p>
+<p class="normaltexty">Ned hears him and looks up. Then he gets on his motorcycle and drives off quickly.</p>
+<p class="picture"><img src="../../../Images/image06820.jpeg" alt="alt"/></p>
+<p class="normaltexty">'I can stop him!' says Mel.</p>
+<p class="picture"><img src="../../../Images/image06821.jpeg" alt="alt"/></p>
+<p class="normaltexty">She climbs down from her room. She runs around the motel, gets on her motorcycle and goes after Ned.</p>
+<p class="picture"><img src="../../../Images/image06822.jpeg" alt="alt"/></p>
+<p class="normaltexty">Mel rides her motorcycle quickly towards the river. When she gets to the river, she jumps across the river on the motorcycle, and stops in front of Ned. He cannot stop, and his motorcycle goes into the river.</p>
+<p class="normaltexty">'Help! Help!' he cries. 'I can't swim!' </p>
+<p class="picture"><img src="../../../Images/image06823.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-15" class="chapter-section">
+                <h2 class="chapter-title">11 Can we go slowly, please?</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1" id="a1">11<br/><em>Can we go slowly, please?</em></h1>
+<p class="normaltext3">Some people help Ned out of the water. More people are coming from the motel. Kenny runs across to Mel.</p>
+<p class="normaltexty">'Are you OK?' he asks her.</p>
+<p class="normaltexty">'Yes, I'm OK,' she says. 'Are you all right?'</p>
+<p class="normaltexty">'Yes,' says Kenny. 'I'm all right.'</p>
+<p class="picture"><img src="../../../Images/image06824.jpeg" alt="alt"/></p>
+<p class="normaltexty">Soon after, the police arrive and take Ned away. Kenny tells a policeman his story. Then Mel tells the policewoman her story.</p>
+<p class="normaltexty">'Do I know your face?'the policewoman asks Mel. 'Are you famous?'</p>
+<p class="normaltexty">Mel laughs. 'Perhaps you do,' she says. 'I'm on TV sometimes.'</p>
+<p class="picture"><img src="../../../Images/image06825.jpeg" alt="alt"/></p>
+<p class="normaltexty">'<em>Now</em> I remember you,' Kenny says to Mel. 'You're Mel Palmer, the famous Stunt Girl! I see you on '<em>Stunt Girls, USA</em>', on TV sometimes.'</p>
+<p class="normaltexty">Mel smiles. 'Yes, that's me,' she says. 'Now, do you want to come to San Francisco on my motorcycle, or do you want to go on the bus?'</p>
+<p class="normaltexty">'I'm coming with you!' says Kenny, laughing. 'But can we go <em>slowly</em>, please?' </p>
+<p class="picture"><img src="../../../Images/image06826.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-16" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">GLOSSARY<br/>词汇表</h1>
+<p class="normaltext3"><b>bathroom</b> <em>n</em>. the room where you can bath and wash　<span class="CN_Kindle_Kai">浴室，卫生间</span></p>
+<p class="normaltext3"><b>blond</b> <em>adj</em>. a yellow-white colour　<span class="CN_Kindle_Kai">（头发）浅黄色的，金色的</span></p>
+<p class="normaltext3"><b>climb</b> <em>v</em>. go up or down using hands and feet　<span class="CN_Kindle_Kai">（手脚并用地）攀登，爬</span></p>
+<p class="normaltext3"><b>famous</b> <em>adj</em>. a famous person is someone who many people know　<span class="CN_Kindle_Kai">著名的，出名的</span></p>
+<p class="normaltext3"><b>gun</b> <em>n</em>. a thing that shoots bullets to kill people　<span class="CN_Kindle_Kai">枪</span></p>
+<p class="normaltext3"><b>lock</b> <em>v</em>. use a key in a door so it cannot open　<span class="CN_Kindle_Kai">锁住</span></p>
+<p class="normaltext3"><b>manager</b> <em>n</em>. someone who controls a business　<span class="CN_Kindle_Kai">（公司等的）经理，管理者</span></p>
+<p class="normaltext3"><b>motel</b> <em>n</em>. a building where you can pay to stay in a room　<span class="CN_Kindle_Kai">汽车旅馆</span></p>
+<p class="normaltext3"><b>news</b> <em>n</em>. a TV or radio programme that tells about the things that happen　<span class="CN_Kindle_Kai">新闻</span></p>
+<p class="normaltext3"><b>news-reader</b> <em>n</em>. someone who reads the news　<span class="CN_Kindle_Kai">新闻播音员</span></p>
+<p class="normaltext3"><b>police</b> <em>n</em>. the men and women who catch criminals　<span class="CN_Kindle_Kai">警察</span></p>
+<p class="normaltext3"><b>rob</b> <em>v</em>. take something that is not yours　<span class="CN_Kindle_Kai">抢劫，打劫</span></p>
+<p class="normaltext3"><b>robber</b> <em>n</em>. someone who takes something that is not theirs　<span class="CN_Kindle_Kai">盗贼，抢劫者</span></p>
+<p class="normaltext3"><b>search</b> <em>v</em>. look carefully for something　<span class="CN_Kindle_Kai">寻找；搜查</span></p>
+<p class="normaltext3"><b>stunt</b> <em>n</em>. something dangerous and exciting　<span class="CN_Kindle_Kai">特技表演</span></p>
+<p class="normaltext3"><b>swim</b> <em>v</em>. move your body through water using your arms and legs　<span class="CN_Kindle_Kai">游泳</span></p>
+<p class="normaltext3"><b>wig</b> <em>n</em>. false hair　<span class="CN_Kindle_Kai">假发</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-17" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">Girl on a Motorcycle</h1>
+<p class="sx1"></p>
+<h1 class="title1" id="a1">ACTIVITIES<br/>阅读练习</h1>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em>Before Reading</em></p>
+<p class="normaltext4">1　Look at the picture on the cover of the book. Now answer these questions.</p>
+<p class="normaltext5">1）Do you think the story is</p>
+<p class="normaltext6">a　□ funny?</p>
+<p class="normaltext6">b　□ sad?</p>
+<p class="normaltext6">c　□ exciting?</p>
+<p class="normaltext6">d　□ frightening?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">2）Where do you think the story happens?</p>
+<p class="normaltext6">a　□ China.</p>
+<p class="normaltext6">b　□ America.</p>
+<p class="normaltext6">c　□ England.</p>
+<p class="normaltext6">d　□ Italy.</p>
+<p class="normaltext4">2　Read the <a href="part0272.xhtml">back cover</a> of the book. Now answer these questions.</p>
+<p class="normaltext5">1）Do you think Kenny is a policeman?</p>
+<p class="normaltext5">2）Do you think the robber shoots Kenny?</p>
+<p class="normaltext5">3）Do you think the girl is the robber? </p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em>While Reading</em></p>
+<p class="normaltext4">1　Read Chapters 1-3, then answer these questions.</p>
+<p class="normaltext5">1）How often do buses go to San Francisco?</p>
+<p class="normaltext5">2）Where is someone robbing a supermarket?</p>
+<p class="normaltext5">3）The supermarket manager says, 'Yes, we have some pictures.' How does he have pictures of the robber?</p>
+<p class="normaltext5">4）What is Kenny's room number in the motel?</p>
+<p class="normaltext5">5）How does the girl in room seventeen arrive at the motel?</p>
+<p class="normaltext4">2　Read Chapters 4-5. Now answer these questions.</p>
+<p class="normaltext5">a）Who</p>
+<p class="normaltext6">... is talking about the robbery on TV?</p>
+<p class="normaltext6">... does Kenny remember who has long blond hair?</p>
+<p class="normaltext5">b）Where</p>
+<p class="normaltext6">... is the girl eating her breakfast?</p>
+<p class="normaltext6">... are Mel and Kenny going later that morning?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext4a">3　Read Chapters 6-7. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">1）Someone is watching Mel.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext5">2）Ned wants to phone the police.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext5">3）Kenny opens Mel's room with his key.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext4">4　Read Chapters 8. Now answer these questions.</p>
+<p class="normaltext5">1）Mel comes back to her room. Where does Kenny go first?</p>
+<p class="normaltext5">2）Who is Mel talking to on the phone?</p>
+<p class="normaltext5">3）What is the first thing Kenny sees in room eighteen?</p>
+<p class="normaltext5">4）What is in the bag?</p>
+<p class="normaltext4">5　Read Chapters 9-10. Who says or thinks these words?</p>
+<p class="normaltext5">1）'What are you doing in my room?'</p>
+<p class="normaltext5">2）'You can't get away.'</p>
+<p class="normaltext5">3）'Why is he running?'</p>
+<p class="normaltext5">4）'He's the Los Angeles supermarket robber!'</p>
+<p class="normaltext5">5）'I can stop him!'</p>
+<p class="normaltext4">6　Before you read Chapters 11, can you guess what happens?</p>
+<p class="normaltext5">1）Ned kills Mel.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext5">2）Mel falls off her motorcycle into the river.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext5">3）Mel stops Ned.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext5">4）Kenny stops Ned.</p>
+<p class="normaltext1">YES □／NO □</p>
+<p class="normaltext5">5）Ned falls into the river.</p>
+<p class="normaltext1">YES □／NO □</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="subtitle1">ACTIVITIES</p>
+<p class="sx"></p>
+<p class="subtitle1"><em>After Reading</em></p>
+<p class="normaltext4">1　Put these twelve sentences in the right order.</p>
+<p class="normaltext12">a　□ Kenny sees the girl eating her breakfast.</p>
+<p class="normaltext12">b　□ Kenny finds the money from the robbery.</p>
+<p class="normaltext12">c　□ Kenny's bus arrives.</p>
+<p class="normaltext12">d　□ Ned takes a gun from his coat.</p>
+<p class="normaltext12">e　□ Kenny goes into room seventeen.</p>
+<p class="normaltext12">f　□ Ned's motorcycle goes into the river.</p>
+<p class="normaltext12">g　□ Kenny climbs into room eighteen.</p>
+<p class="normaltext12">h　□ Somebody robs a security guard outside a supermarket.</p>
+<p class="normaltext12">i　□ Mel gets on her motorcycle.</p>
+<p class="normaltext12">j　□ Kenny hears about the robbery on TV.</p>
+<p class="normaltext12">k　□ The police take Ned away.</p>
+<p class="normaltext12">l　□ Kenny sees a girl arrive at the motel on a motorcycle.</p>
+<p class="normaltext4">2　Use these words to join the sentences together.</p>
+<p class="normaltext5"><em>or　but　and　on</em></p>
+<p class="normaltext5">1）Kenny's bus arrives in town. An evening in summer.</p>
+<p class="normaltext5">2）The robber rides away. A camera is taking pictures.</p>
+<p class="normaltext5">3）The girl goes to the front desk. The man gives her a key.</p>
+<p class="normaltext5">4）Do you want to come to San Francisco on my motorcycle? Do you want to go on the bus?</p>
+<p class="normaltext4">3　Look at each picture, then answer the questions after it.</p>
+<p class="normaltext5">1）<img src="../../../Images/image06827.jpeg" class="tpzz" style="height:8em;" alt="alt"/></p>
+<p class="normaltext6">Who is this?</p>
+<p class="normaltext6">What is he/she doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">2）<img src="../../../Images/image06828.jpeg" class="tpzz" style="height:8em;" alt="alt"/></p>
+<p class="normaltext6">Who is it?</p>
+<p class="normaltext6">What is he doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">3）<img src="../../../Images/image06829.jpeg" class="tpzz" style="height:8em;" alt="alt"/></p>
+<p class="normaltext6">Who is this?</p>
+<p class="normaltext6">What is he/she doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">4）<img src="../../../Images/image06830.jpeg" class="tpzz" style="height:8em;" alt="alt"/></p>
+<p class="normaltext6">Who is this?</p>
+<p class="normaltext6">What is he/she doing?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">5）<img src="../../../Images/image06831.jpeg" class="tpzz" style="height:8em;" alt="alt"/></p>
+<p class="normaltext6">Who is riding this motorcycle?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext5">6）<img src="../../../Images/image06832.jpeg" class="tpzz" style="height:8em;" alt="alt"/></p>
+<p class="normaltext6">Who is writing?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-18" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="subtitle">TRANSLATION　参考译文</h1>
+<h1 class="title1">Girl on a Motorcycle<br/><span class="CN_Kindle_Kai">摩托女孩</span></h1>
+<p class="subtitle1"><a href="part0257.xhtml#a1">1　有汽车旅馆吗？</a></p>
+<p class="normaltext02">肯尼正在乘公共汽车横穿美国。一个夏天的夜晚，他乘坐的车停在了加利福尼亚的一个小镇上。</p>
+<p class="normaltext02">“我想在这儿住一晚。”肯尼对司机说，“这儿有没有汽车旅馆，您知道吗？”</p>
+<p class="normaltext02">“有，”司机回答，“河对岸有家不错的汽车旅馆，也不贵。”</p>
+<p class="normaltext02">“那明天有车去旧金山吗？”肯尼问。</p>
+<p class="normaltext02">“有，”司机说，“每天都有车去。”</p>
+<p class="normaltext02">肯尼拿着包下了车。</p>
+<p class="subtitle1"><a href="part0258.xhtml#a1">2　把钱给我！</a></p>
+<p class="normaltext02">洛杉矶的一条街上，有人正在超市外抢劫一名保安。劫匪骑着摩托车，手里拿着枪。</p>
+<p class="normaltext02">“把钱给我！”劫匪对保安说。</p>
+<p class="normaltext02">“好，好！”保安说着把钱交给了劫匪。</p>
+<p class="normaltext02">然后劫匪骑摩托车跑了，但有个摄像头拍下了这一切。</p>
+<p class="normaltext02">劫案发生后，超市经理打电话报警。</p>
+<p class="normaltext02">“是的，”他说，“抢劫……没错，金色长发，骑着摩托车……男的还是女的？不知道……没错，我们有些照片……好的！快来！”</p>
+<p class="subtitle1"><a href="part0259.xhtml#a1">3　23号房间</a></p>
+<p class="normaltext02">在距离洛杉矶50公里外的小镇上，肯尼走进汽车旅馆，要了个房间。</p>
+<p class="normaltext02">“23号房。”前台的男服务员说着递给肯尼一把钥匙。</p>
+<p class="normaltext02">“谢谢。”肯尼说，然后他上楼进了房间。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">一小时后，肯尼下楼去吃东西。</p>
+<p class="normaltext02">“我饿了。”他心想。</p>
+<p class="normaltext02">他看见一个女孩骑着摩托车到了旅馆。她走到前台，服务员给了她一把钥匙。</p>
+<p class="normaltext02">“17号房。”服务员说。</p>
+<p class="normaltext02">“我觉得这张脸很面熟。”肯尼想，“她是哪个名人吗？”</p>
+<p class="subtitle1"><a href="part0260.xhtml#a1">4　是她吗？</a></p>
+<p class="normaltext02">第二天一大早，肯尼打开房间里的电视机。一位新闻播音员正在播报超市劫案新闻。还播放了超市摄像头拍到的照片。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">肯尼看着新闻。</p>
+<p class="normaltext02">“劫匪有一头金色长发，骑着摩托车。”新闻播音员说。</p>
+<p class="normaltext02">突然，肯尼想起在旅馆前台见到的那个女孩。“是她吗？”他想，“她是劫匪吗？”</p>
+<p class="subtitle1"><a href="part0261.xhtml#a1">5　我能坐这儿吗？</a></p>
+<p class="normaltext02">肯尼去吃早饭。那个女孩正在靠窗的一张桌子旁吃早饭。肯尼看着她。“是她吗？”他想，“我觉得我认识她，可是……”他向她的桌子走过去。</p>
+<p class="normaltext02">“我能坐这儿吗？”他问。</p>
+<p class="normaltext02">女孩抬起头。“嗯……好吧。”她回答。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">肯尼坐下来。“我叫肯尼。”他说。</p>
+<p class="normaltext02">“很高兴认识你。”她说，“我叫梅尔。”</p>
+<p class="normaltext02">“你是哪里人？”肯尼问。</p>
+<p class="normaltext02">“旧金山人。”梅尔说，“我今早稍后要回那里去。你是哪里人？”</p>
+<p class="normaltext02">“波士顿人。”肯尼说，“我正在乘公共汽车横穿美国。我今早稍后也要去旧金山。”</p>
+<p class="normaltext02">“是吗？”女孩说，“我不喜欢公共汽车。我喜欢摩托车。嘿，不好意思，我得打个电话。”</p>
+<p class="normaltext02">她起身离开了餐厅。</p>
+<p class="subtitle1"><a href="part0262.xhtml#a1">6　不能报警</a></p>
+<p class="normaltext02">坐在门边的一个年轻人一直盯着梅尔。</p>
+<p class="normaltext02">“为什么他老是看她？”肯尼想，“他也认得她？<span class="xx">他</span>是不是也觉得她就是劫匪呢？”</p>
+<p class="normaltext02">肯尼走过去，在年轻人身边坐下。</p>
+<p class="normaltext02">“你好。”他说，“我叫肯尼·缪尔。”</p>
+<p class="normaltext02">“你好。”年轻人说，“我叫……内德。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">他们开始交谈。肯尼跟内德说起电视上关于超市劫案的新闻。他向梅尔望去。“你是不是觉得劫匪就是那个女孩？”他问内德。</p>
+<p class="normaltext02">内德看向她。“我，我不知道。”他说，“也许是吧。”</p>
+<p class="normaltext02">“我们该怎么办？”肯尼说，“她马上就要离开了。我们报警吧，我<span class="xx">觉得</span>就是她。”</p>
+<p class="normaltext02">“不行！”内德马上说，“不能报警。等等……”</p>
+<p class="normaltext02">肯尼仔细打量他。“怎么了？你在……害怕什么吗？”他问。</p>
+<p class="normaltext02">“不是，不过……她可能有枪！”内德说。</p>
+<p class="subtitle1"><a href="part0263.xhtml#a1">7　也许我错了</a></p>
+<p class="normaltext02">“真的是她吗？”肯尼想，“我想弄清楚。也许抢来的钱就在她房间里。”</p>
+<p class="normaltext02">肯尼走上楼。突然，他又看见了梅尔。她正从17号房间出来。肯尼盯着她。她锁好门，下了楼。</p>
+<p class="normaltext02">“我怎么才能进入她的房间呢？”他想。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">就在这时，肯尼看见了旅馆的一名女服务员。</p>
+<p class="normaltext02">“劳驾，”肯尼说，“你能帮忙开下我的房门吗？我的钥匙在车里。是17号房间。”</p>
+<p class="normaltext02">“好的，没问题。”她说着打开了17号房间的门。</p>
+<p class="normaltext02">“谢谢。”肯尼说，接着进了房间。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">肯尼搜遍了整个房间，却没找到抢劫来的钱。</p>
+<p class="normaltext02">“可能我错怪她了。”他想。</p>
+<p class="normaltext02">这时他听见有人正用钥匙开门。</p>
+<p class="normaltext02">是梅尔！</p>
+<p class="subtitle1"><a href="part0264.xhtml#a1">8　我必须离开</a></p>
+<p class="normaltext02">肯尼跑进卫生间。不一会儿，他听见梅尔在打电话。</p>
+<p class="normaltext02">“嗨，弗兰。”梅尔说，“不，我在汽车旅馆……不，我一个小时内离开……是的，好……”</p>
+<p class="normaltext02">肯尼小心翼翼地向卫生间外张望。他没法儿到门那儿，但可以到窗户那边。他迅速行动起来。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">梅尔放下电话。肯尼透过窗户盯着她。</p>
+<p class="normaltext02">“我必须离开这儿！”他想。</p>
+<p class="normaltext02">肯尼不能再回到17号房间，但他可以打开18号房间的窗户。</p>
+<p class="subtitle1"><a href="part0265.xhtml#a1">9　你是劫匪！</a></p>
+<p class="normaltext02">肯尼爬进18号房间，里面没人。他向房门走去，但这时他看见了一样东西。</p>
+<p class="normaltext02">“那是什么？”他想，“是……一顶<span class="xx">假发</span>？是的，是金色的假发！”</p>
+<p class="normaltext02">肯尼开始搜房间。</p>
+<p class="normaltext02">“这里有件黑色的机车外套。”他自言自语道，“这包里又是什么？抢劫来的钱！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">肯尼听见有人进来。他想离开这个房间，但他出不去了。</p>
+<p class="normaltext02">内德走进房间。他看见了肯尼。</p>
+<p class="normaltext02">“你在我的房间干什么？”内德问。</p>
+<p class="normaltext02">这时他看见了金色假发和钱。他又看向肯尼。</p>
+<p class="normaltext02">“你知道了！”内德说。</p>
+<p class="normaltext02">“对，我知道了！”肯尼说，“你就是洛杉矶超市劫匪！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">突然，内德从外套里掏出枪。</p>
+<p class="normaltext02">“不许动！”他说，随即从肯尼手中夺回包。</p>
+<p class="normaltext02">“你逃不掉的。”肯尼说。</p>
+<p class="normaltext02">“不，我可以。”内德说。</p>
+<p class="normaltext02">他一拳打在肯尼头上，然后把他锁在18号房间里。</p>
+<p class="subtitle1"><a href="part0266.xhtml#a1">10　我不会游泳！</a></p>
+<p class="normaltext02">过了片刻，梅尔正在房间里望着河。突然，她看见一个男人在奔跑。</p>
+<p class="normaltext02">“他怎么了？”她想，“为什么要跑呢？”</p>
+<p class="normaltext02">这时，她看见肯尼从隔壁房间出来。</p>
+<p class="normaltext02">“那——那个男的！”肯尼说，“他是洛杉矶超市劫匪！拦住他，来人哪！”</p>
+<p class="normaltext02">内德听见肯尼的话，向上看了一眼。然后他跨上摩托车，迅速驾车离去。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">“我能拦住他！”梅尔说。</p>
+<p class="normaltext02">她从自己房间外面爬下来，跑到汽车旅馆前面，骑上自己的摩托车，追赶内德。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">梅尔骑着摩托车，朝河边疾驶。到了河边，她驾着摩托车飞越过河，停在内德前面。内德刹不住车，连人带车掉进河里。</p>
+<p class="normaltext02">“救命！救命！”他大叫，“我不会游泳！”</p>
+<p class="subtitle1"><a href="part0267.xhtml#a1">11　我们骑慢点，好吗？</a></p>
+<p class="normaltext02">有人把内德从水里救了出来。越来越多的人从汽车旅馆赶了过来。肯尼向梅尔跑去。</p>
+<p class="normaltext02">“你没事吧？”他问她。</p>
+<p class="normaltext02">“嗯，我没事。”她说，“你还好吧？”</p>
+<p class="normaltext02">“嗯，”肯尼说，“我还好。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">不一会儿，警察赶来带走了内德。肯尼向一位男警察说明事情经过。随后梅尔也向一名女警说明了情况。</p>
+<p class="normaltext02">“我是不是见过你？”女警问梅尔，“你是名人吗？”</p>
+<p class="normaltext02">梅尔笑了。“也许你见过我。”她说，“我有时会上电视。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext02">“<span class="xx">现在</span>我想起你来了。”肯尼对梅尔说，“你是梅尔·帕尔默，著名的女特技演员！我有时在电视上看《美国女特技演员》，见过你。”</p>
+<p class="normaltext02">梅尔笑了。“对，那是我。”她说，“现在，你是想坐我的摩托车去旧金山呢，还是坐公共汽车去？”</p>
+<p class="normaltext02">“我跟你一起去！”肯尼笑着说，“不过我们骑<span class="xx">慢点</span>，好吗？”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-19" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06834.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

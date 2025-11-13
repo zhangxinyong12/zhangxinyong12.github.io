@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逆戟鲸 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '逆戟鲸';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>逆戟鲸</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">逆戟鲸</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">Copyright</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">Orca</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">ACTIVITIES Before Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">ACTIVITIES While Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES After Reading</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP1"><img src="../../../Images/image06302.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">Copyright</h2>
+                <div class="chapter-content">
+                    
+            <p class="normaltext" id="CHP2">Copyright © Foreign Language Teaching and Research Press 2006</p>
+<p class="normaltext">All rights reserved. No part of this publication may be reproduced or distributed by any means, or stored in a database or retrieval system, without the prior written permission of Foreign Language Teaching and Research Press.</p>
+<p class="normaltext">本书版权由外语教学与研究出版社独家所有。如未获得该社书面同意，书中任何部分之文字及图片，不得用任何方式抄袭、节录、翻印或存储利用于任何数据库及检索系统等。</p>
+<p class="normaltext">Published by Foreign Language Teaching and Research Press</p>
+<p class="normaltext">No. 19 Xisanhuan Beilu</p>
+<p class="normaltext">Beijing, China 100089</p>
+<p class="normaltext">http://www.fltrp.com</p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2B" id="CHP3">京权图字01-2006-2798</p>
+<p class="normaltext00">Originally published by Oxford University Press, Great Clarendon Street, Oxford. © 2004 This edition is licensed for sale in the People's Republic of China only and not for export therefrom.</p>
+<p class="normaltext00">'Oxford' is a registered trademark of Oxford University Press.</p>
+<p class="subtitle2B">图书在版编目（CIP）数据</p>
+<p class="normaltext">逆戟鲸／（英）伯罗斯（Burrows, P.），（英）福斯特（Foster, M.）著．—北京：外语教学与研究出版社，2006.5（2013.12重印）</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：Orca</p>
+<p class="normaltext">ISBN 978-7-5600-5532-9</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．逆…　Ⅱ．①伯…②福…　Ⅲ．①英语—语言读物②短篇小说—英国—现代　Ⅳ．H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2006）第037881号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext00"><b>出版人：</b>蔡剑峰</p>
+<p class="normaltext00"><b>责任编辑：</b>周　晶</p>
+<p class="normaltext00"><b>封面设计：</b>孙莉明</p>
+<p class="normaltext00"><b>出版发行：</b>外语教学与研究出版社</p>
+<p class="normaltext00"><b>社　　址：</b>北京市西三环北路19号（100089）</p>
+<p class="normaltext00"><b>网　　址：</b>http://www.fltrp.com</p>
+<p class="normaltext00"><b>书　　号：</b>ISBN978-7-5600-5532-9</p>
+<p class="normaltext00">*　　*　　*</p>
+<p class="normaltext00"><b>制售盗版必究　举报查实奖励</b></p>
+<p class="normaltext00"><b>版权保护举报电话：（010）88817519</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">目　录</div>
+<div class="contents1"><a href="part0052.xhtml#CHP4">Orca</a></div>
+<div class="contents1"><a href="part0053.xhtml#CHP5">ACTIVITIES Before Reading</a></div>
+<div class="contents1"><a href="part0054.xhtml#CHP6">ACTIVITIES While Reading</a></div>
+<div class="contents1"><a href="part0055.xhtml#CHP7">ACTIVITIES After Reading</a></div>
+<div class="contents1"><a href="part0056.xhtml#CHP8">参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="contents1"><a href="part0001.xhtml">返回总目录</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">Orca</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP4">Orca</p>
+<p class="title2" id="CHP4-1"><a href="part0056.xhtml#CHP8-1">1 Let's do it!</a></p>
+<p class="normaltext">Jack Griggs stands on his boat. The wind is strong and his boat moves quickly over the sea. A big, white bird goes past and makes a noise. 'Keyaaaa', it cries.</p>
+<p class="normaltext">Jack smiles and says: 'Hello, bird. How are you, today?'</p>
+<p class="normaltext">Jack's friends laugh and give some fish to the bird.</p>
+<p class="normaltext">'Ah,' says Jack. 'Hungry, I see.' Jack's friends are Max and Sasha, and his wife's name is Tonya.</p>
+<p class="normaltext">'I am hungry, too,' says Jack. 'Sandwiches and drinks, everybody? Tonya. Can you steer?'</p>
+<p class="picture"><img src="../../../Images/image06303.jpeg" alt="alt"/></p>
+<p class="normaltext">Half an hour later they are eating. 'What are we going to do now?' asks Jack.</p>
+<p class="normaltext">'Oh, I am going to read my book. Then I'm going to sleep,' says Tonya.</p>
+<p class="normaltext">'No – what about tomorrow?... Next month?... Next year?' Jack looks at everyone. 'We have lots of money from our old business, but...'</p>
+<p class="normaltext">'We can start another business,' says Max.</p>
+<p class="normaltext">'A sailing business?' says Sasha.</p>
+<p class="normaltext">'I don't want to work any more,' says Tonya. 'We don't need to work.'</p>
+<p class="normaltext">'OK, listen to me,' says Jack. 'I am thinking about sailing around the world.'</p>
+<p class="picture"><img src="../../../Images/image06304.jpeg" alt="alt"/></p>
+<p class="normaltext">Max, Tonya and Sasha look at Jack. 'What? From here to Australia?' asks Tonya.</p>
+<p class="normaltext">'Of course,' says Jack. He is getting very excited now. 'Max, what do you think?'</p>
+<p class="normaltext">'I think we must talk about it,' says Max.</p>
+<p class="normaltext">They talk for hours. It is night when Max, Sasha and Tonya say excitedly: 'OK. Let's do it!'</p>
+<p class="picture"><img src="../../../Images/image06305.jpeg" alt="alt"/></p>
+<p class="normaltext">They have to do a lot before they leave. Jack talks to a man who knows about sailing around the world. He tells Jack that it is hard work.</p>
+<p class="normaltext">'Does the sea frighten you? Your boat is very small. Do you know your friends well? Are they good at sailing?' he asks.</p>
+<p class="normaltext">'We know each other well. They are the best people in the world,' says Jack.</p>
+<p class="normaltext">The four friends look at lots of maps. Sasha wants to see a whale. Max wants to see Africa. 'I want to sit in the sun and catch fish to eat,' laughs Tonya.</p>
+<p class="normaltext">It is exciting for all of them. And at first everything is easy.</p>
+<p class="picture"><img src="../../../Images/image06306.jpeg" alt="alt"/></p>
+<p class="normaltext">The big day arrives – they are leaving. Some of their friends and family come to watch. Their friends stand by the water and say goodbye.</p>
+<p class="normaltext">'Good luck,' one of them says.</p>
+<p class="normaltext">'Don't forget us!' says Sasha's sister.</p>
+<p class="normaltext">'Write to me every day,' says Tonya's friend. 'Give the letters to a bird.'</p>
+<p class="normaltext">Sasha begins to cry. 'What are we doing? Do I really want to go?' she thinks. Max takes her hand. All of them are quiet, excited, and a little unhappy.</p>
+<p class="normaltext">'Bye,' says Jack quietly.</p>
+<p class="picture"><img src="../../../Images/image06307.jpeg" alt="alt"/></p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title2" id="CHP4-2"><a href="part0056.xhtml#CHP8-2">2 Sailing south</a></p>
+<p class="normaltext">The wind is strong and the boat moves faster and faster. Jack, Max, Sasha and Tonya are happy at sea. There is a lot to do on the boat. The wind is behind them and soon they cannot see England. They are not unhappy now.</p>
+<p class="normaltext">They are sailing south. In France they stop at L'Orient and Biarritz. In Spain, they visit La Coruna, and in Portugal they stop in Lisbon. The sun gets hotter and they feel good.</p>
+<p class="normaltext">Sasha catches a big fish and they eat it for tea.</p>
+<p class="picture"><img src="../../../Images/image06308.jpeg" alt="alt"/></p>
+<p class="normaltext">Soon, they are sailing past Africa. Here, everything is different. They stop in Gambia and people look at them. Small children bring beads and shells and cloth. Tonya buys a green hat. There is a lot of colour and noise and excitement.</p>
+<p class="normaltext">They sail for weeks and weeks past Africa. They stop at many small towns and villages by the sea.'Africa is so interesting, so big,' says Sasha. 'It goes on and on. I look at it on the map, but...'</p>
+<p class="normaltext">'This is why we are here,' says Jack. 'Talking to different people, seeing different things. The boat, the sea, the wind. Nothing is better than this, is it?'</p>
+<p class="picture"><img src="../../../Images/image06309.jpeg" alt="alt"/></p>
+<p class="normaltext">Some days later they see a big fishing boat. It is moving very fast.</p>
+<p class="normaltext">'Hello!' they shout at the boat. The men on the boat look at them angrily. Max looks carefully at the boat through his binoculars.</p>
+<p class="normaltext">'There is something wrong with their fishing net,' he says. Max moves the binoculars and sees something in the sea. 'I can see some net over there.' He points to their left. 'Why are they leaving it? Let's have a look.'</p>
+<p class="picture"><img src="../../../Images/image06310.jpeg" alt="alt"/></p>
+<p class="normaltext">They get nearer to the net and Tonya takes the binoculars.</p>
+<p class="normaltext">'What in the world...' says Tonya. 'What's that? There is something in the net. It's alive, but what is it?'</p>
+<p class="picture"><img src="../../../Images/image06311.jpeg" alt="alt"/></p>
+<p class="picture"><img src="../../../Images/image06312.jpeg" alt="alt"/></p>
+<p class="normaltext">Very slowly they move nearer to the net. The thing in the net is big and it is making a lot of noise.</p>
+<p class="normaltext">'I can see it now,' says Tonya. 'It's an orca – a killer whale – and it's hurt. There is blood in the water. What can we do? How can we help it?'</p>
+<p class="normaltext">'I can see it too. It is a baby but we must be careful,' says Max.</p>
+<p class="picture"><img src="../../../Images/image06313.jpeg" alt="alt"/></p>
+<p class="normaltext">Jack is in the water. He is carrying a long paddle. 'I am going to help it. I can get the net off its fin,' he says.</p>
+<p class="normaltext">'Where's its mother?' asks Sasha. She looks at the sea. 'I can't see any other whales, but they are near here, I think. Be careful, Jack.'</p>
+<p class="normaltext">Jack gets the net off the baby killer whale. There is a big cut on its fin, but it swims away. Suddenly there are other killer whales near the boat.</p>
+<p class="normaltext">'Jack!' Tonya shouts. 'Get in quickly.' Jack swims to the boat as fast as a fish. 'That baby killer whale... I am going to call it Lucky,' he says.</p>
+<p class="picture"><img src="../../../Images/image06314.jpeg" alt="alt"/></p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title2" id="CHP4-3"><a href="part0056.xhtml#CHP8-3">3 The big wave</a></p>
+<p class="normaltext">It begins to rain as they move away from the killer whales. Suddenly it is raining very hard and there is a lot of wind. The sky is black.</p>
+<p class="normaltext">Jack says: 'This is bad. We must get away from the wind. I can see a town over there. Let's go.'</p>
+<p class="normaltext">'I'm frightened,' says Tonya. It is difficult to hear her because of the wind.</p>
+<p class="normaltext">'We're all frightened,' says Jack. 'But everything is OK.'</p>
+<p class="picture"><img src="../../../Images/image06315.jpeg" alt="alt"/></p>
+<p class="normaltext">The town gets nearer but the waves get bigger and bigger. Suddenly a very big wave hits the boat. There is water everywhere.</p>
+<p class="normaltext">'Is everyone OK,' shouts Jack. 'Max?'</p>
+<p class="normaltext">'Yes,' says Max.</p>
+<p class="normaltext">'Sasha?'</p>
+<p class="normaltext">'My arm hurts but I'm OK,' says Sasha.</p>
+<p class="normaltext">'Tonya?... Tonya?... Where's Tonya?' shouts Jack.</p>
+<p class="normaltext">'She's not in the boat,' says Sasha. 'She's in the water. But where?'</p>
+<p class="picture"><img src="../../../Images/image06316.jpeg" alt="alt"/></p>
+<p class="normaltext">They look in the cold, dark water for hours. 'Tonya! Say something, Tonya. Where are you?' shouts Max.</p>
+<p class="normaltext">The wind gets stronger and the boat is full of water. Another big wave hits the boat. Sasha's arm hurts a lot now.</p>
+<p class="picture"><img src="../../../Images/image06317.jpeg" alt="alt"/></p>
+<p class="normaltext">'Jack, we must stop. Do you want us all to die?' says Max. He puts his arm around Jack. 'We can't do any more. Tonya is wearing a lifejacket and she can swim very well. Let's sail to the town.'</p>
+<p class="normaltext">Jack puts his head in his hands. 'This can't happen. It can't!' he says.</p>
+<p class="normaltext">Max begins to steer the boat. But the wind is too strong. Some time later the boat hits a beach. The three friends get out. They are very tired.</p>
+<p class="normaltext">They stop there. Max and Sasha sleep on the beach, but Jack sits near the water. He looks at the sea, thinking about Tonya.</p>
+<p class="picture"><img src="../../../Images/image06318.jpeg" alt="alt"/></p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title2" id="CHP4-4"><a href="part0056.xhtml#CHP8-4">4 Tonya</a></p>
+<p class="normaltext">Tonya is five hundred metres away out in the sea. She begins to swim, but the waves are too big and the water is too cold. She finds some wood and puts her arms around it.</p>
+<p class="normaltext">Tonya is thinking: 'I must be strong. I am not going to die. I want to see the sun again. Jack is going to find me.'</p>
+<p class="picture"><img src="../../../Images/image06319.jpeg" alt="alt"/></p>
+<p class="normaltext">Tonya sees a boat far away. She calls to it. 'Help! Help me! I'm over here!' She moves her arms and shouts, but nobody hears her. The wind moves her away from the boat.</p>
+<p class="normaltext">'Oh, Jack. I'm sorry,' she says. Her head goes down on to the wood. In the arms of the sea, she sleeps.</p>
+<p class="picture"><img src="../../../Images/image06320.jpeg" alt="alt"/></p>
+<p class="normaltext">Suddenly Tonya is not sleeping. There is no wind and she can see the sun. She looks everywhere. There is a beach in front of her – but she cannot swim to it.</p>
+<p class="normaltext">'I am too cold and too tired,' she thinks. 'I must see a boat soon.'</p>
+<p class="normaltext">She looks at the sea. There are no boats, no people, but some birds.</p>
+<p class="normaltext">'Can the birds help me?' she thinks sleepily.</p>
+<p class="picture"><img src="../../../Images/image06321.jpeg" alt="alt"/></p>
+<p class="normaltext">Tonya listens to the sea. She likes the noise. Then she hears something different.</p>
+<p class="normaltext">'Is it a baby crying?' she thinks and looks up.</p>
+<p class="normaltext">Ten metres in front of her is a big fin... a very big fin. Under the fin is a killer whale. The whale is making the noise. But it is not a baby – it is five metres long. Behind it is another whale. And another. And another.</p>
+<p class="normaltext">'Killer whales eat people. I am going to die,' thinks Tonya.</p>
+<p class="picture"><img src="../../../Images/image06322.jpeg" alt="alt"/></p>
+<p class="normaltext">The killer whales come nearer and nearer. Tonya can't feel her legs. 'It's OK, they are cold. That's all,' she thinks. She starts to swim away from the big fins.</p>
+<p class="normaltext">'Help me!' she shouts. 'Help, help, help!'</p>
+<p class="normaltext">The killer whales are all around her. She closes her eyes and waits.</p>
+<p class="picture"><img src="../../../Images/image06323.jpeg" alt="alt"/></p>
+<p class="normaltext">But she does not die.</p>
+<p class="normaltext">The biggest killer whale is under her. Suddenly she is on his back.</p>
+<p class="normaltext">'What is happening? Perhaps they are not hungry.'Tonya thinks.</p>
+<p class="normaltext">The killer whale moves slowly to the shore. He is taking Tonya to the beach.</p>
+<p class="normaltext">Tonya puts her hands on the fin in front of her.</p>
+<p class="normaltext">'This is a very big fish – too big for my tea!' she thinks. She smiles and puts her head on his big back. Soon, she is sleeping again.</p>
+<p class="picture"><img src="../../../Images/image06324.jpeg" alt="alt"/></p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title2" id="CHP4-5"><a href="part0056.xhtml#CHP8-5">5 'Tonya? Is that you?'</a></p>
+<p class="normaltext">Jack sits on the beach. The sun is in the sky. Behind him, Max and Sasha sleep.</p>
+<p class="normaltext">'I must do something,' he thinks. 'I can't take my boat but I must look for Tonya.'</p>
+<p class="normaltext">He begins to walk along the beach. 'There is a town near here. I can get a new boat, then I can look for Tonya.'</p>
+<p class="normaltext">Just then Jack sees something on the beach. He walks nearer. It is a woman.</p>
+<p class="picture"><img src="../../../Images/image06325.jpeg" alt="alt"/></p>
+<p class="normaltext">Jack runs to the woman on the beach. 'Tonya?' he shouts. 'Tonya! Is that you?'</p>
+<p class="normaltext">Tonya moves her head slowly. 'Jack! Oh, Jack. You're OK!'</p>
+<p class="normaltext">Jack puts his arms around Tonya. He kisses her face and cries. He can't speak – he is too happy.</p>
+<p class="normaltext">Tonya says: 'What about Max and Sasha? Are they OK, too?'</p>
+<p class="normaltext">'Everyone is OK,' answers Jack.</p>
+<p class="picture"><img src="../../../Images/image06326.jpeg" alt="alt"/></p>
+<p class="normaltext">They sit on the beach and look at the sea.</p>
+<p class="normaltext">Jack says: 'We are very, very lucky.'</p>
+<p class="normaltext">Tonya sits up and sees a small fin in the water. It has a cut on it. The fin waves slowly and moves out to sea. It is waving goodbye, thinks Tonya.</p>
+<p class="normaltext">'Lucky. Yes, Lucky,' she says quietly to Jack.</p>
+<p class="picture"><img src="../../../Images/image06327.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES Before Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP5"><span class="underline">ACTIVITIES</span><br/><em>Before Reading</em></p>
+<p class="normaltext0">1. Look at the front and back covers. Now answer these questions.</p>
+<p class="normaltext"><b>1) How do you think the story ends?</b></p>
+<p class="normaltext">　a　The people on the boat kill the killer whale.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　b　The boat hits ice.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　c　A man shoots a bird.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　d　The killer whale helps a woman.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext"><b>2) Where does the story happen?</b></p>
+<p class="normaltext">　a　In a small town.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　b　In the mountains.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　c　On an African safari.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　d　At sea.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext"><b>3) The boat sails south from England. Which of these does it sail past?</b></p>
+<p class="normaltext">　a　Switzerland.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　b　France.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　c　Africa.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　d　Norway.</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext"><b>4) You are on a boat and you see a killer whale. Do you...</b></p>
+<p class="normaltext">　a　move nearer for a better look?</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　b　move away because you are afraid?</p>
+<p class="normaltextAA">Yes/No</p>
+<p class="normaltext">　c　try to catch it in a net?</p>
+<p class="normaltextAA">Yes/No</p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES While Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP6"><span class="underline">ACTIVITIES</span><br/><em>While Reading</em></p>
+<p class="normaltext0">1. Read chapters 1 and 2 and then answer these questions.</p>
+<p class="normaltext">1) Who is Jack's wife?</p>
+<p class="normaltext">2) What does Sasha want to see?</p>
+<p class="normaltext">3) Where do they want to sail to?</p>
+<p class="normaltext">4) Where do they stop in Spain?</p>
+<p class="normaltext">5) What do they eat for tea?</p>
+<p class="normaltext0">2. Read chapters 2 and 3 and then answer these questions.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Who…</p>
+<p class="normaltext">1) looks at a boat through binoculars?</p>
+<p class="normaltext">2) dives in the water?</p>
+<p class="normaltext">3) shouts at Jack?</p>
+<p class="normaltext">4) is bleeding?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Where…</p>
+<p class="normaltext">5) is the baby killer whale hurt?</p>
+<p class="normaltext">6) does Tonya buy a green hat?</p>
+<p class="normaltext">7) do they try to sail to in the storm?</p>
+<p class="normaltext">8) is the blood?</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Why…</p>
+<p class="normaltext">9) does the baby killer whale make a noise? 0</p>
+<p class="normaltext">10) does Jack jump in the water?</p>
+<p class="normaltext">11) does Tonya shout at Jack?</p>
+<p class="normaltext">12) is the sky black?</p>
+<p class="normaltext0">3. Read chapters 3 and 4. Who says these words?</p>
+<p class="normaltext">1) 'My arm hurts.'</p>
+<p class="normaltext">2) 'Do you want us all to die?'</p>
+<p class="normaltext">3) 'Help me! I'm over here!'</p>
+<p class="normaltext">4) 'This can't happen. It can't!'</p>
+<p class="normaltext0">4. Read chapters 4 and 5 and then answer these questions.</p>
+<p class="normaltext">1) Does Tonya hear a baby crying?</p>
+<p class="normaltext">2) What does Jack see on the beach?</p>
+<p class="normaltext">3) Why does Jack say, 'We are very, very lucky.'?</p>
+<p class="normaltext0">5. Look at the picture from Chapter 5 and answer these questions.</p>
+<p class="picture"><img src="../../../Images/image06326.jpeg" alt="alt"/></p>
+<p class="normaltext">1) Where is the boat?</p>
+<p class="normaltext">2) Why is Jack running?</p>
+<p class="normaltext">3) Find three things in the picture that begin with the letter 'B'.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES After Reading</h2>
+                <div class="chapter-content">
+                    
+            <p class="title1" id="CHP7"><span class="underline">ACTIVITIES</span><br/><em>After Reading</em></p>
+<p class="normaltext0">1. Describe what is happening in these pictures.</p>
+<p class="picture"><img src="../../../Images/image06328.jpeg" alt="alt"/></p>
+<p class="normaltext0">2. Put these sentences in the correct order. Number them 1-6.</p>
+<p class="normaltext">a　Jack helps the baby killer whale.</p>
+<p class="normaltext">b　The four friends decide to sail around the world.</p>
+<p class="normaltext">c　Tonya falls into the water.</p>
+<p class="normaltext">d　Jack gives the bird a fish.</p>
+<p class="normaltext">e　It begins to rain and there is a lot of wind.</p>
+<p class="normaltext">f　Jack sees Tonya on the beach.</p>
+<p class="normaltext0">3. Are these sentences true or false?</p>
+<p class="normaltext">1) Jack is married to Sasha.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">2) A whale pushes Tonya into the water.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">3) The baby killer whale dies in the net.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">4) Their boat has a yellow sail.</p>
+<p class="normaltextAA">T/F</p>
+<p class="normaltext">5) Max is hurt in the storm.</p>
+<p class="normaltextAA">T/F</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle1" id="CHP8">参考译文</p>
+<p class="title1">Orca<br/>逆戟鲸</p>
+<p class="title2" id="CHP8-1"><a href="part0052.xhtml#CHP4-1">1　就这么办！</a></p>
+<p class="normaltext">杰克·格里格斯站在他的小船上。风很大，船在海面快速行驶。一只白色大鸟飞过，“嘎”地叫了一声。</p>
+<p class="normaltext">杰克笑着说：“嗨，大鸟。你今天好吗？”</p>
+<p class="normaltext">杰克的朋友们大笑起来，扔了几条鱼给那只鸟。</p>
+<p class="normaltext">“啊，”杰克说，“看来你饿了。”杰克的朋友们叫马克斯和萨莎，他的妻子叫托尼娅。</p>
+<p class="normaltext">“我也饿了，”杰克说，“来点儿三明治和喝的吗，各位？托尼娅，你来开船好吗？”</p>
+<p class="normaltext">半个小时后，他们正在吃东西。“现在我们打算干什么？”杰克问。</p>
+<p class="normaltext">“哦，我要看书。然后睡觉。”托尼娅说。</p>
+<p class="normaltext">“不是——明天呢？……下个月呢？……明年呢？”杰克看着大家，“我们以前的生意赚了很多钱，可是……”</p>
+<p class="normaltext">“我们可以再做别的生意。”马克斯说。</p>
+<p class="normaltext">“航海？”萨沙说。</p>
+<p class="normaltext">“我不想再工作了，”托尼娅说，“我们不需要工作。”</p>
+<p class="normaltext">“好吧，听着，”杰克说，“我在考虑环球航行。”</p>
+<p class="normaltext">马克斯、托尼娅和萨莎看着杰克。“什么？从这儿到澳大利亚？”托尼娅问道。</p>
+<p class="normaltext">“当然。”杰克说。现在他越来越兴奋。“马克斯，你觉得怎么样？”</p>
+<p class="normaltext">“我觉得我们得讨论讨论。”马克斯说。</p>
+<p class="normaltext">他们讨论了几个小时。到了晚上，马克斯、萨莎和托尼娅兴奋地说：“好。就这么办！”</p>
+<p class="normaltext">他们出发前有很多事要做。杰克找一个了解环球航行的人谈了谈。他告诉杰克，那是一件艰苦的事。</p>
+<p class="normaltext">“你怕大海吗？你的船很小。你了解你的朋友们吗？他们擅长航行吗？”他问道。</p>
+<p class="normaltext">“我们非常了解彼此。他们是世界上最好的人。”杰克说。</p>
+<p class="normaltext">四个朋友看了很多地图。萨莎想看鲸。马克斯想看看非洲。“我想坐在阳光下钓鱼来吃。”托尼娅笑着说。</p>
+<p class="normaltext">这对他们几个来说是一件令人兴奋的事。而且开始的时候一切都很容易。</p>
+<p class="normaltext">重大的日子到了——他们要出发了。他们的一些朋友和家人来送行。他们的朋友们站在水边道别。</p>
+<p class="normaltext">“祝你们好运。”一个朋友说。</p>
+<p class="normaltext">“别忘了我们！”萨莎的姐姐说。</p>
+<p class="normaltext">“每天给我写信，”托尼娅的朋友说，“让鸟儿送信。”</p>
+<p class="normaltext">萨莎哭了起来。“我们在做什么？我真的想去吗？”她心想。马克斯拉起她的手。大家都很安静，很兴奋，还有一点儿难过。</p>
+<p class="normaltext">“再见。”杰克小声说。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title2" id="CHP8-2"><a href="part0052.xhtml#CHP4-2">2　向南航行</a></p>
+<p class="normaltext">风很大，船越走越快。杰克、马克斯、萨莎和托尼娅在海上很快乐。船上有很多事可做。风从他们身后刮来，不久他们就看不见英格兰了。他们现在不觉得难过了。</p>
+<p class="normaltext">他们向南航行。在法国，他们停靠了洛里昂和比亚里茨；在西班牙，他们去了拉科鲁尼亚；在葡萄牙，他们停靠了里斯本。阳光越来越热，他们感觉很好。</p>
+<p class="normaltext">萨莎钓到一条大鱼，他们把它当晚点吃了。</p>
+<p class="normaltext">不久，他们航行到了非洲沿岸。在这里，一切都如此不同。他们停靠在冈比亚，人们都看他们。小孩子们拿来珠子、贝壳和布匹。托尼娅买了一顶绿色的帽子。这里趣味十足，喧闹异常，令人兴奋的事一桩接着一桩。</p>
+<p class="normaltext">他们沿着非洲航行了很多星期，停靠了许多海边小城和村落。“非洲真有趣，真大，”萨莎说，“没有尽头。我看了地图，可是……”</p>
+<p class="normaltext">“所以我们才来这儿，”杰克说，“和不同的人交谈，看不同的东西，船啦，大海啦，风啦。没什么比这更好的了，对吧？”</p>
+<p class="normaltext">几天后，他们看到一条大渔船。船开得很快。</p>
+<p class="normaltext">“嗨！”他们冲着渔船喊。渔船上的人生气地看着他们。马克斯用望远镜仔细看那条船。</p>
+<p class="normaltext">“他们的渔网有问题。”他说。马克斯移动着望远镜，看到海里有东西。“我看到那边有渔网，”他指着左边说，“他们为什么不要网了？我们去看看。”</p>
+<p class="normaltext">他们驶近渔网。托尼娅拿起望远镜。</p>
+<p class="normaltext">“到底是……”托尼娅说，“那是什么？网里有东西。还活着，可那是什么东西？”</p>
+<p class="normaltext">他们慢慢地靠近渔网。网里的东西很大，发出很大的响声。</p>
+<p class="normaltext">“我现在能看到它了，”托尼娅说，“是一头逆戟鲸——杀人鲸——它受伤了。水里有血。我们怎么办？我们怎么才能帮帮它？”</p>
+<p class="normaltext">“我也能看见。这是头幼鲸，但我们必须要小心。”马克斯说。</p>
+<p class="normaltext">杰克下水了。他拿着一支长长的桨。“我来帮它。我能把网从它的鳍上弄掉。”他说。</p>
+<p class="normaltext">“它妈妈在哪儿？”萨莎问。她看着海面。“我看不到有其他的鲸，可我觉得它们就在附近。小心点儿，杰克。”</p>
+<p class="normaltext">杰克把渔网从小杀人鲸的鳍上弄掉。它的鳍上有一处很大的伤口，但它还是游走了。突然，小船周围出现了其他杀人鲸。</p>
+<p class="normaltext">“杰克！”托尼娅喊道，“快上船。”杰克像鱼一样快速游回小船。“那只小杀人鲸……我要叫它‘幸运’。”他说。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title2" id="CHP8-3"><a href="part0052.xhtml#CHP4-3">3　巨浪</a></p>
+<p class="normaltext">他们甩开杀人鲸群时，天开始下雨。雨突然下得很大，风也很大。天空变成了黑色。</p>
+<p class="normaltext">杰克说：“真糟糕。我们必须避开风。我看见那边有个城镇。我们过去。”</p>
+<p class="normaltext">“我害怕。”托尼娅说。风太大，她的话听不太清楚。</p>
+<p class="normaltext">“我们都害怕，”杰克说，“不过会没事的。”</p>
+<p class="normaltext">离城镇越来越近了，但海浪也越来越大。突然，一个巨浪击中小船。到处都是水。</p>
+<p class="normaltext">“大家都好吗？”杰克喊道，“马克斯？”</p>
+<p class="normaltext">“还好。”马克斯说。</p>
+<p class="normaltext">“萨莎？”</p>
+<p class="normaltext">“我的胳膊受伤了，不过没关系。”萨莎说。</p>
+<p class="normaltext">“托尼娅？……托尼娅？……托尼娅在哪儿？”杰克喊道。</p>
+<p class="normaltext">“她不在船上，”萨莎说，“她掉水里了。可在哪儿啊？“</p>
+<p class="normaltext">他们在冰冷漆黑的海里找了几个小时。“托尼娅！说话啊，托尼娅。你在哪儿？”马克斯喊。</p>
+<p class="normaltext">风更大了，船里都是水。又一个大浪击中小船。现在萨莎的胳膊非常疼。</p>
+<p class="normaltext">“杰克，我们得停下。你想让我们都死吗？”马克斯说。他揽住杰克。“我们不能再找了。托尼娅穿着救生衣，而且她游泳很好。我们到城镇靠岸吧。”</p>
+<p class="normaltext">杰克双手抱住头。“不可能的，不可能的！”他说。</p>
+<p class="normaltext">马克斯开始开船。但风太大了。过了一会儿，船撞上沙滩。三个朋友下了船。他们累坏了。</p>
+<p class="normaltext">他们就停在那里。马克斯和萨莎在沙滩上睡着了，可杰克坐在海边。他看着大海，想着托尼娅。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title2" id="CHP8-4"><a href="part0052.xhtml#CHP4-4">4　托尼娅</a></p>
+<p class="normaltext">托尼娅在离岸500米的海水中。她开始游，可海浪太大，水也太冷了。她找到一块木头，抱住了它。</p>
+<p class="normaltext">托尼娅想：“我必须坚强。我不会死。我想再看到太阳。杰克会找到我。”</p>
+<p class="normaltext">托尼娅看到远处有一条船。她对着船大喊：“救命！救救我！我在这儿！”她挥动手臂喊着，可是没人听见。风把她吹得离船更远了。</p>
+<p class="normaltext">“哦，杰克。对不起。”她说。她的头歪倒在木头上。在大海的臂弯中，她睡着了。</p>
+<p class="normaltext">突然，托尼娅醒了。风停了，她能看到太阳。她四处张望。她的前方有一片海岸——可她游不到那儿。</p>
+<p class="normaltext">“我太冷太累了，”她想，“我必须尽快找到一条船。”</p>
+<p class="normaltext">她看着大海。没有船，没有人，只有几只鸟。</p>
+<p class="normaltext">“鸟能帮我吗？”她昏昏沉沉地想。</p>
+<p class="normaltext">托尼娅听着大海的声音。她喜欢这声音。随后她听到了不一样的声音。</p>
+<p class="normaltext">“是婴儿在哭吗？”她想着，抬起了头。</p>
+<p class="normaltext">她前方10米处，有一个巨大的鳍……一个非常大的鳍。鳍的下面是一头杀人鲸。是这头鲸发出的声音。但这可不是头幼鲸——它有5米长。它后面还有一头鲸，再往后还有两头。</p>
+<p class="normaltext">“杀人鲸会吃人。我要死了。”托尼娅想。</p>
+<p class="normaltext">几只杀人鲸越来越近。托尼娅的腿失去了知觉。“没关系，腿很冷，就是这样。”她想。她开始从巨大的鳍旁游开。</p>
+<p class="normaltext">“救命！”她喊道，“救命，救命，救命！”</p>
+<p class="normaltext">杀人鲸包围了她。她闭上眼睛等待。</p>
+<p class="normaltext">但她没有死。</p>
+<p class="normaltext">最大的那头杀人鲸在她身下。她一下子到了它的背上。</p>
+<p class="normaltext">“怎么回事？或许它们不饿。”托尼娅想。</p>
+<p class="normaltext">这头杀人鲸慢慢地游向岸边。它要把托尼娅带到海岸边去。</p>
+<p class="normaltext">托尼娅把手放在面前的鳍上。</p>
+<p class="normaltext">“这真是条大鱼——太大了，不能当晚点！”她想。她笑着把头靠在它巨大的背上。不久，她又睡着了。</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<p class="title2" id="CHP8-5"><a href="part0052.xhtml#CHP4-5">5　“托尼娅？是你吗？”</a></p>
+<p class="normaltext">杰克坐在沙滩上。太阳挂在空中。他身后，马克斯和萨莎还在睡觉。</p>
+<p class="normaltext">“我必须做点什么，”他想，“我不能开船，可我必须去找托尼娅。”</p>
+<p class="normaltext">他开始沿着沙滩走。“这附近有个城镇。我能弄条新船，然后我就能去找托尼娅了。”</p>
+<p class="normaltext">正在这时，杰克看到沙滩上有个东西。他走近了些。那是个女人。</p>
+<p class="normaltext">杰克朝沙滩上的女人跑去。“托尼娅？”他喊道，“托尼娅！是你吗？”</p>
+<p class="normaltext">托尼娅慢慢地转过头。“杰克！哦，杰克。你没事儿！”</p>
+<p class="normaltext">杰克抱住托尼娅。他吻她的脸，哭了起来。他说不出话——他太高兴了。</p>
+<p class="normaltext">托尼娅说：“马克斯和萨莎怎么样？他们也没事儿吗？”</p>
+<p class="normaltext">“大家都好。”杰克回答。</p>
+<p class="normaltext">他们坐在沙滩上，看着大海。</p>
+<p class="normaltext">杰克说：“我们非常非常幸运。”</p>
+<p class="normaltext">托尼娅坐起身，看到水里有个小小的鳍，上面有个伤口。鳍慢慢晃动，然后向大海中移去。它在挥手告别，托尼娅想。</p>
+<p class="normaltext">“‘幸运’。是的，‘幸运’。”她低声对杰克说。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="CHP9"><img src="../../../Images/image06329.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

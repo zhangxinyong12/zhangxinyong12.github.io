@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纽约网吧 - 书虫·牛津英汉双语读物</title>
+    <link rel="stylesheet" href="../../../css/index.css">
+    <script>
+        // 记录阅读位置
+        function saveReadingPosition() {
+            const bookTitle = document.querySelector('.book-header h1')?.textContent || '纽约网吧';
+            const currentUrl = window.location.href;
+            
+            // 获取当前滚动位置
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 查找当前可见的章节
+            let currentChapter = '';
+            const sections = document.querySelectorAll('.chapter-section');
+            for (let section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    const chapterId = section.id;
+                    const chapterTitle = section.querySelector('.chapter-title')?.textContent || '';
+                    currentChapter = chapterId;
+                    break;
+                }
+            }
+            
+            // 保存到localStorage
+            const readingData = {
+                url: currentUrl,
+                bookTitle: bookTitle,
+                scrollPosition: scrollPosition,
+                chapterId: currentChapter,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('lastRead', JSON.stringify(readingData));
+        }
+        
+        // 页面加载时恢复阅读位置
+        function restoreReadingPosition() {
+            const lastRead = localStorage.getItem('lastRead');
+            if (lastRead) {
+                try {
+                    const data = JSON.parse(lastRead);
+                    // 如果当前页面是上次阅读的页面，恢复滚动位置
+                    if (data.url === window.location.href && data.chapterId) {
+                        // 延迟一下确保页面渲染完成
+                        setTimeout(() => {
+                            const targetSection = document.getElementById(data.chapterId);
+                            if (targetSection) {
+                                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else if (data.scrollPosition) {
+                                window.scrollTo(0, data.scrollPosition);
+                            }
+                        }, 100);
+                    }
+                } catch (e) {
+                    console.error('恢复阅读位置失败:', e);
+                }
+            }
+        }
+        
+        // 监听滚动事件，定期保存位置
+        let saveTimer = null;
+        window.addEventListener('scroll', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(saveReadingPosition, 1000); // 1秒后保存
+        });
+        
+        // 页面加载时恢复位置
+        window.addEventListener('DOMContentLoaded', restoreReadingPosition);
+        
+        // 页面卸载时保存位置
+        window.addEventListener('beforeunload', saveReadingPosition);
+        
+        // 点击目录链接时保存位置
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.toc-link')) {
+                setTimeout(saveReadingPosition, 500);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="book-reader-container">
+        <header class="book-header">
+            <h1>纽约网吧</h1>
+            <div class="breadcrumb"><a href="../../../index.html">首页</a> <span class="separator">/</span> <a href="../../书虫入门级（书虫·牛津英汉双语读物）/index.html">书虫入门级（书虫·牛津英汉双语读物）</a> <span class="separator">/</span> <span class="current">纽约网吧</span></div>
+        </header>
+        
+        <div class="book-layout">
+            <aside class="book-sidebar">
+                <nav class="book-toc">
+                    <h3>目录</h3>
+                    <ul class="toc-list">
+
+                <li class="toc-item">
+                    <a href="#chapter-0" class="toc-link">扉页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-1" class="toc-link">版权页</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-2" class="toc-link">内容简介</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-3" class="toc-link">NEW YORK CAFÉ</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-4" class="toc-link">目录</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-5" class="toc-link">NEW YORK CAFÉ</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-6" class="toc-link">GLOSSARY　词汇表</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-7" class="toc-link">ACTIVITIES　阅读练习</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-8" class="toc-link">TRANSLATION　参考译文</a>
+                </li>
+                <li class="toc-item">
+                    <a href="#chapter-9" class="toc-link">封底</a>
+                </li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="book-content">
+
+            <section id="chapter-0" class="chapter-section">
+                <h2 class="chapter-title">扉页</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture" id="mllj1"><img src="../../../Images/image06619.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-1" class="chapter-section">
+                <h2 class="chapter-title">版权页</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle2">京权图字：01-2013-7804</p>
+<p class="normaltext3">Published by arrangement with Oxford University Press for sale in the People's Republic of China only and not for export therefrom. This edition is for sale in the mainland of China only, excluding Hong Kong SAR, Macao SAR and Taiwan.</p>
+<p class="normaltext3">© Oxford University Press 2008</p>
+<p class="normaltext3">Oxford is a registered trademark of Oxford University Press</p>
+<p class="subtitle2">图书在版编目（CIP）数据</p>
+<p class="normaltext">纽约网吧：英汉对照／（英）迪安（Dean, M.）著；（英）理查森（Richardson, P.）绘；张蘅译．—北京：外语教学与研究出版社，2013.11</p>
+<p class="normaltext">（书虫·牛津英汉双语读物）</p>
+<p class="normaltext">书名原文：New York café</p>
+<p class="normaltext">ISBN 978-7-5135-3773-5</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">Ⅰ．①纽…　Ⅱ．①迪…②理…③张…　Ⅲ．①英语—汉语—对照读物②短篇小说—英国—现代　Ⅳ．①H319.4：I</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext">中国版本图书馆CIP数据核字（2013）第272367号</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>出版人</b>：　蔡剑峰</p>
+<p class="normaltext3"><b>责任编辑</b>：杨雅琼</p>
+<p class="normaltext3"><b>封面设计</b>：蔡　颖</p>
+<p class="normaltext3"><b>出版发行</b>：外语教学与研究出版社</p>
+<p class="normaltext3"><b>社　　址</b>：北京市西三环北路19号（100089）</p>
+<p class="normaltext3"><b>网　　址</b>：http://www.fltrp.com</p>
+<p class="normaltext3"><b>版　　次</b>：2013年12月第1版</p>
+<p class="normaltext3"><b>书　　号</b>：ISBN 978-7-5135-3773-5</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3"><b>制售盗版必究　举报查实奖励</b></p>
+<p class="normaltext3"><b>版权保护举报电话：（010）88817519</b></p>
+        
+                </div>
+            </section>
+            <section id="chapter-2" class="chapter-section">
+                <h2 class="chapter-title">内容简介</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">内容简介</h1>
+<p class="normaltext2a">2030年，纽约。未来的这个时候会有什么不一样呢？嗯，有新式飞机、飞行汽车，有很多高楼大厦，而且宇航员能去火星旅行了。但有些事情和今天并没太大区别……</p>
+<p class="normaltext2a">人们还在收看电视新闻和泡网吧，也还有电脑，使用电子邮件。未来并非对每个人都是那么美好——在美国还是有很多填不饱肚子的穷人……其实全世界也都一个样儿。就连杀人的事儿也还有。</p>
+<p class="normaltext2a">“电脑通”想改变现状，为所有人创造更好的未来。但怎样去帮助人们，让他们开心呢？要做到这点，有好办法，也有坏办法。做正确的事并不总是那么容易。</p>
+        
+                </div>
+            </section>
+            <section id="chapter-3" class="chapter-section">
+                <h2 class="chapter-title">NEW YORK CAFÉ</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">NEW YORK CAFÉ</h1>
+<p class="normaltext03">It is New York in the year 2030. What is different in this future? Well, there are new planes, flying cars, many tall buildings, and astronauts can travel to Mars. But some things are not so different from today...</p>
+<p class="normaltext03">People watch the news on television and go to cafés. People have computers and use e-mail. And it is not a good future for everybody – there are still many hungry and poor people in America... and all over the world. And there is killing, too.</p>
+<p class="normaltext03">Computerhead wants to change things and make a better future for everybody. But how do you help people and make them happy? There are good ways and bad ways. And doing the right thing is not always easy.</p>
+        
+                </div>
+            </section>
+            <section id="chapter-4" class="chapter-section">
+                <h2 class="chapter-title">目录</h2>
+                <div class="chapter-content">
+                    
+            <div class="contents-title">CONTENTS<br/>目　录</div>
+  <div class="mulu1"><a href="part0169.xhtml">内容简介</a></div>
+  <div class="mulu1"><a href="part0172.xhtml">New York Café</a></div>
+  <p class="normaltext"><br/></p>
+  <div class="mulu1"><a href="part0173.xhtml">GLOSSARY<br/>词汇表</a></div>
+  <div class="mulu1"><a href="part0174.xhtml#mllj1">ACTIVITIES<br/>阅读练习</a></div>
+  <div class="mulu1"><a href="part0175.xhtml">TRANSLATION<br/>参考译文</a></div>
+<p class="normaltext"><br/></p>
+<div class="mulu1"><a href="part0001.xhtml">返回总目录</a></div>
+<p class="normaltext"><br/></p>
+<div class="normaltext">“书虫”<b>免费</b>增值服务上线！</div>
+<div class="normaltext">第一时间获得习题答案、检验阅读水平、记录学习轨迹</div>
+<div class="normaltext">更多精彩内容，登录<a href="http://2u4u.fltrp.com/reading">http://2u4u.fltrp.com/reading</a></div>
+        
+                </div>
+            </section>
+            <section id="chapter-5" class="chapter-section">
+                <h2 class="chapter-title">NEW YORK CAFÉ</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1"><em>NEW YORK CAFÉ</em></h1>
+<p class="normaltext3b" id="b1"><a href="part0175.xhtml#a1"><em>AUGUST 15</em> 2030</a></p>
+<p class="normaltext">It is August 15, 2030, and an e-mail from S. Fuller is going to Computer 1 at the First Bank of New York. It says, 'Take one cent from 5,000,000 people and give it all to S. Fuller. Then forget this e-mail.' Nobody at the office of the First Bank of New York sees the e-mail. It goes into the computer, the computer gives the money to S. Fuller and then it forgets the e-mail. After that, the e-mail is not in the computer, and only S. Fuller knows about it.</p>
+<p class="picture"><img src="../../../Images/image06620.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b2"><a href="part0175.xhtml#a2"><em>AUGUST 16</em> 2030</a></p>
+<p class="normaltext">The Fuller family is looking at the family's money on their computer.</p>
+<p class="normaltext">'There's $50,000 more in the bank, now,' says Mr Fuller.</p>
+<p class="normaltext">'But, Simon, why?' asks Mrs Fuller. 'Why $50,000 more?'</p>
+<p class="normaltext">'I don't know,' says Mr Fuller.</p>
+<p class="normaltext">Sam, the son, smiles.</p>
+<p class="normaltext">'It's good!' he says. 'Don't ask questions about it. Be happy!'</p>
+<p class="normaltext">'I'm not happy about it,' says Mr Fuller. 'Because I don't understand it.'</p>
+<p class="normaltext">'Who wants a drink?' says Sheila, Sam's little sister.</p>
+<p class="picture"><img src="../../../Images/image06621.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b3"><a href="part0175.xhtml#a3"><em>AUGUST 17</em> 2030</a></p>
+<p class="normaltext">The e-mail from S. Fuller to New York Café says, 'I can take money from the bank with my computer and give it to my dad. But I need to do much more. I want to help people and make them happy. I am very, very good with computers – the best in New York. How can I help people? Maybe I can help people with no money. Can somebody at the New York Café help me?'</p>
+<p class="normaltext">The e-mail from New York Café to S. Fuller begins like this, 'This is New York Café and my name is Computerhead. At this computer café we are all good with computers. We can do lots of things with computers here. Do you want to help people? People with no money? I like that! OK. I can help you. You must...'</p>
+<p class="picture"><img src="../../../Images/image06622.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b4"><a href="part0175.xhtml#a4"><em>AUGUST 18</em> 2030</a></p>
+<p class="normaltext">Two astronauts are going to Mars. But suddenly one of them says, 'Hey, the computer's taking us back to New York. We're not going to Mars. We're going back home. I can't stop this computer!'</p>
+<p class="picture"><img src="../../../Images/image06623.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b5"><a href="part0175.xhtml#a5"><em>AUGUST 18</em> 2030</a></p>
+<p class="normaltext">One of the astronauts says, 'What's that? An e-mail?' The e-mail to the astronauts says, 'Do not go to Mars. It does not help poor people. It does not make them happy. I can stop your computers again. And again and again. So give $1,000,000,000 to people with no money TODAY and then tell the television people. I want it on the news!'</p>
+<p class="picture"><img src="../../../Images/image06624.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b6"><a href="part0175.xhtml#a6"><em>AUGUST 19</em> 2030</a></p>
+<p class="normaltext">The next day, the Fuller family watch the news on television. The news-reader is saying, 'Two astronauts are back in New York. Something's wrong with the computer...' There is a picture of the astronauts and a picture of the computer. But there is nothing on television about $1,000,000,000 for people with no money.</p>
+<p class="picture"><img src="../../../Images/image06625.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b7"><a href="part0175.xhtml#a7"><em>AUGUST 20</em> 2030</a></p>
+<p class="normaltext">A plane is going from New York to London. But then suddenly the plane's computer stops it. The plane waits over New York. It gets an e-mail message. 'All the people on this plane have a lot of money. Give some of your money to poor people by e-mail, now. Then you can go to London.'</p>
+<p class="picture"><img src="../../../Images/image06626.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b8"><a href="part0175.xhtml#a8"><em>AUGUST 21</em> 2030</a></p>
+<p class="normaltext">Some very important people are talking in New York.</p>
+<p class="normaltext">'Who's doing this to the computers?'</p>
+<p class="normaltext">'We don't know.'</p>
+<p class="normaltext">'Well, we must find him. How can we find him?'</p>
+<p class="normaltext">'We're looking for a signal, from his computer. Every computer has a signal. When we find the signal, we find him.'</p>
+<p class="picture"><img src="../../../Images/image06627.jpeg" alt="alt"/></p>
+<p class="normaltext">'OK. But I tell you this: He must stop now. Do you understand?'</p>
+<p class="normaltext">'Well, we can give a new password to all the important computers in the country. And without a computer's password he can't get into the computer.'</p>
+<p class="normaltext">'OK. Give new passwords to all the important computers in America. At the same time, find the signal from <b>his</b> computer. But most important, find him!'</p>
+<p class="picture"><img src="../../../Images/image06628.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b9"><a href="part0175.xhtml#a9"><em>AUGUST 22</em> 2030</a></p>
+<p class="normaltext">S. Fuller e-mails Computerhead at New York Café and says, 'I am not happy. The police are putting new passwords in all the important computers in America. I cannot get into them. I do not want to stop now. Computerhead, help me!'</p>
+<p class="picture"><img src="../../../Images/image06629.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b10"><a href="part0175.xhtml#a10"><em>AUGUST 23</em> 2030</a></p>
+<p class="normaltext">The e-mail from Computerhead at New York Café to S. Fuller says, 'Fuller no, please do not stop your work. I am an old man now. I do not know you, but I have a picture of you in my head. I see a young man. What are you, seventeen or eighteen years old? And you want to do something good! OK! Let's do something very good. I can help you. Let's talk again tomorrow.'</p>
+<p class="picture"><img src="../../../Images/image06630.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b11"><a href="part0175.xhtml#a11"><em>AUGUST 24</em> 2030</a></p>
+<p class="normaltext">Today's e-mail from Computerhead to S. Fuller says, 'I am sending you a box. It can help you. When you send a signal to any computer, it finds the computer's password. And then you are in the computer and you can do anything with it. Any computer in America is your computer. Let's talk again tomorrow.'</p>
+<p class="picture"><img src="../../../Images/image06631.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b12"><a href="part0175.xhtml#a12"><em>AUGUST 25</em> 2030</a></p>
+<p class="normaltext">Computerhead sends S. Fuller an e-mail. It says, 'Fuller, there is one more thing. The police are looking for your computer signal. From now on, send everything by e-mail to me at New York Café. Later I can send it out again from here, with a lot of new signals. Then, they cannot find your signal. Fuller, tomorrow is an important day for you.'</p>
+<p class="picture"><img src="../../../Images/image06632.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b13"><a href="part0175.xhtml#a13"><em>AUGUST 26</em> 2030</a></p>
+<p class="normaltext">The next e-mail from Computerhead to S. Fuller says, 'Fuller, this man's name is Smith. You must get his computer password. But get his computer password at home, not at work. It is easy. I know this man because I work with him. What is his work? He kills people.'</p>
+<p class="picture"><img src="../../../Images/image06633.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b14"><a href="part0175.xhtml#a14"><em>AUGUST 26</em> 2030</a></p>
+<p class="normaltext">Another e-mail from Computerhead to S. Fuller says, 'Yes, Smith kills people. And I help him. But now I am doing something good, for the first time. Tomorrow you and I can help poor people. Tomorrow we can do something big. Tomorrow people must listen to us. We want a new America, Fuller. A new America!'</p>
+<p class="picture"><img src="../../../Images/image06634.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b15"><a href="part0175.xhtml#a15"><em>AUGUST 26</em> 2030</a></p>
+<p class="normaltext">Mr and Mrs Fuller are very happy, but the children are not.</p>
+<p class="normaltext">'Hey, we're going sailing for two weeks,' says Mr Fuller.</p>
+<p class="normaltext">'Oh no!' says Sam. 'I want to stay here.'</p>
+<p class="normaltext">'Me too,' says his little sister, Sheila.</p>
+<p class="normaltext">'But why, Sam?' says Mrs Fuller.</p>
+<p class="normaltext">'Mum, I'm eighteen. I have important things to do,' says Sam.</p>
+<p class="normaltext">'Important things? What important things?' says Mr Fuller.</p>
+<p class="normaltext">'I can't tell you that,' says Sam.</p>
+<p class="normaltext">'Oh, Simon, it's OK,' says Mrs Fuller. 'You and I can go. The children can stay here.'</p>
+<p class="normaltext">'OK,' says Mr Fuller. But he is angry and leaves the room.</p>
+<p class="picture"><img src="../../../Images/image06635.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b16"><a href="part0175.xhtml#a16"><em>AUGUST 27</em> 2030</a></p>
+<p class="normaltext">The e-mail from S. Fuller to Computerhead at New York Café says, 'My mum and dad are sailing now. I have more time at the computer. Mr Smith's password is his daughter's name. I am in Smith's computer now. He works in Washington. I am going into the President's computer. I can do a lot of things now. Look at the next picture!'</p>
+<p class="picture"><img src="../../../Images/image06636.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b17"><a href="part0175.xhtml#a17"><em>AUGUST 27</em> 2030</a></p>
+<p class="normaltext">S. Fuller sends the President an e-mail. It says, 'Dear Mr President. Look at this picture. The missiles can stay in the sky or they can come down. I can bring them down with my computer. Are you listening to me, Mr President? I want a better America. I do not want money. Not for me. I want money for poor people. And sandwiches. Give sandwiches to poor people. Start now, or they all come down tomorrow.'</p>
+<p class="picture"><img src="../../../Images/image06637.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b18"><a href="part0175.xhtml#a18"><em>AUGUST 27</em> 2030</a></p>
+<p class="normaltext">The President has S. Fuller's e-mail and he is very angry.</p>
+<p class="normaltext">'Sandwiches! Sandwiches! Can we stop this? Please?'</p>
+<p class="normaltext">'No, Mr President. I'm sorry. We can't find the signal.'</p>
+<p class="normaltext">'What do we do now?'</p>
+<p class="normaltext">'Give money to poor people, Mr President. Make sandwiches. Do anything for now. We need more time.'</p>
+<p class="normaltext">'OK. You! Yes, you. The tall man in the white shirt. Go and make some sandwiches.'</p>
+<p class="normaltext">'Yes, Mr President.'</p>
+<p class="picture"><img src="../../../Images/image06638.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b19"><a href="part0175.xhtml#a19"><em>AUGUST 27</em> 2030</a></p>
+<p class="normaltext">A woman is running into the President's office.</p>
+<p class="normaltext">'Mr President,' says the woman. 'We have his signal. It's coming from a computer café in New York.'</p>
+<p class="normaltext">'OK!' says the President. 'Get him!'</p>
+<p class="picture"><img src="../../../Images/image06639.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b20"><a href="part0175.xhtml#a20"><em>AUGUST 27</em> 2030</a></p>
+<p class="normaltext">'A better America. I want a better America,' says Computerhead. The police take him away. Then they look at his computer at the New York Café. There is an e-mail there. It is from S. Fuller.</p>
+<p class="picture"><img src="../../../Images/image06640.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b21"><a href="part0175.xhtml#a21"><em>AUGUST 27</em> 2030</a></p>
+<p class="normaltext">The police have Sam now, too. Sam is very afraid. He says, 'Stop! I must phone my mum and dad. They're sailing. And my little sister's here. I can't leave her. Why are you doing this? Please stop.'</p>
+<p class="picture"><img src="../../../Images/image06641.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b22"><a href="part0175.xhtml#a22"><em>AUGUST 28</em> 2030</a></p>
+<p class="normaltext">Mr and Mrs Fuller are with their son. They are talking to the police.</p>
+<p class="normaltext">'Sam?' says Mrs Fuller. 'Our Sam and this... Computerhead? Sorry, but I must laugh.'</p>
+<p class="normaltext">'It's not our Sam,' says Mr Fuller. 'Sam can't understand computers. His teachers help him, but he's no good.'</p>
+<p class="normaltext">'Yes,' says Mrs Fuller. 'Sheila helps him too. Sheila's very good with computers.'</p>
+<p class="normaltext">'Oh yes,' says Mr Fuller. 'Sheila's the best girl in New York with computers.'</p>
+<p class="normaltext">Mr Fuller looks at Mrs Fuller and then Mrs Fuller looks at Mr Fuller.</p>
+<p class="normaltext">'Where's Sheila?' say Mr and Mrs Fuller.</p>
+<p class="picture"><img src="../../../Images/image06642.jpeg" alt="alt"/></p>
+<p class="normaltext3b" id="b23"><a href="part0175.xhtml#a23"><em>AUGUST 28</em> 2030</a></p>
+<p class="normaltext">S. Fuller's last e-mail to Computerhead says, 'Hello. Where are you? My e-mails to you come back all the time. Can you see the picture? Look at the missiles, in the Washington sky. They are going to New York, London, Tokyo, Paris, Moscow and Rome too. But I cannot get them down, Computerhead. Can you help me? What do I do now?'</p>
+<p class="picture"><img src="../../../Images/image06643.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            <section id="chapter-6" class="chapter-section">
+                <h2 class="chapter-title">GLOSSARY　词汇表</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">GLOSSARY<br/>词汇表</h1>
+<p class="normaltext4"><b>bank</b> <em>n.</em> you put your money in a bank, but you can have it when you want it again <span class="kt">银行</span></p>
+<p class="normaltext4"><b>Mars</b> <em>n.</em> it is up in the sky; it is red <span class="kt">火星</span></p>
+<p class="normaltext4"><b>maybe</b> <em>adv.</em> perhaps <span class="kt">可能，也许</span></p>
+<p class="normaltext4"><b>news</b> <em>n.</em> a TV programme that tells about things that happen <span class="kt">电视新闻</span></p>
+<p class="normaltext4"><b>news-reader</b> <em>n.</em> someone who reads the news <span class="kt">新闻播报员</span></p>
+<p class="normaltext4"><b>password</b> <em>n.</em> a number or word you use for opening a computer <span class="kt">密码</span></p>
+<p class="normaltext4"><b>poor</b> <em>adj.</em> people with no money or very little money are poor <span class="kt">贫穷的，贫困的</span></p>
+<p class="normaltext4"><b>president</b> <em>n.</em> the most important man or woman in America, the first president of the United States was George Washington <span class="kt">（美国）总统</span></p>
+<p class="normaltext4"><b>sailing</b> <em>n.</em> going through water on a boat <span class="kt">驾船出行，航行</span></p>
+<p class="normaltext4"><b>send</b> <em>v.</em> you can write to a friend with a pen and send it or you can send your friend an e-mail from your computer to her or his computer <span class="kt">寄（信）；发送（电子邮件）</span></p>
+<p class="normaltext4"><b>signal</b> <em>n.</em> every computer leaves a mark or signal when it sends a message <span class="kt">（计算机发出的）信号</span></p>
+        
+                </div>
+            </section>
+            <section id="chapter-7" class="chapter-section">
+                <h2 class="chapter-title">ACTIVITIES　阅读练习</h2>
+                <div class="chapter-content">
+                    
+            <h1 class="title1">New York Café</h1>
+<hr/>
+<h1 class="title1" id="mllj1">ACTIVITIES<br/>阅读练习</h1>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h1 class="title1">ACTIVITIES</h1>
+<p class="sx"></p>
+<h1 class="title1"><em>Before Reading</em></h1>
+<p class="normaltext5a">1 Look at the picture on the cover of the book. Now answer these questions.</p>
+<p class="normaltext7a">1) Which word is important for the story?</p>
+<p class="normaltext">Choose one answer.</p>
+<p class="normaltext">a □ cars</p>
+<p class="normaltext">b □ computers</p>
+<p class="normaltext">c □ planes</p>
+<p class="normaltext7a">2) What do you think? For each sentence choose one answer.</p>
+<p class="normaltext7a">a) The story is about a young boy or girl who is very good at computers.</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltext7a">b) The story says 'Computers are more important than people.'</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltext7a">c) The story says 'Be careful with computers.'</p>
+<p class="normaltext1">Yes □／No □</p>
+<p class="normaltext5">2 Read the <a href="part0177.xhtml">back cover</a> of the book. For each sentence choose one answer.</p>
+<p class="normaltext7">1) The story happens in</p>
+<p class="normaltext7">a) □ America.</p>
+<p class="normaltext7">b) □ Britain.</p>
+<p class="normaltext7">c) □ your country.</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext7a">2) The end of the story is</p>
+<p class="normaltext7">a) □ happy.</p>
+<p class="normaltext7">b) □ not happy.</p>
+<p class="normaltext7">c) □ not a or b.</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h1 class="title1">ACTIVITIES</h1>
+<p class="sx"></p>
+<h1 class="title1"><em>While Reading</em></h1>
+<p class="normaltext5">1 Read from <em>AUGUST 15</em> to <em>AUGUST 17</em>, then answer these questions.</p>
+<p class="normaltext7">1) How much money does S. Fuller get from the First Bank of New York?</p>
+<p class="normaltext7">2) What does the computer do with the e-mail after it gives the money to S. Fuller?</p>
+<p class="normaltext7">3) Who knows about S. Fuller's e-mail to the bank?</p>
+<p class="normaltext5">2 Read from <em>AUGUST 18</em> to <em>AUGUST 20</em>, then answer these questions.</p>
+<p class="normaltext7">Who... ?</p>
+<p class="normaltext7">1) ... is going to Mars and then goes back home?</p>
+<p class="normaltext7">2) ... sees the astronauts on television?</p>
+<p class="normaltext7">3) ... gets an e-mail saying 'Give some of your money to poor people.'</p>
+<p class="normaltext5">3 Read from <em>AUGUST 21</em> to <em>AUGUST 24</em>. Are these sentences true (T) or false (F)?</p>
+<p class="normaltext7">1) All the computers in America get new passwords.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext7">2) S. Fuller needs Computerhead's help with the new passwords.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext7">3) Computerhead is a young man.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext7">4) S. Fuller gives Computerhead a box that can find a computer's password.</p>
+<p class="normaltext1">T □／F □</p>
+<p class="normaltext5">4 Read from <em>AUGUST 25</em> to <em>AUGUST 26</em> and answer these questions.</p>
+<p class="normaltext7">1) Who is looking for S. Fuller's computer signal?</p>
+<p class="normaltext7">2) Where must S. Fuller send all e-mails now?</p>
+<p class="normaltext7">3) What does Smith do?</p>
+<p class="normaltext7">4) Who goes to the sea for two weeks and who stays at home?</p>
+<p class="normaltext5">5 Read from the first <em>AUGUST 27</em> to the fourth <em>AUGUST 27</em>. Who says or thinks these words?</p>
+<p class="normaltext7">1) 'I can do a lot of things.'</p>
+<p class="normaltext7">2) 'Look at this! He can bring missiles down with his computer.'</p>
+<p class="normaltext7">3) 'Yes, Mr President.'</p>
+<p class="normaltext7">4) 'We have his signal.'</p>
+<p class="normaltext5">6 Before you Read from the fifth <em>AUGUST 27</em> to the end of the story, guess which of these happens.</p>
+<p class="normaltexta">1)□ The police find Computerhead at the Computer Café and take him away.</p>
+<p class="normaltexta">2)□ The police do not find Computerhead but he and S. Fuller do not send the missiles.</p>
+<p class="normaltexta">3)□ The police find S. Fuller before S. Fuller sends the missiles to Washington.</p>
+<p class="normaltexta">4)□ The police find S. Fuller only after S. Fuller sends the missiles to Washington (and more cities).</p>
+<div style="page-break-after:always"></div><p class="fy"></p>
+<h1 class="title1">ACTIVITIES</h1>
+<p class="sx"></p>
+<h1 class="title1"><em>After Reading</em></h1>
+<p class="normaltext5">1 Put these sentences in the right order.</p>
+<p class="normaltexta">a □ Mr and Mrs Fuller go to the sea.</p>
+<p class="normaltexta">b □ S. Fuller sends all his e-mails to the New York Café.</p>
+<p class="normaltexta">c □ S. Fuller sends an e-mail to the astronauts.</p>
+<p class="normaltexta">d □ Important computers have new passwords.</p>
+<p class="normaltexta">e □ The First Bank of New York gives $50,000 to Mr Fuller.</p>
+<p class="normaltexta">f □ The police find Computerhead.</p>
+<p class="normaltexta">g □ S. Fuller gets into Smith's computer.</p>
+<p class="normaltexta">h □ Computerhead helps S. Fuller find the new passwords.</p>
+<p class="normaltexta">i □ S. Fuller sends an e-mail to a plane.</p>
+<p class="normaltexta">j □ The police find S. Fuller.</p>
+<p class="normaltexta">k □ S. Fuller and Computerhead send missiles into the sky.</p>
+<p class="normaltext5">2 You are S. Fuller. Send a last e-mail to Computerhead.</p>
+<p class="normaltext07">'Hello. There is something I must tell you. My name is...'</p>
+<p class="normaltext07">_________________________________________________________________________________________________________________________________________________________</p>
+<p class="normaltext5">3 Look at each picture, then answer the questions.</p>
+<p class="normaltext">1)<img src="../../../Images/image06644.jpeg" alt="alt" class="tpzz1"/></p>
+<p class="normaltext">Who are these people?</p>
+<p class="normaltext">What are they doing?</p>
+<p class="normaltext">What are they wearing?</p>
+<p class="normaltext">2)<img src="../../../Images/image06645.jpeg" alt="alt" class="tpzz1"/></p>
+<p class="normaltext">Where is this?</p>
+<p class="normaltext">Who are the people?</p>
+<p class="normaltext">What are they doing?</p>
+<p class="normaltext">3)<img src="../../../Images/image06646.jpeg" alt="alt" class="tpzz1"/></p>
+<p class="normaltext">Where is this?</p>
+<p class="normaltext">What is happening?</p>
+        
+                </div>
+            </section>
+            <section id="chapter-8" class="chapter-section">
+                <h2 class="chapter-title">TRANSLATION　参考译文</h2>
+                <div class="chapter-content">
+                    
+            <p class="subtitle">TRANSLATION　参考译文</p>
+<p class="subtitle1">New York Café<br/><span class="kt">纽约网吧</span></p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a1"><a href="part0172.xhtml#b1">2030年8月15日</a></p>
+<p class="normaltext2a">2030年8月15日，一封来自S. 富勒的电子邮件正发往纽约第一银行1号电脑。邮件写道：“从500万人的账户上分别转账1美分给S. 富勒，然后忘掉此邮件。”在纽约第一银行办事处，谁都没有看到这封邮件。邮件进了电脑后，电脑把钱划拨给S. 富勒，接着就把邮件给忘了。这之后，邮件就不在电脑里了，只有S. 富勒知道这件事。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a2"><a href="part0172.xhtml#b2">2030年8月16日</a></p>
+<p class="normaltext2a">富勒一家人正在电脑上查看家庭账目。</p>
+<p class="normaltext2a">“现在银行里多出了5万美元。”富勒先生说。</p>
+<p class="normaltext2a">“可是，西蒙，这是怎么回事？”富勒太太问，“为什么会多出5万美元？”</p>
+<p class="normaltext2a">“我不知道。”富勒先生说。</p>
+<p class="normaltext2a">他们的儿子萨姆笑了。</p>
+<p class="normaltext2a">“这是件好事！”他说，“别问了。尽管乐吧！”</p>
+<p class="normaltext2a">“可我乐不起来，”富勒先生说，“因为这钱来得不明不白。”</p>
+<p class="normaltext2a">“谁想喝点饮料？”萨姆的妹妹希拉问。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a3"><a href="part0172.xhtml#b3">2030年8月17日</a></p>
+<p class="normaltext2a">S. 富勒发给纽约网吧的电子邮件写道：“我能用自己的电脑把银行的钱取出来，给我爸爸。但我还要做更多事情。我想帮助别人，使他们快乐。我对电脑非常非常在行——是全纽约最棒的。我怎样才能帮助别人？也许我能帮助那些身无分文的人。纽约网吧有谁能帮帮我吗？”</p>
+<p class="normaltext2a">纽约网吧给S. 富勒的邮件是这么开头的：“这里是纽约网吧，我的名字叫‘电脑通’。这家网吧里的人都是电脑高手。在这里，我们能用电脑做很多的事情。你想帮助别人，帮那些没钱的人，是吗？我喜欢这个想法！好的，我可以帮你。你必须……”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a4"><a href="part0172.xhtml#b4">2030年8月18日</a></p>
+<p class="normaltext2a">两名宇航员正前往火星。突然，其中一名宇航员说：“嘿，电脑正在把我们带回纽约。我们不是在去火星的途中。我们在往回走。我无法让这台电脑停下来！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a5"><a href="part0172.xhtml#b5">2030年8月18日</a></p>
+<p class="normaltext2a">其中一名宇航员说：“那是什么？一封电子邮件？”这封给宇航员的电子邮件写道：“不要去火星。这么做对穷人没有帮助。这不会使他们快乐。我能够再次停掉你们的电脑，而且能一而再、再而三地这么做。所以，<span class="xx">今天</span>就拿出10亿美元给那些身无分文的人，然后告诉电视台的人。我要这件事上新闻！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a6"><a href="part0172.xhtml#b6">2030年8月19日</a></p>
+<p class="normaltext2a">第二天，富勒一家看电视新闻。新闻播报员说：“两名宇航员已返回纽约。电脑发生了故障……”电视上出现了宇航员和电脑的画面，但没有提到给穷人10亿美元的事。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a7"><a href="part0172.xhtml#b7">2030年8月20日</a></p>
+<p class="normaltext2a">一架飞机正从纽约飞往伦敦，但是突然间，飞机的电脑停止了飞机的前行。飞机在纽约上空盘旋等待。它收到一条电子邮件信息：“这架飞机上的人全都很有钱。现在，通过电子邮件把你们的钱分一些给穷人，然后你们就可以去伦敦了。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a8"><a href="part0172.xhtml#b8">2030年8月21日</a></p>
+<p class="normaltext2a">在纽约，一些重要人物正在交谈。</p>
+<p class="normaltext2a">“是谁对这些电脑动了手脚？”</p>
+<p class="normaltext2a">“我们不知道。”</p>
+<p class="normaltext2a">“好吧，我们必须找到此人。怎么才能找到他呢？”</p>
+<p class="normaltext2a">“我们正在搜索他的电脑发出的信号。每台电脑都有自己的信号。当我们找到信号时，就能找到他。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext2a">“好。但我告诉你们：他必须立刻罢手。你们明白吗？”</p>
+<p class="normaltext2a">“哦，我们可以给全国所有重要的电脑设置一个新密码。没有密码，他就无法进入电脑。”</p>
+<p class="normaltext2a">“好。给全国所有重要的电脑都设置新的密码。与此同时，找到<span class="xx">他</span>的电脑信号。但最重要的是，找到他！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a9"><a href="part0172.xhtml#b9">2030年8月22日</a></p>
+<p class="normaltext2a">S. 富勒给纽约网吧的“电脑通”发电子邮件写道：“我高兴不起来。警察正在给全国所有重要的电脑设置新密码。我进不去这些电脑了。我不想现在就罢手。‘电脑通’，帮帮我！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a10"><a href="part0172.xhtml#b10">2030年8月23日</a></p>
+<p class="normaltext2a">纽约网吧的“电脑通”给S. 富勒的电子邮件写道：“富勒，不，请不要收手。我现在老了。我不认识你，但我脑子里想象得出你的模样。我看到的是一个年轻人。你多大了，17还是18岁？而且你想做些好事！好！我们来做些大好事。我可以帮你。明天再聊。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a11"><a href="part0172.xhtml#b11">2030年8月24日</a></p>
+<p class="normaltext2a">今天“电脑通”给S. 富勒发的电子邮件写道：“我给你寄了一个盒子。它可以帮你。你给任何一台电脑发送信号时，它都会找到这台电脑的密码。然后你就可以进入电脑做任何事情。美国的任何一台电脑都是你的了。明天再聊。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a12"><a href="part0172.xhtml#b12">2030年8月25日</a></p>
+<p class="normaltext2a">“电脑通”给S. 富勒发了一封电子邮件。邮件写道：“富勒，还有一件事。警方正在搜索你的电脑信号。从现在开始，把所有信息都用电子邮件发送到纽约网吧我这里来。随后我会把你的信息从这里再发出去，并带上很多新信号。这样他们就找不到你的信号了。富勒，明天对你来说是个重要的日子。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a13"><a href="part0172.xhtml#b13">2030年8月26日</a></p>
+<p class="normaltext2a">“电脑通”在发给S. 富勒的下一封邮件中写道：“富勒，这个人名叫史密斯。你必须弄到他的电脑密码。但要弄到他家里电脑的密码，而不是他的工作电脑。这很容易。我认识他，是因为我们在一起工作。他是做什么的？他杀人。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a14"><a href="part0172.xhtml#b14">2030年8月26日</a></p>
+<p class="normaltext2a">另一封“电脑通”发给S. 富勒的电子邮件写道：“是的，史密斯杀人，而我帮他做事。但现在我在做好事，这是头一次。明天你和我就能帮助穷人了。明天我们可以做一件大事。明天人们必须听从我俩。我们想要一个崭新的美国，富勒，一个崭新的美国！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a15"><a href="part0172.xhtml#b15">2030年8月26日</a></p>
+<p class="normaltext2a">富勒夫妇兴冲冲的，但孩子们却不开心。</p>
+<p class="normaltext2a">“嘿，我们要驾船出游两个星期。”富勒先生说。</p>
+<p class="normaltext2a">“哎呀，不要！”萨姆说，“我想留在这里。”</p>
+<p class="normaltext2a">“我也是。”他的妹妹希拉说。</p>
+<p class="normaltext2a">“可这是为什么呢，萨姆？”富勒太太问。</p>
+<p class="normaltext2a">“妈妈，我18岁了。我有重要的事情要做。”萨姆说。</p>
+<p class="normaltext2a">“重要的事情？什么重要的事情？”富勒先生问。</p>
+<p class="normaltext2a">“我不能告诉你。”萨姆回答。</p>
+<p class="normaltext2a">“哦，西蒙，没关系。”富勒太太说，“你和我去好了，孩子们可以留在这里。”</p>
+<p class="normaltext2a">“好吧。”富勒先生说。但他生气了，离开了房间。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a16"><a href="part0172.xhtml#b16">2030年8月27日</a></p>
+<p class="normaltext2a">S. 富勒发给纽约网吧“电脑通”的邮件写道：“我父母现在驾船出游了，我有更多的时间用电脑。史密斯先生的密码是他女儿的名字。我现在进了史密斯的电脑。他在华盛顿工作。我快要进入总统的电脑了。我现在可以做好多事情。看下一张照片！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a17"><a href="part0172.xhtml#b17">2030年8月27日</a></p>
+<p class="normaltext2a">S. 富勒给总统发了一封邮件。邮件写道：“亲爱的总统先生，看这张照片。这些导弹既可以呆在天上，也可以掉下来。我可以用自己的电脑把它们弄下来。你在听我说吗，总统先生？我想要一个更好的美国。我不想要钱。不想为我自己要钱。我想为穷人要钱，还要三明治。给穷人三明治。现在就给，不然这些导弹明天全都会掉下来。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a18"><a href="part0172.xhtml#b18">2030年8月27日</a></p>
+<p class="normaltext2a">总统收到了S. 富勒的邮件，非常生气。</p>
+<p class="normaltext2a">“三明治！三明治！我们能够制止这件事吗？谁有办法？”</p>
+<p class="normaltext2a">“不能，总统先生。我很抱歉。我们找不到信号。”</p>
+<p class="normaltext2a">“那我们现在怎么办？”</p>
+<p class="normaltext2a">“给穷人发钱，总统先生。做三明治。眼下只能一切照办。我们需要更多的时间。”</p>
+<p class="normaltext2a">“好。你！是的，就是你，穿白衬衫的高个子男人。去做些三明治。”</p>
+<p class="normaltext2a">“是，总统先生。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a19"><a href="part0172.xhtml#b19">2030年8月27日</a></p>
+<p class="normaltext2a">一个女人跑进总统办公室。</p>
+<p class="normaltext2a">“总统先生，”女人说，“我们找到他的信号了。信号是从纽约的一家网吧发出来的。”</p>
+<p class="normaltext2a">“好！”总统说，“抓住他！”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a20"><a href="part0172.xhtml#b20">2030年8月27日</a></p>
+<p class="normaltext2a">“更好的美国，我想要一个更好的美国。”“电脑通”说。警方把“电脑通”带走了，并查看他在纽约网吧用的那台电脑。里面有一封电子邮件，是S. 富勒发来的。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a21"><a href="part0172.xhtml#b21">2030年8月27日</a></p>
+<p class="normaltext2a">警察现在也抓住了萨姆。萨姆惊恐万分。他说：“等一下！我必须给我爸妈打个电话，他们驾船出游了。而且我的妹妹在这里，我不能离开她。你们为什么这样做？请放了我。”</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a22"><a href="part0172.xhtml#b22">2030年8月28日</a></p>
+<p class="normaltext2a">富勒夫妇和他们的儿子在一起。他们在和警察交谈。</p>
+<p class="normaltext2a">“萨姆？”富勒太太说，“我们的萨姆和这位……‘电脑通’？抱歉，但是我忍不住笑了。”</p>
+<p class="normaltext2a">“不是我们的萨姆，”富勒先生说，“萨姆不懂电脑。他的老师们辅导他，但他根本不开窍。”</p>
+<p class="normaltext2a">“是的，”富勒太太说，“希拉也在帮他。希拉对电脑很在行。”</p>
+<p class="normaltext2a">“哦，是的，”富勒先生说，“希拉是全纽约的女孩中对电脑最在行的。”</p>
+<p class="normaltext2a">富勒先生看看富勒太太，富勒太太又看看富勒先生。</p>
+<p class="normaltext2a">“希拉在哪儿？”富勒夫妇问。</p>
+<p class="normaltext"><br/></p>
+<p class="normaltext3b" id="a23"><a href="part0172.xhtml#b23">2030年8月28日</a></p>
+<p class="normaltext2a">S. 富勒在给“电脑通”的最后一封电子邮件中写道：“喂，你在哪儿？我发给你的电子邮件老是被退回来。你能看到这张照片吗？看这些导弹，它们在华盛顿上空飞行，飞往纽约、伦敦、东京、巴黎、莫斯科，还有罗马。但我没办法把它们弄下来，‘电脑通’。你能帮帮我吗？我现在该怎么办？”</p>
+        
+                </div>
+            </section>
+            <section id="chapter-9" class="chapter-section">
+                <h2 class="chapter-title">封底</h2>
+                <div class="chapter-content">
+                    
+            <p class="picture"><img src="../../../Images/image06648.jpeg" alt="alt"/></p>
+        
+                </div>
+            </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
